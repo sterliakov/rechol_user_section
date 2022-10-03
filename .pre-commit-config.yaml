@@ -12,23 +12,12 @@ repos:
     hooks:
       - id: eslint
         args: ['--config', '.eslintrc.js']
+        exclude: bower_components|static_files|users/static/font-awesome-pro|users/static/fullcalendar
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.38.2
     hooks:
       - id: pyupgrade
         args: ["--py36-plus"]
-  - repo: https://github.com/AleksaC/hadolint-py
-    rev: v2.10.0
-    hooks:
-      - id: hadolint
-        args: [
-          '--ignore', 'DL3005',
-          '--ignore', 'DL3008',
-          '--ignore', 'DL3013',
-          '--ignore', 'DL3018',
-          '--ignore', 'DL3059',
-        ]
-        files: 'Dockerfile*'
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.10.1
     hooks:
@@ -69,9 +58,11 @@ repos:
       # We first reformat (spacing etc.)
       - id: djlint-django
         alias: djlint
-        exclude: "bower_components"
+        # exclude: "bower_components"
         args: ["--reformat"]
+        files: "users/templates/.*"
       # And then check for non-autofixable issues
       - id: djlint-django
         alias: djlint
-        exclude: "bower_components"
+        files: "users/templates/.*"
+        # exclude: "bower_components"

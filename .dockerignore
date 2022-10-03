@@ -1,0 +1,8 @@
+venv
+.eslintrc.js
+.gitignore
+.pre-commit-config.yaml
+docker-compose.yaml
+Dockerfile
+LICENSE
+pyproject.toml

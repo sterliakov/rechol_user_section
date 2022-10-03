@@ -88,11 +88,12 @@ known_first_party = [
 [tool.djlint]
 # H006: img must have width and height attrs
 # H017: self-closing <input>
+# H019: javascript:void(0) is OK
 # H020: Empty pair tag
 # H021: inline styles
 # H023: entity references (&times;)
 # H026: Emty id and class tags can be removed (what does it mean?)
-ignore = "H006,H017,H020,H021,H023,H026"
+ignore = "H006,H017,H019,H020,H021,H023,H026"
 indent = 2
 exclude = "bower_components"
 profile = "django"

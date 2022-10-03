@@ -1,0 +1,8 @@
+{% extends "modal.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}
+  {% trans "Log in" %}
+{% endblock title %}
+{% block body %}
+  {% crispy form %}
+{% endblock body %}

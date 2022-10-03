@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+{% block content %}
+  <div class="modal fade custom_modal" id="login-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+         role="document">
+      <div class="modal-content">
+        <div class="modal-header pt-4">
+          <h5 class="modal-title">
+            {% block title %}
+            {% endblock title %}
+          </h5>
+          <button type="button" class="close pt-4" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% block body %}
+          {% endblock body %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block extrascripts_after %}
+  <script>
+$(function(){
+  $('#login-modal').on('hide.bs.modal', () => {
+    window.location.href = '/';
+  }).modal('show');
+});
+  </script>
+{% endblock extrascripts_after %}
