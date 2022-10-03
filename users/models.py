@@ -7,6 +7,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Venue(models.Model):
+    class Meta:
+        verbose_name = _('Venue')
+        verbose_name_plural = _('Venues')
+
     city = models.CharField(_('City'), max_length=63, blank=False, null=False)
     name = models.CharField(_('Name'), max_length=63, blank=False, null=False)
     full_address = models.CharField(
@@ -18,8 +22,6 @@ class Venue(models.Model):
 
 
 class UserManager(UserManager_):
-    """Define a model manager for User model with no username field."""
-
     use_in_migrations = True
 
     def _create_user(self, email: str, password: str, **extra_fields):
@@ -56,6 +58,10 @@ class UserManager(UserManager_):
 
 
 class User(AbstractUser):
+    class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -129,6 +135,10 @@ class User(AbstractUser):
 
 
 class Event(models.Model):
+    class Meta:
+        verbose_name = _('Event')
+        verbose_name_plural = _('Events')
+
     title = models.CharField(_('Title'), max_length=127, blank=False, null=False)
     link = models.URLField(_('Link'), help_text=_('Link to news page etc.'))
     start = models.DateTimeField(_('Start'), null=True)
