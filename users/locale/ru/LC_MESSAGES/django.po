@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-03 23:01+0300\n"
+"POT-Creation-Date: 2022-10-04 01:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:15
+#: users/admin.py:15 users/models.py:11
 msgid "Name"
 msgstr "Имя"
 
@@ -78,121 +78,121 @@ msgstr "Изменить"
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/models.py:9 users/models.py:65
+#: users/models.py:10 users/models.py:111
 msgid "City"
 msgstr "Город"
 
-#: users/models.py:11
+#: users/models.py:13
 msgid "Address"
 msgstr "Адрес"
 
-#: users/models.py:23
+#: users/models.py:63
 msgid "Male"
 msgstr "Мужской"
 
-#: users/models.py:24
+#: users/models.py:64
 msgid "Female"
 msgstr "Женский"
 
-#: users/models.py:27 users/models.py:34
+#: users/models.py:67 users/models.py:74
 msgid "8"
 msgstr "8"
 
-#: users/models.py:28 users/models.py:35
+#: users/models.py:68 users/models.py:75
 msgid "9"
 msgstr "9"
 
-#: users/models.py:29 users/models.py:36
+#: users/models.py:69 users/models.py:76
 msgid "10"
 msgstr "10"
 
-#: users/models.py:30 users/models.py:37
+#: users/models.py:70 users/models.py:77
 msgid "11"
 msgstr "11"
 
-#: users/models.py:31
+#: users/models.py:71
 msgid "Other"
 msgstr "Другое"
 
-#: users/models.py:39
+#: users/models.py:82
 msgid "First name"
 msgstr "Имя"
 
-#: users/models.py:40
+#: users/models.py:85
 msgid "Last name"
 msgstr "Фамилия"
 
-#: users/models.py:42
+#: users/models.py:88
 msgid "Patronymic name"
 msgstr "Отчество"
 
-#: users/models.py:45
+#: users/models.py:91
 msgid "Gender"
 msgstr "Пол"
 
-#: users/models.py:51
+#: users/models.py:97
 msgid "Birth date"
 msgstr "Дата рождения"
 
-#: users/models.py:52
+#: users/models.py:98
 msgid "Email"
 msgstr "Email"
 
-#: users/models.py:53
+#: users/models.py:99
 msgid "Phone"
 msgstr "Телефон"
 
-#: users/models.py:55
+#: users/models.py:101
 msgid "Passport"
 msgstr "Паспорт"
 
-#: users/models.py:62
+#: users/models.py:108
 msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
 msgstr ""
 "Номер паспорта (в формате xxxx xxxxxx) или свидетельства о рождении (XX-XX "
 "xxxxxx)"
 
-#: users/models.py:66
+#: users/models.py:112
 msgid "School"
 msgstr "Школа"
 
-#: users/models.py:67
+#: users/models.py:114
 msgid "Actual form"
 msgstr "Класс обучения"
 
-#: users/models.py:69
+#: users/models.py:117
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/models.py:72
+#: users/models.py:119
 msgid "VK link"
 msgstr "аккаунт ВКонтакте"
 
-#: users/models.py:73
+#: users/models.py:121
 msgid "Telegram nickname"
 msgstr "Ник в Telegram"
 
-#: users/models.py:75
+#: users/models.py:124
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/models.py:83
+#: users/models.py:132
 msgid "Title"
 msgstr "Заголовок"
 
-#: users/models.py:84
+#: users/models.py:133
 msgid "Link"
 msgstr "Сссылка"
 
-#: users/models.py:84
+#: users/models.py:133
 msgid "Link to news page etc."
 msgstr "Ссылка на новость и т.п."
 
-#: users/models.py:85
+#: users/models.py:134
 msgid "Start"
 msgstr "Начало"
 
-#: users/models.py:86
+#: users/models.py:135
 msgid "Description"
 msgstr "Описание"
 

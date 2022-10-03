@@ -8,12 +8,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Venue(models.Model):
     city = models.CharField(_('City'), max_length=63, blank=False, null=False)
+    name = models.CharField(_('Name'), max_length=63, blank=False, null=False)
     full_address = models.CharField(
         _('Address'), max_length=255, blank=False, null=False
     )
 
     def __str__(self):
-        return f'{self.city} ({self.full_address})'
+        return f'{self.name} ({self.city}, {self.full_address})'
 
 
 class UserManager(UserManager_):
@@ -130,7 +131,7 @@ class User(AbstractUser):
 class Event(models.Model):
     title = models.CharField(_('Title'), max_length=127, blank=False, null=False)
     link = models.URLField(_('Link'), help_text=_('Link to news page etc.'))
-    start = models.DateTimeField(_('Start'))
+    start = models.DateTimeField(_('Start'), null=True)
     description = models.TextField(_('Description'))
 
     def __str__(self):
