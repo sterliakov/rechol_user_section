@@ -76,12 +76,6 @@ class UserUpdateFormHelper(CustomFormHelper):
         ),
         one_row(
             {
-                'username': '6 col-sm-12',
-                'phone': '6 col-sm-12',
-            }
-        ),
-        one_row(
-            {
                 'first_name': '4 col-sm-12 col-lg-4',
                 'last_name': '4 col-sm-12 col-lg-4',
                 'patronymic_name': '4 col-sm-12 col-lg-4',
@@ -97,7 +91,8 @@ class UserUpdateFormHelper(CustomFormHelper):
         one_row(
             {
                 'city': '4 col-sm-12 col-lg-4',
-                'school': '8 col-sm-12 col-lg-8',
+                'school': '4 col-sm-12 col-lg-4',
+                'phone': '4 col-sm-12 col-lg-4',
             }
         ),
         one_row(

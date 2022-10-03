@@ -68,6 +68,7 @@ class UserUpdateForm(forms.ModelForm):
             'groups',
             'last_login',
             'password',
+            'username',
         )
 
         widgets = {
@@ -81,7 +82,6 @@ class UserUpdateForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['email'].disabled = True
-            self.fields['username'].disabled = True
 
         self.helper = helpers.UserUpdateFormHelper()
 
