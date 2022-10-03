@@ -36,10 +36,14 @@ class User(AbstractUser):
         TENTH = 10, _('10')
         ELEVENTH = 11, _('11')
 
-    first_name = models.CharField(max_length=127, blank=False, null=False)
-    last_name = models.CharField(max_length=127, blank=False, null=False)
+    first_name = models.CharField(
+        _('First name'), max_length=127, blank=False, null=False
+    )
+    last_name = models.CharField(
+        _('Last name'), max_length=127, blank=False, null=False
+    )
     patronymic_name = models.CharField(
-        max_length=127, blank=True, null=False, default=''
+        _('Patronymic name'), max_length=127, blank=True, null=False, default=''
     )
     gender = models.CharField(
         _('Gender'),
@@ -63,13 +67,17 @@ class User(AbstractUser):
         ),
     )
     city = models.CharField(_('City'), max_length=63, null=False, blank=False)
-    school = models.CharField(max_length=255, blank=False, null=False)
-    actual_form = models.PositiveSmallIntegerField(choices=PossibleForms.choices)
+    school = models.CharField(_('School'), max_length=255, blank=False, null=False)
+    actual_form = models.PositiveSmallIntegerField(
+        _('Actual form'), choices=PossibleForms.choices
+    )
     participation_form = models.PositiveSmallIntegerField(
-        choices=SupportedForms.choices
+        _('Participation form'), choices=SupportedForms.choices
     )
     vk_link = models.URLField(_('VK link'), blank=True, default='')
-    telegram_nickname = models.CharField(max_length=127, blank=True, default='')
+    telegram_nickname = models.CharField(
+        _('Telegram nickname'), max_length=127, blank=True, default=''
+    )
     venue_selected = models.ForeignKey(
         Venue, models.SET_NULL, null=True, verbose_name=_('Venue')
     )

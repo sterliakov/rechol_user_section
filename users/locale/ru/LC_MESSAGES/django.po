@@ -1,0 +1,330 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-03 23:01+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: users/admin.py:15
+msgid "Name"
+msgstr "Имя"
+
+#: users/admin.py:17
+msgid "Private"
+msgstr "Персональные данные"
+
+#: users/admin.py:20
+msgid "Participant"
+msgstr "Участник"
+
+#: users/admin.py:21
+msgid "Contact"
+msgstr "Контакты"
+
+#: users/admin.py:23
+msgid "Permissions"
+msgstr "Разрешения"
+
+#: users/admin.py:34
+msgid "Important dates"
+msgstr "Важные даты"
+
+#: users/formhelpers.py:39
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: users/formhelpers.py:51 users/templates/base.html:76
+msgid "Login"
+msgstr "Войти"
+
+#: users/formhelpers.py:63
+msgid "Change password"
+msgstr "Изменить пароль?"
+
+#: users/formhelpers.py:119 users/formhelpers.py:132
+msgid "Save"
+msgstr "Сохранить"
+
+#: users/formhelpers.py:140
+#, fuzzy
+#| msgid "Back to login page"
+msgid "Back to login"
+msgstr "Назад на страницу входа."
+
+#: users/formhelpers.py:147
+msgid "Continue"
+msgstr "Продолжить"
+
+#: users/formhelpers.py:170
+msgid "Change"
+msgstr "Изменить"
+
+#: users/formhelpers.py:188
+msgid "Set password"
+msgstr "Установить пароль"
+
+#: users/models.py:9 users/models.py:65
+msgid "City"
+msgstr "Город"
+
+#: users/models.py:11
+msgid "Address"
+msgstr "Адрес"
+
+#: users/models.py:23
+msgid "Male"
+msgstr "Мужской"
+
+#: users/models.py:24
+msgid "Female"
+msgstr "Женский"
+
+#: users/models.py:27 users/models.py:34
+msgid "8"
+msgstr "8"
+
+#: users/models.py:28 users/models.py:35
+msgid "9"
+msgstr "9"
+
+#: users/models.py:29 users/models.py:36
+msgid "10"
+msgstr "10"
+
+#: users/models.py:30 users/models.py:37
+msgid "11"
+msgstr "11"
+
+#: users/models.py:31
+msgid "Other"
+msgstr "Другое"
+
+#: users/models.py:39
+msgid "First name"
+msgstr "Имя"
+
+#: users/models.py:40
+msgid "Last name"
+msgstr "Фамилия"
+
+#: users/models.py:42
+msgid "Patronymic name"
+msgstr "Отчество"
+
+#: users/models.py:45
+msgid "Gender"
+msgstr "Пол"
+
+#: users/models.py:51
+msgid "Birth date"
+msgstr "Дата рождения"
+
+#: users/models.py:52
+msgid "Email"
+msgstr "Email"
+
+#: users/models.py:53
+msgid "Phone"
+msgstr "Телефон"
+
+#: users/models.py:55
+msgid "Passport"
+msgstr "Паспорт"
+
+#: users/models.py:62
+msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
+msgstr ""
+"Номер паспорта (в формате xxxx xxxxxx) или свидетельства о рождении (XX-XX "
+"xxxxxx)"
+
+#: users/models.py:66
+msgid "School"
+msgstr "Школа"
+
+#: users/models.py:67
+msgid "Actual form"
+msgstr "Класс обучения"
+
+#: users/models.py:69
+msgid "Participation form"
+msgstr "Класс участия"
+
+#: users/models.py:72
+msgid "VK link"
+msgstr "аккаунт ВКонтакте"
+
+#: users/models.py:73
+msgid "Telegram nickname"
+msgstr "Ник в Telegram"
+
+#: users/models.py:75
+msgid "Venue"
+msgstr "Площадка"
+
+#: users/models.py:83
+msgid "Title"
+msgstr "Заголовок"
+
+#: users/models.py:84
+msgid "Link"
+msgstr "Сссылка"
+
+#: users/models.py:84
+msgid "Link to news page etc."
+msgstr "Ссылка на новость и т.п."
+
+#: users/models.py:85
+msgid "Start"
+msgstr "Начало"
+
+#: users/models.py:86
+msgid "Description"
+msgstr "Описание"
+
+#: users/templates/base.html:11
+msgid "PChO"
+msgstr "ПХО"
+
+#: users/templates/base.html:59
+msgid "Logo"
+msgstr "Логотип"
+
+#: users/templates/base.html:65
+msgid "Index page"
+msgstr "Главная страница"
+
+#: users/templates/base.html:66
+msgid "Profile"
+msgstr "Профиль"
+
+#: users/templates/base.html:69
+msgid "Online stage"
+msgstr "Онлайн-этап"
+
+#: users/templates/base.html:74
+msgid "Logout"
+msgstr "Выход"
+
+#: users/templates/base.html:122
+msgid "Error occurred"
+msgstr "Ошибка"
+
+#: users/templates/base.html:129
+msgid "OK"
+msgstr "ОК"
+
+#: users/templates/index.html:6
+msgid "Let's go!"
+msgstr "Вперед!"
+
+#: users/templates/index.html:7
+msgid "Project chemistry olympiad"
+msgstr "Проектная химическая олимпиада"
+
+#: users/templates/index.html:8
+msgid "A contest for those who takes chemistry as fun"
+msgstr "Соревнование для тех, кто круто химичит"
+
+#: users/templates/index.html:12
+msgid "Register now!"
+msgstr "Зарегистрироваться"
+
+#: users/templates/index.html:18
+msgid "Ongoing events:"
+msgstr "Ближайшие мероприятия:"
+
+#: users/templates/login.html:4
+msgid "Log in"
+msgstr "Войти"
+
+#: users/templates/password_change.html:4
+msgid "Change Password?"
+msgstr "Изменить пароль?"
+
+#: users/templates/password_change.html:7
+msgid "Enter your old password, then new password and confirm it."
+msgstr "Введите Ваш старый пароль, затем новый, и подтвердите его."
+
+#: users/templates/password_change_done.html:4
+#: users/templates/password_reset_complete.html:4
+#: users/templates/password_reset_done.html:4
+msgid "Success!"
+msgstr "Успех!"
+
+#: users/templates/password_change_done.html:7
+msgid "Your password was changed successfully. "
+msgstr "Пароль успешно изменен."
+
+#: users/templates/password_change_done.html:8
+#: users/templates/password_reset_done.html:8
+msgid "Back to login page"
+msgstr "Назад на страницу входа."
+
+#: users/templates/password_reset.html:4
+msgid "Forgot Your Password?"
+msgstr "Забыли пароль?"
+
+#: users/templates/password_reset.html:7
+msgid ""
+"Enter your registered email id below. Your email contains reset password."
+msgstr ""
+"Введите email, указанный при регистрации. На него будет отправлена ссылка "
+"для восстановления пароля."
+
+#: users/templates/password_reset_complete.html:7
+msgid "Your password was successfully changed. You can go "
+msgstr "Пароль успешно изменен, вы можете перейти "
+
+#: users/templates/password_reset_complete.html:7
+msgid "back to login page "
+msgstr "назад на страницу входа "
+
+#: users/templates/password_reset_complete.html:7
+msgid "and login to site."
+msgstr "и войти заново."
+
+#: users/templates/password_reset_confirm.html:4
+msgid "Reset Your Password"
+msgstr "Восстановить пароль"
+
+#: users/templates/password_reset_confirm.html:8
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Пожалуйста, введите пароль дважды, чтобы убедиться в правильности ввода."
+
+#: users/templates/password_reset_confirm.html:11
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"Ссылка для восстановления некорректна, вероятно, потому что она была "
+"использована ранее. Пожалуйста, запросите новую ссылку."
+
+#: users/templates/password_reset_done.html:7
+msgid ""
+"If you entered the correct email, a message with link to reset password was "
+"sent. "
+msgstr ""
+"Если Вы ввели правильный адрес, на него была отправлена ссылка для "
+"восстановления пароля."
+
+#: users/templates/personal.html:8
+msgid "Participant profile"
+msgstr "Личный кабинет участника"

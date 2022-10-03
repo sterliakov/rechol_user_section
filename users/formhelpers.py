@@ -1,7 +1,7 @@
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Div, Field, Layout, Submit
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomFormHelper(FormHelper):
@@ -36,12 +36,13 @@ def selectpicker(field, kwargs=None):
 class LoginFormHelper(CustomFormHelper):
     form_class = 'login_form noasterisks'
 
+    txt = _('Forgot Password?')
     layout = Layout(
         'username',
         'password',
         HTML(
             '<a href="{% url \'password_reset\' %}" '
-            f'class="text-right d-block f_14">{_("Forgot Password?")}</a>'
+            f'class="text-right d-block f_14">{txt}</a>'
         ),
         FormActions(
             Div(
@@ -59,6 +60,7 @@ class LoginFormHelper(CustomFormHelper):
 class UserUpdateFormHelper(CustomFormHelper):
     form_class = ''
 
+    txt = _('Change password')
     layout = Layout(
         Div(
             Div(Field('email'), css_class='col-12 col-sm-9 order-2 order-sm-1'),
@@ -66,7 +68,7 @@ class UserUpdateFormHelper(CustomFormHelper):
                 HTML(
                     '<a class="btn btn-primary" '
                     'href="{% url \'password_change\' %}">'
-                    f'{_("Change password")}</a>'
+                    f'{txt}</a>'
                 ),
                 css_class='col-12 col-sm-3 order-1 order-sm-2 prefs-form-btn',
             ),
@@ -134,6 +136,8 @@ class UserFormHelper(CustomFormHelper):
 
 class PasswordResetFormHelper(CustomFormHelper):
     form_class = 'login_form noasterisks'
+
+    txt = _('Back to login')
     layout = Layout(
         'email',
         FormActions(
@@ -148,7 +152,7 @@ class PasswordResetFormHelper(CustomFormHelper):
         ),
         HTML(
             '<a href="{% url \'login\' %}" '
-            f'class="text-center d-block f_14 mt-3">{_("Back to login")}</a>'
+            f'class="text-center d-block f_14 mt-3">{txt}</a>'
         ),
     )
 

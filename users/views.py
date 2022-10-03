@@ -18,3 +18,4 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 class IndexView(ListView):
     model = Event
     template_name = 'index.html'
+    ordering = ['start']
