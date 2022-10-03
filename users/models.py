@@ -76,3 +76,13 @@ class User(AbstractUser):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+
+class Event(models.Model):
+    title = models.CharField(_('Title'), max_length=127, blank=False, null=False)
+    link = models.URLField(_('Link'), help_text=_('Link to news page etc.'))
+    start = models.DateTimeField(_('Start'))
+    description = models.TextField(_('Description'))
+
+    def __str__(self):
+        return self.title[:30]

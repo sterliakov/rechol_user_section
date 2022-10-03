@@ -3,11 +3,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic.base import TemplateView
 from django.views.i18n import JavaScriptCatalog
 
+from users.views import IndexView
+
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('', IndexView.as_view(), name='index'),
     path('master/admin/', admin.site.urls),
     path('master/django-ses/', include('django_ses.urls')),
     path('profile/', include('users.urls')),
