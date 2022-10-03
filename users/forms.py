@@ -77,6 +77,12 @@ class UserUpdateForm(forms.ModelForm):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.fields['birth_date'].input_formats = settings.DATE_INPUT_FORMATS
+
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['email'].disabled = True
+            self.fields['username'].disabled = True
+
         self.helper = helpers.UserUpdateFormHelper()
 
 

@@ -1,37 +1,41 @@
 {% extends "base.html" %}
 {% load i18n static %}
 {% block content %}
-  <img src="{% static 'images/index_top_image.png' %}" width="400" alt="{% trans "Let's go!" %}">
-  <h1 class="text-center mt-2">{% trans "Project chemistry olympiad &mdash; 2023" %}</h1>
-  <h3 class="text-center mt-3">{% trans "A contest for those who takes chemistry as fun" %}</h3>
-  <div class="text-center mt-5">
-    <a class="btn btn-primary"
-       target="_blank"
-       href="https://chemolymp.ru/reg">{% trans "Register now!" %}</a>
-  </div>
-  <div class="container mt-5 mb-5">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <h2>{% trans "Ongoing events:" %}</h2>
-        <ul class="timeline">
-          <li>
-            <a target="_blank" href="https://chemolymp.ru/reg">{% trans "Registration end" %}</a>
-            <a href="javascript:void(0);" class="float-right">{% trans "15 Oct 2022, 23:59" %}</a>
-            <p>{% trans "Registration is open &ndash; don't miss the time!" %}</p>
-          </li>
-          <li>
-            <a target="_blank" href="https://chemolymp.ru/preliminary_round">{% trans "In-person preliminary round" %}</a>
-            <a href="javascript:void(0);" class="float-right">{% trans "16 Oct 2022, 10:00" %}</a>
-            <p>
-              {% trans "In-person preliminary round will take place on 33 venues in almost 30 cities, registration still open!" %}
-            </p>
-          </li>
-          <li>
-            <a target="_blank" href="https://chemolymp.ru/preliminary_round">{% trans "Online preliminary round" %}</a>
-            <a href="javascript:void(0);" class="float-right">{% trans "TBA" %}</a>
-            <p>{% trans "Online preliminary round is available for all participants, join us!" %}</p>
-          </li>
-        </ul>
+  <div class="row">
+    <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
+      <img src="{% static 'images/index_top_image.png' %}" width="400" alt="{% trans "Let's go!" %}">
+      <h1 class="text-center mt-2">{% trans "Project chemistry olympiad &mdash; 2023" %}</h1>
+      <h3 class="text-center mt-3">{% trans "A contest for those who takes chemistry as fun" %}</h3>
+      <div class="text-center mt-5">
+        <a class="btn btn-primary"
+           target="_blank"
+           href="https://chemolymp.ru/reg">{% trans "Register now!" %}</a>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
+      <div class="row">
+        <div class="col-auto col">
+          <h2>{% trans "Ongoing events:" %}</h2>
+          <ul class="timeline">
+            <li>
+              <a target="_blank" href="https://chemolymp.ru/reg">{% trans "Registration end" %}</a>
+              <a href="javascript:void(0);" class="float-right">{% trans "15 Oct 2022, 23:59" %}</a>
+              <p>{% trans "Registration is open &ndash; don't miss the time!" %}</p>
+            </li>
+            <li>
+              <a target="_blank" href="https://chemolymp.ru/preliminary_round">{% trans "In-person preliminary round" %}</a>
+              <a href="javascript:void(0);" class="float-right">{% trans "16 Oct 2022, 10:00" %}</a>
+              <p>
+                {% trans "In-person preliminary round will take place on 33 venues in almost 30 cities, registration still open!" %}
+              </p>
+            </li>
+            <li>
+              <a target="_blank" href="https://chemolymp.ru/preliminary_round">{% trans "Online preliminary round" %}</a>
+              <a href="javascript:void(0);" class="float-right">{% trans "TBA" %}</a>
+              <p>{% trans "Online preliminary round is available for all participants, join us!" %}</p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

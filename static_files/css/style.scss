@@ -7,6 +7,7 @@ $black: #000;
 $blue0: #ceefff;
 $blue3: #5897fb;
 $blue6: #0550ae;
+$blue7: #2A2A7D;
 
 $green0: #c8f3d1;
 $green4: #2da44e;
@@ -30,7 +31,7 @@ $bs-input-h: calc(1.5em + 0.75rem + 2px);
 // BS variables
 $body-bg: $white;
 
-$blue: $blue6;
+$blue: $blue7;
 $indigo: $purple8;
 $purple: $purple5;
 $pink: $pink5;
@@ -53,8 +54,8 @@ $gray-700: #424a53;
 $gray-800: #32383f;
 $gray-900: #24292f;
 
-$primary: $purple6;
-$secondary: $blue;
+$primary: $blue;
+$secondary: $purple6;
 $link-color: $primary;
 
 $font-size-base: 1rem !default;
@@ -173,7 +174,7 @@ body {
     max-height: 100%;
     padding: 1rem 1rem 0.5rem;
     overflow: auto;
-    background: linear-gradient(#8195E5, #EED1AE);
+    background: linear-gradient(rgba(#8195E5, 0.5), rgba(#EED1AE, 0.5));
     height: 100%;
     display: flex;
     flex-direction: column;
