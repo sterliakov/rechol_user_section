@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-04 02:07+0300\n"
+"POT-Creation-Date: 2022-10-04 06:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,27 +20,27 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:15 users/models.py:15
+#: users/admin.py:189 users/models.py:15
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:17
+#: users/admin.py:191
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:20
+#: users/admin.py:194
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:21
+#: users/admin.py:195
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:23
+#: users/admin.py:197
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:34
+#: users/admin.py:208
 msgid "Important dates"
 msgstr "Важные даты"
 
@@ -48,7 +48,7 @@ msgstr "Важные даты"
 msgid "Forgot Password?"
 msgstr "Забыли пароль?"
 
-#: users/formhelpers.py:51 users/templates/base.html:76
+#: users/formhelpers.py:51 users/templates/base.html:80
 msgid "Login"
 msgstr "Войти"
 
@@ -56,27 +56,35 @@ msgstr "Войти"
 msgid "Change password"
 msgstr "Изменить пароль?"
 
-#: users/formhelpers.py:115 users/formhelpers.py:128
+#: users/formhelpers.py:121 users/formhelpers.py:134
 msgid "Save"
 msgstr "Сохранить"
 
-#: users/formhelpers.py:136
+#: users/formhelpers.py:142
 #, fuzzy
 #| msgid "Back to login page"
 msgid "Back to login"
 msgstr "Назад на страницу входа."
 
-#: users/formhelpers.py:143
+#: users/formhelpers.py:149
 msgid "Continue"
 msgstr "Продолжить"
 
-#: users/formhelpers.py:166
+#: users/formhelpers.py:172
 msgid "Change"
 msgstr "Изменить"
 
-#: users/formhelpers.py:184
+#: users/formhelpers.py:190
 msgid "Set password"
 msgstr "Установить пароль"
+
+#: users/forms.py:89
+msgid "Only your form or higher is allowed."
+msgstr "Допустим только Ваш класс или старше."
+
+#: users/forms.py:96
+msgid "Please fill your name and surname in separate fields."
+msgstr "Пожалуйста, введите имя и фамилию отдельно."
 
 #: users/models.py:11 users/models.py:130
 msgid "Venue"
@@ -188,31 +196,31 @@ msgstr "аккаунт ВКонтакте"
 msgid "Telegram nickname"
 msgstr "Ник в Telegram"
 
-#: users/models.py:139
+#: users/models.py:143
 msgid "Event"
 msgstr "Событие"
 
-#: users/models.py:140
+#: users/models.py:144
 msgid "Events"
 msgstr "События"
 
-#: users/models.py:142
+#: users/models.py:146
 msgid "Title"
 msgstr "Заголовок"
 
-#: users/models.py:143
+#: users/models.py:147
 msgid "Link"
 msgstr "Сссылка"
 
-#: users/models.py:143
+#: users/models.py:147
 msgid "Link to news page etc."
 msgstr "Ссылка на новость и т.п."
 
-#: users/models.py:144
+#: users/models.py:148
 msgid "Start"
 msgstr "Начало"
 
-#: users/models.py:145
+#: users/models.py:149
 msgid "Description"
 msgstr "Описание"
 
@@ -228,23 +236,27 @@ msgstr "Логотип"
 msgid "Index page"
 msgstr "Главная страница"
 
-#: users/templates/base.html:66
+#: users/templates/base.html:67
 msgid "Profile"
 msgstr "Профиль"
 
 #: users/templates/base.html:69
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#: users/templates/base.html:73
 msgid "Online stage"
 msgstr "Онлайн-этап"
 
-#: users/templates/base.html:74
+#: users/templates/base.html:78
 msgid "Logout"
 msgstr "Выход"
 
-#: users/templates/base.html:122
+#: users/templates/base.html:126
 msgid "Error occurred"
 msgstr "Ошибка"
 
-#: users/templates/base.html:129
+#: users/templates/base.html:134
 msgid "OK"
 msgstr "ОК"
 
@@ -348,3 +360,7 @@ msgstr ""
 #: users/templates/personal.html:8
 msgid "Participant profile"
 msgstr "Личный кабинет участника"
+
+#: users/templates/registration.html:8
+msgid "Registration"
+msgstr "Регистрация"

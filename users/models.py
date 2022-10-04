@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as UserManager_
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
@@ -105,6 +106,7 @@ class User(AbstractUser):
     passport = models.CharField(
         _('Passport'),
         max_length=15,
+        validators=[MinLengthValidator(9)],
         unique=True,
         blank=False,
         null=False,
@@ -131,9 +133,9 @@ class User(AbstractUser):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
-    def save(self):
+    def save(self, **kwargs):
         self.username = self.email
-        return super().save()
+        return super().save(**kwargs)
 
 
 class Event(models.Model):

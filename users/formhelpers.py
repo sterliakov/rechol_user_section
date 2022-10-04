@@ -97,6 +97,12 @@ class UserUpdateFormHelper(CustomFormHelper):
         ),
         one_row(
             {
+                'password1': '6 col-sm-12 col-lg-6',
+                'password2': '6 col-sm-12 col-lg-6',
+            }
+        ),
+        one_row(
+            {
                 'vk_link': '6 col-sm-12 col-lg-6',
                 'telegram_nickname': '6 col-sm-12 col-lg-6',
             }

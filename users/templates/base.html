@@ -62,7 +62,11 @@
         </div>
         <nav class="col-12 justify-content-center col-md-6 d-flex order-3 order-md-2">
           <a class="px-1 px-sm-2 px-md-3" href="{% url 'index' %}">{% trans "Index page" %}</a>
-          <a class="px-1 px-sm-2 px-md-3" href="{% url 'profile' %}">{% trans "Profile" %}</a>
+          {% if not request.user.is_anonymous %}
+            <a class="px-1 px-sm-2 px-md-3" href="{% url 'profile' %}">{% trans "Profile" %}</a>
+          {% else %}
+            <a class="px-1 px-sm-2 px-md-3" href="{% url 'registration' %}">{% trans "Register" %}</a>
+          {% endif %}
           <a class="px-1 px-sm-2 px-md-3 disabled"
              tabindex="-1"
              href="javascript:void(0)">{% trans "Online stage" %}</a>
@@ -124,7 +128,9 @@
           </div>
           <div class="modal-body"></div>
           <div class="modal-footer d-flex justify-content-around">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "OK" %}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              {% trans "OK" %}
+            </button>
           </div>
         </div>
       </div>

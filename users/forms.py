@@ -9,53 +9,15 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import PasswordChangeForm as _PasswordChangeForm
 from django.contrib.auth.forms import PasswordResetForm as _PasswordResetForm
 from django.contrib.auth.forms import SetPasswordForm as _SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from . import formhelpers as helpers
 from .models import User
 
-# from django.contrib.auth.forms import UserCreationForm
-# from django.utils.translation import gettext_lazy as _
 
-
-# class UserForm(UserCreationForm):
-#     class Meta(UserCreationForm.Meta):
-#         model = User
-
-#     def __init__(self, *args: Any, **kwargs: Any):
-#         self.user = kwargs.pop('user', None)
-#         choices = (
-#             [
-#                 (short, perm_name)
-#                 for short, perm_name in User.TYPES
-#                 if self.user.has_perm(f'users.add_{perm_name}')
-#             ]
-#             if self.user
-#             else []
-#         )
-
-#         # not at the top to drop 'user' first
-#         super().__init__(*args, **kwargs)
-
-#         self.helper = helpers.UserFormHelper()
-#         self.fields['inner_role'] = forms.ChoiceField(choices=choices)
-#         self.fields['email'] = forms.EmailField()
-
-#     def save(self, commit: bool = True) -> User:
-#         if not commit:
-#             raise NotImplementedError('Cannot use commit=False here.')
-#         self.clean()
-#         u = super().save(commit=False)  # don't save on error
-#         # Restore everything non-standart
-#         u.inner_role = self.cleaned_data['inner_role']
-#         u.email = self.cleaned_data['email']
-#         u.username = self.cleaned_data['username']
-#         u.created_by = self.user
-#         u.clinic = self.user.clinic
-#         u.save()
-#         return u
-
-
-class UserUpdateForm(forms.ModelForm):
+class UserCreateFormMixin:
     class Meta:
         model = User
         exclude = (
@@ -78,12 +40,43 @@ class UserUpdateForm(forms.ModelForm):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.fields['birth_date'].input_formats = settings.DATE_INPUT_FORMATS
+        self.helper = helpers.UserUpdateFormHelper()
 
+    def clean_city(self):
+        return self.cleaned_data['city'].removeprefix('г.').strip()
+
+    def clean(self):
+        if self.cleaned_data['actual_form'] > self.cleaned_data['participation_form']:
+            self.add_error(
+                'participation_form',
+                ValidationError(_('Only your form or higher is allowed.'), 'TOO_OLD'),
+            )
+
+        if self.cleaned_data['first_name'] == self.cleaned_data['last_name']:
+            self.add_error(
+                None,
+                ValidationError(
+                    _('Please fill your name and surname in separate fields.'),
+                    'ALL_NAMES_TOGETHER',
+                ),
+            )
+
+
+class UserCreateForm(UserCreateFormMixin, UserCreationForm):
+    def save(self, commit=True):
+        u = super().save(commit=False)  # don't save on error
+        u.email = self.cleaned_data['email']
+        if commit:
+            u.save()
+        return u
+
+
+class UserUpdateForm(UserCreateFormMixin, forms.ModelForm):
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['email'].disabled = True
-
-        self.helper = helpers.UserUpdateFormHelper()
 
 
 class LoginForm(AuthenticationForm):
