@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_select2',
     'django_ses',
     'djangobower',
+    'import_export',
     'phonenumber_field',
     'psqlextra',
     'widget_tweaks',
@@ -75,6 +76,32 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console', 'mail_admins'],
+        'level': 'DEBUG',
+        'propagate': False,
+    },
+    # 'loggers': {
+    #     '': {
+    #         'handlers': ['console', 'mail_admins'],
+    #         'level': 'DEBUG',
+    #         'propagate': False,
+    #     },
+    # },
+}
 
 WSGI_APPLICATION = 'rechol_user_section.wsgi.application'
 
@@ -190,9 +217,13 @@ LIBSASS_SOURCE_COMMENTS = False
 
 DATE_INPUT_FORMATS = ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d')
 
+# Email
 EMAIL_BACKEND = 'django_ses.SESBackend'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_SES_REGION_NAME = 'us-east-2'
 AWS_SES_REGION_ENDPOINT = 'email.us-east-2.amazonaws.com'
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_SENDER')
+
+# Import-Export
+IMPORT_EXPORT_USE_TRANSACTIONS = True

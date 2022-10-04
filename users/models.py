@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as UserManager_
-from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
@@ -106,7 +105,6 @@ class User(AbstractUser):
     passport = models.CharField(
         _('Passport'),
         max_length=15,
-        validators=[RegexValidator(r'(\d{4} \d{6})|([IVX]{1,3}-.. \d{6})')],
         unique=True,
         blank=False,
         null=False,
@@ -127,11 +125,15 @@ class User(AbstractUser):
         _('Telegram nickname'), max_length=127, blank=True, default=''
     )
     venue_selected = models.ForeignKey(
-        Venue, models.SET_NULL, null=True, verbose_name=_('Venue')
+        Venue, models.SET_NULL, blank=True, null=True, verbose_name=_('Venue')
     )
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+    def save(self):
+        self.username = self.email
+        return super().save()
 
 
 class Event(models.Model):

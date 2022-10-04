@@ -27,8 +27,8 @@ RUN BUILD_DEPS="build-essential libpcre3-dev libpq-dev git pkg-config" && \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $BUILD_DEPS && \
     rm -rf /var/lib/apt/lists/*
 
-COPY . ${APP_HOME}
-RUN chown -R ${APP_USER}:${APP_USER} ${APP_HOME}
+COPY --chown=${APP_USER}:${APP_USER} . ${APP_HOME}
+# RUN chown -R ${APP_USER}:${APP_USER} ${APP_HOME}
 WORKDIR ${APP_HOME}
 
 USER ${APP_USER}:${APP_USER}
