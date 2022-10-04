@@ -105,8 +105,8 @@ class User(AbstractUser):
     phone = PhoneNumberField(_('Phone'), null=False, blank=False, unique=True)
     passport = models.CharField(
         _('Passport'),
-        max_length=12,
-        validators=[RegexValidator(r'(\d{4} \d{6})|(..-.. \d{6})')],
+        max_length=15,
+        validators=[RegexValidator(r'(\d{4} \d{6})|([IVX]{1,3}-.. \d{6})')],
         unique=True,
         blank=False,
         null=False,
