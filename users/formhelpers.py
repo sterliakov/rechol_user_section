@@ -113,7 +113,11 @@ class UserUpdateFormHelper(CustomFormHelper):
                 selectpicker('participation_form'): '4 col-sm-12 col-lg-4',
                 selectpicker(
                     'venue_selected',
-                    {'data-live-search': 'true', 'data-container': 'body'},
+                    {
+                        'data-live-search': 'true',
+                        'data-container': 'body',
+                        'data-mobile': 'true',
+                    },
                 ): '4 col-sm-12 col-lg-4',
             }
         ),

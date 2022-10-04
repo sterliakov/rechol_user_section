@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static i18n widget_tweaks compress %}
-<html lang="en" class="{% block pagename %}{% endblock pagename %}">
+<html lang="ru">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -43,16 +43,9 @@
     {% endblock extrahead %}
   </head>
   <body>
-    <div class="container-fluid">
-      <div id="preloader">
-        <div class="sk-three-bounce">
-          <div class="sk-child sk-bounce1"></div>
-          <div class="sk-child sk-bounce2"></div>
-          <div class="sk-child sk-bounce3"></div>
-        </div>
-      </div>
-      <div id="header" class="row">
-        <div class="col-auto col-sm-3 order-1">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark row">
+        <div class="navbar-brand">
           <a href="{% url 'index' %}">
             <img src="{% static 'images/logo.png' %}"
                  alt="{% trans "Logo" %}"
@@ -60,28 +53,56 @@
                  class="m-1"/>
           </a>
         </div>
-        <nav class="col-12 justify-content-center col-md-6 d-flex order-3 order-md-2">
-          <a class="px-1 px-sm-2 px-md-3" href="{% url 'index' %}">{% trans "Index page" %}</a>
-          {% if not request.user.is_anonymous %}
-            <a class="px-1 px-sm-2 px-md-3" href="{% url 'profile' %}">{% trans "Profile" %}</a>
-          {% else %}
-            <a class="px-1 px-sm-2 px-md-3" href="{% url 'registration' %}">{% trans "Register" %}</a>
-          {% endif %}
-          <a class="px-1 px-sm-2 px-md-3 disabled"
-             tabindex="-1"
-             href="javascript:void(0)">{% trans "Online stage" %}</a>
-        </nav>
-        <div class="col-4 col-md-3 pr-5 order-2 order-md-3 text-right">
-          {% if not request.user.is_anonymous %}
-            <span class="d-block">{{ request.user }}</span>
-            <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
-          {% else %}
-            <a href="{% url 'login' %}">{% trans "Login" %}</a>
-          {% endif %}
+        <button class="navbar-toggler collapsed"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarCollapse"
+                aria-controls="navbarCollapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse pl-2" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class=" nav-link" href="{% url 'index' %}">{% trans "Index page" %}</a>
+            </li>
+            <li class="nav-item">
+              {% if not request.user.is_anonymous %}
+                <a class="nav-link" href="{% url 'profile' %}">{% trans "Profile" %}</a>
+              {% else %}
+                <a class="nav-link" href="{% url 'registration' %}">{% trans "Register" %}</a>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <a class=" nav-link disabled" tabindex="-1" href="javascript:void(0)">{% trans "Online stage" %}</a>
+            </li>
+          </ul>
+          <div class="nav-item pr-2">
+            {% if not request.user.is_anonymous %}
+              <span class="nav-link d-block text-white pl-0 pl-md-2">{{ request.user }}</span>
+              <a class="nav-link pl-0 pl-md-2"
+                 style="color: rgba(255, 255, 255, 0.5)"
+                 href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            {% else %}
+              <a class="nav-link pl-0 pl-md-2"
+                 style="color: rgba(255, 255, 255, 0.5)"
+                 href="{% url 'login' %}">{% trans "Login" %}</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container-fluid dz-scroll" id="main-wrapper">
+      <div id="preloader">
+        <div class="sk-three-bounce">
+          <div class="sk-child sk-bounce1"></div>
+          <div class="sk-child sk-bounce2"></div>
+          <div class="sk-child sk-bounce3"></div>
         </div>
       </div>
-      <div class="content-body">
-        <div id="main-wrapper" class="dz-scroll">
+      <div class="row">
+        <div class="container">
           {% block content %}
           {% endblock content %}
         </div>
@@ -109,12 +130,12 @@
         <script src="{% static 'admin/js/vendor/select2/select2.full.min.js' %}"></script>
         {% endcomment %}
         <script src="{% static 'bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
-        <script src="{% static 'js/custom.js' %}"></script>
+        {# <script src="{% static 'js/custom.js' %}"></script> #}
       {% endcompress %}
       <script src="{% url 'js-i18n' %}"></script>
       {% block extrascripts_after %}
       {% endblock extrascripts_after %}
-    </div>
+    </main>
     <!-- Modal for general errors -->
     <div class="modal fade custom_modal" id="base-error-modal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
@@ -126,7 +147,8 @@
               <span>&times;</span>
             </button>
           </div>
-          <div class="modal-body"></div>
+          <div class="modal-body">
+          </div>
           <div class="modal-footer d-flex justify-content-around">
             <button type="button" class="btn btn-primary" data-dismiss="modal">
               {% trans "OK" %}
