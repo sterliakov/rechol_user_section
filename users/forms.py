@@ -46,6 +46,8 @@ class UserCreateFormMixin:
         return self.cleaned_data['city'].removeprefix('г.').strip()
 
     def clean(self):
+        data = super().clean()
+
         if self.cleaned_data['actual_form'] > self.cleaned_data['participation_form']:
             self.add_error(
                 'participation_form',
@@ -60,6 +62,8 @@ class UserCreateFormMixin:
                     'ALL_NAMES_TOGETHER',
                 ),
             )
+
+        return data
 
 
 class UserCreateForm(UserCreateFormMixin, UserCreationForm):
