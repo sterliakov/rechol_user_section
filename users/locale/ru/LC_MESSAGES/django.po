@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-04 06:24+0300\n"
+"POT-Creation-Date: 2022-10-13 02:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,27 +20,27 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:189 users/models.py:15
+#: users/admin.py:206 users/models.py:15
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:191
+#: users/admin.py:208
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:194
+#: users/admin.py:211
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:195
+#: users/admin.py:212
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:197
+#: users/admin.py:214
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:208
+#: users/admin.py:225
 msgid "Important dates"
 msgstr "Важные даты"
 
@@ -48,7 +48,7 @@ msgstr "Важные даты"
 msgid "Forgot Password?"
 msgstr "Забыли пароль?"
 
-#: users/formhelpers.py:51 users/templates/base.html:80
+#: users/formhelpers.py:51 users/templates/base.html:91
 msgid "Login"
 msgstr "Войти"
 
@@ -56,33 +56,33 @@ msgstr "Войти"
 msgid "Change password"
 msgstr "Изменить пароль?"
 
-#: users/formhelpers.py:121 users/formhelpers.py:134
+#: users/formhelpers.py:125 users/formhelpers.py:138
 msgid "Save"
 msgstr "Сохранить"
 
-#: users/formhelpers.py:142
+#: users/formhelpers.py:146
 #, fuzzy
 #| msgid "Back to login page"
 msgid "Back to login"
 msgstr "Назад на страницу входа."
 
-#: users/formhelpers.py:149
+#: users/formhelpers.py:153
 msgid "Continue"
 msgstr "Продолжить"
 
-#: users/formhelpers.py:172
+#: users/formhelpers.py:176
 msgid "Change"
 msgstr "Изменить"
 
-#: users/formhelpers.py:190
+#: users/formhelpers.py:194
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/forms.py:89
+#: users/forms.py:54
 msgid "Only your form or higher is allowed."
 msgstr "Допустим только Ваш класс или старше."
 
-#: users/forms.py:96
+#: users/forms.py:61
 msgid "Please fill your name and surname in separate fields."
 msgstr "Пожалуйста, введите имя и фамилию отдельно."
 
@@ -228,35 +228,35 @@ msgstr "Описание"
 msgid "PChO"
 msgstr "ПХО"
 
-#: users/templates/base.html:59
+#: users/templates/base.html:52
 msgid "Logo"
 msgstr "Логотип"
 
-#: users/templates/base.html:65
+#: users/templates/base.html:69
 msgid "Index page"
 msgstr "Главная страница"
 
-#: users/templates/base.html:67
+#: users/templates/base.html:73
 msgid "Profile"
 msgstr "Профиль"
 
-#: users/templates/base.html:69
+#: users/templates/base.html:75
 msgid "Register"
 msgstr "Зарегистрироваться"
 
-#: users/templates/base.html:73
+#: users/templates/base.html:79
 msgid "Online stage"
 msgstr "Онлайн-этап"
 
-#: users/templates/base.html:78
+#: users/templates/base.html:87
 msgid "Logout"
 msgstr "Выход"
 
-#: users/templates/base.html:126
+#: users/templates/base.html:147
 msgid "Error occurred"
 msgstr "Ошибка"
 
-#: users/templates/base.html:134
+#: users/templates/base.html:156
 msgid "OK"
 msgstr "ОК"
 
@@ -364,3 +364,11 @@ msgstr "Личный кабинет участника"
 #: users/templates/registration.html:8
 msgid "Registration"
 msgstr "Регистрация"
+
+#: users/templates/registration.html:14
+msgid "By clicking \"save\", you agree with"
+msgstr "Нажимая кнопку \"Сохранить\", вы подтверждаете согласие с"
+
+#: users/templates/registration.html:14
+msgid "Privacy Policy"
+msgstr "Политикой конфиденциальности"
