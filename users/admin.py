@@ -180,6 +180,12 @@ class UserResource(ModelResource):
     def dehydrate_venue_selected(self, instance):
         return str(instance.venue_selected)
 
+    def dehydrate_actual_form(self, instance):
+        form = instance.actual_form
+        if form == 1:
+            return 'Other'
+        return form
+
 
 @admin.register(Venue)
 class VenueAdmin(ImportExportModelAdmin):
