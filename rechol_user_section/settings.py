@@ -227,3 +227,6 @@ DEFAULT_FROM_EMAIL = os.getenv('EMAIL_SENDER')
 
 # Import-Export
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+# Custom
+DISABLE_OFFLINE_REG = os.getenv('DISABLE_OFFLINE_REG', '0').upper() in {'TRUE', '1'}

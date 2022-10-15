@@ -42,6 +42,9 @@ class UserCreateFormMixin:
         self.fields['birth_date'].input_formats = settings.DATE_INPUT_FORMATS
         self.helper = helpers.UserUpdateFormHelper()
 
+        if settings.DISABLE_OFFLINE_REG:
+            self.fields['venue_selected'].disabled = True
+
     def clean_city(self):
         return self.cleaned_data['city'].removeprefix('г.').strip()
 
