@@ -129,6 +129,7 @@ class User(AbstractUser):
     venue_selected = models.ForeignKey(
         Venue, models.SET_NULL, blank=True, null=True, verbose_name=_('Venue')
     )
+    online_selected = models.BooleanField(_('Online stage'), default=True, null=False)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

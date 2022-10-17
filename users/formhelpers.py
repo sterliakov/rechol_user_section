@@ -109,8 +109,12 @@ class UserUpdateFormHelper(CustomFormHelper):
         ),
         one_row(
             {
-                selectpicker('actual_form'): '4 col-sm-12 col-lg-4',
-                selectpicker('participation_form'): '4 col-sm-12 col-lg-4',
+                selectpicker('actual_form'): '6 col-sm-12 col-lg-6',
+                selectpicker('participation_form'): '6 col-sm-12 col-lg-6',
+            }
+        ),
+        one_row(
+            {
                 selectpicker(
                     'venue_selected',
                     {
@@ -118,8 +122,15 @@ class UserUpdateFormHelper(CustomFormHelper):
                         'data-container': 'body',
                         'data-mobile': 'true',
                     },
-                ): '4 col-sm-12 col-lg-4',
-            }
+                ): '6 col-sm-12 col-lg-6',
+                Div(
+                    Field('online_selected', template='checkbox_field.html'),
+                    css_class=(
+                        'custom-control custom-checkbox'
+                        ' d-flex h-100 pb-4 align-items-end'
+                    ),
+                ): '6 col-sm-12 col-lg-6',
+            },
         ),
         FormActions(
             Div(Submit('submit', _('Save'), css_class='my-3'), css_class='text-center'),
