@@ -250,11 +250,13 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         ]
 
     def has_module_permission(self, request):
-        return request.user.role == User.Roles.JUDGE
+        return request.user.is_superuser or request.user.role == User.Roles.JUDGE
 
     def has_view_permission(self, request, obj=None):
-        return request.user.role == User.Roles.JUDGE and (
-            not obj or obj.role == User.Roles.PARTICIPANT
+        return (
+            request.user.is_superuser
+            or request.user.role == User.Roles.JUDGE
+            and (not obj or obj.role == User.Roles.PARTICIPANT)
         )
 
     def get_queryset(self, request):
@@ -330,19 +332,19 @@ class OfflineResultAdmin(ConcurrentModelAdmin):
     ordering = ('user__participation_form', 'user__last_name')
 
     def has_add_permission(self, request):
-        return request.user.role == User.Roles.JUDGE
+        return request.user.is_superuser or request.user.role == User.Roles.JUDGE
 
     def has_module_permission(self, request):
-        return request.user.role == User.Roles.JUDGE
+        return request.user.is_superuser or request.user.role == User.Roles.JUDGE
 
     def has_change_permission(self, request, obj=None):
-        return request.user.role == User.Roles.JUDGE
+        return request.user.is_superuser or request.user.role == User.Roles.JUDGE
 
     def has_delete_permission(self, request, obj=None):
-        return request.user.role == User.Roles.JUDGE
+        return request.user.is_superuser or request.user.role == User.Roles.JUDGE
 
     def has_view_permission(self, request, obj=None):
-        return request.user.role == User.Roles.JUDGE
+        return request.user.is_superuser or request.user.role == User.Roles.JUDGE
 
     @admin.display(ordering='user__last_name', description=_('Participant last name'))
     def get_user__last_name(self, obj):
