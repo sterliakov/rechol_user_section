@@ -28,7 +28,8 @@ RUN BUILD_DEPS="build-essential libpcre3-dev libpq-dev git pkg-config" && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --chown=${APP_USER}:${APP_USER} . ${APP_HOME}
-# RUN chown -R ${APP_USER}:${APP_USER} ${APP_HOME}
+# RUN mkdir -p /var/www/rechol_user_section/media/ &&\
+#     chown -R ${APP_USER}:${APP_USER} /var/www/rechol_user_section/media/
 WORKDIR ${APP_HOME}
 
 USER ${APP_USER}:${APP_USER}

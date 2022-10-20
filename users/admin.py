@@ -1,15 +1,18 @@
-# from datetime import datetime as dt
 from io import BytesIO
 
+from concurrency.admin import ConcurrentModelAdmin
+from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.postgres.forms import SplitArrayField
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from import_export.admin import ImportExportMixin, ImportExportModelAdmin
 from import_export.fields import Field
 from import_export.formats.base_formats import XLSX
 from import_export.resources import ModelResource
 
-from .models import Event, User, Venue
+from .models import Event, OfflineResult, User, Venue
 
 
 class MyXLSX(XLSX):
@@ -225,14 +228,10 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
-        (
-            None,
-            {
-                'classes': ('wide',),
-                'fields': ('email', 'password1', 'password2'),
-            },
-        ),
+        (None, {'fields': ('email', 'password')}),
+        (_('Name'), {'fields': ('first_name', 'last_name', 'patronymic_name')}),
     )
+
     list_display = (
         'last_name',
         'first_name',
@@ -242,10 +241,127 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         'venue_selected',
         'email',
     )
-    search_fields = ('email', 'first_name', 'last_name', 'city')
+    search_fields = ('email', 'first_name', 'last_name', 'city', 'participation_form')
     ordering = ('participation_form', 'last_name')
 
     def get_import_formats(self):
         return [f for f in super().get_import_formats() if not issubclass(f, XLSX)] + [
             MyXLSX
         ]
+
+    def has_module_permission(self, request):
+        return request.user.role == User.Roles.JUDGE
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.role == User.Roles.JUDGE and (
+            not obj or obj.role == User.Roles.PARTICIPANT
+        )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(role=User.Roles.PARTICIPANT)
+
+    def get_search_results(self, request, queryset, search_term):
+        qs, may_have_duplicates = super().get_search_results(
+            request,
+            queryset,
+            search_term,
+        )
+        if request.user.is_superuser:
+            return qs, may_have_duplicates
+        qs = qs.filter(role=User.Roles.PARTICIPANT)
+        return qs, may_have_duplicates
+
+
+class OfflineResultResource:
+    class Meta:
+        model = OfflineResult
+
+
+class MarkField(forms.CharField):
+    def validate(self, value):
+        if not value or value == '-':
+            return
+        super().validate(value)
+        try:
+            float(value)
+        except ValueError:
+            raise ValidationError(
+                _('Not a valid integer or hyphen.'), code='INVALID_INTEGER'
+            )
+
+
+class OfflineResultForm(forms.ModelForm):
+    class Meta:
+        model = OfflineResult
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['scores'] = SplitArrayField(
+            MarkField(required=False), size=5, required=False, initial=[]
+        )
+        self.fields['version'].widget.attrs['readonly'] = True
+
+
+@admin.register(OfflineResult)
+class OfflineResultAdmin(ConcurrentModelAdmin):
+    resource_class = OfflineResultResource
+    autocomplete_fields = ('user',)
+    form = OfflineResultForm
+
+    list_display = (
+        'get_user__last_name',
+        'get_user__first_name',
+        'get_user__participation_form',
+        'scores',
+        'get_total',
+        'get_user__venue_selected',
+    )
+    search_fields = (
+        'user__last_name',
+        'user__first_name',
+        'user__participation_form',
+        'user__venue_selected__city',
+        'user__venue_selected__name',
+    )
+    ordering = ('user__participation_form', 'user__last_name')
+
+    def has_add_permission(self, request):
+        return request.user.role == User.Roles.JUDGE
+
+    def has_module_permission(self, request):
+        return request.user.role == User.Roles.JUDGE
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.role == User.Roles.JUDGE
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.role == User.Roles.JUDGE
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.role == User.Roles.JUDGE
+
+    @admin.display(ordering='user__last_name', description=_('Participant last name'))
+    def get_user__last_name(self, obj):
+        return obj.user.last_name
+
+    @admin.display(ordering='user__first_name', description=_('Participant first name'))
+    def get_user__first_name(self, obj):
+        return obj.user.first_name
+
+    @admin.display(
+        ordering='user__participation_form', description=_('Participation form')
+    )
+    def get_user__participation_form(self, obj):
+        return obj.user.participation_form
+
+    @admin.display(description=_('Total score'))
+    def get_total(self, obj):
+        return sum(float(x) if x and x != '-' else 0 for x in obj.scores)
+
+    @admin.display(description=_('Venue'))
+    def get_user__venue_selected(self, obj):
+        return str(obj.user.venue_selected or '')

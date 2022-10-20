@@ -77,6 +77,13 @@
             <li class="nav-item">
               <a class=" nav-link disabled" tabindex="-1" href="javascript:void(0)">{% trans "Online stage" %}</a>
             </li>
+            {% if not request.user.is_anonymous and request.user.role == request.user.Roles.JUDGE %}
+              <li class="nav-item">
+                <a class=" nav-link"
+                   tabindex="-1"
+                   href="{% url 'admin:users_offlineresult_changelist' %}">{% trans "Judging: offline stage" %}</a>
+              </li>
+            {% endif %}
           </ul>
           <div class="nav-item pr-2">
             {% if not request.user.is_anonymous %}

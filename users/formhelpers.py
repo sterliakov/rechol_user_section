@@ -151,6 +151,20 @@ class UserFormHelper(CustomFormHelper):
     )
 
 
+class JudgeUpdateFormHelper(CustomFormHelper):
+    layout = Layout(
+        'email',
+        'password1',
+        'password2',
+        'first_name',
+        'last_name',
+        'patronymic_name',
+        FormActions(
+            Div(Submit('submit', _('Save'), css_class='mt-3'), css_class='text-center'),
+        ),
+    )
+
+
 class PasswordResetFormHelper(CustomFormHelper):
     form_class = 'login_form noasterisks'
 

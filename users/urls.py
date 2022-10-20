@@ -1,10 +1,22 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import include, path
 
 from . import forms, views
 
+api_urls = [
+    path('annotations/list/', views.AnnotationList.as_view(), name='annotation_list'),
+    path(
+        'annotations/detail/<pk>/',
+        views.AnnotationDetail.as_view(),
+        name='annotation_detail',
+    ),
+]
+
 urlpatterns = [
     path(r'reg/', views.RegistrationView.as_view(), name='registration'),
+    path(
+        r'judge_reg/', views.JudgeRegistrationView.as_view(), name='judge_registration'
+    ),
     path(r'update/', views.UserUpdateView.as_view(), name='profile'),
     path(
         r'login/',
@@ -57,4 +69,5 @@ urlpatterns = [
         ),
         name='password_reset_complete',
     ),
+    path(r'api/v1/', include(api_urls)),
 ]

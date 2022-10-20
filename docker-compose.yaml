@@ -88,6 +88,7 @@ services:
       - /etc/ssl/:/etc/ssl/
       # LetsEncrypt acme challenge
       - /var/www/well-known/:/var/www/well-known/
+      - media_volume:/var/www/rechol_user_section/media
 
 networks:
   djangonetwork:

@@ -86,6 +86,33 @@ class UserUpdateForm(UserCreateFormMixin, forms.ModelForm):
             self.fields['email'].disabled = True
 
 
+class JudgeCreateFormMixin:
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'patronymic_name')
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.JudgeUpdateFormHelper()
+
+
+class JudgeCreateForm(JudgeCreateFormMixin, UserCreationForm):
+    def save(self, commit=True):
+        u = super().save(commit=False)  # don't save on error
+        u.email = self.cleaned_data['email']
+        if commit:
+            u.save()
+        return u
+
+
+class JudgeUpdateForm(JudgeCreateFormMixin, forms.ModelForm):
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['email'].disabled = True
+
+
 class LoginForm(AuthenticationForm):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)

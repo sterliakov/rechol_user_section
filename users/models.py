@@ -1,5 +1,7 @@
+from concurrency.fields import IntegerVersionField
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as UserManager_
+from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -82,7 +84,13 @@ class User(AbstractUser):
         TENTH = 10, _('10')
         ELEVENTH = 11, _('11')
 
+    class Roles(models.TextChoices):
+        PARTICIPANT = 'p', _('Participant')
+        ADMIN = 'a', _('Admin')
+        JUDGE = 'j', _('Judge')
+
     objects = UserManager()
+    email = models.EmailField(_('Email'), null=False, blank=False, unique=True)
 
     first_name = models.CharField(
         _('First name'), max_length=127, blank=False, null=False
@@ -100,27 +108,28 @@ class User(AbstractUser):
         null=False,
         choices=GenderChoices.choices,
     )
-    birth_date = models.DateField(_('Birth date'), null=False, blank=False)
-    email = models.EmailField(_('Email'), null=False, blank=False, unique=True)
-    phone = PhoneNumberField(_('Phone'), null=False, blank=False, unique=True)
-    passport = models.CharField(
+    birth_date = models.DateField(_('Birth date'), null=True, blank=False)
+    phone = PhoneNumberField(_('Phone'), null=True, blank=False, unique=True)
+    passport = models.CharField(  # noqa
         _('Passport'),
         max_length=15,
         validators=[MinLengthValidator(9)],
         unique=True,
         blank=False,
-        null=False,
+        null=True,
         help_text=_(
             'Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx'
         ),
     )
-    city = models.CharField(_('City'), max_length=63, null=False, blank=False)
-    school = models.CharField(_('School'), max_length=255, blank=False, null=False)
+    city = models.CharField(_('City'), max_length=63, null=True, blank=False)  # noqa
+    school = models.CharField(  # noqa
+        _('School'), max_length=255, blank=False, null=True
+    )
     actual_form = models.PositiveSmallIntegerField(
-        _('Actual form'), choices=PossibleForms.choices
+        _('Actual form'), choices=PossibleForms.choices, null=True
     )
     participation_form = models.PositiveSmallIntegerField(
-        _('Participation form'), choices=SupportedForms.choices
+        _('Participation form'), choices=SupportedForms.choices, null=True
     )
     vk_link = models.URLField(_('VK link'), blank=True, default='')
     telegram_nickname = models.CharField(
@@ -130,6 +139,14 @@ class User(AbstractUser):
         Venue, models.SET_NULL, blank=True, null=True, verbose_name=_('Venue')
     )
     online_selected = models.BooleanField(_('Online stage'), default=True, null=False)
+    role = models.CharField(
+        _('Role'),
+        max_length=1,
+        editable=False,
+        choices=Roles.choices,
+        blank=False,
+        default=Roles.PARTICIPANT,
+    )
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -151,3 +168,40 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title[:30]
+
+
+class OfflineResult(models.Model):
+    class Meta:
+        verbose_name = _('Result (offline)')
+        verbose_name_plural = _('Results (offline)')
+
+    user = models.OneToOneField(User, models.CASCADE, verbose_name=_('Participant'))
+    scores = ArrayField(
+        models.CharField(max_length=2, default='', blank=True, null=False),
+        size=5,
+        verbose_name=_('Scores'),
+        blank=True,
+        default=list,
+    )
+    comment = models.TextField(_('Comment'), default='', blank=True, null=False)
+    paper_original = models.FileField(_('Original work'), upload_to='originals')
+    version = IntegerVersionField()
+
+    def __str__(self):
+        return f'Offline: {self.user}'
+
+
+class Annotation(models.Model):
+    class Meta:
+        verbose_name = _('Annotation')
+        verbose_name_plural = _('Annotations')
+
+    filename = models.CharField(_('Filename'), max_length=255, blank=False, null=False)
+    annotation_id = models.UUIDField(
+        _('Annotation ID'), blank=False, null=False, primary_key=True
+    )
+    page = models.PositiveSmallIntegerField(_('Page number'), blank=False, null=False)
+    annotation = models.TextField(_('Annotation content'), blank=False, null=False)
+
+    def __str__(self):
+        return f'{self.filename} ({self.annotation_id})'
