@@ -178,7 +178,7 @@ class OfflineResult(models.Model):
     user = models.OneToOneField(User, models.CASCADE, verbose_name=_('Participant'))
     scores = ArrayField(
         models.CharField(max_length=2, default='', blank=True, null=False),
-        size=5,
+        size=6,
         verbose_name=_('Scores'),
         blank=True,
         default=list,

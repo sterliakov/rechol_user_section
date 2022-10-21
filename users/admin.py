@@ -303,7 +303,7 @@ class OfflineResultForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['scores'] = SplitArrayField(
-            MarkField(required=False), size=5, required=False, initial=[]
+            MarkField(required=False), size=6, required=False, initial=[]
         )
         self.fields['version'].widget.attrs['readonly'] = True
 
