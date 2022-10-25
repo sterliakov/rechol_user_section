@@ -1,11 +1,21 @@
+from datetime import timedelta
+
 from concurrency.fields import IntegerVersionField
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as UserManager_
 from django.contrib.postgres.fields import ArrayField
-from django.core.validators import MinLengthValidator
+from django.core.validators import FileExtensionValidator, MinLengthValidator
 from django.db import models
+from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+
+
+class SupportedForms(models.IntegerChoices):
+    EIGHT = 8, _('8')
+    NINTH = 9, _('9')
+    TENTH = 10, _('10')
+    ELEVENTH = 11, _('11')
 
 
 class Venue(models.Model):
@@ -67,6 +77,8 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    SupportedForms = SupportedForms
+
     class GenderChoices(models.TextChoices):
         MALE = 'm', _('Male')
         FEMALE = 'f', _('Female')
@@ -77,12 +89,6 @@ class User(AbstractUser):
         TENTH = 10, _('10')
         ELEVENTH = 11, _('11')
         OTHER = 1, _('Other')
-
-    class SupportedForms(models.IntegerChoices):
-        EIGHT = 8, _('8')
-        NINTH = 9, _('9')
-        TENTH = 10, _('10')
-        ELEVENTH = 11, _('11')
 
     class Roles(models.TextChoices):
         PARTICIPANT = 'p', _('Participant')
@@ -205,3 +211,96 @@ class Annotation(models.Model):
 
     def __str__(self):
         return f'{self.filename} ({self.annotation_id})'
+
+
+class OnlineProblem(models.Model):
+    class Meta:
+        verbose_name = _('Problem')
+        verbose_name_plural = _('Problems')
+
+    name = models.CharField(_('Name'), max_length=120, blank=False, null=False)
+    file = models.FileField(_('Statement'), upload_to='problems')
+    comment = models.TextField(
+        _('Annotation content'), blank=True, null=False, default=''
+    )
+    opens = models.DateTimeField(_('Opens at'), blank=False, null=False)
+    closes = models.DateTimeField(_('Closes at'), blank=False, null=False)
+    duration = models.DurationField(_('Duration'), blank=False, null=False)
+    visible = models.BooleanField(_('Visible'), blank=False, null=False, default=False)
+    target_form = models.PositiveSmallIntegerField(
+        _('Target form'),
+        choices=SupportedForms.choices,
+        null=False,
+        blank=False,
+        default=8,
+    )
+
+    def __str__(self):
+        return f'Problem {self.name}'
+
+    @property
+    def repr_description(self):
+        return self.comment or _('Problem set for %dth form') % self.target_form
+
+    def get_remaining_time(self, user, now=None):
+        now = now or tz.now()
+        start = None
+        if user and not user.is_anonymous:
+            start = (
+                self.onlinesubmission_set.filter(user=user)
+                .values_list('started', flat=True)
+                .first()
+            ) or None
+
+        if not start:
+            return min(self.duration, self.closes - now)
+
+        return min(self.closes - now, self.duration - (now - start))
+
+    def is_open_now(self, now=None):
+        now = now or tz.now()
+        return self.opens <= now <= self.closes + timedelta(seconds=10)
+
+
+class OnlineSubmission(models.Model):
+    class Meta:
+        verbose_name = _('Submission')
+        verbose_name_plural = _('Submissions')
+        unique_together = ('user', 'problem')
+
+    file = models.FileField(
+        _('Solution file'),
+        help_text=_('Solution file in pdf format'),
+        upload_to='online_submissions',
+        validators=[FileExtensionValidator(allowed_extensions=['pdf'])],
+        null=True,
+        blank=False,
+    )
+    comment = models.TextField(_('Comment'), blank=True, null=False, default='')
+    user = models.ForeignKey(User, models.CASCADE, verbose_name=_('Participant'))
+    problem = models.ForeignKey(
+        OnlineProblem,
+        models.SET_NULL,
+        blank=False,
+        null=True,
+        verbose_name=_('Problem'),
+    )
+    started = models.DateTimeField(_('Started at'), blank=False, null=False)
+
+    def __str__(self):
+        return f'Solution by {self.user} (online)'
+
+    @property
+    def remaining_time(self):
+        return self.problem.get_remaining_time(self.user)
+
+    @property
+    def is_submitted(self):
+        return self.file or self.comment
+
+    @property
+    def actual_end(self):
+        if not self.started:
+            return self.problem.closes
+        now = tz.now()
+        return now + self.problem.get_remaining_time(self.user, now)

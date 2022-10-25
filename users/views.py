@@ -1,16 +1,24 @@
+import contextlib
 from textwrap import dedent
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
-from django.http.response import HttpResponseForbidden, HttpResponseRedirect
+from django.http.response import (
+    HttpResponseBadRequest,
+    HttpResponseForbidden,
+    HttpResponseRedirect,
+)
 from django.urls import reverse
+from django.utils import timezone as tz
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from rest_framework import generics
 
 from . import forms
-from .models import Annotation, Event
+from .models import Annotation, Event, OnlineProblem, OnlineSubmission
 from .serializers import AnnotationSerializer
 
 
@@ -138,3 +146,116 @@ class AnnotationDetail(
 
     def test_func(self):
         return self.request.user.role != self.request.user.Roles.JUDGE
+
+
+class OnlineStageListView(LoginRequiredMixin, ListView):
+    model = OnlineProblem
+    template_name = 'online.html'
+    ordering = ['opens']
+
+    def get_queryset(self):
+        user = self.request.user
+        qs = super().get_queryset()
+        if user.is_anonymous:
+            return qs.none()
+        if user.role == user.Roles.PARTICIPANT:
+            qs = qs.filter(target_form=user.participation_form, visible=True)
+
+        qs = list(qs)
+        for problem in qs:
+            problem.real_end = tz.now() + problem.get_remaining_time(user)
+            sub = problem.onlinesubmission_set.filter(user=user).first()
+            problem.was_started = sub is not None
+            problem.was_submitted = sub and sub.is_submitted
+
+        return qs
+
+
+class OnlineStageStartView(LoginRequiredMixin, DetailView):
+    model = OnlineSubmission
+    template_name = 'online_start.html'
+
+    @cached_property
+    def problem(self):
+        return OnlineProblem.objects.get(id=int(self.kwargs['problem_pk']))
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {
+            'problem': self.problem,
+            'has_ended': self.object and self.object.remaining_time.total_seconds() < 0,
+        }
+
+    def get_object(self, queryset=None):
+        return self.request.user.onlinesubmission_set.filter(
+            problem=self.problem
+        ).first()
+
+    def post(self, *args, **kwargs):
+        if not self.problem.is_open_now():
+            return HttpResponseRedirect(
+                reverse('online_submission_index') + '?error=GONE'
+            )
+
+        with contextlib.suppress(Exception):
+            # Someone's trying to open twice, what for?
+            self.request.user.onlinesubmission_set.create(
+                problem=self.problem,
+                started=tz.now(),
+            )
+
+        return HttpResponseRedirect(reverse('online_submission_update', kwargs=kwargs))
+
+
+class OnlineStageSubmitView(LoginRequiredMixin, UpdateView):
+    model = OnlineSubmission
+    form_class = forms.OnlineSubmissionForm
+    template_name = 'online_submission.html'
+    success_url = '?success=true'
+
+    @cached_property
+    def problem(self):
+        return OnlineProblem.objects.get(id=int(self.kwargs['problem_pk']))
+
+    @cached_property
+    def is_over(self):
+        return bool(
+            not self.problem.is_open_now()
+            or self.object.remaining_time.total_seconds() < 0
+        )
+
+    def get_object(self, queryset=None):
+        return self.request.user.onlinesubmission_set.get(problem=self.problem)
+
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        try:
+            self.object = self.get_object()
+        except OnlineSubmission.DoesNotExist:
+            return HttpResponseRedirect(
+                reverse('online_submission_start', kwargs=kwargs)
+            )
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        if self.is_over:
+            return HttpResponseBadRequest(
+                _('Cannot submit solutions to closed contest.')
+            )
+        return super().post(*args, **kwargs)
+
+    def get_form_kwargs(self):
+        return super().get_form_kwargs() | {
+            'contest_over': self.is_over,
+        }
+
+    def get_context_data(self):
+        return super().get_context_data() | {
+            'contest_over': self.is_over,
+        }
+
+    # def form_invalid(self, form):
+    #     import logging
+    #     logging.error('It sucks')
+    #     logging.error(form.errors)
+    #     return super().form_invalid(form)

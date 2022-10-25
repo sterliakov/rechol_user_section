@@ -14,7 +14,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from . import formhelpers as helpers
-from .models import User
+from .models import OnlineSubmission, User
 
 
 class UserCreateFormMixin:
@@ -136,3 +136,18 @@ class SetPasswordForm(_SetPasswordForm):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.helper = helpers.SetPasswordFormHelper()
+
+
+class OnlineSubmissionForm(forms.ModelForm):
+    class Meta:
+        model = OnlineSubmission
+        fields = ('file', 'comment')
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        contest_over = kwargs.pop('contest_over')
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.OnlineSubmissionFormHelper()
+        if contest_over:
+            self.helper.layout = helpers.Layout(*self.helper.layout[:-1])
+            for f in self.fields.values():
+                f.disabled = True

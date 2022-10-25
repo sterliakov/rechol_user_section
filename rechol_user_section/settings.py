@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.humanize',
     'django.contrib.postgres',
     'django.contrib.staticfiles',
     # 3rd party
@@ -181,6 +182,7 @@ BOWER_INSTALLED_APPS = (
     'bootstrap-select',
     'moment',
     'https://github.com/dangrossman/daterangepicker.git',
+    'humanize-duration',
 )
 
 STATICFILES_FINDERS = (

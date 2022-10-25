@@ -75,7 +75,7 @@
               {% endif %}
             </li>
             <li class="nav-item">
-              <a class=" nav-link disabled" tabindex="-1" href="javascript:void(0)">{% trans "Online stage" %}</a>
+              <a class=" nav-link" href="{% url 'online_submission_index' %}">{% trans "Online stage" %}</a>
             </li>
             {% if not request.user.is_anonymous and request.user.role == request.user.Roles.JUDGE %}
               <li class="nav-item">

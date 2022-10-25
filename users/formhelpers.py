@@ -223,3 +223,21 @@ class SetPasswordFormHelper(CustomFormHelper):
             ),
         ),
     )
+
+
+class OnlineSubmissionFormHelper(CustomFormHelper):
+    form_class = 'login_form noasterisks'
+    layout = Layout(
+        'file',
+        'comment',
+        FormActions(
+            Div(
+                Submit(
+                    'submit',
+                    _('Submit'),
+                    css_class='mt-4 f_20 submit_btn btn btn-primary',
+                ),
+                css_class='text-center',
+            ),
+        ),
+    )

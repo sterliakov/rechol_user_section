@@ -12,6 +12,20 @@ api_urls = [
     ),
 ]
 
+online_stage_urls = [
+    path(r'', views.OnlineStageListView.as_view(), name='online_submission_index'),
+    path(
+        r'start/<int:problem_pk>/',
+        views.OnlineStageStartView.as_view(),
+        name='online_submission_start',
+    ),
+    path(
+        r'submit/<int:problem_pk>/',
+        views.OnlineStageSubmitView.as_view(),
+        name='online_submission_update',
+    ),
+]
+
 urlpatterns = [
     path(r'reg/', views.RegistrationView.as_view(), name='registration'),
     path(
@@ -70,4 +84,5 @@ urlpatterns = [
         name='password_reset_complete',
     ),
     path(r'api/v1/', include(api_urls)),
+    path(r'online/', include(online_stage_urls)),
 ]

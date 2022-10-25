@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags i18n %}
+{% block content %}
+  <div class="card mb-0 dz-scroll"
+       style="overflow-x: auto"
+       id="participant-form">
+    <div class="card-header d-flex justify-content-between">
+      <h1>
+        {% if object.is_submitted %}
+          {% trans "Change the submission" %}
+        {% else %}
+          {% trans "Submit a solution" %}
+        {% endif %}
+      </h1>
+      <span class="d-block" id="time-remaining">{{ object.actual_end|timeuntil }}</span>
+    </div>
+    <div class="card-body" id="body-div-wrapper">
+      <div id="success-alert"
+           class="alert alert-success alert-dismissible"
+           style="display: none;">
+        <strong>{% trans "Success!" %}</strong> {% trans "You can alter your submission during the contest until it ends or your time is over." %}
+      </div>
+      {% crispy form %}
+    </div>
+    <div class="card-footer">
+      <p>{% trans "You may safely leave this page and return later." %}</p>
+    </div>
+  </div>
+{% endblock content %}
+{% block extrascripts_after %}
+  <script src="{% static 'humanize-duration/humanize-duration.js' %}"></script>
+  <script>
+$(function(){
+  if (new URL(window.location.href).searchParams.get('success') === 'true') {
+    $('#success-alert').show();
+    setTimeout(() => window.location.search = '', 3000);
+  }
+
+  {% if not contest_over %}
+  const end = moment('{{ object.actual_end.isoformat }}');
+  setInterval(() => {
+    const remaining = end - moment();
+    if (remaining < 0)
+      $('#body-div-wrapper form').submit();
+
+    $('#time-remaining').text(
+      humanizeDuration(remaining, {
+        language: ['ru'],
+        largest: 3,
+        round: true,
+      }),
+    );
+  }, 1000);
+  {% endif %}
+});
+  </script>
+{% endblock extrascripts_after %}

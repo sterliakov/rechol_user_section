@@ -12,7 +12,7 @@ from import_export.fields import Field
 from import_export.formats.base_formats import XLSX
 from import_export.resources import ModelResource
 
-from .models import Event, OfflineResult, User, Venue
+from .models import Event, OfflineResult, OnlineProblem, OnlineSubmission, User, Venue
 
 
 class MyXLSX(XLSX):
@@ -379,3 +379,13 @@ class OfflineResultAdmin(ConcurrentModelAdmin):
     @admin.display(description=_('Venue'))
     def get_user__venue_selected(self, obj):
         return str(obj.user.venue_selected or '')
+
+
+@admin.register(OnlineProblem)
+class OnlineProblemAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(OnlineSubmission)
+class OnlineSubmissionAdmin(admin.ModelAdmin):
+    pass

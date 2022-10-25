@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n humanize %}
+{% block content %}
+  <div class="card mb-0 dz-scroll"
+       style="overflow-x: auto"
+       id="participant-form">
+    <div class="card-header d-flex justify-content-between">
+      <h1>{% trans "Available contests" %}</h1>
+      <span class="d-block">{{ time_remaining }}</span>
+    </div>
+    <div class="card-body">
+      <ul class="list-unstyled">
+        {% for p in object_list %}
+          <li class="mb-5">
+            <div class="row">
+              <h2 class="col d-block f_16">{{ p.name }}</h2>
+              <div class="col-auto d-flex justify-content-end align-items-center">
+                {% if not p.is_open_now %}
+                  <a href="javascript:void(0)" class="btn btn-primary disabled">{% trans "Not available for submission" %}</a>
+                {% elif p.was_started %}
+                  <a href="{% url 'online_submission_update' p.id %}"
+                     class="btn btn-primary">
+                    {% if p.was_submitted %}
+                      {% trans "Edit submission" %}
+                    {% else %}
+                      {% trans "Submit a solution" %}
+                    {% endif %}
+                  </a>
+                {% else %}
+                  <a href="{% url 'online_submission_start' p.id %}"
+                     class="btn btn-primary">{% trans "Join now" %}</a>
+                {% endif %}
+              </div>
+            </div>
+            <p class="my-3">{{ p.repr_description }}</p>
+            <div class="row">
+              <div class="col-12 col-xl-4 row">
+                <span class="text-nowrap col-6">{% trans "Remaining time:" %}</span>
+                <span class="text-nowrap col-6">{{ p.real_end|timeuntil|default:'' }}</span>
+              </div>
+              <div class="col-12 col-xl-4 row">
+                <span class="text-nowrap col-6">{% trans "Submission opens:" %}</span>
+                <span class="text-nowrap col-6">{{ p.opens|naturaltime }}</span>
+              </div>
+              <div class="col-12 col-xl-4 row">
+                <span class="text-nowrap col-6">{% trans "Submission closes:" %}</span>
+                <span class="text-nowrap col-6">{{ p.closes|naturaltime }}</span>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="modal fade custom_modal" id="error-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+         role="document">
+      <div class="modal-content">
+        <div class="modal-header pt-4">
+          <h2 class="modal-title">{% trans "Cannot join requested contest." %}</h2>
+          <button type="button" class="close pt-4" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            {% trans "Unfortunately, joining the contest you requested is not possible now. If you believe it is a mistake, please contact us." %}
+          </p>
+        </div>
+        <div class="modal-footer text-center">
+          <button data-dismiss="modal" class="btn btn-primary">{% trans "OK" %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block extrascripts_after %}
+  <script>
+$(function(){
+  if (new URL(window.location.href).searchParams.get('error') != null) {
+    $('#error-modal').modal('show');
+  }
+});
+  </script>
+{% endblock extrascripts_after %}

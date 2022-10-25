@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n humanize %}
+{% block content %}
+  <div class="card mb-0 dz-scroll"
+       style="overflow-x: auto"
+       id="participant-form">
+    {% if has_ended %}
+      <div class="card-header d-flex justify-content-between">
+        <h1>{% trans "Contest is over." %}</h1>
+        <span class="d-block">{{ time_remaining }}</span>
+      </div>
+      <div class="card-body">
+        <h2>{% trans "You can still view your solutions." %}</h2>
+      </div>
+      <div class="card-footer text-center">
+        <a href="{% url 'online_submission_update' problem.id %}"
+           class="btn btn-primary">{% trans "View" %}</a>
+        <a href="{% url 'online_submission_index' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+      </div>
+    </div>
+  {% else %}
+    <div>
+      <div class="card-header d-flex justify-content-between">
+        <h1>{% trans "Ready to start?" %}</h1>
+        <span class="d-block">{{ time_remaining }}</span>
+      </div>
+      <div class="card-body">
+        <h2>{% trans "You're now about to start online contest." %}</h2>
+        <p>
+          {% trans "You'll have" %} {{ problem.duration }} {% trans "to complete. Submissions close " %} {{ problem.closes|naturaltime }}
+        </p>
+      </div>
+      <form class="card-footer text-center" method="post">
+        {% csrf_token %}
+        <button type="submit"
+                class="btn btn-primary {% if not problem.is_open_now %}disabled{% endif %}">
+          {% trans "Start!" %}
+        </button>
+        <a href="{% url 'online_submission_index' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+      </form>
+    </div>
+  {% endif %}
+{% endblock content %}
