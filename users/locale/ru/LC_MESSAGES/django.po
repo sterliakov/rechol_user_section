@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-13 02:18+0300\n"
+"POT-Creation-Date: 2022-10-26 02:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,35 +20,60 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:206 users/models.py:15
+#: users/admin.py:209 users/admin.py:232 users/models.py:27 users/models.py:221
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:208
+#: users/admin.py:211
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:211
+#: users/admin.py:214 users/models.py:94 users/models.py:184
+#: users/models.py:280
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:212
+#: users/admin.py:215
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:214
+#: users/admin.py:217
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:225
+#: users/admin.py:228
 msgid "Important dates"
 msgstr "Важные даты"
+
+#: users/admin.py:296
+msgid "Not a valid integer or hyphen."
+msgstr "Введите число или дефис"
+
+#: users/admin.py:361
+msgid "Participant last name"
+msgstr "Фамилия участника"
+
+#: users/admin.py:365
+msgid "Participant first name"
+msgstr "Имя участника"
+
+#: users/admin.py:370 users/models.py:138
+msgid "Participation form"
+msgstr "Класс участия"
+
+#: users/admin.py:375
+msgid "Total score"
+msgstr "Общая оценка"
+
+#: users/admin.py:379 users/models.py:23 users/models.py:145
+msgid "Venue"
+msgstr "Площадка"
 
 #: users/formhelpers.py:39
 msgid "Forgot Password?"
 msgstr "Забыли пароль?"
 
-#: users/formhelpers.py:51 users/templates/base.html:91
+#: users/formhelpers.py:51 users/templates/base.html:98
 msgid "Login"
 msgstr "Войти"
 
@@ -56,173 +81,305 @@ msgstr "Войти"
 msgid "Change password"
 msgstr "Изменить пароль?"
 
-#: users/formhelpers.py:125 users/formhelpers.py:138
+#: users/formhelpers.py:136 users/formhelpers.py:149 users/formhelpers.py:163
+#: users/templates/admin/users/offlineresult/change_form.html:152
 msgid "Save"
 msgstr "Сохранить"
 
-#: users/formhelpers.py:146
-#, fuzzy
-#| msgid "Back to login page"
+#: users/formhelpers.py:171
 msgid "Back to login"
 msgstr "Назад на страницу входа."
 
-#: users/formhelpers.py:153
+#: users/formhelpers.py:178
 msgid "Continue"
 msgstr "Продолжить"
 
-#: users/formhelpers.py:176
+#: users/formhelpers.py:201
 msgid "Change"
 msgstr "Изменить"
 
-#: users/formhelpers.py:194
+#: users/formhelpers.py:219
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/forms.py:54
+#: users/formhelpers.py:237
+msgid "Submit"
+msgstr "Отправить"
+
+#: users/forms.py:57
 msgid "Only your form or higher is allowed."
 msgstr "Допустим только Ваш класс или старше."
 
-#: users/forms.py:61
+#: users/forms.py:64
 msgid "Please fill your name and surname in separate fields."
 msgstr "Пожалуйста, введите имя и фамилию отдельно."
 
-#: users/models.py:11 users/models.py:130
-msgid "Venue"
-msgstr "Площадка"
-
-#: users/models.py:12
-msgid "Venues"
-msgstr "Площадки"
-
-#: users/models.py:14 users/models.py:117
-msgid "City"
-msgstr "Город"
-
-#: users/models.py:17
-msgid "Address"
-msgstr "Адрес"
-
-#: users/models.py:62
-msgid "User"
-msgstr "Пользователь"
-
-#: users/models.py:63
-msgid "Users"
-msgstr "Пользователи"
-
-#: users/models.py:69
-msgid "Male"
-msgstr "Мужской"
-
-#: users/models.py:70
-msgid "Female"
-msgstr "Женский"
-
-#: users/models.py:73 users/models.py:80
+#: users/models.py:15 users/models.py:87
 msgid "8"
 msgstr "8"
 
-#: users/models.py:74 users/models.py:81
+#: users/models.py:16 users/models.py:88
 msgid "9"
 msgstr "9"
 
-#: users/models.py:75 users/models.py:82
+#: users/models.py:17 users/models.py:89
 msgid "10"
 msgstr "10"
 
-#: users/models.py:76 users/models.py:83
+#: users/models.py:18 users/models.py:90
 msgid "11"
 msgstr "11"
 
-#: users/models.py:77
+#: users/models.py:24
+msgid "Venues"
+msgstr "Площадки"
+
+#: users/models.py:26 users/models.py:130
+msgid "City"
+msgstr "Город"
+
+#: users/models.py:29
+msgid "Address"
+msgstr "Адрес"
+
+#: users/models.py:74
+msgid "User"
+msgstr "Пользователь"
+
+#: users/models.py:75
+msgid "Users"
+msgstr "Пользователи"
+
+#: users/models.py:83
+msgid "Male"
+msgstr "Мужской"
+
+#: users/models.py:84
+msgid "Female"
+msgstr "Женский"
+
+#: users/models.py:91
 msgid "Other"
 msgstr "Другое"
 
-#: users/models.py:88
-msgid "First name"
-msgstr "Имя"
+#: users/models.py:95
+msgid "Admin"
+msgstr "Администратор"
 
-#: users/models.py:91
-msgid "Last name"
-msgstr "Фамилия"
+#: users/models.py:96
+msgid "Judge"
+msgstr "Проверяющий"
 
-#: users/models.py:94
-msgid "Patronymic name"
-msgstr "Отчество"
-
-#: users/models.py:97
-msgid "Gender"
-msgstr "Пол"
-
-#: users/models.py:103
-msgid "Birth date"
-msgstr "Дата рождения"
-
-#: users/models.py:104
+#: users/models.py:99
 msgid "Email"
 msgstr "Email"
 
+#: users/models.py:102
+msgid "First name"
+msgstr "Имя"
+
 #: users/models.py:105
+msgid "Last name"
+msgstr "Фамилия"
+
+#: users/models.py:108
+msgid "Patronymic name"
+msgstr "Отчество"
+
+#: users/models.py:111
+msgid "Gender"
+msgstr "Пол"
+
+#: users/models.py:117
+msgid "Birth date"
+msgstr "Дата рождения"
+
+#: users/models.py:118
 msgid "Phone"
 msgstr "Телефон"
 
-#: users/models.py:107
+#: users/models.py:120
 msgid "Passport"
 msgstr "Паспорт"
 
-#: users/models.py:114
+#: users/models.py:127
 msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
 msgstr ""
 "Номер паспорта (в формате xxxx xxxxxx) или свидетельства о рождении (XX-XX "
 "xxxxxx)"
 
-#: users/models.py:118
+#: users/models.py:132
 msgid "School"
 msgstr "Школа"
 
-#: users/models.py:120
+#: users/models.py:135
 msgid "Actual form"
 msgstr "Класс обучения"
 
-#: users/models.py:123
-msgid "Participation form"
-msgstr "Класс участия"
-
-#: users/models.py:125
+#: users/models.py:140
 msgid "VK link"
 msgstr "аккаунт ВКонтакте"
 
-#: users/models.py:127
+#: users/models.py:142
 msgid "Telegram nickname"
 msgstr "Ник в Telegram"
 
-#: users/models.py:143
+#: users/models.py:147 users/templates/base.html:79
+msgid "Online stage"
+msgstr "Онлайн-этап"
+
+#: users/models.py:149
+msgid "Role"
+msgstr "Роль"
+
+#: users/models.py:167
 msgid "Event"
 msgstr "Событие"
 
-#: users/models.py:144
+#: users/models.py:168
 msgid "Events"
 msgstr "События"
 
-#: users/models.py:146
+#: users/models.py:170
 msgid "Title"
 msgstr "Заголовок"
 
-#: users/models.py:147
+#: users/models.py:171
 msgid "Link"
-msgstr "Сссылка"
+msgstr "Ссылка"
 
-#: users/models.py:147
+#: users/models.py:171
 msgid "Link to news page etc."
 msgstr "Ссылка на новость и т.п."
 
-#: users/models.py:148
+#: users/models.py:172
 msgid "Start"
 msgstr "Начало"
 
-#: users/models.py:149
+#: users/models.py:173
 msgid "Description"
 msgstr "Описание"
+
+#: users/models.py:181
+msgid "Result (offline)"
+msgstr "Результат (очный тур)"
+
+#: users/models.py:182
+msgid "Results (offline)"
+msgstr "Результаты (очный тур)"
+
+#: users/models.py:188
+msgid "Scores"
+msgstr "Баллы"
+
+#: users/models.py:192 users/models.py:279
+msgid "Comment"
+msgstr "Комментарий"
+
+#: users/models.py:193
+msgid "Original work"
+msgstr "Скан работы"
+
+#: users/models.py:202
+msgid "Annotation"
+msgstr "Аннотация"
+
+#: users/models.py:203
+msgid "Annotations"
+msgstr "Аннотации"
+
+#: users/models.py:205
+msgid "Filename"
+msgstr "Название файла"
+
+#: users/models.py:207
+msgid "Annotation ID"
+msgstr "ID аннотации"
+
+#: users/models.py:209
+msgid "Page number"
+msgstr "Номер страницы"
+
+#: users/models.py:210 users/models.py:224
+msgid "Annotation content"
+msgstr "Содержимое аннотации"
+
+#: users/models.py:218 users/models.py:286
+msgid "Problem"
+msgstr "Задача"
+
+#: users/models.py:219
+msgid "Problems"
+msgstr "Задачи"
+
+#: users/models.py:222
+msgid "Statement"
+msgstr "Условия"
+
+#: users/models.py:226
+msgid "Opens at"
+msgstr "Время открытия"
+
+#: users/models.py:227
+msgid "Closes at"
+msgstr "Время закрытия"
+
+#: users/models.py:228
+msgid "Duration"
+msgstr "Продолжительность"
+
+#: users/models.py:229
+msgid "Visible"
+msgstr "Видимый"
+
+#: users/models.py:231
+msgid "Target form"
+msgstr "Класс участника"
+
+#: users/models.py:243
+#, python-format
+msgid "Problem set for %dth form"
+msgstr "Комплект заданий для %d-го класса"
+
+#: users/models.py:267
+msgid "Submission"
+msgstr "Решение"
+
+#: users/models.py:268
+msgid "Submissions"
+msgstr "Решения"
+
+#: users/models.py:272
+msgid "Solution file"
+msgstr "Файл с решением"
+
+#: users/models.py:273
+msgid "Solution file in pdf format"
+msgstr "Файл с решениями в формате pdf"
+
+#: users/models.py:288
+msgid "Started at"
+msgstr "Время начала"
+
+#: users/templates/admin/users/offlineresult/change_form.html:146
+msgid "Save and quit"
+msgstr "Сохранить и выйти"
+
+#: users/templates/admin/users/offlineresult/change_form.html:149
+msgid "Delete"
+msgstr "Удалить"
+
+#: users/templates/admin/users/offlineresult/change_form.html:151
+msgid "Save and add next"
+msgstr "Сохранить и добавить следующий"
+
+#: users/templates/admin/users/offlineresult/change_form.html:158
+msgid "Please correct the error below."
+msgstr "Пожалуйста, исправьте ошибку ниже."
+
+#: users/templates/admin/users/offlineresult/change_form.html:160
+msgid "Please correct the errors below."
+msgstr "Пожалуйста, исправьте ошибки ниже."
 
 #: users/templates/base.html:11
 msgid "PChO"
@@ -244,19 +401,19 @@ msgstr "Профиль"
 msgid "Register"
 msgstr "Зарегистрироваться"
 
-#: users/templates/base.html:79
-msgid "Online stage"
-msgstr "Онлайн-этап"
+#: users/templates/base.html:85
+msgid "Judging: offline stage"
+msgstr "Проверка: заочный этап"
 
-#: users/templates/base.html:87
+#: users/templates/base.html:94
 msgid "Logout"
 msgstr "Выход"
 
-#: users/templates/base.html:147
+#: users/templates/base.html:154
 msgid "Error occurred"
 msgstr "Ошибка"
 
-#: users/templates/base.html:156
+#: users/templates/base.html:163 users/templates/online.html:71
 msgid "OK"
 msgstr "ОК"
 
@@ -284,6 +441,109 @@ msgstr "Ближайшие мероприятия:"
 msgid "Log in"
 msgstr "Войти"
 
+#: users/templates/online.html:8
+msgid "Available contests"
+msgstr "Доступные комплекты"
+
+#: users/templates/online.html:19
+msgid "Not available for submission"
+msgstr "Недоступно для отправки"
+
+#: users/templates/online.html:24
+msgid "Edit submission"
+msgstr "Изменить посылку"
+
+#: users/templates/online.html:26 users/templates/online_submission.html:12
+msgid "Submit a solution"
+msgstr "Отправить решение"
+
+#: users/templates/online.html:31
+msgid "Join now"
+msgstr "Присоединиться"
+
+#: users/templates/online.html:38
+msgid "Remaining time:"
+msgstr "Оставшееся время:"
+
+#: users/templates/online.html:42
+msgid "Submission opens:"
+msgstr "Открытие:"
+
+#: users/templates/online.html:46
+msgid "Submission closes:"
+msgstr "Закрытие:"
+
+#: users/templates/online.html:60
+msgid "Cannot join requested contest."
+msgstr "Не удалось присоединиться к данному соревнованию."
+
+#: users/templates/online.html:67
+msgid ""
+"Unfortunately, joining the contest you requested is not possible now. If you "
+"believe it is a mistake, please contact us."
+msgstr ""
+"Не удалось присоединиться к данному соревнованию. Если вы считаете это "
+"ошибкой, пожалуйста, свяжитесь с нами."
+
+#: users/templates/online_start.html:9
+msgid "Contest is over."
+msgstr "Соревнование завершено."
+
+#: users/templates/online_start.html:13
+msgid "You can still view your solutions."
+msgstr "Вы можете просмотреть свои решения."
+
+#: users/templates/online_start.html:17
+msgid "View"
+msgstr "Просмотреть"
+
+#: users/templates/online_start.html:18 users/templates/online_start.html:39
+msgid "Back"
+msgstr "Назад"
+
+#: users/templates/online_start.html:24
+msgid "Ready to start?"
+msgstr "Готовы приступить?"
+
+#: users/templates/online_start.html:28
+msgid "You're now about to start online contest."
+msgstr "Вы в шаге от начала соревнования."
+
+#: users/templates/online_start.html:30
+msgid "You'll have"
+msgstr "У Вас будет"
+
+#: users/templates/online_start.html:30
+msgid "to complete. Submissions close "
+msgstr "на выполнение работы. Отправка закрывается "
+
+#: users/templates/online_start.html:37
+msgid "Start!"
+msgstr "Начать!"
+
+#: users/templates/online_submission.html:10
+msgid "Change the submission"
+msgstr "Изменить посылку"
+
+#: users/templates/online_submission.html:21
+#: users/templates/password_change_done.html:4
+#: users/templates/password_reset_complete.html:4
+#: users/templates/password_reset_done.html:4
+msgid "Success!"
+msgstr "Успех!"
+
+#: users/templates/online_submission.html:21
+msgid ""
+"You can alter your submission during the contest until it ends or your time "
+"is over."
+msgstr ""
+"Вы можете изменить свое решение до конца контеста или отведенного Вам "
+"времени."
+
+#: users/templates/online_submission.html:26
+msgid "You may safely leave this page and return later."
+msgstr "Вы можете покинуть страницу и вернуться позже."
+
 #: users/templates/password_change.html:4
 msgid "Change Password?"
 msgstr "Изменить пароль?"
@@ -291,12 +551,6 @@ msgstr "Изменить пароль?"
 #: users/templates/password_change.html:7
 msgid "Enter your old password, then new password and confirm it."
 msgstr "Введите Ваш старый пароль, затем новый, и подтвердите его."
-
-#: users/templates/password_change_done.html:4
-#: users/templates/password_reset_complete.html:4
-#: users/templates/password_reset_done.html:4
-msgid "Success!"
-msgstr "Успех!"
 
 #: users/templates/password_change_done.html:7
 msgid "Your password was changed successfully. "
@@ -365,10 +619,18 @@ msgstr "Личный кабинет участника"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: users/templates/registration.html:14
+#: users/templates/registration.html:13
 msgid "By clicking \"save\", you agree with"
 msgstr "Нажимая кнопку \"Сохранить\", вы подтверждаете согласие с"
 
-#: users/templates/registration.html:14
+#: users/templates/registration.html:13
 msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
+
+#: users/views.py:128
+msgid "You do not have access to editing annotations"
+msgstr "У Вас нет доступа к редактированию примечаний."
+
+#: users/views.py:243
+msgid "Cannot submit solutions to closed contest."
+msgstr "Невозможно изменить решение закрытого соревнования."
