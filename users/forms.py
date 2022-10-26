@@ -18,6 +18,8 @@ from .models import OnlineSubmission, User
 
 
 class UserCreateFormMixin:
+    is_create: bool
+
     class Meta:
         model = User
         exclude = (
@@ -40,7 +42,7 @@ class UserCreateFormMixin:
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.fields['birth_date'].input_formats = settings.DATE_INPUT_FORMATS
-        self.helper = helpers.UserUpdateFormHelper()
+        self.helper = helpers.UserUpdateFormHelper(is_create=self.is_create)
 
         if settings.DISABLE_OFFLINE_REG:
             self.fields['venue_selected'].disabled = True
@@ -70,6 +72,8 @@ class UserCreateFormMixin:
 
 
 class UserCreateForm(UserCreateFormMixin, UserCreationForm):
+    is_create = True
+
     def save(self, commit=True):
         u = super().save(commit=False)  # don't save on error
         u.email = self.cleaned_data['email']
@@ -79,6 +83,8 @@ class UserCreateForm(UserCreateFormMixin, UserCreationForm):
 
 
 class UserUpdateForm(UserCreateFormMixin, forms.ModelForm):
+    is_create = False
+
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)

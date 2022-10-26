@@ -250,9 +250,3 @@ class OnlineStageSubmitView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self):
         return super().get_context_data() | {'contest_over': self.is_over}
-
-    # def form_invalid(self, form):
-    #     import logging
-    #     logging.error('It sucks')
-    #     logging.error(form.errors)
-    #     return super().form_invalid(form)

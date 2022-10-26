@@ -60,20 +60,7 @@ class LoginFormHelper(CustomFormHelper):
 class UserUpdateFormHelper(CustomFormHelper):
     form_class = ''
 
-    txt = _('Change password')
-    layout = Layout(
-        Div(
-            Div(Field('email'), css_class='col-12 col-sm-9 order-2 order-sm-1'),
-            Div(
-                HTML(
-                    '<a class="btn btn-primary" '
-                    'href="{% url \'password_change\' %}">'
-                    f'{txt}</a>'
-                ),
-                css_class='col-12 col-sm-3 order-1 order-sm-2 prefs-form-btn',
-            ),
-            css_class='form-row',
-        ),
+    base_layout = [
         one_row(
             {
                 'first_name': '4 col-sm-12 col-lg-4',
@@ -135,7 +122,30 @@ class UserUpdateFormHelper(CustomFormHelper):
         FormActions(
             Div(Submit('submit', _('Save'), css_class='my-3'), css_class='text-center'),
         ),
-    )
+    ]
+
+    def __init__(self, *args, is_create, **kwargs):
+        super().__init__(*args, **kwargs)
+        if is_create:
+            email_div = Div(
+                Div(Field('email'), css_class='col-12 order-1'),
+                css_class='form-row',
+            )
+        else:
+            txt = _('Change password')
+            email_div = Div(
+                Div(Field('email'), css_class='col-12 col-sm-9 order-2 order-sm-1'),
+                Div(
+                    HTML(
+                        '<a class="btn btn-primary" '
+                        'href="{% url \'password_change\' %}">'
+                        f'{txt}</a>'
+                    ),
+                    css_class='col-12 col-sm-3 order-1 order-sm-2 prefs-form-btn',
+                ),
+                css_class='form-row',
+            )
+        self.layout = Layout(email_div, *self.base_layout)
 
 
 class UserFormHelper(CustomFormHelper):
