@@ -167,6 +167,7 @@ class OnlineStageListView(LoginRequiredMixin, ListView):
             sub = problem.onlinesubmission_set.filter(user=user).first()
             problem.was_started = sub is not None
             problem.was_submitted = sub and sub.is_submitted
+            problem.is_open = not sub or sub.remaining_time.total_seconds() >= 0
 
         return qs
 
@@ -245,14 +246,10 @@ class OnlineStageSubmitView(LoginRequiredMixin, UpdateView):
         return super().post(*args, **kwargs)
 
     def get_form_kwargs(self):
-        return super().get_form_kwargs() | {
-            'contest_over': self.is_over,
-        }
+        return super().get_form_kwargs() | {'contest_over': self.is_over}
 
     def get_context_data(self):
-        return super().get_context_data() | {
-            'contest_over': self.is_over,
-        }
+        return super().get_context_data() | {'contest_over': self.is_over}
 
     # def form_invalid(self, form):
     #     import logging

@@ -143,6 +143,10 @@ class OnlineSubmissionForm(forms.ModelForm):
         model = OnlineSubmission
         fields = ('file', 'comment')
 
+        widgets = {
+            'file': forms.ClearableFileInput(attrs={'accept': 'application/pdf'})
+        }
+
     def __init__(self, *args: Any, **kwargs: Any):
         contest_over = kwargs.pop('contest_over')
         super().__init__(*args, **kwargs)

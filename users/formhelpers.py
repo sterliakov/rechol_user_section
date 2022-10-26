@@ -227,6 +227,8 @@ class SetPasswordFormHelper(CustomFormHelper):
 
 class OnlineSubmissionFormHelper(CustomFormHelper):
     form_class = 'login_form noasterisks'
+    use_custom_control = True
+
     layout = Layout(
         'file',
         'comment',

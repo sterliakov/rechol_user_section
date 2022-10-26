@@ -5,13 +5,7 @@
        style="overflow-x: auto"
        id="participant-form">
     <div class="card-header d-flex justify-content-between">
-      <h1>
-        {% if object.is_submitted %}
-          {% trans "Change the submission" %}
-        {% else %}
-          {% trans "Submit a solution" %}
-        {% endif %}
-      </h1>
+      <h1>{{ object.problem.name }}</h1>
       <span class="d-block" id="time-remaining">{{ object.actual_end|timeuntil }}</span>
     </div>
     <div class="card-body" id="body-div-wrapper">
@@ -19,6 +13,10 @@
            class="alert alert-success alert-dismissible"
            style="display: none;">
         <strong>{% trans "Success!" %}</strong> {% trans "You can alter your submission during the contest until it ends or your time is over." %}
+      </div>
+      <div class="mb-4">
+        <p>{{ object.problem.description }}</p>
+        <a href="{{ object.problem.file.url }}" download target="_blank">{% trans "Download problem statement" %}</a>
       </div>
       {% crispy form %}
     </div>

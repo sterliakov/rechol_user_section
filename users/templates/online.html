@@ -20,8 +20,10 @@
                 {% elif p.was_started %}
                   <a href="{% url 'online_submission_update' p.id %}"
                      class="btn btn-primary">
-                    {% if p.was_submitted %}
-                      {% trans "Edit submission" %}
+                    {% if not p.is_open %}
+                      {% trans "View the submission" %}
+                    {% elif p.was_submitted %}
+                      {% trans "Edit the submission" %}
                     {% else %}
                       {% trans "Submit a solution" %}
                     {% endif %}
