@@ -60,7 +60,7 @@ class LoginFormHelper(CustomFormHelper):
 class UserUpdateFormHelper(CustomFormHelper):
     form_class = ''
 
-    base_layout = [
+    base_layout_1 = [
         one_row(
             {
                 'first_name': '4 col-sm-12 col-lg-4',
@@ -82,12 +82,8 @@ class UserUpdateFormHelper(CustomFormHelper):
                 'phone': '4 col-sm-12 col-lg-4',
             }
         ),
-        one_row(
-            {
-                'password1': '6 col-sm-12 col-lg-6',
-                'password2': '6 col-sm-12 col-lg-6',
-            }
-        ),
+    ]
+    base_layout_2 = [
         one_row(
             {
                 'vk_link': '6 col-sm-12 col-lg-6',
@@ -131,6 +127,18 @@ class UserUpdateFormHelper(CustomFormHelper):
                 Div(Field('email'), css_class='col-12 order-1'),
                 css_class='form-row',
             )
+            passwords_row = one_row(
+                {
+                    'password1': '6 col-sm-12 col-lg-6',
+                    'password2': '6 col-sm-12 col-lg-6',
+                }
+            )
+            self.layout = Layout(
+                email_div,
+                *self.base_layout_1,
+                passwords_row,
+                *self.base_layout_2,
+            )
         else:
             txt = _('Change password')
             email_div = Div(
@@ -145,7 +153,11 @@ class UserUpdateFormHelper(CustomFormHelper):
                 ),
                 css_class='form-row',
             )
-        self.layout = Layout(email_div, *self.base_layout)
+            self.layout = Layout(
+                email_div,
+                *self.base_layout_1,
+                *self.base_layout_2,
+            )
 
 
 class UserFormHelper(CustomFormHelper):
