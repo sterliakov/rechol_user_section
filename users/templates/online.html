@@ -13,7 +13,7 @@
         {% for p in object_list %}
           <li class="mb-5">
             <div class="row">
-              <h2 class="col d-block f_16">{{ p.name }}</h2>
+              <h2 class="col d-block f_16">{{ p.name|safe }}</h2>
               <div class="col-auto d-flex justify-content-end align-items-center">
                 {% if not p.is_open_now %}
                   <a href="javascript:void(0)" class="btn btn-primary disabled">{% trans "Not available for submission" %}</a>
@@ -34,7 +34,7 @@
                 {% endif %}
               </div>
             </div>
-            <p class="my-3">{{ p.repr_description }}</p>
+            <p class="my-3">{{ p.repr_description|safe }}</p>
             <div class="row">
               <div class="col-12 col-xl-4 row">
                 <span class="text-nowrap col-6">{% trans "Remaining time:" %}</span>
