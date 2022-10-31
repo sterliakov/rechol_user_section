@@ -248,5 +248,5 @@ class OnlineStageSubmitView(LoginRequiredMixin, UpdateView):
     def get_form_kwargs(self):
         return super().get_form_kwargs() | {'contest_over': self.is_over}
 
-    def get_context_data(self):
-        return super().get_context_data() | {'contest_over': self.is_over}
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {'contest_over': self.is_over}
