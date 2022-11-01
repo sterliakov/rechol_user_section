@@ -15,9 +15,8 @@
             <div class="row">
               <h2 class="col d-block f_16">{{ p.name|safe }}</h2>
               <div class="col-auto d-flex justify-content-end align-items-center">
-                {% if not p.is_open_now %}
-                  <a href="javascript:void(0)" class="btn btn-primary disabled">{% trans "Not available for submission" %}</a>
-                {% elif p.was_started %}
+                {# User has opened the statement before #}
+                {% if p.was_started %}
                   <a href="{% url 'online_submission_update' p.id %}"
                      class="btn btn-primary">
                     {% if not p.is_open %}
@@ -28,9 +27,13 @@
                       {% trans "Submit a solution" %}
                     {% endif %}
                   </a>
-                {% else %}
+                  {# User has not opened the statement before, but still can #}
+                {% elif p.is_open_now %}
                   <a href="{% url 'online_submission_start' p.id %}"
                      class="btn btn-primary">{% trans "Join now" %}</a>
+                  {# Nothing to do #}
+                {% else %}
+                  <a href="javascript:void(0)" class="btn btn-primary disabled">{% trans "Not available for submission" %}</a>
                 {% endif %}
               </div>
             </div>
