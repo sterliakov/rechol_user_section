@@ -388,4 +388,26 @@ class OnlineProblemAdmin(admin.ModelAdmin):
 
 @admin.register(OnlineSubmission)
 class OnlineSubmissionAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'get_user__first_name',
+        'get_user__last_name',
+        'get_user__participation_form',
+        'started',
+        'file',
+    )
+    search_fields = ('user__first_name', 'user__last_name', 'problem__name')
+    ordering = ('user__participation_form', 'user__last_name', 'user__first_name')
+
+    @admin.display(ordering='user__last_name', description=_('Participant last name'))
+    def get_user__last_name(self, obj):
+        return obj.user.last_name
+
+    @admin.display(ordering='user__first_name', description=_('Participant first name'))
+    def get_user__first_name(self, obj):
+        return obj.user.first_name
+
+    @admin.display(
+        ordering='user__participation_form', description=_('Participation form')
+    )
+    def get_user__participation_form(self, obj):
+        return obj.user.participation_form
