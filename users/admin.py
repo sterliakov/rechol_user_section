@@ -392,6 +392,7 @@ class OnlineSubmissionAdmin(admin.ModelAdmin):
         'get_user__first_name',
         'get_user__last_name',
         'get_user__participation_form',
+        'get_problem__name',
         'started',
         'file',
     )
@@ -405,6 +406,10 @@ class OnlineSubmissionAdmin(admin.ModelAdmin):
     @admin.display(ordering='user__first_name', description=_('Participant first name'))
     def get_user__first_name(self, obj):
         return obj.user.first_name
+
+    @admin.display(ordering='problem__name', description=_('Problem name'))
+    def get_problem__name(self, obj):
+        return obj.problem.name
 
     @admin.display(
         ordering='user__participation_form', description=_('Participation form')
