@@ -389,8 +389,8 @@ class OnlineProblemAdmin(admin.ModelAdmin):
 @admin.register(OnlineSubmission)
 class OnlineSubmissionAdmin(admin.ModelAdmin):
     list_display = (
-        'get_user__first_name',
         'get_user__last_name',
+        'get_user__first_name',
         'get_user__participation_form',
         'get_problem__name',
         'started',
