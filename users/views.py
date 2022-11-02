@@ -172,13 +172,27 @@ class OnlineStageListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class OnlineStageStartView(LoginRequiredMixin, DetailView):
-    model = OnlineSubmission
-    template_name = 'online_start.html'
-
+class ProblemDispatchMixin(LoginRequiredMixin):
     @cached_property
     def problem(self):
-        return OnlineProblem.objects.get(id=int(self.kwargs['problem_pk']))
+        return OnlineProblem.objects.get(
+            id=int(self.kwargs['problem_pk']),
+            target_form=self.request.user.participation_form,
+        )
+
+    def dispatch(self, *args, **kwargs):
+        try:
+            self.problem
+        except OnlineProblem.DoesNotExist:
+            return HttpResponseRedirect(
+                reverse('online_submission_index') + '?error=DENIED'
+            )
+        return super().dispatch(*args, **kwargs)
+
+
+class OnlineStageStartView(ProblemDispatchMixin, DetailView):
+    model = OnlineSubmission
+    template_name = 'online_start.html'
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs) | {
@@ -207,7 +221,7 @@ class OnlineStageStartView(LoginRequiredMixin, DetailView):
         return HttpResponseRedirect(reverse('online_submission_update', kwargs=kwargs))
 
 
-class OnlineStageSubmitView(LoginRequiredMixin, UpdateView):
+class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
     model = OnlineSubmission
     form_class = forms.OnlineSubmissionForm
     template_name = 'online_submission.html'
@@ -231,7 +245,7 @@ class OnlineStageSubmitView(LoginRequiredMixin, UpdateView):
         self.request = request
         try:
             self.object = self.get_object()
-        except OnlineSubmission.DoesNotExist:
+        except (OnlineSubmission.DoesNotExist, OnlineProblem.DoesNotExist):
             return HttpResponseRedirect(
                 reverse('online_submission_start', kwargs=kwargs)
             )
