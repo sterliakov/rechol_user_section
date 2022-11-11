@@ -188,6 +188,8 @@ class AppellationForm(forms.ModelForm):
         self.fields['response'].disabled = True
         if self.instance.id:
             self.fields['message'].disabled = True
+        else:
+            self.fields['response'].widget.attrs['data-display'] = 'none'
 
 
 AppellationFormset = forms.inlineformset_factory(
