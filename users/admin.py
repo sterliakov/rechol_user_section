@@ -7,12 +7,20 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.postgres.forms import SplitArrayField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from import_export.admin import ExportMixin, ImportExportMixin, ImportExportModelAdmin
 from import_export.fields import Field
 from import_export.formats.base_formats import XLSX
 from import_export.resources import ModelResource
 
-from .models import Event, OfflineResult, OnlineProblem, OnlineSubmission, User, Venue
+from .models import (
+    Appellation,
+    Event,
+    OfflineResult,
+    OnlineProblem,
+    OnlineSubmission,
+    User,
+    Venue,
+)
 
 
 class MyXLSX(XLSX):
@@ -307,11 +315,14 @@ class OfflineResultForm(forms.ModelForm):
         self.fields['scores'] = SplitArrayField(
             MarkField(required=False), size=6, required=False, initial=[]
         )
+        self.fields['final_scores'] = SplitArrayField(
+            MarkField(required=False), size=6, required=False, initial=[]
+        )
         self.fields['version'].widget.attrs['readonly'] = True
 
 
 @admin.register(OfflineResult)
-class OfflineResultAdmin(ConcurrentModelAdmin):
+class OfflineResultAdmin(ExportMixin, ConcurrentModelAdmin):
     resource_class = OfflineResultResource
     autocomplete_fields = ('user',)
     form = OfflineResultForm
@@ -416,3 +427,52 @@ class OnlineSubmissionAdmin(admin.ModelAdmin):
     )
     def get_user__participation_form(self, obj):
         return obj.user.participation_form
+
+
+class AppellationResource(ModelResource):
+    class Meta:
+        model = Appellation
+
+
+# class OfflineResultInline(admin.StackedInline):
+#     model = OfflineResult
+#     extra = 0
+
+
+@admin.register(Appellation)
+class AppellationAdmin(ExportMixin, admin.ModelAdmin):
+    resource_class = AppellationResource
+    list_display = (
+        'get_result__user__last_name',
+        'get_result__user__first_name',
+        'get_result__user__participation_form',
+        'message',
+        'response',
+        'when',
+    )
+    search_fields = (
+        'result__user__first_name',
+        'result__user__last_name',
+        'result__user__participation_form',
+    )
+    ordering = ('when',)
+    list_select_related = ('result', 'result__user')
+    # inlines = [OfflineResultInline]
+
+    @admin.display(
+        ordering='result__user__last_name', description=_('Participant last name')
+    )
+    def get_result__user__last_name(self, obj):
+        return obj.result.user.last_name
+
+    @admin.display(
+        ordering='result__user__first_name', description=_('Participant first name')
+    )
+    def get_result__user__first_name(self, obj):
+        return obj.result.user.first_name
+
+    @admin.display(
+        ordering='result__user__participation_form', description=_('Participation form')
+    )
+    def get_result__user__participation_form(self, obj):
+        return obj.result.user.participation_form

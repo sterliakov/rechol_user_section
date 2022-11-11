@@ -18,7 +18,7 @@ from django.views.generic.list import ListView
 from rest_framework import generics
 
 from . import forms
-from .models import Annotation, Event, OnlineProblem, OnlineSubmission
+from .models import Annotation, Event, OfflineResult, OnlineProblem, OnlineSubmission
 from .serializers import AnnotationSerializer
 
 
@@ -264,3 +264,39 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs) | {'contest_over': self.is_over}
+
+
+class AppellationView(LoginRequiredMixin, UpdateView):
+    model = OfflineResult
+    form_class = forms.OfflineResultDisplayForm
+    template_name = 'offline_appellation.html'
+    success_url = '?success=True'
+
+    def get_object(self, queryset=None):
+        try:
+            return self.request.user.offlineresult
+        except OfflineResult.DoesNotExist:
+            return None
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs) | {'object': self.object}
+        if self.object:
+            ctx['helper'] = forms.helpers.AppellationFormHelper()
+            if self.request.POST:
+                ctx['messages'] = forms.AppellationFormset(
+                    self.request.POST, instance=self.object
+                )
+            else:
+                ctx['messages'] = forms.AppellationFormset(instance=self.object)
+        return ctx
+
+    def form_valid(self, form):
+        # Doing nothing with form - it's readonly
+        if self.object:
+            formset = self.get_context_data()['messages']
+            if formset.is_valid():
+                formset.save()
+            else:
+                return self.form_invalid(form)
+
+        return super().form_valid(form)

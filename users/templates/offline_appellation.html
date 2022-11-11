@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags i18n %}
+{% block content %}
+  <style>
+    textarea {
+      resize:  none;
+      overflow: hidden;
+    }
+  </style>
+  <div class="card mb-0 dz-scroll"
+       style="overflow-x: auto"
+       id="participant-form">
+    <div class="card-header">
+      <h1>{% trans "In-person preliminary stage appellation" %}</h1>
+    </div>
+    <div class="card-body" id="body-div-wrapper">
+      {% if object %}
+        <div class="row">
+          <object data="{{ object.paper_original.url }}"
+                  type="application/pdf"
+                  width="600px"
+                  class="col-12 col-md-6">
+            <embed src="{{ object.paper_original.url }}" type="application/pdf">
+            <p>
+              {% trans "This browser does not support PDFs. Please download the PDF to view it" %}: <a href="{{ object.paper_original.url }}">{% trans "Download PDF" %}</a>.
+            </p>
+          </embed>
+        </object>
+        <div class="col-12 col-md-6">
+          <h2>{% trans "Current scores:" %}</h2>
+          {% crispy form %}
+          <h2>{% trans "Submit a claim" %}</h2>
+          <form method="post">
+            {% crispy messages helper %}
+            <div class="form-group">
+              <div class="text-center">
+                <button role="submit" class="btn btn-primary submit_btn mt-4 f_20">{% trans "Submit" %}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-center f_20">
+        {% trans "Your work was not found. If you have participated, please contact us " %}<a href="mailto:support@chemolymp.ru">{% trans "by email" %}</a>.
+      </p>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
+{% block extrascripts_after %}
+  <script>
+function autosize($sel){
+  const resize = $text => {
+    $text
+      .css('height', 'auto')
+      .css('height', $text[0].scrollHeight + 'px');
+  };
+
+  $sel.each(function(){
+    resize($(this).attr('rows', 1));
+  }).on('input', function(){
+    resize($(this));
+  });
+}
+autosize($('.autosize'));
+  </script>
+{% endblock extrascripts_after %}

@@ -14,7 +14,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from . import formhelpers as helpers
-from .models import OnlineSubmission, User
+from .models import Appellation, OfflineResult, OnlineSubmission, User
 
 
 class UserCreateFormMixin:
@@ -161,3 +161,35 @@ class OnlineSubmissionForm(forms.ModelForm):
             self.helper.layout = helpers.Layout(*self.helper.layout[:-1])
             for f in self.fields.values():
                 f.disabled = True
+
+
+class OfflineResultDisplayForm(forms.ModelForm):
+    class Meta:
+        model = OfflineResult
+        fields = ('scores', 'final_scores', 'comment')
+        widgets = {
+            'comment': forms.Textarea(attrs={'rows': 3}),
+        }
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.OfflineResultDisplayFormHelper()
+        for f in self.fields.values():
+            f.disabled = True
+
+
+class AppellationForm(forms.ModelForm):
+    class Meta:
+        model = Appellation
+        fields = ('message', 'response')
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.fields['response'].disabled = True
+        if self.instance.id:
+            self.fields['message'].disabled = True
+
+
+AppellationFormset = forms.inlineformset_factory(
+    OfflineResult, Appellation, form=AppellationForm, extra=1, can_delete=False
+)

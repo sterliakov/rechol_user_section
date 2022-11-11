@@ -26,6 +26,10 @@ online_stage_urls = [
     ),
 ]
 
+offline_stage_urls = [
+    path(r'', views.AppellationView.as_view(), name='offline_appellation'),
+]
+
 urlpatterns = [
     path(r'reg/', views.RegistrationView.as_view(), name='registration'),
     path(
@@ -85,4 +89,5 @@ urlpatterns = [
     ),
     path(r'api/v1/', include(api_urls)),
     path(r'online/', include(online_stage_urls)),
+    path(r'in_person/', include(offline_stage_urls)),
 ]

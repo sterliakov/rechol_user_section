@@ -193,8 +193,34 @@ class OfflineResult(models.Model):
     paper_original = models.FileField(_('Original work'), upload_to='originals')
     version = IntegerVersionField()
 
+    # Appellation
+    final_scores = ArrayField(
+        models.CharField(max_length=2, default='', blank=True, null=False),
+        size=6,
+        verbose_name=_('Final scores after appellation'),
+        blank=True,
+        default=list,
+    )
+
     def __str__(self):
         return f'Offline: {self.user}'
+
+
+class Appellation(models.Model):
+    class Meta:
+        verbose_name = _('Appellation')
+        verbose_name_plural = _('Appellations')
+
+    result = models.ForeignKey(
+        OfflineResult, models.CASCADE, null=False, blank=False, verbose_name=_('Result')
+    )
+    message = models.TextField(_('Message'), null=False, blank=False)
+    response = models.TextField(_('Response'), null=False, blank=True, default='')
+    when = models.DateTimeField(_('Created'), auto_now_add=True)
+    updated = models.DateTimeField(_('Updated'), auto_now=True)
+
+    def __str__(self):
+        return f'{self.result.user} {self.when:%d/%m/%Y}'
 
 
 class Annotation(models.Model):

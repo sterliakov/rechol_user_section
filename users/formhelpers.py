@@ -33,6 +33,10 @@ def selectpicker(field, kwargs=None):
     return Field(field, css_class='selectpicker', **kwargs)
 
 
+def autosize(field: str):
+    return Field(field, css_class='autosize')
+
+
 class LoginFormHelper(CustomFormHelper):
     form_class = 'login_form noasterisks'
 
@@ -264,4 +268,25 @@ class OnlineSubmissionFormHelper(CustomFormHelper):
                 css_class='text-center',
             ),
         ),
+    )
+
+
+class OfflineResultDisplayFormHelper(CustomFormHelper):
+    form_class = 'login_form noasterisks'
+    use_custom_control = True
+
+    layout = Layout(
+        'scores',
+        'final_scores',
+        autosize('comment'),
+    )
+
+
+class AppellationFormHelper(CustomFormHelper):
+    use_custom_control = True
+    form_tag = False
+
+    layout = Layout(
+        autosize('message'),
+        autosize('response'),
     )

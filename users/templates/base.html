@@ -75,6 +75,9 @@
               {% endif %}
             </li>
             <li class="nav-item">
+              <a class=" nav-link" href="{% url 'offline_appellation' %}">{% trans "In-person stage" %}</a>
+            </li>
+            <li class="nav-item">
               <a class=" nav-link" href="{% url 'online_submission_index' %}">{% trans "Online stage" %}</a>
             </li>
             {% if not request.user.is_anonymous and request.user.role == request.user.Roles.JUDGE %}
@@ -149,7 +152,9 @@
            role="document">
         <div class="modal-content">
           <div class="modal-header pt-4">
-            <h5 class="modal-title">{% trans "Error occurred" %}</h5>
+            <h5 class="modal-title">
+              {% trans "Error occurred" %}
+            </h5>
             <button type="button" class="close pt-4" data-dismiss="modal">
               <span>&times;</span>
             </button>
