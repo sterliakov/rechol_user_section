@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-11 18:09+0300\n"
+"POT-Creation-Date: 2022-11-13 14:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,7 +106,7 @@ msgstr "Изменить"
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:265 users/templates/offline_appellation.html:37
+#: users/formhelpers.py:265 users/templates/offline_appellation.html:46
 msgid "Submit"
 msgstr "Отправить"
 
@@ -487,25 +487,43 @@ msgstr "Апелляция очного отборочного этапа"
 
 #: users/templates/offline_appellation.html:25
 msgid "This browser does not support PDFs. Please download the PDF to view it"
-msgstr "Данный браузер не поддерживает просмотр PDF. Пожалуйста, скачайте файл, чтобы его просмотреть."
+msgstr ""
+"Данный браузер не поддерживает просмотр PDF. Пожалуйста, скачайте файл, "
+"чтобы его просмотреть."
 
 #: users/templates/offline_appellation.html:25
 msgid "Download PDF"
 msgstr "Скачать PDF"
 
-#: users/templates/offline_appellation.html:30
+#: users/templates/offline_appellation.html:33
+#: users/templates/offline_appellation.html:34
+#: users/templates/offline_appellation.html:35
+#: users/templates/offline_appellation.html:36
+msgid "Solutions for"
+msgstr "Решения для"
+
+#: users/templates/offline_appellation.html:33
+#: users/templates/offline_appellation.html:34
+#: users/templates/offline_appellation.html:35
+#: users/templates/offline_appellation.html:36
+msgid "form"
+msgstr "класса"
+
+#: users/templates/offline_appellation.html:39
 msgid "Current scores:"
 msgstr "Текущая оценка:"
 
-#: users/templates/offline_appellation.html:32
+#: users/templates/offline_appellation.html:41
 msgid "Submit a claim"
 msgstr "Отправить вопрос"
 
-#: users/templates/offline_appellation.html:45
+#: users/templates/offline_appellation.html:54
 msgid "Your work was not found. If you have participated, please contact us"
-msgstr "Ваша работа не найдена. Если Вы принимали участие в очном туре, пожалуйста, свяжитесь с нами"
+msgstr ""
+"Ваша работа не найдена. Если Вы принимали участие в очном туре, пожалуйста, "
+"свяжитесь с нами"
 
-#: users/templates/offline_appellation.html:45
+#: users/templates/offline_appellation.html:54
 msgid "by email"
 msgstr "по электронной почте"
 

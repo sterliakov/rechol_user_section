@@ -27,6 +27,27 @@
           </embed>
         </object>
         <div class="col-12 col-md-6">
+          <div>
+            <h2>{% trans "Problem statements:" %}</h2>
+            <ul>
+              <li>
+                <a href="{% static 'files/solutions_offline_23/8.pdf' %}"
+                   target="_blank">{% trans "Solutions for" %} 8 {% trans "form" %}</a>
+              </li>
+              <li>
+                <a href="{% static "files/solutions_offline_23/9.pdf" %}"
+                   target="_blank">{% trans "Solutions for" %} 9 {% trans "form" %} </a>
+              </li>
+              <li>
+                <a href="{% static "files/solutions_offline_23/10.pdf" %}"
+                   target="_blank">{% trans "Solutions for" %} 10 {% trans "form" %} </a>
+              </li>
+              <li>
+                <a href="{% static "files/solutions_offline_23/11.pdf" %}"
+                   target="_blank">{% trans "Solutions for" %} 11 {% trans "form" %} </a>
+              </li>
+            </ul>
+          </div>
           <h2>{% trans "Current scores:" %}</h2>
           {% crispy form %}
           <h2>{% trans "Submit a claim" %}</h2>
