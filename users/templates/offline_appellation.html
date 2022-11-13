@@ -28,29 +28,19 @@
         </object>
         <div class="col-12 col-md-6">
           <div>
-            <h2>{% trans "Problem statements:" %}</h2>
-            <ul>
-              <li>
-                <a href="{% static 'files/solutions_offline_23/8.pdf' %}"
-                   target="_blank">{% trans "Solutions for" %} 8 {% trans "form" %}</a>
-              </li>
-              <li>
-                <a href="{% static "files/solutions_offline_23/9.pdf" %}"
-                   target="_blank">{% trans "Solutions for" %} 9 {% trans "form" %} </a>
-              </li>
-              <li>
-                <a href="{% static "files/solutions_offline_23/10.pdf" %}"
-                   target="_blank">{% trans "Solutions for" %} 10 {% trans "form" %} </a>
-              </li>
-              <li>
-                <a href="{% static "files/solutions_offline_23/11.pdf" %}"
-                   target="_blank">{% trans "Solutions for" %} 11 {% trans "form" %} </a>
-              </li>
-            </ul>
+            {% with sol=user.participation_form|stringformat:'i'|add:'.pdf' %}
+              <h2>{% trans "Problem statements and solutions" %}</h2>
+              <a class="d-block"
+                 href="{% static 'files/statements_offline_23/'|add:sol %}"
+                 target="_blank">{% trans "Problem statements for" %} {{ user.participation_form }} {% trans "form" %}</a>
+              <a class="d-block"
+                 href="{% static 'files/solutions_offline_23/'|add:sol %}"
+                 target="_blank">{% trans "Solutions for" %} {{ user.participation_form }} {% trans "form" %}</a>
+            {% endwith %}
           </div>
-          <h2>{% trans "Current scores:" %}</h2>
+          <h2 class="mt-3">{% trans "Current scores:" %}</h2>
           {% crispy form %}
-          <h2>{% trans "Submit a claim" %}</h2>
+          <h2 class="mt-3">{% trans "Submit a claim" %}</h2>
           <form method="post">
             {% crispy messages helper %}
             <div class="form-group">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-13 14:40+0300\n"
+"POT-Creation-Date: 2022-11-13 15:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,7 +106,7 @@ msgstr "Изменить"
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:265 users/templates/offline_appellation.html:46
+#: users/formhelpers.py:265 users/templates/offline_appellation.html:44
 msgid "Submit"
 msgstr "Отправить"
 
@@ -495,35 +495,38 @@ msgstr ""
 msgid "Download PDF"
 msgstr "Скачать PDF"
 
+#: users/templates/offline_appellation.html:32
+msgid "Problem statements and solutions"
+msgstr "Задания и решения"
+
 #: users/templates/offline_appellation.html:33
-#: users/templates/offline_appellation.html:34
-#: users/templates/offline_appellation.html:35
-#: users/templates/offline_appellation.html:36
-msgid "Solutions for"
-msgstr "Решения для"
+msgid "Problem statements for"
+msgstr "Условия задач для"
 
 #: users/templates/offline_appellation.html:33
 #: users/templates/offline_appellation.html:34
-#: users/templates/offline_appellation.html:35
-#: users/templates/offline_appellation.html:36
 msgid "form"
 msgstr "класса"
 
-#: users/templates/offline_appellation.html:39
+#: users/templates/offline_appellation.html:34
+msgid "Solutions for"
+msgstr "Решения для"
+
+#: users/templates/offline_appellation.html:37
 msgid "Current scores:"
 msgstr "Текущая оценка:"
 
-#: users/templates/offline_appellation.html:41
+#: users/templates/offline_appellation.html:39
 msgid "Submit a claim"
 msgstr "Отправить вопрос"
 
-#: users/templates/offline_appellation.html:54
+#: users/templates/offline_appellation.html:52
 msgid "Your work was not found. If you have participated, please contact us"
 msgstr ""
 "Ваша работа не найдена. Если Вы принимали участие в очном туре, пожалуйста, "
 "свяжитесь с нами"
 
-#: users/templates/offline_appellation.html:54
+#: users/templates/offline_appellation.html:52
 msgid "by email"
 msgstr "по электронной почте"
 
