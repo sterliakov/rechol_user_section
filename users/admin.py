@@ -287,7 +287,7 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         return qs, may_have_duplicates
 
 
-class OfflineResultResource:
+class OfflineResultResource(ModelResource):
     class Meta:
         model = OfflineResult
 
