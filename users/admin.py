@@ -14,6 +14,7 @@ from import_export.resources import ModelResource
 
 from .models import (
     Appellation,
+    ConfigurationSingleton,
     Event,
     OfflineResult,
     OnlineProblem,
@@ -21,6 +22,8 @@ from .models import (
     User,
     Venue,
 )
+
+admin.site.register(ConfigurationSingleton)
 
 
 class MyXLSX(XLSX):

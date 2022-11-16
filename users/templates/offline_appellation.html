@@ -43,11 +43,15 @@
           <h2 class="mt-3">{% trans "Submit a claim" %}</h2>
           <form method="post">
             {% crispy messages helper %}
-            <div class="form-group">
-              <div class="text-center">
-                <button role="submit" class="btn btn-primary submit_btn mt-4 f_20">{% trans "Submit" %}</button>
+            {% if is_open %}
+              <div class="form-group">
+                <div class="text-center">
+                  <button role="submit" class="btn btn-primary submit_btn mt-4 f_20">{% trans "Submit" %}</button>
+                </div>
               </div>
-            </div>
+            {% else %}
+              <p>{% trans "Submission closed." %}</p>
+            {% endif %}
           </form>
         </div>
       </div>

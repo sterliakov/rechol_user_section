@@ -18,7 +18,14 @@ from django.views.generic.list import ListView
 from rest_framework import generics
 
 from . import forms
-from .models import Annotation, Event, OfflineResult, OnlineProblem, OnlineSubmission
+from .models import (
+    Annotation,
+    ConfigurationSingleton,
+    Event,
+    OfflineResult,
+    OnlineProblem,
+    OnlineSubmission,
+)
 from .serializers import AnnotationSerializer
 
 
@@ -278,19 +285,28 @@ class AppellationView(LoginRequiredMixin, UpdateView):
         except OfflineResult.DoesNotExist:
             return None
 
+    @cached_property
+    def is_open(self):
+        config = ConfigurationSingleton.objects.get()
+        return config.offline_appeal_start <= tz.now() <= config.offline_appeal_end
+
     def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs) | {'object': self.object}
+        ctx = super().get_context_data(**kwargs) | {
+            'object': self.object,
+            'is_open': self.is_open,
+        }
         if self.object:
             ctx['helper'] = forms.helpers.AppellationFormHelper()
-            if self.request.POST:
-                ctx['messages'] = forms.AppellationFormset(
-                    self.request.POST, instance=self.object
-                )
-            else:
-                ctx['messages'] = forms.AppellationFormset(instance=self.object)
+            ctx['messages'] = (
+                forms.AppellationFormset
+                if self.is_open
+                else forms.AppellationDisplayFormset
+            )(self.request.POST or None, instance=self.object)
         return ctx
 
     def form_valid(self, form):
+        if not self.is_open:
+            return HttpResponseRedirect('/')
         # Doing nothing with form - it's readonly
         if self.object:
             formset = self.get_context_data()['messages']

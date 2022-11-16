@@ -195,3 +195,6 @@ class AppellationForm(forms.ModelForm):
 AppellationFormset = forms.inlineformset_factory(
     OfflineResult, Appellation, form=AppellationForm, extra=1, can_delete=False
 )
+AppellationDisplayFormset = forms.inlineformset_factory(
+    OfflineResult, Appellation, form=AppellationForm, extra=0, can_delete=False
+)

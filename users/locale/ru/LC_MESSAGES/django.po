@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-13 15:00+0300\n"
+"POT-Creation-Date: 2022-11-16 13:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,56 +20,56 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:217 users/admin.py:240 users/models.py:27 users/models.py:247
+#: users/admin.py:220 users/admin.py:243 users/models.py:27 users/models.py:247
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:219
+#: users/admin.py:222
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:222 users/models.py:94 users/models.py:184
+#: users/admin.py:225 users/models.py:94 users/models.py:184
 #: users/models.py:306
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:223
+#: users/admin.py:226
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:225
+#: users/admin.py:228
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:236
+#: users/admin.py:239
 msgid "Important dates"
 msgstr "Важные даты"
 
-#: users/admin.py:304
+#: users/admin.py:307
 msgid "Not a valid integer or hyphen."
 msgstr "Введите число или дефис"
 
-#: users/admin.py:372 users/admin.py:413 users/admin.py:463
+#: users/admin.py:375 users/admin.py:416 users/admin.py:466
 msgid "Participant last name"
 msgstr "Фамилия участника"
 
-#: users/admin.py:376 users/admin.py:417 users/admin.py:469
+#: users/admin.py:379 users/admin.py:420 users/admin.py:472
 msgid "Participant first name"
 msgstr "Имя участника"
 
-#: users/admin.py:381 users/admin.py:426 users/admin.py:475 users/models.py:138
+#: users/admin.py:384 users/admin.py:429 users/admin.py:478 users/models.py:138
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/admin.py:386
+#: users/admin.py:389
 msgid "Total score"
 msgstr "Общая оценка"
 
-#: users/admin.py:390 users/models.py:23 users/models.py:145
+#: users/admin.py:393 users/models.py:23 users/models.py:145
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/admin.py:421
+#: users/admin.py:424
 msgid "Problem name"
 msgstr "Название задачи"
 
@@ -106,7 +106,7 @@ msgstr "Изменить"
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:265 users/templates/offline_appellation.html:44
+#: users/formhelpers.py:265 users/templates/offline_appellation.html:49
 msgid "Submit"
 msgstr "Отправить"
 
@@ -397,6 +397,22 @@ msgstr "Файл с решениями в формате pdf"
 msgid "Started at"
 msgstr "Время начала"
 
+#: users/models.py:337
+msgid "Configuration"
+msgstr "Настройки"
+
+#: users/models.py:338
+msgid "Configurations"
+msgstr "Настройки"
+
+#: users/models.py:340
+msgid "Start of offline stage appeal"
+msgstr "Начало апелляции заочного этапа"
+
+#: users/models.py:341
+msgid "End of offline stage appeal"
+msgstr "Конец апелляции заочного этапа"
+
 #: users/templates/admin/users/offlineresult/change_form.html:147
 msgid "Save and quit"
 msgstr "Сохранить и выйти"
@@ -499,34 +515,38 @@ msgstr "Скачать PDF"
 msgid "Problem statements and solutions"
 msgstr "Задания и решения"
 
-#: users/templates/offline_appellation.html:33
+#: users/templates/offline_appellation.html:35
 msgid "Problem statements for"
 msgstr "Условия задач для"
 
-#: users/templates/offline_appellation.html:33
-#: users/templates/offline_appellation.html:34
+#: users/templates/offline_appellation.html:35
+#: users/templates/offline_appellation.html:38
 msgid "form"
 msgstr "класса"
 
-#: users/templates/offline_appellation.html:34
+#: users/templates/offline_appellation.html:38
 msgid "Solutions for"
 msgstr "Решения для"
 
-#: users/templates/offline_appellation.html:37
+#: users/templates/offline_appellation.html:41
 msgid "Current scores:"
 msgstr "Текущая оценка:"
 
-#: users/templates/offline_appellation.html:39
+#: users/templates/offline_appellation.html:43
 msgid "Submit a claim"
 msgstr "Отправить вопрос"
 
-#: users/templates/offline_appellation.html:52
+#: users/templates/offline_appellation.html:53
+msgid "Submission closed."
+msgstr "Отправка закрыта."
+
+#: users/templates/offline_appellation.html:60
 msgid "Your work was not found. If you have participated, please contact us"
 msgstr ""
 "Ваша работа не найдена. Если Вы принимали участие в очном туре, пожалуйста, "
 "свяжитесь с нами"
 
-#: users/templates/offline_appellation.html:52
+#: users/templates/offline_appellation.html:60
 msgid "by email"
 msgstr "по электронной почте"
 
@@ -720,10 +740,10 @@ msgstr "Нажимая кнопку \"Сохранить\", вы подтвер�
 msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
-#: users/views.py:128
+#: users/views.py:135
 msgid "You do not have access to editing annotations"
 msgstr "У Вас нет доступа к редактированию примечаний."
 
-#: users/views.py:258
+#: users/views.py:265
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."

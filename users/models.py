@@ -330,3 +330,15 @@ class OnlineSubmission(models.Model):
             return self.problem.closes
         now = tz.now()
         return now + self.problem.get_remaining_time(self.user, now)
+
+
+class ConfigurationSingleton(models.Model):
+    class Meta:
+        verbose_name = _('Configuration')
+        verbose_name_plural = _('Configurations')
+
+    offline_appeal_start = models.DateTimeField(_('Start of offline stage appeal'))
+    offline_appeal_end = models.DateTimeField(_('End of offline stage appeal'))
+
+    def __str__(self):
+        return 'Configuration singleton'
