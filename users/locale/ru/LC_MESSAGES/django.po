@@ -407,11 +407,11 @@ msgstr "Настройки"
 
 #: users/models.py:340
 msgid "Start of offline stage appeal"
-msgstr "Начало апелляции заочного этапа"
+msgstr "Начало апелляции очного этапа"
 
 #: users/models.py:341
 msgid "End of offline stage appeal"
-msgstr "Конец апелляции заочного этапа"
+msgstr "Конец апелляции очного этапа"
 
 #: users/templates/admin/users/offlineresult/change_form.html:147
 msgid "Save and quit"
