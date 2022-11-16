@@ -39,6 +39,9 @@
             {% endwith %}
           </div>
           <h2 class="mt-3">{% trans "Current scores:" %}</h2>
+          <p>
+            {% trans "Total score" %}: <b>{{ object.total_score }}</b>
+          </p>
           {% crispy form %}
           <h2 class="mt-3">{% trans "Submit a claim" %}</h2>
           <form method="post">

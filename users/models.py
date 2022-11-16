@@ -1,4 +1,5 @@
 from datetime import timedelta
+from itertools import zip_longest
 
 from concurrency.fields import IntegerVersionField
 from django.contrib.auth.models import AbstractUser
@@ -183,7 +184,7 @@ class OfflineResult(models.Model):
 
     user = models.OneToOneField(User, models.CASCADE, verbose_name=_('Participant'))
     scores = ArrayField(
-        models.CharField(max_length=2, default='', blank=True, null=False),
+        models.CharField(max_length=4, default='', blank=True, null=False),
         size=6,
         verbose_name=_('Scores'),
         blank=True,
@@ -195,7 +196,7 @@ class OfflineResult(models.Model):
 
     # Appellation
     final_scores = ArrayField(
-        models.CharField(max_length=2, default='', blank=True, null=False),
+        models.CharField(max_length=4, default='', blank=True, null=False),
         size=6,
         verbose_name=_('Final scores after appellation'),
         blank=True,
@@ -204,6 +205,19 @@ class OfflineResult(models.Model):
 
     def __str__(self):
         return f'Offline: {self.user}'
+
+    @property
+    def total_score(self):
+        def _to_number(point):
+            try:
+                return float(point)
+            except ValueError:
+                return 0
+
+        return sum(
+            _to_number(final or initial)
+            for initial, final in zip_longest(self.scores, self.final_scores)
+        )
 
 
 class Appellation(models.Model):

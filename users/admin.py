@@ -291,8 +291,60 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
 
 
 class OfflineResultResource(ModelResource):
+    score1 = Field()
+    score2 = Field()
+    score3 = Field()
+    score4 = Field()
+    score5 = Field()
+    score6 = Field()
+    total = Field()
+
     class Meta:
         model = OfflineResult
+        raise_errors = True
+
+        fields = export_order = (
+            'user__first_name',
+            'user__last_name',
+            'user__patronymic_name',
+            'user__gender',
+            'user__birth_date',
+            'user__email',
+            'user__phone',
+            'user__passport',
+            'user__city',
+            'user__school',
+            'user__actual_form',
+            'user__participation_form',
+            'user__vk_link',
+            'user__telegram_nickname',
+            'user__venue_selected',
+            'score1',
+            'score2',
+            'score3',
+            'score4',
+            'score5',
+            'score6',
+            'total',
+        )
+
+    def __getattr__(self, key):
+        if key.startswith('dehydrate_score'):
+            num = int(key[-1])
+
+            def fn(instance):
+                try:
+                    return instance.final_scores[num - 1]
+                except IndexError:
+                    try:
+                        return instance.scores[num - 1]
+                    except IndexError:
+                        return 0
+
+            return fn
+
+    def dehydrate_total(self, instance):
+        return instance.total_score
 
 
 class MarkField(forms.CharField):
@@ -388,7 +440,7 @@ class OfflineResultAdmin(ExportMixin, ConcurrentModelAdmin):
 
     @admin.display(description=_('Total score'))
     def get_total(self, obj):
-        return sum(float(x) if x and x != '-' else 0 for x in obj.scores)
+        return obj.total_score
 
     @admin.display(description=_('Venue'))
     def get_user__venue_selected(self, obj):
