@@ -290,43 +290,31 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         return qs, may_have_duplicates
 
 
-class OfflineResultResource(ModelResource):
+USER_FIELDS = (
+    'user__first_name',
+    'user__last_name',
+    'user__patronymic_name',
+    'user__gender',
+    'user__birth_date',
+    'user__email',
+    'user__phone',
+    'user__passport',
+    'user__city',
+    'user__school',
+    'user__actual_form',
+    'user__participation_form',
+    'user__vk_link',
+    'user__telegram_nickname',
+    'user__venue_selected',
+)
+
+
+class _ResultResource(ModelResource):
     score1 = Field()
     score2 = Field()
     score3 = Field()
     score4 = Field()
-    score5 = Field()
-    score6 = Field()
     total = Field()
-
-    class Meta:
-        model = OfflineResult
-        raise_errors = True
-
-        fields = export_order = (
-            'user__first_name',
-            'user__last_name',
-            'user__patronymic_name',
-            'user__gender',
-            'user__birth_date',
-            'user__email',
-            'user__phone',
-            'user__passport',
-            'user__city',
-            'user__school',
-            'user__actual_form',
-            'user__participation_form',
-            'user__vk_link',
-            'user__telegram_nickname',
-            'user__venue_selected',
-            'score1',
-            'score2',
-            'score3',
-            'score4',
-            'score5',
-            'score6',
-            'total',
-        )
 
     def __getattr__(self, key):
         if key.startswith('dehydrate_score'):
@@ -345,6 +333,41 @@ class OfflineResultResource(ModelResource):
 
     def dehydrate_total(self, instance):
         return instance.total_score
+
+
+class OfflineResultResource(_ResultResource):
+    score5 = Field()
+    score6 = Field()
+
+    class Meta:
+        model = OfflineResult
+        raise_errors = True
+
+        fields = export_order = (
+            *USER_FIELDS,
+            'score1',
+            'score2',
+            'score3',
+            'score4',
+            'score5',
+            'score6',
+            'total',
+        )
+
+
+class OnlineSubmissionResource(_ResultResource):
+    class Meta:
+        model = OnlineSubmission
+        raise_errors = True
+
+        fields = export_order = (
+            *USER_FIELDS,
+            'score1',
+            'score2',
+            'score3',
+            'score4',
+            'total',
+        )
 
 
 class MarkField(forms.CharField):
@@ -376,28 +399,35 @@ class OfflineResultForm(forms.ModelForm):
         self.fields['version'].widget.attrs['readonly'] = True
 
 
-@admin.register(OfflineResult)
-class OfflineResultAdmin(ExportMixin, ConcurrentModelAdmin):
-    resource_class = OfflineResultResource
-    autocomplete_fields = ('user',)
-    form = OfflineResultForm
+class OnlineSubmissionForm(forms.ModelForm):
+    class Meta:
+        model = OnlineSubmission
+        exclude = ('started',)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['scores'] = SplitArrayField(
+            MarkField(required=False), size=4, required=False, initial=[]
+        )
+        self.fields['final_scores'] = SplitArrayField(
+            MarkField(required=False), size=4, required=False, initial=[]
+        )
+
+
+class _ResultAdminMixin(ExportMixin):
     list_display = (
         'get_user__last_name',
         'get_user__first_name',
         'get_user__participation_form',
         'scores',
         'get_total',
-        'get_user__venue_selected',
     )
     search_fields = (
         'user__last_name',
         'user__first_name',
         'user__participation_form',
-        'user__venue_selected__city',
-        'user__venue_selected__name',
     )
-    ordering = ('user__participation_form', 'user__last_name')
+    ordering = ('user__participation_form', 'user__last_name', 'user__first_name')
 
     def has_add_permission(self, request):
         return not request.user.is_anonymous and (
@@ -442,6 +472,20 @@ class OfflineResultAdmin(ExportMixin, ConcurrentModelAdmin):
     def get_total(self, obj):
         return obj.total_score
 
+
+@admin.register(OfflineResult)
+class OfflineResultAdmin(_ResultAdminMixin, ConcurrentModelAdmin):
+    resource_class = OfflineResultResource
+    form = OfflineResultForm
+    autocomplete_fields = ('user',)
+
+    list_display = (*_ResultAdminMixin.list_display, 'get_user__venue_selected')
+    search_fields = (
+        *_ResultAdminMixin.search_fields,
+        'user__venue_selected__city',
+        'user__venue_selected__name',
+    )
+
     @admin.display(description=_('Venue'))
     def get_user__venue_selected(self, obj):
         return str(obj.user.venue_selected or '')
@@ -453,35 +497,22 @@ class OnlineProblemAdmin(admin.ModelAdmin):
 
 
 @admin.register(OnlineSubmission)
-class OnlineSubmissionAdmin(admin.ModelAdmin):
+class OnlineSubmissionAdmin(_ResultAdminMixin, admin.ModelAdmin):
+    resource_class = OnlineSubmissionResource
+    form = OnlineSubmissionForm
+    autocomplete_fields = ('user',)
+
     list_display = (
-        'get_user__last_name',
-        'get_user__first_name',
-        'get_user__participation_form',
+        *_ResultAdminMixin.list_display,
         'get_problem__name',
         'started',
         'file',
     )
-    search_fields = ('user__first_name', 'user__last_name', 'problem__name')
-    ordering = ('user__participation_form', 'user__last_name', 'user__first_name')
-
-    @admin.display(ordering='user__last_name', description=_('Participant last name'))
-    def get_user__last_name(self, obj):
-        return obj.user.last_name
-
-    @admin.display(ordering='user__first_name', description=_('Participant first name'))
-    def get_user__first_name(self, obj):
-        return obj.user.first_name
+    search_fields = (*_ResultAdminMixin.search_fields, 'problem__name')
 
     @admin.display(ordering='problem__name', description=_('Problem name'))
     def get_problem__name(self, obj):
         return obj.problem.name
-
-    @admin.display(
-        ordering='user__participation_form', description=_('Participation form')
-    )
-    def get_user__participation_form(self, obj):
-        return obj.user.participation_form
 
 
 class AppellationResource(ModelResource):

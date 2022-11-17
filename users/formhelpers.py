@@ -256,7 +256,7 @@ class OnlineSubmissionFormHelper(CustomFormHelper):
     use_custom_control = True
 
     layout = Layout(
-        'file',
+        'paper_original',
         'comment',
         FormActions(
             Div(

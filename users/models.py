@@ -177,7 +177,22 @@ class Event(models.Model):
         return self.title[:30]
 
 
-class OfflineResult(models.Model):
+class _TotalMixin:
+    @property
+    def total_score(self):
+        def _to_number(point):
+            try:
+                return float(point)
+            except ValueError:
+                return 0
+
+        return sum(
+            _to_number(final or initial)
+            for initial, final in zip_longest(self.scores, self.final_scores)
+        )
+
+
+class OfflineResult(_TotalMixin, models.Model):
     class Meta:
         verbose_name = _('Result (offline)')
         verbose_name_plural = _('Results (offline)')
@@ -205,19 +220,6 @@ class OfflineResult(models.Model):
 
     def __str__(self):
         return f'Offline: {self.user}'
-
-    @property
-    def total_score(self):
-        def _to_number(point):
-            try:
-                return float(point)
-            except ValueError:
-                return 0
-
-        return sum(
-            _to_number(final or initial)
-            for initial, final in zip_longest(self.scores, self.final_scores)
-        )
 
 
 class Appellation(models.Model):
@@ -302,13 +304,13 @@ class OnlineProblem(models.Model):
         return self.opens <= now <= self.closes + timedelta(seconds=10)
 
 
-class OnlineSubmission(models.Model):
+class OnlineSubmission(_TotalMixin, models.Model):
     class Meta:
         verbose_name = _('Submission')
         verbose_name_plural = _('Submissions')
         unique_together = ('user', 'problem')
 
-    file = models.FileField(
+    paper_original = models.FileField(
         _('Solution file'),
         help_text=_('Solution file in pdf format'),
         upload_to='online_submissions',
@@ -327,8 +329,28 @@ class OnlineSubmission(models.Model):
     )
     started = models.DateTimeField(_('Started at'), blank=False, null=False)
 
+    scores = ArrayField(
+        models.CharField(max_length=4, default='', blank=True, null=False),
+        size=4,
+        verbose_name=_('Scores'),
+        blank=True,
+        default=list,
+    )
+    # Appellation
+    final_scores = ArrayField(
+        models.CharField(max_length=4, default='', blank=True, null=False),
+        size=4,
+        verbose_name=_('Final scores after appellation'),
+        blank=True,
+        default=list,
+    )
+
     def __str__(self):
         return f'Solution by {self.user} (online)'
+
+    @property
+    def file(self):
+        return self.paper_original
 
     @property
     def remaining_time(self):
@@ -336,7 +358,7 @@ class OnlineSubmission(models.Model):
 
     @property
     def is_submitted(self):
-        return self.file or self.comment
+        return self.paper_original or self.comment
 
     @property
     def actual_end(self):

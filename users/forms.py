@@ -147,10 +147,12 @@ class SetPasswordForm(_SetPasswordForm):
 class OnlineSubmissionForm(forms.ModelForm):
     class Meta:
         model = OnlineSubmission
-        fields = ('file', 'comment')
+        fields = ('paper_original', 'comment')
 
         widgets = {
-            'file': forms.ClearableFileInput(attrs={'accept': 'application/pdf'})
+            'paper_original': forms.ClearableFileInput(
+                attrs={'accept': 'application/pdf'}
+            )
         }
 
     def __init__(self, *args: Any, **kwargs: Any):
