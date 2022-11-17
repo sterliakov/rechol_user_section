@@ -517,15 +517,13 @@ class OnlineSubmissionAdmin(_ResultAdminMixin, admin.ModelAdmin):
     def get_problem__name(self, obj):
         return obj.problem.name
 
-    @admin.display(description=_('Can be graded?'))
+    @admin.display(description=_('Was submitted?'))
     def was_submitted(self, obj):
-        return obj.file
+        return bool(obj.file)
 
     def get_search_results(self, request, queryset, search_term):
-        if search_term == 'ONLY_GRADEABLE':
-            search_term, only_gradeable = '', True
-        else:
-            only_gradeable = False
+        if only_gradeable := ('ONLY_GRADEABLE' in search_term):
+            search_term = search_term.replace('ONLY_GRADEABLE', '').strip()
 
         qs, may_have_duplicates = super().get_search_results(
             request,

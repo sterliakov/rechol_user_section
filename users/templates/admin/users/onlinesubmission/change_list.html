@@ -3,6 +3,11 @@
 {% block object-tools-items %}
   {{ block.super }}
   <li>
-    <a class="historylink" href="?q=ONLY_GRADEABLE">{% trans "Gradeable only" %}</a>
+    <a id="only_gradeable" class="historylink" href="?q=ONLY_GRADEABLE">{% trans "Gradeable only" %}</a>
   </li>
+  <script>
+      const url = new URL(window.location.href);
+      url.searchParams.set('q', (url.searchParams.get('q') || '') + ' ONLY_GRADEABLE');
+      document.getElementById('only_gradeable').href = url.search;
+  </script>
 {% endblock object-tools-items %}
