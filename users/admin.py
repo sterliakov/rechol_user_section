@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.postgres.forms import SplitArrayField
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from import_export.admin import ExportMixin, ImportExportMixin, ImportExportModelAdmin
 from import_export.fields import Field
@@ -531,9 +532,7 @@ class OnlineSubmissionAdmin(_ResultAdminMixin, admin.ModelAdmin):
             search_term,
         )
         if only_gradeable:
-            qs = qs.filter(paper_original__isnull=False).exclude(
-                problem__name__startswith='Пробн'
-            )
+            qs = qs.exclude(Q(problem__name__startswith='Пробн') | Q(paper_original=''))
         return qs, may_have_duplicates
 
 
