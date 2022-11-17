@@ -485,6 +485,7 @@ class OfflineResultAdmin(_ResultAdminMixin, ConcurrentModelAdmin):
         'user__venue_selected__city',
         'user__venue_selected__name',
     )
+    list_select_related = ('user',)
 
     @admin.display(description=_('Venue'))
     def get_user__venue_selected(self, obj):
@@ -501,18 +502,41 @@ class OnlineSubmissionAdmin(_ResultAdminMixin, admin.ModelAdmin):
     resource_class = OnlineSubmissionResource
     form = OnlineSubmissionForm
     autocomplete_fields = ('user',)
+    change_list_template = 'admin/users/onlinesubmission/change_list.html'
 
     list_display = (
         *_ResultAdminMixin.list_display,
+        'was_submitted',
         'get_problem__name',
         'started',
-        'file',
     )
     search_fields = (*_ResultAdminMixin.search_fields, 'problem__name')
+    list_select_related = ('user', 'problem')
 
     @admin.display(ordering='problem__name', description=_('Problem name'))
     def get_problem__name(self, obj):
         return obj.problem.name
+
+    @admin.display(description=_('Can be graded?'))
+    def was_submitted(self, obj):
+        return obj.file
+
+    def get_search_results(self, request, queryset, search_term):
+        if search_term == 'ONLY_GRADEABLE':
+            search_term, only_gradeable = '', True
+        else:
+            only_gradeable = False
+
+        qs, may_have_duplicates = super().get_search_results(
+            request,
+            queryset,
+            search_term,
+        )
+        if only_gradeable:
+            qs = qs.filter(paper_original__isnull=False).exclude(
+                problem__name__startswith='Пробн'
+            )
+        return qs, may_have_duplicates
 
 
 class AppellationResource(ModelResource):
