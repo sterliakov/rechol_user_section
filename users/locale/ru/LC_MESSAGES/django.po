@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-17 18:44+0300\n"
+"POT-Creation-Date: 2022-11-17 19:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,62 +20,62 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:220 users/admin.py:243 users/models.py:28 users/models.py:263
+#: users/admin.py:221 users/admin.py:244 users/models.py:28 users/models.py:263
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:222
+#: users/admin.py:223
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:225 users/models.py:95 users/models.py:200
+#: users/admin.py:226 users/models.py:95 users/models.py:200
 #: users/models.py:322
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:226
+#: users/admin.py:227
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:228
+#: users/admin.py:229
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:239
+#: users/admin.py:240
 msgid "Important dates"
 msgstr "Важные даты"
 
-#: users/admin.py:382
+#: users/admin.py:383
 msgid "Not a valid integer or hyphen."
 msgstr "Введите число или дефис"
 
-#: users/admin.py:457 users/admin.py:569
+#: users/admin.py:458 users/admin.py:570
 msgid "Participant last name"
 msgstr "Фамилия участника"
 
-#: users/admin.py:461 users/admin.py:575
+#: users/admin.py:462 users/admin.py:576
 msgid "Participant first name"
 msgstr "Имя участника"
 
-#: users/admin.py:466 users/admin.py:581 users/models.py:139
+#: users/admin.py:467 users/admin.py:582 users/models.py:139
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/admin.py:471 users/templates/offline_appellation.html:43
+#: users/admin.py:472 users/templates/offline_appellation.html:43
 msgid "Total score"
 msgstr "Общая оценка"
 
-#: users/admin.py:489 users/models.py:24 users/models.py:146
+#: users/admin.py:491 users/models.py:24 users/models.py:146
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/admin.py:514
+#: users/admin.py:517
 msgid "Problem name"
 msgstr "Название задачи"
 
-#: users/admin.py:518
-msgid "Can be graded?"
-msgstr ""
+#: users/admin.py:521
+msgid "Was submitted?"
+msgstr "Была отправлена?"
 
 #: users/formhelpers.py:43
 msgid "Forgot Password?"
@@ -383,12 +383,12 @@ msgid "Problem set for %dth form"
 msgstr "Комплект заданий для %d-го класса"
 
 #: users/models.py:309
-msgid "Submission"
-msgstr "Решение"
+msgid "Result (online)"
+msgstr "Результат (заочный тур)"
 
 #: users/models.py:310
-msgid "Submissions"
-msgstr "Решения"
+msgid "Results (online)"
+msgstr "Результаты (заочный тур)"
 
 #: users/models.py:314
 msgid "Solution file"
@@ -443,7 +443,7 @@ msgstr "Пожалуйста, исправьте ошибку ниже."
 msgid "Please correct the errors below."
 msgstr "Пожалуйста, исправьте ошибки ниже."
 
-#: users/templates/admin/users/onlinesubmission/change_list.html:5
+#: users/templates/admin/users/onlinesubmission/change_list.html:6
 msgid "Gradeable only"
 msgstr "Подлежат оценке"
 
@@ -472,8 +472,8 @@ msgid "In-person stage"
 msgstr "Очный этап"
 
 #: users/templates/base.html:88
-msgid "Judging: offline stage"
-msgstr "Проверка: заочный этап"
+msgid "Judging"
+msgstr "Проверка"
 
 #: users/templates/base.html:97
 msgid "Logout"
@@ -761,3 +761,12 @@ msgstr "У Вас нет доступа к редактированию прим
 #: users/views.py:265
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."
+
+#~ msgid "Submission"
+#~ msgstr "Решение"
+
+#~ msgid "Submissions"
+#~ msgstr "Решения"
+
+#~ msgid "Judging: offline stage"
+#~ msgstr "Проверка: заочный этап"

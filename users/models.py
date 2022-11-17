@@ -306,8 +306,8 @@ class OnlineProblem(models.Model):
 
 class OnlineSubmission(_TotalMixin, models.Model):
     class Meta:
-        verbose_name = _('Submission')
-        verbose_name_plural = _('Submissions')
+        verbose_name = _('Result (online)')
+        verbose_name_plural = _('Results (online)')
         unique_together = ('user', 'problem')
 
     paper_original = models.FileField(
