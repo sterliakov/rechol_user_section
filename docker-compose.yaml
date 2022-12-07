@@ -37,6 +37,8 @@ services:
     networks:
       - djangonetwork
     restart: always
+    ports:
+      - 6379:6379
   app:
     env_file: .env
     build:

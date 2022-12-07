@@ -24,6 +24,11 @@ online_stage_urls = [
         views.OnlineStageSubmitView.as_view(),
         name='online_submission_update',
     ),
+    path(
+        r'appeal/<int:problem_pk>/',
+        views.OnlineAppellationView.as_view(),
+        name='online_submission_appeal',
+    ),
 ]
 
 offline_stage_urls = [

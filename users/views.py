@@ -270,7 +270,13 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
         return super().get_form_kwargs() | {'contest_over': self.is_over}
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs) | {'contest_over': self.is_over}
+        config = ConfigurationSingleton.objects.get()
+        appeal_open = config.online_appeal_start <= tz.now() <= config.online_appeal_end
+
+        return super().get_context_data(**kwargs) | {
+            'contest_over': self.is_over,
+            'appeal_open': appeal_open,
+        }
 
 
 class AppellationView(LoginRequiredMixin, UpdateView):
@@ -301,6 +307,53 @@ class AppellationView(LoginRequiredMixin, UpdateView):
                 forms.AppellationFormset
                 if self.is_open
                 else forms.AppellationDisplayFormset
+            )(self.request.POST or None, instance=self.object)
+        return ctx
+
+    def form_valid(self, form):
+        if not self.is_open:
+            return HttpResponseRedirect('/')
+        # Doing nothing with form - it's readonly
+        if self.object:
+            formset = self.get_context_data()['messages']
+            if formset.is_valid():
+                formset.save()
+            else:
+                return self.form_invalid(form)
+
+        return super().form_valid(form)
+
+
+class OnlineAppellationView(LoginRequiredMixin, UpdateView):
+    model = OnlineSubmission
+    form_class = forms.OnlineSubmissionDisplayForm
+    template_name = 'online_appellation.html'
+    success_url = '?success=True'
+
+    def get_object(self, queryset=None):
+        try:
+            return self.request.user.onlinesubmission_set.get(
+                problem_id=int(self.kwargs['problem_pk'])
+            )
+        except OnlineSubmission.DoesNotExist:
+            return None
+
+    @cached_property
+    def is_open(self):
+        config = ConfigurationSingleton.objects.get()
+        return config.online_appeal_start <= tz.now() <= config.online_appeal_end
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs) | {
+            'object': self.object,
+            'is_open': self.is_open,
+        }
+        if self.object:
+            ctx['helper'] = forms.helpers.AppellationFormHelper()
+            ctx['messages'] = (
+                forms.OnlineAppellationFormset
+                if self.is_open
+                else forms.OnlineAppellationDisplayFormset
             )(self.request.POST or None, instance=self.object)
         return ctx
 

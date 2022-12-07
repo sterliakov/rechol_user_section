@@ -271,6 +271,19 @@ class OnlineSubmissionFormHelper(CustomFormHelper):
     )
 
 
+class OnlineSubmissionDisplayFormHelper(CustomFormHelper):
+    form_class = 'login_form noasterisks'
+    use_custom_control = True
+    field_class = 'input-group'
+
+    layout = Layout(
+        'scores',
+        'final_scores',
+        'paper_original',
+        autosize('comment'),
+    )
+
+
 class OfflineResultDisplayFormHelper(CustomFormHelper):
     form_class = 'login_form noasterisks'
     use_custom_control = True

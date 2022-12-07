@@ -222,14 +222,10 @@ class OfflineResult(_TotalMixin, models.Model):
         return f'Offline: {self.user}'
 
 
-class Appellation(models.Model):
+class AppellationBase(models.Model):
     class Meta:
-        verbose_name = _('Appellation')
-        verbose_name_plural = _('Appellations')
+        abstract = True
 
-    result = models.ForeignKey(
-        OfflineResult, models.CASCADE, null=False, blank=False, verbose_name=_('Result')
-    )
     message = models.TextField(_('Message'), null=False, blank=False)
     response = models.TextField(_('Response'), null=False, blank=True, default='')
     when = models.DateTimeField(_('Created'), auto_now_add=True)
@@ -237,6 +233,30 @@ class Appellation(models.Model):
 
     def __str__(self):
         return f'{self.result.user} {self.when:%d/%m/%Y}'
+
+
+class Appellation(AppellationBase):
+    class Meta:
+        verbose_name = _('Appellation (offline)')
+        verbose_name_plural = _('Appellations (offline)')
+
+    result = models.ForeignKey(
+        OfflineResult, models.CASCADE, null=False, blank=False, verbose_name=_('Result')
+    )
+
+
+class OnlineAppellation(AppellationBase):
+    class Meta:
+        verbose_name = _('Appellation (online)')
+        verbose_name_plural = _('Appellations (online)')
+
+    result = models.ForeignKey(
+        'OnlineSubmission',
+        models.CASCADE,
+        null=False,
+        blank=False,
+        verbose_name=_('Result'),
+    )
 
 
 class Annotation(models.Model):
@@ -262,6 +282,7 @@ class OnlineProblem(models.Model):
 
     name = models.CharField(_('Name'), max_length=120, blank=False, null=False)
     file = models.FileField(_('Statement'), upload_to='problems')
+    solution = models.FileField(_('Solutions'), upload_to='solutions', null=True)
     comment = models.TextField(
         _('Annotation content'), blank=True, null=False, default=''
     )
@@ -375,6 +396,8 @@ class ConfigurationSingleton(models.Model):
 
     offline_appeal_start = models.DateTimeField(_('Start of offline stage appeal'))
     offline_appeal_end = models.DateTimeField(_('End of offline stage appeal'))
+    online_appeal_start = models.DateTimeField(_('Start of online stage appeal'))
+    online_appeal_end = models.DateTimeField(_('End of online stage appeal'))
 
     def __str__(self):
         return 'Configuration singleton'

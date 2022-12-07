@@ -19,6 +19,25 @@
         <a href="{{ object.problem.file.url }}" download target="_blank">{% trans "Download problem statement" %}</a>
       </div>
       {% crispy form %}
+      {% if appeal_open %}
+        <div class="mb-4">
+          <h2>{% trans "Scores" %}</h2>
+          <p>
+            {% trans "Total score" %}: <b>{{ object.total_score }}</b>
+          </p>
+          <div class="input-group">
+            {% for score in object.scores %}
+              <input class="form-control text-center flex-grow-0"
+                     style="min-width: 6em"
+                     type="text"
+                     readonly="readonly"
+                     value="{{ score }}">
+            {% endfor %}
+          </div>
+          <a href="{% url 'online_submission_appeal' object.problem.id %}"
+             class="btn btn-primary">{% trans "Appeal" %}</a>
+        </div>
+      {% endif %}
     </div>
     <div class="card-footer">
       <p>{% trans "You may safely leave this page and return later." %}</p>

@@ -10,11 +10,31 @@ from django.contrib.auth.forms import PasswordChangeForm as _PasswordChangeForm
 from django.contrib.auth.forms import PasswordResetForm as _PasswordResetForm
 from django.contrib.auth.forms import SetPasswordForm as _SetPasswordForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.postgres.forms import SplitArrayField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from . import formhelpers as helpers
-from .models import Appellation, OfflineResult, OnlineSubmission, User
+from .models import (
+    Appellation,
+    OfflineResult,
+    OnlineAppellation,
+    OnlineSubmission,
+    User,
+)
+
+
+class MarkField(forms.CharField):
+    def validate(self, value):
+        if not value or value == '-':
+            return
+        super().validate(value)
+        try:
+            float(value)
+        except ValueError:
+            raise ValidationError(
+                _('Not a valid integer or hyphen.'), code='INVALID_INTEGER'
+            )
 
 
 class UserCreateFormMixin:
@@ -165,6 +185,30 @@ class OnlineSubmissionForm(forms.ModelForm):
                 f.disabled = True
 
 
+class OnlineSubmissionDisplayForm(forms.ModelForm):
+    class Meta:
+        model = OnlineSubmission
+        fields = ('paper_original', 'comment', 'scores', 'final_scores')
+
+        widgets = {
+            'paper_original': forms.FileInput(attrs={'accept': 'application/pdf'}),
+            'comment': forms.Textarea(attrs={'rows': 3}),
+        }
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.OnlineSubmissionDisplayFormHelper()
+        for f in self.fields.values():
+            f.disabled = True
+
+        self.fields['scores'] = SplitArrayField(
+            MarkField(required=False), size=4, disabled=True
+        )
+        self.fields['final_scores'] = SplitArrayField(
+            MarkField(required=False), size=4, disabled=True
+        )
+
+
 class OfflineResultDisplayForm(forms.ModelForm):
     class Meta:
         model = OfflineResult
@@ -178,6 +222,13 @@ class OfflineResultDisplayForm(forms.ModelForm):
         self.helper = helpers.OfflineResultDisplayFormHelper()
         for f in self.fields.values():
             f.disabled = True
+
+        self.fields['scores'] = SplitArrayField(
+            MarkField(required=False), size=6, disabled=True
+        )
+        self.fields['final_scores'] = SplitArrayField(
+            MarkField(required=False), size=6, disabled=True
+        )
 
 
 class AppellationForm(forms.ModelForm):
@@ -199,4 +250,34 @@ AppellationFormset = forms.inlineformset_factory(
 )
 AppellationDisplayFormset = forms.inlineformset_factory(
     OfflineResult, Appellation, form=AppellationForm, extra=0, can_delete=False
+)
+
+
+class OnlineAppellationForm(forms.ModelForm):
+    class Meta:
+        model = OnlineAppellation
+        fields = ('message', 'response')
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.fields['response'].disabled = True
+        if self.instance.id:
+            self.fields['message'].disabled = True
+        else:
+            self.fields['response'].widget.attrs['data-display'] = 'none'
+
+
+OnlineAppellationFormset = forms.inlineformset_factory(
+    OnlineSubmission,
+    OnlineAppellation,
+    form=OnlineAppellationForm,
+    extra=1,
+    can_delete=False,
+)
+OnlineAppellationDisplayFormset = forms.inlineformset_factory(
+    OnlineSubmission,
+    OnlineAppellation,
+    form=OnlineAppellationForm,
+    extra=0,
+    can_delete=False,
 )

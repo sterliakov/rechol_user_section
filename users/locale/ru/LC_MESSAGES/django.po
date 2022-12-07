@@ -761,12 +761,3 @@ msgstr "У Вас нет доступа к редактированию прим
 #: users/views.py:265
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."
-
-#~ msgid "Submission"
-#~ msgstr "Решение"
-
-#~ msgid "Submissions"
-#~ msgstr "Решения"
-
-#~ msgid "Judging: offline stage"
-#~ msgstr "Проверка: заочный этап"

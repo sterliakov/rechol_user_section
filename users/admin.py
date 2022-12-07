@@ -5,7 +5,6 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.postgres.forms import SplitArrayField
-from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from import_export.admin import ExportMixin, ImportExportMixin, ImportExportModelAdmin
@@ -13,6 +12,7 @@ from import_export.fields import Field
 from import_export.formats.base_formats import XLSX
 from import_export.resources import ModelResource
 
+from .forms import MarkField
 from .models import (
     Appellation,
     ConfigurationSingleton,
@@ -369,19 +369,6 @@ class OnlineSubmissionResource(_ResultResource):
             'score4',
             'total',
         )
-
-
-class MarkField(forms.CharField):
-    def validate(self, value):
-        if not value or value == '-':
-            return
-        super().validate(value)
-        try:
-            float(value)
-        except ValueError:
-            raise ValidationError(
-                _('Not a valid integer or hyphen.'), code='INVALID_INTEGER'
-            )
 
 
 class OfflineResultForm(forms.ModelForm):

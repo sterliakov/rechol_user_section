@@ -212,6 +212,10 @@ $modal-header-padding-x: 1.5rem;
 //     }
 // }
 
+input[readonly]{
+    background-color: white !important;
+}
+
 a.disabled {
     pointer-events: none;
     opacity: 0.65;

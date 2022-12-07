@@ -53,6 +53,10 @@
               </div>
             </div>
           </li>
+        {% empty %}
+          <li>
+            <p class="my-3">{% trans "No available contests" %}</p>
+          </li>
         {% endfor %}
       </ul>
     </div>
