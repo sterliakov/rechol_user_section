@@ -306,7 +306,6 @@ USER_FIELDS = (
     'user__participation_form',
     'user__vk_link',
     'user__telegram_nickname',
-    'user__venue_selected',
 )
 
 
@@ -323,7 +322,7 @@ class _ResultResource(ModelResource):
 
             def fn(instance):
                 try:
-                    return instance.final_scores[num - 1]
+                    return instance.final_scores[num - 1] or instance.scores[num - 1]
                 except IndexError:
                     try:
                         return instance.scores[num - 1]
@@ -334,6 +333,12 @@ class _ResultResource(ModelResource):
 
     def dehydrate_total(self, instance):
         return instance.total_score
+
+    def dehydrate_user__actual_form(self, instance):
+        form = instance.actual_form
+        if form == 1:
+            return 'Other'
+        return form
 
 
 class OfflineResultResource(_ResultResource):
@@ -346,6 +351,7 @@ class OfflineResultResource(_ResultResource):
 
         fields = export_order = (
             *USER_FIELDS,
+            'user__venue_selected',
             'score1',
             'score2',
             'score3',
