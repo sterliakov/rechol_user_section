@@ -335,7 +335,7 @@ class _ResultResource(ModelResource):
         return instance.total_score
 
     def dehydrate_user__actual_form(self, instance):
-        form = instance.actual_form
+        form = instance.user.actual_form
         if form == 1:
             return 'Other'
         return form
