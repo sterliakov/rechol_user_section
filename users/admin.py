@@ -18,6 +18,7 @@ from .models import (
     ConfigurationSingleton,
     Event,
     OfflineResult,
+    OnlineAppellation,
     OnlineProblem,
     OnlineSubmission,
     User,
@@ -529,19 +530,7 @@ class OnlineSubmissionAdmin(_ResultAdminMixin, admin.ModelAdmin):
         return qs, may_have_duplicates
 
 
-class AppellationResource(ModelResource):
-    class Meta:
-        model = Appellation
-
-
-# class OfflineResultInline(admin.StackedInline):
-#     model = OfflineResult
-#     extra = 0
-
-
-@admin.register(Appellation)
-class AppellationAdmin(ExportMixin, admin.ModelAdmin):
-    resource_class = AppellationResource
+class AppellationBaseAdmin(ExportMixin, admin.ModelAdmin):
     list_display = (
         'get_result__user__last_name',
         'get_result__user__first_name',
@@ -557,7 +546,6 @@ class AppellationAdmin(ExportMixin, admin.ModelAdmin):
     )
     ordering = ('when',)
     list_select_related = ('result', 'result__user')
-    # inlines = [OfflineResultInline]
 
     @admin.display(
         ordering='result__user__last_name', description=_('Participant last name')
@@ -576,3 +564,23 @@ class AppellationAdmin(ExportMixin, admin.ModelAdmin):
     )
     def get_result__user__participation_form(self, obj):
         return obj.result.user.participation_form
+
+
+class AppellationResource(ModelResource):
+    class Meta:
+        model = Appellation
+
+
+@admin.register(Appellation)
+class AppellationAdmin(AppellationBaseAdmin):
+    resource_class = AppellationResource
+
+
+class OnlineAppellationResource(ModelResource):
+    class Meta:
+        model = OnlineAppellation
+
+
+@admin.register(OnlineAppellation)
+class OnlineAppellationAdmin(AppellationBaseAdmin):
+    resource_class = OnlineAppellationResource
