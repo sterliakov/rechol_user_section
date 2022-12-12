@@ -202,10 +202,10 @@ class OnlineSubmissionDisplayForm(forms.ModelForm):
             f.disabled = True
 
         self.fields['scores'] = SplitArrayField(
-            MarkField(required=False), size=4, disabled=True
+            MarkField(required=False), size=4, disabled=True, required=False
         )
         self.fields['final_scores'] = SplitArrayField(
-            MarkField(required=False), size=4, disabled=True
+            MarkField(required=False), size=4, disabled=True, required=False
         )
 
 
