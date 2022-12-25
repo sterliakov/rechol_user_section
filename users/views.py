@@ -271,7 +271,8 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         config = ConfigurationSingleton.objects.get()
-        appeal_open = config.online_appeal_start <= tz.now() <= config.online_appeal_end
+        # Check only for start time, the page remains available when appeal is closed
+        appeal_open = config.online_appeal_start <= tz.now()
 
         return super().get_context_data(**kwargs) | {
             'contest_over': self.is_over,
