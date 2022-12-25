@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-08 01:34+0300\n"
+"POT-Creation-Date: 2022-12-25 14:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,58 +20,58 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:221 users/admin.py:244 users/models.py:28 users/models.py:283
+#: users/admin.py:222 users/admin.py:245 users/models.py:28 users/models.py:283
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:223
+#: users/admin.py:224
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:226 users/models.py:95 users/models.py:200
+#: users/admin.py:227 users/models.py:95 users/models.py:200
 #: users/models.py:343
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:227
+#: users/admin.py:228
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:229
+#: users/admin.py:230
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:240
+#: users/admin.py:241
 msgid "Important dates"
 msgstr "Важные даты"
 
-#: users/admin.py:445 users/admin.py:557
+#: users/admin.py:452 users/admin.py:551
 msgid "Participant last name"
 msgstr "Фамилия участника"
 
-#: users/admin.py:449 users/admin.py:563
+#: users/admin.py:456 users/admin.py:557
 msgid "Participant first name"
 msgstr "Имя участника"
 
-#: users/admin.py:454 users/admin.py:569 users/models.py:139
+#: users/admin.py:461 users/admin.py:563 users/models.py:139
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/admin.py:459 users/templates/offline_appellation.html:43
+#: users/admin.py:466 users/templates/offline_appellation.html:43
 #: users/templates/online_appellation.html:39
 #: users/templates/online_submission.html:26
 msgid "Total score"
 msgstr "Общая оценка"
 
-#: users/admin.py:478 users/models.py:24 users/models.py:146
+#: users/admin.py:485 users/models.py:24 users/models.py:146
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/admin.py:504
+#: users/admin.py:511
 msgid "Problem name"
 msgstr "Название задачи"
 
-#: users/admin.py:508
+#: users/admin.py:515
 msgid "Was submitted?"
 msgstr "Была отправлена?"
 
@@ -427,18 +427,26 @@ msgid "Configurations"
 msgstr "Настройки"
 
 #: users/models.py:397
+msgid "Start of registration"
+msgstr "Начало регистрации"
+
+#: users/models.py:398
+msgid "End of registration"
+msgstr "Конец регистрации"
+
+#: users/models.py:399
 msgid "Start of offline stage appeal"
 msgstr "Начало апелляции очного этапа"
 
-#: users/models.py:398
+#: users/models.py:400
 msgid "End of offline stage appeal"
 msgstr "Конец апелляции очного этапа"
 
-#: users/models.py:399
+#: users/models.py:401
 msgid "Start of online stage appeal"
 msgstr "Начало апелляции заочного этапа"
 
-#: users/models.py:400
+#: users/models.py:402
 msgid "End of online stage appeal"
 msgstr "Конец апелляции заочного этапа"
 
@@ -794,18 +802,26 @@ msgstr "Личный кабинет участника"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: users/templates/registration.html:13
+#: users/templates/registration.html:12 users/views.py:91
+msgid "Registration not open yet."
+msgstr "Регистрация еще не началась."
+
+#: users/templates/registration.html:14 users/views.py:94
+msgid "Registration closed."
+msgstr "Регистрация закрыта."
+
+#: users/templates/registration.html:21
 msgid "By clicking \"save\", you agree with"
 msgstr "Нажимая кнопку \"Сохранить\", вы подтверждаете согласие с"
 
-#: users/templates/registration.html:13
+#: users/templates/registration.html:21
 msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
-#: users/views.py:135
+#: users/views.py:150
 msgid "You do not have access to editing annotations"
 msgstr "У Вас нет доступа к редактированию примечаний."
 
-#: users/views.py:265
+#: users/views.py:280
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."

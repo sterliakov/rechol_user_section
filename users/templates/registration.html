@@ -7,7 +7,15 @@
     <div class="card-header text-center">
       <h1>{% trans "Registration" %}</h1>
     </div>
-    <div class="card-body">{% crispy form %}</div>
+    <div class="card-body">
+      {% if registration_not_started %}
+        <h2>{% trans "Registration not open yet." %}</h2>
+      {% elif registration_closed %}
+        <h2>{% trans "Registration closed." %}</h2>
+      {% else %}
+        {% crispy form %}
+      {% endif %}
+    </div>
     <div class="card-footer d-flex justify-content-center">
       {# djlint:off T002 #}
       <span class="text-muted">{% trans 'By clicking "save", you agree with' %} <a href="https://drive.google.com/file/d/1T98WTOjMOckfohX7o4PKw1Vn_u8Zt5m6/view">{% trans "Privacy Policy" %}</a></span>

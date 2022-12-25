@@ -78,7 +78,22 @@ class RegistrationView(CreateView):
             return HttpResponseRedirect(reverse('profile'))
         return super().post(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        config = ConfigurationSingleton.objects.get()
+        return super().get_context_data(**kwargs) | {
+            'registration_not_started': config.registration_start > tz.now(),
+            'registration_closed': tz.now() > config.registration_end,
+        }
+
     def form_valid(self, form):
+        ctx = self.get_context_data()
+        if ctx['registration_not_started']:
+            form.add_error(_('Registration not open yet.'))
+            return self.form_invalid(form)
+        elif ctx['registration_closed']:
+            form.add_error(_('Registration closed.'))
+            return self.form_invalid(form)
+
         rsp = super().form_valid(form)
         user = form.instance
         send_mail(

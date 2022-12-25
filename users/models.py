@@ -394,6 +394,8 @@ class ConfigurationSingleton(models.Model):
         verbose_name = _('Configuration')
         verbose_name_plural = _('Configurations')
 
+    registration_start = models.DateTimeField(_('Start of registration'))
+    registration_end = models.DateTimeField(_('End of registration'))
     offline_appeal_start = models.DateTimeField(_('Start of offline stage appeal'))
     offline_appeal_end = models.DateTimeField(_('End of offline stage appeal'))
     online_appeal_start = models.DateTimeField(_('Start of online stage appeal'))
