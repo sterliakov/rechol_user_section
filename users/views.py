@@ -267,7 +267,13 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
         self.request = request
         try:
             self.object = self.get_object()
-        except (OnlineSubmission.DoesNotExist, OnlineProblem.DoesNotExist):
+        except (
+            OnlineSubmission.DoesNotExist,
+            OnlineProblem.DoesNotExist,
+            AttributeError,
+        ):
+            # AttributeError on AnonymousUser: LoginRequiredMixin affects super.dispatch
+            # and is not checked yet
             return HttpResponseRedirect(
                 reverse('online_submission_start', kwargs=kwargs)
             )
