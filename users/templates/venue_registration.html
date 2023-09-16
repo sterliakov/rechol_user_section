@@ -23,6 +23,9 @@
       {% else %}
         {% crispy form %}
       {% endif %}
+      {% if not instance or not instance.is_confirmed %}
+        <div>{% trans "Your venue will appear on list after our confirmation." %}</div>
+      {% endif %}
     </div>
     <div class="card-footer d-flex justify-content-center">
       {# djlint:off T002 #}

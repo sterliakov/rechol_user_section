@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 from . import formhelpers as helpers
 from .models import (
     Appellation,
+    ConfigurationSingleton,
     OfflineResult,
     OnlineAppellation,
     OnlineSubmission,
@@ -64,8 +65,9 @@ class UserCreateFormMixin:
         super().__init__(*args, **kwargs)
         self.fields['birth_date'].input_formats = settings.DATE_INPUT_FORMATS
         self.helper = helpers.UserUpdateFormHelper(is_create=self.is_create)
-
-        if settings.DISABLE_OFFLINE_REG:
+        config = ConfigurationSingleton.objects.get()
+        self.fields['venue_selected'].queryset = Venue.objects.filter(is_confirmed=True)
+        if config.forbid_venue_change:
             self.fields['venue_selected'].disabled = True
 
     def clean_city(self):

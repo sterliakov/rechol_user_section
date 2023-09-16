@@ -37,6 +37,8 @@
           </div>
         </div>
       </li>
+    {% empty %}
+      <h2 class="text-center">{% trans "No venues registered so far." %}</h2>
     {% endfor %}
   </ul>
 {% endblock content %}

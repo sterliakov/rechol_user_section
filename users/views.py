@@ -44,7 +44,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.role == User.Roles.VENUE:
+        if request.user.is_authenticated and request.user.role == User.Roles.VENUE:
             return HttpResponseRedirect(reverse('venue_registration'))
         return super().dispatch(request, *args, **kwargs)
 
@@ -213,6 +213,8 @@ class OnlineStageListView(LoginRequiredMixin, ListView):
 class ProblemDispatchMixin(LoginRequiredMixin):
     @cached_property
     def problem(self):
+        if not self.request.user.is_authenticated:
+            return None
         return OnlineProblem.objects.get(
             id=int(self.kwargs['problem_pk']),
             target_form=self.request.user.participation_form,
@@ -416,8 +418,11 @@ class VenueRegistrationView(LoginRequiredMixin, UserPassesTestMixin, CreateView)
     success_url = '?success=true'
 
     def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            return HttpResponseRedirect(reverse('venue_user_registration'))
+
         try:
-            self.request.user.owned_venue  # noqa: B018
+            request.user.owned_venue  # noqa: B018
         except Venue.DoesNotExist:
             return super().dispatch(request, *args, **kwargs)
 
@@ -461,6 +466,8 @@ class VenueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     success_url = '?success=true'
 
     def get_object(self, _queryset=None):
+        if self.request.user.is_anonymous:
+            return None
         return self.request.user.owned_venue
 
     def dispatch(self, request, *args, **kwargs):

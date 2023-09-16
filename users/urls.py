@@ -46,10 +46,12 @@ venue_urls = [
 urlpatterns = [
     path(r'reg/', views.RegistrationView.as_view(), name='registration'),
     path(
-        r'judge_reg/', views.JudgeRegistrationView.as_view(), name='judge_registration'
+        r'judge-registration/',
+        views.JudgeRegistrationView.as_view(),
+        name='judge_registration',
     ),
     path(
-        r'venue_registration/',
+        r'venue-registration/',
         views.VenueUserRegistrationView.as_view(),
         name='venue_user_registration',
     ),

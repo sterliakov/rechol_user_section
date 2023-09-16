@@ -21,7 +21,10 @@ class SupportedForms(models.IntegerChoices):
 
 class Venue(models.Model):
     city = models.CharField(_('City'), max_length=63, blank=False, null=False)
-    name = models.CharField(_('Name'), max_length=63, blank=False, null=False)
+    short_name = models.CharField(
+        _('short name'), max_length=63, blank=False, null=False
+    )
+    full_name = models.CharField(_('full name'), max_length=63, blank=False, null=False)
     full_address = models.CharField(
         _('Address'), max_length=255, blank=False, null=False
     )
@@ -153,7 +156,12 @@ class User(AbstractUser):
         _('Telegram nickname'), max_length=127, blank=True, default=''
     )
     venue_selected = models.ForeignKey(
-        Venue, models.SET_NULL, blank=True, null=True, verbose_name=_('Venue')
+        Venue,
+        models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name=_('Venue'),
+        help_text=_('Select only if you plan to participate in offline stage.'),
     )
     online_selected = models.BooleanField(_('Online stage'), default=True, null=False)
     role = models.CharField(
@@ -412,6 +420,7 @@ class ConfigurationSingleton(models.Model):
     offline_appeal_end = models.DateTimeField(_('End of offline stage appeal'))
     online_appeal_start = models.DateTimeField(_('Start of online stage appeal'))
     online_appeal_end = models.DateTimeField(_('End of online stage appeal'))
+    forbid_venue_change = models.BooleanField(_('forbid venue change'), default=False)
 
     class Meta:
         verbose_name = _('Configuration')

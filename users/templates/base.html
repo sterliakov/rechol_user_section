@@ -71,8 +71,18 @@
               <a class=" nav-link" href="{% url 'venues_list' %}">{% trans "Venues" %}</a>
             </li>
             {% if request.user.is_anonymous %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'registration' %}">{% trans "Register" %}</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"
+                   href="#"
+                   id="navbar-reg-dropdown"
+                   role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">{% trans "Register" %}</a>
+                <div class="dropdown-menu" aria-labelledby="navbar-reg-dropdown">
+                  <a class="dropdown-item" href="{% url 'registration' %}">{% trans "Register as participant" %}</a>
+                  <a class="dropdown-item" href="{% url 'venue_registration' %}">{% trans "Register a venue" %}</a>
+                </div>
               </li>
             {% elif request.user.role != request.user.Roles.VENUE %}
               <li class="nav-item">

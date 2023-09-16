@@ -114,7 +114,7 @@ class UserUpdateFormHelper(CustomFormHelper):
                     Field('online_selected', template='checkbox_field.html'),
                     css_class=(
                         'custom-control custom-checkbox'
-                        ' d-flex h-100 pb-4 align-items-end'
+                        ' d-flex h-100 pt-4 mt-3 align-items-start'
                     ),
                 ): '6 col-sm-12 col-lg-6',
             },
@@ -195,7 +195,8 @@ class VenueFormHelper(CustomFormHelper):
     use_custom_control = True
     layout = Layout(
         'city',
-        'name',
+        'full_name',
+        'short_name',
         'full_address',
         'contact_phone',
         'confirmation_letter',
