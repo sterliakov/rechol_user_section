@@ -3,10 +3,14 @@ from io import BytesIO
 
 from concurrency.admin import ConcurrentModelAdmin
 from django import forms
-from django.contrib import admin
+from django.conf import settings
+from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.postgres.forms import SplitArrayField
+from django.core.mail import EmailMessage
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from import_export.admin import ExportMixin, ImportExportMixin, ImportExportModelAdmin
 from import_export.fields import Field
@@ -256,7 +260,47 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         'email',
     )
     search_fields = ('email', 'first_name', 'last_name', 'city', 'participation_form')
+    list_filter = ('city', 'participation_form', 'venue_selected', 'role')
     ordering = ('participation_form', 'last_name')
+    actions = ['send_email']
+
+    @admin.action(description=_('Send email to selected users'))
+    def send_email(self, request, queryset):
+        __import__('logging').critical(queryset)
+        __import__('logging').critical(request.POST)
+        __import__('logging').critical(request.FILES)
+        file = request.FILES.get('attachment')
+        if 'subject' in request.POST:
+            for user in queryset:
+                __import__('logging').critical(user)
+
+                try:
+                    body = request.POST['template'].format(
+                        name=f'{user.first_name} {user.last_name}'
+                    )
+                except ValueError:
+                    self.message_user(
+                        request,
+                        'Invalid email template, please try again',
+                        level=messages.ERROR,
+                    )
+                    return HttpResponseRedirect(request.get_full_path())
+
+                msg = EmailMessage(
+                    request.POST['subject'],
+                    body,
+                    f'"Проектная химическая олимпиада" <{settings.DEFAULT_FROM_EMAIL}>',
+                    [user.email],
+                )
+                if file:
+                    msg.attach(file.name, file.read())
+                msg.send(fail_silently=False)
+
+            self.message_user(request, f'Sent emails to {queryset.count()} users')
+            __import__('logging').critical('Done')
+            return HttpResponseRedirect(request.get_full_path())
+
+        return render(request, 'admin/email_send.html', context={'users': queryset})
 
     def get_import_formats(self):
         return [f for f in super().get_import_formats() if not issubclass(f, XLSX)] + [

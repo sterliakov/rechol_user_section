@@ -1,0 +1,56 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+{% block title %}
+  {% trans "Send email" %}
+{% endblock title %}
+{% block extrastyle %}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+{% endblock extrastyle %}
+{% block content %}
+  <h1>{% trans "Send emails to users" %}</h1>
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <ul>
+      {% for user in users %}
+        <li>{{ user.first_name }} {{ user.last_name }} ({{ user.role }}, {{ user.email }})</li>
+        <input type="hidden" name="_selected_action" value="{{ user.pk }}" />
+      {% endfor %}
+    </ul>
+    <div id="content-main">
+      <fieldset class="module aligned">
+        <h2>{% trans "Message details" %}</h2>
+        <div class="form-row">
+          <div>
+            <label class="required" for="subject">{% trans "Subject" %}</label>
+            <input name="subject" id="subject" type="text" class="vTextVield" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label class="required" for="template">{% trans "Message body" %}</label>
+            <textarea name="template"
+                      id="template"
+                      rows="10"
+                      columns="240"
+                      required
+                      class="vLargeTextField"></textarea>
+            <div class="help">
+              {% trans "You can use {name} placeholder &mdash; it will be substituted by user first and last name." %}
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="attachment">{% trans "Attachment file" %}</label>
+            <input type="file" name="attachment" id="attachment" class="vLargeTextField">
+          </div>
+        </div>
+      </fieldset>
+      <input type="hidden" name="action" value="send_email" />
+      <input type="hidden" name="apply" value="email" />
+      <div class="submit-row">
+        <input class="default" type="submit" value="{% trans "Send" %}" />
+      </div>
+    </div>
+  </form>
+{% endblock content %}

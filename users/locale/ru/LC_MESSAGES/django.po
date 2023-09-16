@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-16 23:02+0300\n"
+"POT-Creation-Date: 2023-09-17 00:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,59 +20,63 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:223 users/admin.py:246 users/models.py:301
+#: users/admin.py:227 users/admin.py:250 users/models.py:301
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:225
+#: users/admin.py:229
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:228 users/models.py:107 users/models.py:218
+#: users/admin.py:232 users/models.py:107 users/models.py:218
 #: users/models.py:360
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:229
+#: users/admin.py:233
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:231
+#: users/admin.py:235
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:242
+#: users/admin.py:246
 msgid "Important dates"
 msgstr "Важные даты"
 
-#: users/admin.py:455 users/admin.py:554
+#: users/admin.py:267
+msgid "Send email to selected users"
+msgstr "Отправить email выбранным пользователям"
+
+#: users/admin.py:499 users/admin.py:598
 msgid "Participant last name"
 msgstr "Фамилия участника"
 
-#: users/admin.py:459 users/admin.py:560
+#: users/admin.py:503 users/admin.py:604
 msgid "Participant first name"
 msgstr "Имя участника"
 
-#: users/admin.py:464 users/admin.py:566 users/models.py:152
+#: users/admin.py:508 users/admin.py:610 users/models.py:152
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/admin.py:469 users/templates/offline_appellation.html:43
+#: users/admin.py:513 users/templates/offline_appellation.html:43
 #: users/templates/online_appellation.html:39
 #: users/templates/online_submission.html:26
 msgid "Total score"
 msgstr "Общая оценка"
 
-#: users/admin.py:488 users/models.py:46 users/models.py:110
+#: users/admin.py:532 users/models.py:46 users/models.py:110
 #: users/models.py:163
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/admin.py:514
+#: users/admin.py:558
 msgid "Problem name"
 msgstr "Название задачи"
 
-#: users/admin.py:518
+#: users/admin.py:562
 msgid "Was submitted?"
 msgstr "Была отправлена?"
 
@@ -492,6 +496,43 @@ msgstr "Настройки"
 #: users/models.py:427
 msgid "Configurations"
 msgstr "Настройки"
+
+#: users/templates/admin/email_send.html:4
+msgid "Send email"
+msgstr "Отправить email"
+
+#: users/templates/admin/email_send.html:10
+msgid "Send emails to users"
+msgstr "Отправить email пользователям"
+
+#: users/templates/admin/email_send.html:21
+msgid "Message details"
+msgstr "Параметры письма"
+
+#: users/templates/admin/email_send.html:24
+msgid "Subject"
+msgstr "Тема"
+
+#: users/templates/admin/email_send.html:30
+msgid "Message body"
+msgstr "Текст письма"
+
+#: users/templates/admin/email_send.html:38
+#, python-brace-format
+msgid ""
+"You can use {name} placeholder &mdash; it will be substituted by user first "
+"and last name."
+msgstr ""
+"Вы можете использовать {name} &mdash; этот фрагмент будет заменен на ФИ "
+"пользователя."
+
+#: users/templates/admin/email_send.html:44
+msgid "Attachment file"
+msgstr "Прикрепить файл"
+
+#: users/templates/admin/email_send.html:52
+msgid "Send"
+msgstr "Отправить"
 
 #: users/templates/admin/users/offlineresult/change_form.html:147
 #: users/templates/admin/users/onlinesubmission/change_form.html:147
