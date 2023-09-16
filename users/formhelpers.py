@@ -191,6 +191,20 @@ class JudgeUpdateFormHelper(CustomFormHelper):
     )
 
 
+class VenueFormHelper(CustomFormHelper):
+    use_custom_control = True
+    layout = Layout(
+        'city',
+        'name',
+        'full_address',
+        'contact_phone',
+        'confirmation_letter',
+        FormActions(
+            Div(Submit('submit', _('Save'), css_class='mt-3'), css_class='text-center'),
+        ),
+    )
+
+
 class PasswordResetFormHelper(CustomFormHelper):
     form_class = 'login_form noasterisks'
 

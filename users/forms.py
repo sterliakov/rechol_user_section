@@ -21,6 +21,7 @@ from .models import (
     OnlineAppellation,
     OnlineSubmission,
     User,
+    Venue,
 )
 
 
@@ -281,3 +282,13 @@ OnlineAppellationDisplayFormset = forms.inlineformset_factory(
     extra=0,
     can_delete=False,
 )
+
+
+class VenueForm(forms.ModelForm):
+    class Meta:
+        model = Venue
+        exclude = ('is_confirmed', 'owner')
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.VenueFormHelper()

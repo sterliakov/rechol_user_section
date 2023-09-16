@@ -869,3 +869,11 @@ input[type="radio"]:not(:checked):disabled + label.btn.btn-check-primary {
     border-width: 0 !important;
     width: max-content !important;
 }
+
+.custom-long-list {
+    max-width: 90vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

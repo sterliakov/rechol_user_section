@@ -68,23 +68,35 @@
               <a class=" nav-link" href="{% url 'index' %}">{% trans "Index page" %}</a>
             </li>
             <li class="nav-item">
-              {% if not request.user.is_anonymous %}
-                <a class="nav-link" href="{% url 'profile' %}">{% trans "Profile" %}</a>
-              {% else %}
+              <a class=" nav-link" href="{% url 'venues_list' %}">{% trans "Venues" %}</a>
+            </li>
+            {% if request.user.is_anonymous %}
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'registration' %}">{% trans "Register" %}</a>
-              {% endif %}
-            </li>
-            <li class="nav-item">
-              <a class=" nav-link" href="{% url 'offline_appellation' %}">{% trans "In-person stage" %}</a>
-            </li>
-            <li class="nav-item">
-              <a class=" nav-link" href="{% url 'online_submission_index' %}">{% trans "Online stage" %}</a>
-            </li>
+              </li>
+            {% elif request.user.role != request.user.Roles.VENUE %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">{% trans "Profile" %}</a>
+              </li>
+            {% endif %}
+            {% if not request.user.is_anonymous and request.user.role == request.user.Roles.PARTICIPANT %}
+              <li class="nav-item">
+                <a class=" nav-link" href="{% url 'offline_appellation' %}">{% trans "In-person stage" %}</a>
+              </li>
+              <li class="nav-item">
+                <a class=" nav-link" href="{% url 'online_submission_index' %}">{% trans "Online stage" %}</a>
+              </li>
+            {% endif %}
             {% if not request.user.is_anonymous and request.user.role == request.user.Roles.JUDGE %}
               <li class="nav-item">
                 <a class=" nav-link"
                    tabindex="-1"
                    href="{% url 'admin:users_offlineresult_changelist' %}">{% trans "Judging" %}</a>
+              </li>
+            {% endif %}
+            {% if not request.user.is_anonymous and request.user.role == request.user.Roles.VENUE %}
+              <li class="nav-item">
+                <a class=" nav-link" href="{% url 'venue_update' %}">{% trans "Venue details" %}</a>
               </li>
             {% endif %}
           </ul>

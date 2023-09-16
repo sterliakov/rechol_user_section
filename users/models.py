@@ -25,6 +25,19 @@ class Venue(models.Model):
     full_address = models.CharField(
         _('Address'), max_length=255, blank=False, null=False
     )
+    contact_phone = PhoneNumberField(_('Phone'))
+    is_confirmed = models.BooleanField(_('is confirmed'), default=False)
+    confirmation_letter = models.FileField(
+        upload_to='venue_confirmation_letters',
+        verbose_name=_('Confirmation letter'),
+        help_text=_(
+            'A photo or scan of a confirmation signed by your institution authority'
+        ),
+        null=True,
+    )
+    owner = models.OneToOneField(
+        'User', models.CASCADE, verbose_name=_('User'), related_name='owned_venue'
+    )
 
     class Meta:
         verbose_name = _('Venue')
@@ -91,6 +104,7 @@ class User(AbstractUser):
         PARTICIPANT = 'p', _('Participant')
         ADMIN = 'a', _('Admin')
         JUDGE = 'j', _('Judge')
+        VENUE = 'v', _('Venue')
 
     objects = UserManager()
     email = models.EmailField(_('Email'), null=False, blank=False, unique=True)
@@ -392,6 +406,8 @@ class OnlineSubmission(_TotalMixin, models.Model):
 class ConfigurationSingleton(models.Model):
     registration_start = models.DateTimeField(_('Start of registration'))
     registration_end = models.DateTimeField(_('End of registration'))
+    venue_registration_start = models.DateTimeField(_('start of venue registration'))
+    venue_registration_end = models.DateTimeField(_('end of venue registration'))
     offline_appeal_start = models.DateTimeField(_('Start of offline stage appeal'))
     offline_appeal_end = models.DateTimeField(_('End of offline stage appeal'))
     online_appeal_start = models.DateTimeField(_('Start of online stage appeal'))

@@ -35,10 +35,23 @@ offline_stage_urls = [
     path(r'', views.AppellationView.as_view(), name='offline_appellation'),
 ]
 
+venue_urls = [
+    path(
+        r'register/', views.VenueRegistrationView.as_view(), name='venue_registration'
+    ),
+    path(r'update/', views.VenueUpdateView.as_view(), name='venue_update'),
+    path(r'list/', views.VenuesListView.as_view(), name='venues_list'),
+]
+
 urlpatterns = [
     path(r'reg/', views.RegistrationView.as_view(), name='registration'),
     path(
         r'judge_reg/', views.JudgeRegistrationView.as_view(), name='judge_registration'
+    ),
+    path(
+        r'venue_registration/',
+        views.VenueUserRegistrationView.as_view(),
+        name='venue_user_registration',
     ),
     path(r'update/', views.UserUpdateView.as_view(), name='profile'),
     path(
@@ -92,7 +105,8 @@ urlpatterns = [
         ),
         name='password_reset_complete',
     ),
-    path(r'api/v1/', include(api_urls)),
-    path(r'online/', include(online_stage_urls)),
-    path(r'in_person/', include(offline_stage_urls)),
+    path('api/v1/', include(api_urls)),
+    path('online/', include(online_stage_urls)),
+    path('in_person/', include(offline_stage_urls)),
+    path('venue/', include(venue_urls)),
 ]
