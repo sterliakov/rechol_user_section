@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n static %}
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h1 class="text-center py-2">{% trans "Registered participants" %}</h1>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <th></th>
+            <th>{% trans "First name" %}</th>
+            <th>{% trans "Last name" %}</th>
+            <th>{% trans "Patronymic name" %}</th>
+            <th>{% trans "Form" %}</th>
+            <th>{% trans "Scans" %}</th>
+          </thead>
+          {% for guy in object_list %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ guy.first_name }}</td>
+              <td>{{ guy.last_name }}</td>
+              <td>{{ guy.patronymic_name }}</td>
+              <td class="text-center">{{ guy.participation_form }}</td>
+              <td class="text-center">
+                <button class="btn btn-outline-primary"
+                        onclick="showUploadModal( '{{ guy.pk }}', '{{ guy.first_name }}', '{{ guy.last_name }}', '{{ guy.patronymic_name }}', '{{ guy.participation_form }}', )"
+                        {% if guy.offlineresult %}disabled{% endif %}>{% trans "Upload" %}</button>
+                <button class="btn btn-outline-primary"
+                        onclick="deleteScan('{{ guy.offlineresult.pk }}')"
+                        {% if not guy.offlineresult %}disabled{% endif %}>{% trans "Clear" %}</button>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6" class="text-center">{% trans "No participants yet." %}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" role="dialog" id="upload-modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">{% trans "Upload scan" %}</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>{% trans "Please check participant data below:" %}</h3>
+          {% crispy user_data_form %}
+          {% crispy upload_form %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block extrascripts_after %}
+  <script>
+    function showUploadModal(userId, firstName, lastName, patName, participationForm) {
+      $('#upload-modal form').attr(
+        'action',
+        `{% url 'offline_scan_upload' %}?participant=${userId}`
+      );
+      $('#id_first_name').val(firstName);
+      $('#id_last_name').val(lastName);
+      $('#id_patronymic_name').val(patName);
+      $('#id_participation_form').val(participationForm);
+      $('#upload-modal').modal('show');
+    }
+    function deleteScan(scanId) {
+      $.ajax({
+        method: 'DELETE',
+        url: '{% url "offline_scan_delete" "__unknown__" %}'.replace('__unknown__', scanId),
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        success: () => window.location.reload(),
+      });
+    }
+  </script>
+{% endblock extrascripts_after %}

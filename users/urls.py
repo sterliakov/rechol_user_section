@@ -41,6 +41,21 @@ venue_urls = [
     ),
     path(r'update/', views.VenueUpdateView.as_view(), name='venue_update'),
     path(r'list/', views.VenuesListView.as_view(), name='venues_list'),
+    path(
+        r'participants/list/',
+        views.VenueParticipantsView.as_view(),
+        name='venue_participants',
+    ),
+    path(
+        r'participants/upload-scan/',
+        views.VenueScanUploadView.as_view(),
+        name='offline_scan_upload',
+    ),
+    path(
+        r'participants/delete-scan/<pk>/',
+        views.VenueScanDeleteView.as_view(),
+        name='offline_scan_delete',
+    ),
 ]
 
 urlpatterns = [

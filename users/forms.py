@@ -294,3 +294,26 @@ class VenueForm(forms.ModelForm):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.helper = helpers.VenueFormHelper()
+
+
+class ScanUploadForm(forms.ModelForm):
+    class Meta:
+        model = OfflineResult
+        fields = ('paper_original',)
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.fields['paper_original'].widget.attrs['accept'] = 'application/pdf'
+        self.helper = helpers.ScanUploadFormHelper()
+
+
+class DummyUserDataForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'patronymic_name', 'participation_form')
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.disabled = True
+        self.helper = helpers.DummyUserDataFormHelper()

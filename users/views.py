@@ -494,3 +494,83 @@ class VenuesListView(ListView):
     model = Venue
     template_name = 'venues_list.html'
     ordering = ['city']
+
+
+class VenueParticipantsView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = User
+    template_name = 'venue_participants.html'
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.VENUE
+
+    def get_queryset(self):
+        owner = self.request.user
+        if owner.is_anonymous:
+            return User.objects.none()
+        try:
+            venue = owner.owned_venue
+        except Venue.DoesNotExist:
+            return User.objects.none()
+
+        return User.objects.filter(
+            role=User.Roles.PARTICIPANT, venue_selected=venue
+        ).order_by('participation_form', 'last_name', 'first_name', 'id')
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {
+            'upload_form': forms.ScanUploadForm(),
+            'user_data_form': forms.DummyUserDataForm(),
+        }
+
+
+class VenueScanUploadView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = OfflineResult
+    form_class = forms.ScanUploadForm
+    template_name = 'venue_participants.html'
+
+    def get_success_url(self):
+        return reverse('venue_participants')
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.VENUE
+
+    @property
+    def venue(self):
+        owner = self.request.user
+        if owner.is_anonymous:
+            return None
+        try:
+            return owner.owned_venue
+        except Venue.DoesNotExist:
+            return None
+
+    def get_form_kwargs(self, **kwargs):
+        participant_pk = self.request.GET.get('participant')
+        participant = User.objects.get(pk=participant_pk)
+        if participant.venue_selected != self.venue:
+            return HttpResponseForbidden('Not registered to this venue.')
+        return super().get_form_kwargs(**kwargs) | {
+            'instance': OfflineResult(user=participant)
+        }
+
+
+class VenueScanDeleteView(
+    LoginRequiredMixin, UserPassesTestMixin, generics.DestroyAPIView
+):
+    def test_func(self):
+        return self.request.user.role == User.Roles.VENUE
+
+    def get_queryset(self):
+        if not self.venue:
+            return OfflineResult.objects.none()
+        return OfflineResult.objects.filter(user__venue_selected=self.venue)
+
+    @property
+    def venue(self):
+        owner = self.request.user
+        if owner.is_anonymous:
+            return None
+        try:
+            return owner.owned_venue
+        except Venue.DoesNotExist:
+            return None

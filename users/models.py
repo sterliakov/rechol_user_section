@@ -47,7 +47,7 @@ class Venue(models.Model):
         verbose_name_plural = _('Venues')
 
     def __str__(self):
-        return f'{self.name} ({self.city}, {self.full_address})'
+        return f'{self.short_name} ({self.city}, {self.full_address})'
 
 
 class UserManager(UserManager_):

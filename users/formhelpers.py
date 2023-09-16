@@ -318,3 +318,25 @@ class AppellationFormHelper(CustomFormHelper):
         autosize('message'),
         autosize('response'),
     )
+
+
+class ScanUploadFormHelper(CustomFormHelper):
+    use_custom_control = True
+    layout = Layout(
+        'paper_original',
+        FormActions(
+            Div(
+                Submit('submit', _('Upload'), css_class='mt-3'), css_class='text-center'
+            ),
+        ),
+    )
+
+
+class DummyUserDataFormHelper(CustomFormHelper):
+    use_custom_control = True
+    layout = Layout(
+        'first_name',
+        'last_name',
+        'patronymic_name',
+        'participation_form',
+    )
