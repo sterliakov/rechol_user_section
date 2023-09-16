@@ -95,13 +95,6 @@ LOGGING = {
         'level': 'DEBUG',
         'propagate': False,
     },
-    # 'loggers': {
-    #     '': {
-    #         'handlers': ['console', 'mail_admins'],
-    #         'level': 'DEBUG',
-    #         'propagate': False,
-    #     },
-    # },
 }
 
 WSGI_APPLICATION = 'rechol_user_section.wsgi.application'

@@ -14,12 +14,12 @@ with (Path(__file__).parent / 'message.txt').open() as file:
 
 
 class Command(BaseCommand):
-    help = 'Send password to users from external source'  # noqa: A003
+    help = 'Send password to users from external source'
 
-    def handle(self, *args, **options):
+    def handle(self, *_args, **_options):
         from users.models import User
 
-        need_message = User.objects.filter(password='')  # noqa: S106
+        need_message = User.objects.filter(password='')
         for user in need_message:
             password = ''.join(secrets.choice(ALPHABET) for i in range(PASSWORD_LENGTH))
             user.set_password(password)

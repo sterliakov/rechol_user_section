@@ -90,7 +90,7 @@ class RegistrationView(CreateView):
         if ctx['registration_not_started']:
             form.add_error(_('Registration not open yet.'))
             return self.form_invalid(form)
-        elif ctx['registration_closed']:
+        if ctx['registration_closed']:
             form.add_error(_('Registration closed.'))
             return self.form_invalid(form)
 
@@ -141,7 +141,6 @@ class IndexView(ListView):
 
 
 class AnnotationList(LoginRequiredMixin, generics.ListCreateAPIView):
-    # queryset = Annotation.objects.all()
     serializer_class = AnnotationSerializer
 
     def post(self, request, *args, **kwargs):
@@ -204,7 +203,7 @@ class ProblemDispatchMixin(LoginRequiredMixin):
 
     def dispatch(self, *args, **kwargs):
         try:
-            self.problem
+            self.problem  # noqa: B018
         except OnlineProblem.DoesNotExist:
             return HttpResponseRedirect(
                 reverse('online_submission_index') + '?error=DENIED'
@@ -222,12 +221,12 @@ class OnlineStageStartView(ProblemDispatchMixin, DetailView):
             'has_ended': self.object and self.object.remaining_time.total_seconds() < 0,
         }
 
-    def get_object(self, queryset=None):
+    def get_object(self, _queryset=None):
         return self.request.user.onlinesubmission_set.filter(
             problem=self.problem
         ).first()
 
-    def post(self, *args, **kwargs):
+    def post(self, *_args, **kwargs):
         if not self.problem.is_open_now():
             return HttpResponseRedirect(
                 reverse('online_submission_index') + '?error=GONE'
@@ -260,7 +259,7 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
             or self.object.remaining_time.total_seconds() < 0
         )
 
-    def get_object(self, queryset=None):
+    def get_object(self, _queryset=None):
         return self.request.user.onlinesubmission_set.get(problem=self.problem)
 
     def dispatch(self, request, *args, **kwargs):
@@ -307,7 +306,7 @@ class AppellationView(LoginRequiredMixin, UpdateView):
     template_name = 'offline_appellation.html'
     success_url = '?success=True'
 
-    def get_object(self, queryset=None):
+    def get_object(self, _queryset=None):
         try:
             return self.request.user.offlineresult
         except OfflineResult.DoesNotExist:
@@ -352,7 +351,7 @@ class OnlineAppellationView(LoginRequiredMixin, UpdateView):
     template_name = 'online_appellation.html'
     success_url = '?success=True'
 
-    def get_object(self, queryset=None):
+    def get_object(self, _queryset=None):
         try:
             return self.request.user.onlinesubmission_set.get(
                 problem_id=int(self.kwargs['problem_pk'])

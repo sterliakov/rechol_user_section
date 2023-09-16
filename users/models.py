@@ -20,15 +20,15 @@ class SupportedForms(models.IntegerChoices):
 
 
 class Venue(models.Model):
-    class Meta:
-        verbose_name = _('Venue')
-        verbose_name_plural = _('Venues')
-
     city = models.CharField(_('City'), max_length=63, blank=False, null=False)
     name = models.CharField(_('Name'), max_length=63, blank=False, null=False)
     full_address = models.CharField(
         _('Address'), max_length=255, blank=False, null=False
     )
+
+    class Meta:
+        verbose_name = _('Venue')
+        verbose_name_plural = _('Venues')
 
     def __str__(self):
         return f'{self.name} ({self.city}, {self.full_address})'
@@ -71,10 +71,6 @@ class UserManager(UserManager_):
 
 
 class User(AbstractUser):
-    class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -155,6 +151,10 @@ class User(AbstractUser):
         default=Roles.PARTICIPANT,
     )
 
+    class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
@@ -164,14 +164,14 @@ class User(AbstractUser):
 
 
 class Event(models.Model):
-    class Meta:
-        verbose_name = _('Event')
-        verbose_name_plural = _('Events')
-
     title = models.CharField(_('Title'), max_length=127, blank=False, null=False)
     link = models.URLField(_('Link'), help_text=_('Link to news page etc.'))
     start = models.DateTimeField(_('Start'), null=True)
     description = models.TextField(_('Description'))
+
+    class Meta:
+        verbose_name = _('Event')
+        verbose_name_plural = _('Events')
 
     def __str__(self):
         return self.title[:30]
@@ -193,10 +193,6 @@ class _TotalMixin:
 
 
 class OfflineResult(_TotalMixin, models.Model):
-    class Meta:
-        verbose_name = _('Result (offline)')
-        verbose_name_plural = _('Results (offline)')
-
     user = models.OneToOneField(User, models.CASCADE, verbose_name=_('Participant'))
     scores = ArrayField(
         models.CharField(max_length=4, default='', blank=True, null=False),
@@ -218,38 +214,38 @@ class OfflineResult(_TotalMixin, models.Model):
         default=list,
     )
 
+    class Meta:
+        verbose_name = _('Result (offline)')
+        verbose_name_plural = _('Results (offline)')
+
     def __str__(self):
         return f'Offline: {self.user}'
 
 
 class AppellationBase(models.Model):
-    class Meta:
-        abstract = True
-
     message = models.TextField(_('Message'), null=False, blank=False)
     response = models.TextField(_('Response'), null=False, blank=True, default='')
     when = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), auto_now=True)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return f'{self.result.user} {self.when:%d/%m/%Y}'
 
 
 class Appellation(AppellationBase):
-    class Meta:
-        verbose_name = _('Appellation (offline)')
-        verbose_name_plural = _('Appellations (offline)')
-
     result = models.ForeignKey(
         OfflineResult, models.CASCADE, null=False, blank=False, verbose_name=_('Result')
     )
 
+    class Meta:
+        verbose_name = _('Appellation (offline)')
+        verbose_name_plural = _('Appellations (offline)')
+
 
 class OnlineAppellation(AppellationBase):
-    class Meta:
-        verbose_name = _('Appellation (online)')
-        verbose_name_plural = _('Appellations (online)')
-
     result = models.ForeignKey(
         'OnlineSubmission',
         models.CASCADE,
@@ -258,12 +254,12 @@ class OnlineAppellation(AppellationBase):
         verbose_name=_('Result'),
     )
 
+    class Meta:
+        verbose_name = _('Appellation (online)')
+        verbose_name_plural = _('Appellations (online)')
+
 
 class Annotation(models.Model):
-    class Meta:
-        verbose_name = _('Annotation')
-        verbose_name_plural = _('Annotations')
-
     filename = models.CharField(_('Filename'), max_length=255, blank=False, null=False)
     annotation_id = models.UUIDField(
         _('Annotation ID'), blank=False, null=False, primary_key=True
@@ -271,15 +267,15 @@ class Annotation(models.Model):
     page = models.PositiveSmallIntegerField(_('Page number'), blank=False, null=False)
     annotation = models.TextField(_('Annotation content'), blank=False, null=False)
 
+    class Meta:
+        verbose_name = _('Annotation')
+        verbose_name_plural = _('Annotations')
+
     def __str__(self):
         return f'{self.filename} ({self.annotation_id})'
 
 
 class OnlineProblem(models.Model):
-    class Meta:
-        verbose_name = _('Problem')
-        verbose_name_plural = _('Problems')
-
     name = models.CharField(_('Name'), max_length=120, blank=False, null=False)
     file = models.FileField(_('Statement'), upload_to='problems')
     solution = models.FileField(_('Solutions'), upload_to='solutions', null=True)
@@ -297,6 +293,10 @@ class OnlineProblem(models.Model):
         blank=False,
         default=8,
     )
+
+    class Meta:
+        verbose_name = _('Problem')
+        verbose_name_plural = _('Problems')
 
     def __str__(self):
         return f'Problem {self.name}'
@@ -326,11 +326,6 @@ class OnlineProblem(models.Model):
 
 
 class OnlineSubmission(_TotalMixin, models.Model):
-    class Meta:
-        verbose_name = _('Result (online)')
-        verbose_name_plural = _('Results (online)')
-        unique_together = ('user', 'problem')
-
     paper_original = models.FileField(
         _('Solution file'),
         help_text=_('Solution file in pdf format'),
@@ -366,6 +361,11 @@ class OnlineSubmission(_TotalMixin, models.Model):
         default=list,
     )
 
+    class Meta:
+        verbose_name = _('Result (online)')
+        verbose_name_plural = _('Results (online)')
+        unique_together = ('user', 'problem')
+
     def __str__(self):
         return f'Solution by {self.user} (online)'
 
@@ -390,16 +390,16 @@ class OnlineSubmission(_TotalMixin, models.Model):
 
 
 class ConfigurationSingleton(models.Model):
-    class Meta:
-        verbose_name = _('Configuration')
-        verbose_name_plural = _('Configurations')
-
     registration_start = models.DateTimeField(_('Start of registration'))
     registration_end = models.DateTimeField(_('End of registration'))
     offline_appeal_start = models.DateTimeField(_('Start of offline stage appeal'))
     offline_appeal_end = models.DateTimeField(_('End of offline stage appeal'))
     online_appeal_start = models.DateTimeField(_('Start of online stage appeal'))
     online_appeal_end = models.DateTimeField(_('End of online stage appeal'))
+
+    class Meta:
+        verbose_name = _('Configuration')
+        verbose_name_plural = _('Configurations')
 
     def __str__(self):
         return 'Configuration singleton'

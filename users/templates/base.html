@@ -5,23 +5,23 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="keywords" content="Chemistry, Olympiad, Contest"/>
+    <meta name="keywords" content="Chemistry, Olympiad, Contest" />
     <meta name="description"
-          content="Project chemistry olympiad user private area"/>
+          content="Project chemistry olympiad user private area" />
     <title>{% trans "PChO" %}</title>
     <link rel="icon"
           type="image/png"
           sizes="16x16"
-          href="{% static 'images/favicon.ico' %}"/>
+          href="{% static 'images/favicon.ico' %}" />
     {% block extrahead_before %}
     {% endblock extrahead_before %}
     {% compress css file base %}
       <link type="text/css"
             rel="stylesheet"
-            href="{% static 'font-awesome-pro/css/all.min.css' %}"/>
+            href="{% static 'font-awesome-pro/css/all.min.css' %}" />
       <link type="text/css"
             rel="stylesheet"
-            href="{% static 'perfect-scrollbar/css/perfect-scrollbar.css' %}"/>
+            href="{% static 'perfect-scrollbar/css/perfect-scrollbar.css' %}" />
       <link type="text/css"
             href="{% static 'bootstrap_datepicker_plus/css/datepicker-widget.css' %}"
             rel="stylesheet">
@@ -32,12 +32,12 @@
             href="{% static 'bootstrap-select/dist/css/bootstrap-select.min.css' %}"
             rel="stylesheet">
       {% comment %}
-      <link type="text/css" rel="stylesheet" href="{% static 'admin/css/vendor/select2/select2.min.css' %}"/>
-      <link type="text/x-scss" rel="stylesheet" href="{% static 'css/resources.scss' %}"/>
+      <link type="text/css" rel="stylesheet" href="{% static 'admin/css/vendor/select2/select2.min.css' %}" />
+      <link type="text/x-scss" rel="stylesheet" href="{% static 'css/resources.scss' %}" />
       {% endcomment %}
       <link type="text/x-scss"
             rel="stylesheet"
-            href="{% static 'css/style.scss' %}"/>
+            href="{% static 'css/style.scss' %}" />
     {% endcompress %}
     {% block extrahead %}
     {% endblock extrahead %}
@@ -50,7 +50,7 @@
             <img src="{% static 'images/logo.png' %}"
                  alt="{% trans "Logo" %}"
                  height="80"
-                 class="m-1"/>
+                 class="m-1" />
           </a>
         </div>
         <button class="navbar-toggler collapsed"
@@ -152,19 +152,14 @@
            role="document">
         <div class="modal-content">
           <div class="modal-header pt-4">
-            <h5 class="modal-title">
-              {% trans "Error occurred" %}
-            </h5>
+            <h5 class="modal-title">{% trans "Error occurred" %}</h5>
             <button type="button" class="close pt-4" data-dismiss="modal">
               <span>&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-          </div>
+          <div class="modal-body"></div>
           <div class="modal-footer d-flex justify-content-around">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
-              {% trans "OK" %}
-            </button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "OK" %}</button>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+# ruff: noqa: ERA001, RUF003
 from io import BytesIO
 
 from concurrency.admin import ConcurrentModelAdmin
@@ -332,6 +333,8 @@ class _ResultResource(ModelResource):
 
             return fn
 
+        return super().__getattr__(key)
+
     def dehydrate_total(self, instance):
         return instance.total_score
 
@@ -434,17 +437,17 @@ class _ResultAdminMixin(ExportMixin):
             request.user.is_superuser or request.user.role == User.Roles.JUDGE
         )
 
-    def has_change_permission(self, request, obj=None):
+    def has_change_permission(self, request, _obj=None):
         return not request.user.is_anonymous and (
             request.user.is_superuser or request.user.role == User.Roles.JUDGE
         )
 
-    def has_delete_permission(self, request, obj=None):
+    def has_delete_permission(self, request, _obj=None):
         return not request.user.is_anonymous and (
             request.user.is_superuser or request.user.role == User.Roles.JUDGE
         )
 
-    def has_view_permission(self, request, obj=None):
+    def has_view_permission(self, request, _obj=None):
         return not request.user.is_anonymous and (
             request.user.is_superuser or request.user.role == User.Roles.JUDGE
         )

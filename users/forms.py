@@ -34,7 +34,7 @@ class MarkField(forms.CharField):
         except ValueError:
             raise ValidationError(
                 _('Not a valid integer or hyphen.'), code='INVALID_INTEGER'
-            )
+            ) from None
 
 
 class UserCreateFormMixin:

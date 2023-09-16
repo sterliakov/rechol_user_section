@@ -19,7 +19,7 @@
           <ul class="timeline">
             {% for ev in object_list %}
               <li>
-                <a target="_blank" href="{{ ev.link|default:'javascript:void(0)' }}">{{ ev.title|capfirst|safe }}</a>
+                <a target="_blank" href="{{ ev.link|default:'javascript:void(0) ' }}">{{ ev.title|capfirst|safe }}</a>
                 <a href="javascript:void(0);" class="float-right">{{ ev.start|date:'j M, H:i' }}</a>
                 <p>{{ ev.description|default:''|safe }}</p>
               </li>

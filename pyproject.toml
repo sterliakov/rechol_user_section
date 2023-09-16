@@ -43,34 +43,32 @@ exclude_lines = [
 ]
 show_missing = true
 
-[tool.flake8]
-exclude = """
-    .svn
-    CVS
-    .bzr
-    .hg
-    .git
-    __pycache__
-    .tox
-    .nox
-    .eggs
-    *.egg
-    migrations
-    manage.py
-"""
-extend_ignore = [
-    "SIM106",
-    "PIE795",
+[tool.ruff]
+exclude = [
+    ".svn",
+    "CVS",
+    ".bzr",
+    ".hg",
+    ".git",
+    "__pycache__",
+    ".tox",
+    ".nox",
+    ".eggs",
+    "*.egg",
+    "migrations",
+    "manage.py",
+]
+extend-ignore = [
+    "A003",  # Serializer's .list method is used a lot
     "S101",
-    "E203",
+    "TRY003",  # Avoid specifying long messages outside the exception class
+    "RUF012",  # Mutable class attributes should be annotated with `typing.ClassVar`
+    "DJ006",  # Do not use `exclude` with `ModelForm`, use `fields` instead
+    "DJ007",  # Do not use `__all__` with `ModelForm`, use `fields` instead
+    "RUF001",  # Russian letters in strings
 ]
-# Ignore
-per-file-ignores = [
-    "rechol_user_section/*/tests/*:S,PIE",
-    "rechol_user_section/*/tests.py:S,PIE",
-]
-max_line_length = 88
-docstring-convention = "google"
+per-file-ignores = { "test/*" = ["S", "ARG002"], "*/test/*" = ["S", "ARG002"], "conftest.py" = ["S", "ARG002"]}
+select = ['E', 'F', 'W', 'B', 'C90', 'N', 'ASYNC', 'S', 'A', 'C4', 'DJ', 'G', 'PT', 'RET', 'SIM', 'ARG', 'PTH', 'ERA', 'PD', 'NPY', 'RUF', 'TRY']
 
 [tool.isort]
 profile = "black"
