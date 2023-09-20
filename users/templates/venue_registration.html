@@ -5,12 +5,14 @@
        style="overflow-x: auto"
        id="participant-form">
     <div class="card-header text-center">
-      <h1>{% trans "Venue registration" %}</h1>
-      {% if instance and instance.is_confirmed %}
-        <h2 class="text-success">{% trans "Confirmed" %}</h2>
-      {% else %}
-        <h2 class="text-danger">{% trans "Not confirmed" %}</h2>
-      {% endif %}
+      <div class="d-flex flex-wrap justify-content-between w-100">
+        <h1 class="mr-3">{% trans "Venue registration" %}</h1>
+        {% if instance and instance.is_confirmed %}
+          <h2 class="text-center text-success">{% trans "Confirmed" %}</h2>
+        {% else %}
+          <h2 class="text-center text-danger">{% trans "Not confirmed" %}</h2>
+        {% endif %}
+      </div>
     </div>
     <div class="card-body">
       <div class="alert alert-success alert-dismissible d-none"
@@ -27,11 +29,13 @@
         <div>{% trans "Your venue will appear on list after our confirmation." %}</div>
       {% endif %}
     </div>
-    <div class="card-footer d-flex justify-content-center">
-      {# djlint:off T002 #}
-      <span class="text-muted">{% trans 'By clicking "save", you agree with' %} <a href="https://drive.google.com/file/d/1T98WTOjMOckfohX7o4PKw1Vn_u8Zt5m6/view">{% trans "Privacy Policy" %}</a></span>
-      {# djlint:on #}
-    </div>
+    {% if not registration_not_started and not registration_closed %}
+      <div class="card-footer d-flex justify-content-center">
+        {# djlint:off T002 #}
+        <span class="text-muted">{% trans 'By clicking "save", you agree with' %} <a href="https://drive.google.com/file/d/1T98WTOjMOckfohX7o4PKw1Vn_u8Zt5m6/view">{% trans "Privacy Policy" %}</a></span>
+        {# djlint:on #}
+      </div>
+    {% endif %}
   </div>
 {% endblock content %}
 {% block extrascripts_after %}
