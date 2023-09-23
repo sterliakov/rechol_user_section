@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-17 00:50+0300\n"
+"POT-Creation-Date: 2023-09-23 16:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,47 +80,51 @@ msgstr "Название задачи"
 msgid "Was submitted?"
 msgstr "Была отправлена?"
 
-#: users/formhelpers.py:43
+#: users/formhelpers.py:44
 msgid "Forgot Password?"
 msgstr "Забыли пароль?"
 
-#: users/formhelpers.py:55 users/templates/base.html:126
+#: users/formhelpers.py:56 users/templates/base.html:126
 msgid "Login"
 msgstr "Войти"
 
-#: users/formhelpers.py:123 users/formhelpers.py:175 users/formhelpers.py:189
-#: users/formhelpers.py:204
+#: users/formhelpers.py:124 users/formhelpers.py:176 users/formhelpers.py:190
+#: users/formhelpers.py:221
 #: users/templates/admin/users/offlineresult/change_form.html:153
 #: users/templates/admin/users/onlinesubmission/change_form.html:153
 msgid "Save"
 msgstr "Сохранить"
 
-#: users/formhelpers.py:147
+#: users/formhelpers.py:148
 msgid "Change password"
 msgstr "Изменить пароль?"
 
-#: users/formhelpers.py:212
+#: users/formhelpers.py:200
+msgid "Download template"
+msgstr "Скачать образец"
+
+#: users/formhelpers.py:231
 msgid "Back to login"
 msgstr "Назад на страницу входа."
 
-#: users/formhelpers.py:219
+#: users/formhelpers.py:238
 msgid "Continue"
 msgstr "Продолжить"
 
-#: users/formhelpers.py:242
+#: users/formhelpers.py:261
 msgid "Change"
 msgstr "Изменить"
 
-#: users/formhelpers.py:260
+#: users/formhelpers.py:279
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:280 users/templates/offline_appellation.html:52
+#: users/formhelpers.py:299 users/templates/offline_appellation.html:52
 #: users/templates/online_appellation.html:48
 msgid "Submit"
 msgstr "Отправить"
 
-#: users/formhelpers.py:329 users/templates/venue_participants.html:29
+#: users/formhelpers.py:348 users/templates/venue_participants.html:29
 msgid "Upload"
 msgstr "Загрузить"
 
@@ -903,24 +907,24 @@ msgid "Registration"
 msgstr "Регистрация"
 
 #: users/templates/registration.html:12
-#: users/templates/venue_registration.html:20 users/views.py:93
+#: users/templates/venue_registration.html:22 users/views.py:93
 #: users/views.py:453
 msgid "Registration not open yet."
 msgstr "Регистрация еще не началась."
 
 #: users/templates/registration.html:14
-#: users/templates/venue_registration.html:22 users/views.py:96
+#: users/templates/venue_registration.html:24 users/views.py:96
 #: users/views.py:456
 msgid "Registration closed."
 msgstr "Регистрация закрыта."
 
 #: users/templates/registration.html:21
-#: users/templates/venue_registration.html:32
+#: users/templates/venue_registration.html:35
 msgid "By clicking \"save\", you agree with"
 msgstr "Нажимая кнопку \"Сохранить\", вы подтверждаете согласие с"
 
 #: users/templates/registration.html:21
-#: users/templates/venue_registration.html:32
+#: users/templates/venue_registration.html:35
 msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
@@ -952,23 +956,23 @@ msgstr "Загрузить скан"
 msgid "Please check participant data below:"
 msgstr "Пожалуйста, проверьте данные участника:"
 
-#: users/templates/venue_registration.html:8
+#: users/templates/venue_registration.html:9
 msgid "Venue registration"
 msgstr "Регистрация площадки проведения"
 
-#: users/templates/venue_registration.html:10
+#: users/templates/venue_registration.html:11
 msgid "Confirmed"
 msgstr "Подтверждено"
 
-#: users/templates/venue_registration.html:12
+#: users/templates/venue_registration.html:13
 msgid "Not confirmed"
 msgstr "Не подтверждено"
 
-#: users/templates/venue_registration.html:18
+#: users/templates/venue_registration.html:20
 msgid "Submitted successfully."
 msgstr "Информация сохранена."
 
-#: users/templates/venue_registration.html:27
+#: users/templates/venue_registration.html:29
 msgid "Your venue will appear on list after our confirmation."
 msgstr ""
 "Ваша площадка появится в списке после подтверждения со стороны организаторов."
@@ -977,7 +981,7 @@ msgstr ""
 msgid "Available venues:"
 msgstr "Доступные площадки"
 
-#: users/templates/venues_list.html:41
+#: users/templates/venues_list.html:43
 msgid "No venues registered so far."
 msgstr "Пока нет доступных площадок."
 

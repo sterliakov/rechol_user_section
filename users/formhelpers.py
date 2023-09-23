@@ -1,6 +1,7 @@
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Div, Field, Layout, Submit
+from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
 
@@ -193,17 +194,35 @@ class JudgeUpdateFormHelper(CustomFormHelper):
 
 class VenueFormHelper(CustomFormHelper):
     use_custom_control = True
-    layout = Layout(
-        'city',
-        'full_name',
-        'short_name',
-        'full_address',
-        'contact_phone',
-        'confirmation_letter',
-        FormActions(
-            Div(Submit('submit', _('Save'), css_class='mt-3'), css_class='text-center'),
-        ),
-    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        txt = _('Download template')
+        file_url = static('files/venue_letter_template.docx')
+        self.layout = Layout(
+            'city',
+            'full_name',
+            'short_name',
+            'full_address',
+            'contact_phone',
+            Div(
+                Div(Field('confirmation_letter'), css_class='col-12 col-md-6 col-lg-9'),
+                Div(
+                    HTML(
+                        '<a class="btn btn-primary" style="margin-top: 2rem !important"'
+                        f' href="{file_url}">{txt}</a>'
+                    ),
+                    css_class='col-12 col-md-6 col-lg-3',
+                ),
+                css_class='form-row',
+            ),
+            FormActions(
+                Div(
+                    Submit('submit', _('Save'), css_class='mt-3'),
+                    css_class='text-center',
+                ),
+            ),
+        )
 
 
 class PasswordResetFormHelper(CustomFormHelper):
