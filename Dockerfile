@@ -30,10 +30,10 @@ RUN BUILD_DEPS="build-essential libpcre3-dev libpq-dev git pkg-config" && \
 # Patch
 COPY --chown=${APP_USER}:${APP_USER} ./patches/locale_ru/ /usr/local/lib/python3.10/site-packages/django/conf/locale/ru/LC_MESSAGES
 
-COPY --chown=${APP_USER}:${APP_USER} . ${APP_HOME}
 RUN mkdir -p /var/www/rechol_user_section/media/ &&\
     chown -R ${APP_USER}:${APP_USER} /var/www/rechol_user_section/media/
 WORKDIR ${APP_HOME}
+COPY --chown=${APP_USER}:${APP_USER} . ${APP_HOME}
 
 USER ${APP_USER}:${APP_USER}
 # We use single worker here, because gunicorn cannot handle multiple async eventlet

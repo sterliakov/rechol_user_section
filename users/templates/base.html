@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-{% load static i18n widget_tweaks compress %}
+{% load static i18n widget_tweaks compress translate_url %}
+{% get_current_language as CURRENT_LANGUAGE %}
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
@@ -113,17 +114,38 @@
               </li>
             {% endif %}
           </ul>
-          <div class="nav-item pr-2">
-            {% if not request.user.is_anonymous %}
-              <span class="nav-link d-block text-white pl-0 pl-md-2">{{ request.user }}</span>
-              <a class="nav-link pl-0 pl-md-2"
-                 style="color: rgba(255, 255, 255, 0.5)"
-                 href="{% url 'logout' %}">{% trans "Logout" %}</a>
-            {% else %}
-              <a class="nav-link pl-0 pl-md-2"
-                 style="color: rgba(255, 255, 255, 0.5)"
-                 href="{% url 'login' %}">{% trans "Login" %}</a>
-            {% endif %}
+          <div class="navbar-nav">
+            <div class="nav-item dropdown">
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              <a class="nav-link dropdown-toggle"
+                 href="#"
+                 id="navbar-lang-dropdown"
+                 role="button"
+                 data-toggle="dropdown"
+                 aria-haspopup="true"
+                 aria-expanded="false">{% trans "Change language" %}</a>
+              <div class="dropdown-menu" aria-labelledby="navbar-lang-dropdown">
+                {% for language in languages %}
+                  <a href="{% change_lang language.code %}"
+                     class="dropdown-item {% if language.code == CURRENT_LANGUAGE %}active{% endif %}">
+                    {{ language.name_local }}
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="nav-item pr-2">
+              {% if not request.user.is_anonymous %}
+                <span class="nav-link d-block text-white pl-0 pl-md-2">{{ request.user }}</span>
+                <a class="nav-link pl-0 pl-md-2"
+                   style="color: rgba(255, 255, 255, 0.5)"
+                   href="{% url 'logout' %}">{% trans "Logout" %}</a>
+              {% else %}
+                <a class="nav-link pl-0 pl-md-2"
+                   style="color: rgba(255, 255, 255, 0.5)"
+                   href="{% url 'login' %}">{% trans "Login" %}</a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </nav>
