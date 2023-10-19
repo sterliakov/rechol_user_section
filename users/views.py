@@ -12,9 +12,13 @@ from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic.list import ListView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 from rest_framework import generics
 
 from . import forms
@@ -22,6 +26,7 @@ from .models import (
     Annotation,
     ConfigurationSingleton,
     Event,
+    OfflineProblem,
     OfflineResult,
     OnlineProblem,
     OnlineSubmission,
@@ -574,3 +579,17 @@ class VenueScanDeleteView(
             return owner.owned_venue
         except Venue.DoesNotExist:
             return None
+
+
+class VenueInstructionsView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'venue_instructions.html'
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.VENUE
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {
+            'problems': OfflineProblem.objects.filter(visible=True).order_by(
+                'target_form'
+            )
+        }

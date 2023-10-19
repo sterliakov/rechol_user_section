@@ -228,7 +228,7 @@ msgid "Marathi"
 msgstr "Маратхи"
 
 msgid "Malay"
-msgstr ""
+msgstr "Малайский"
 
 msgid "Burmese"
 msgstr "Бирманский"
@@ -1231,6 +1231,8 @@ msgid ""
 "required for security reasons, to ensure that your browser is not being "
 "hijacked by third parties."
 msgstr ""
+"Вы видите это сообщение, поскольку этот HTTPS сайт требует включения header'а \"Referrer\", но н не был отправлен Вашим браузером"
+"Он необходим из соображений безопасности, чтобы убедиться, что ваш браузер не был взломан."
 
 msgid ""
 "If you have configured your browser to disable “Referer” headers, please re-"

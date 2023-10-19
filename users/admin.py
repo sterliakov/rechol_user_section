@@ -22,6 +22,7 @@ from .models import (
     Appellation,
     ConfigurationSingleton,
     Event,
+    OfflineProblem,
     OfflineResult,
     OnlineAppellation,
     OnlineProblem,
@@ -536,6 +537,11 @@ class OfflineResultAdmin(_ResultAdminMixin, ConcurrentModelAdmin):
 
 @admin.register(OnlineProblem)
 class OnlineProblemAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(OfflineProblem)
+class OfflineProblemAdmin(admin.ModelAdmin):
     pass
 
 

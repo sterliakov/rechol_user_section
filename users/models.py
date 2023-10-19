@@ -317,11 +317,11 @@ class OnlineProblem(models.Model):
     )
 
     class Meta:
-        verbose_name = _('Problem')
-        verbose_name_plural = _('Problems')
+        verbose_name = _('online problem')
+        verbose_name_plural = _('online problems')
 
     def __str__(self):
-        return f'Problem {self.name}'
+        return f'Problem {self.name} (online)'
 
     @property
     def repr_description(self):
@@ -345,6 +345,34 @@ class OnlineProblem(models.Model):
     def is_open_now(self, now=None):
         now = now or tz.now()
         return self.opens <= now <= self.closes + timedelta(seconds=10)
+
+
+class OfflineProblem(models.Model):
+    name = models.CharField(_('Name'), max_length=120, blank=False, null=False)
+    file = models.FileField(_('Statement'), upload_to='problems')
+    solution = models.FileField(
+        _('Solutions'), upload_to='solutions', null=True, blank=True
+    )
+    visible = models.BooleanField(_('Visible'), blank=False, null=False, default=False)
+    target_form = models.PositiveSmallIntegerField(
+        _('Target form'),
+        choices=SupportedForms.choices,
+        null=False,
+        blank=False,
+        default=8,
+    )
+
+    class Meta:
+        verbose_name = _('offline problem')
+        verbose_name_plural = _('offline problems')
+
+    def __str__(self):
+        return f'Problem {self.name} (offline)'
+
+    @property
+    def is_active(self) -> bool:
+        config = ConfigurationSingleton.objects.get()
+        return config.show_offline_problems
 
 
 class OnlineSubmission(_TotalMixin, models.Model):
@@ -421,6 +449,9 @@ class ConfigurationSingleton(models.Model):
     online_appeal_start = models.DateTimeField(_('Start of online stage appeal'))
     online_appeal_end = models.DateTimeField(_('End of online stage appeal'))
     forbid_venue_change = models.BooleanField(_('forbid venue change'), default=False)
+    show_offline_problems = models.BooleanField(
+        _('allow downloading offline stage problems'), default=False
+    )
 
     class Meta:
         verbose_name = _('Configuration')

@@ -13,6 +13,7 @@
             <th>{% trans "First name" %}</th>
             <th>{% trans "Last name" %}</th>
             <th>{% trans "Patronymic name" %}</th>
+            <th>{% trans "ID Number" %}</th>
             <th>{% trans "Form" %}</th>
             <th>{% trans "Scans" %}</th>
           </thead>
@@ -22,6 +23,7 @@
               <td>{{ guy.first_name }}</td>
               <td>{{ guy.last_name }}</td>
               <td>{{ guy.patronymic_name }}</td>
+              <td>{{ guy.passport }}</td>
               <td class="text-center">{{ guy.participation_form }}</td>
               <td class="text-center">
                 <button class="btn btn-outline-primary"
@@ -34,7 +36,7 @@
             </tr>
           {% empty %}
             <tr>
-              <td colspan="6" class="text-center">{% trans "No participants yet." %}</td>
+              <td colspan="7" class="text-center">{% trans "No participants yet." %}</td>
             </tr>
           {% endfor %}
         </table>

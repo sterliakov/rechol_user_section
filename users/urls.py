@@ -42,6 +42,11 @@ venue_urls = [
     path(r'update/', views.VenueUpdateView.as_view(), name='venue_update'),
     path(r'list/', views.VenuesListView.as_view(), name='venues_list'),
     path(
+        r'instructions/',
+        views.VenueInstructionsView.as_view(),
+        name='venue_instructions',
+    ),
+    path(
         r'participants/list/',
         views.VenueParticipantsView.as_view(),
         name='venue_participants',

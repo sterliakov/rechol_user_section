@@ -3,78 +3,78 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-04 23:02+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2023-10-20 02:27+0300\n"
+"PO-Revision-Date: 2023-10-20 01:22+0300\n"
+"Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
+"Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
+"Language: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: users/admin.py:227 users/admin.py:250 users/models.py:301
+#: users/admin.py:228 users/admin.py:251 users/models.py:301
+#: users/models.py:351 users/templates/venue_instructions.html:142
 msgid "Name"
 msgstr "Name"
 
-#: users/admin.py:229
+#: users/admin.py:230
 msgid "Private"
 msgstr "Private"
 
-#: users/admin.py:232 users/models.py:107 users/models.py:218
-#: users/models.py:360
+#: users/admin.py:233 users/models.py:107 users/models.py:218
+#: users/models.py:388
 msgid "Participant"
 msgstr "Participant"
 
-#: users/admin.py:233
+#: users/admin.py:234
 msgid "Contact"
-msgstr "Contat"
+msgstr "Contact"
 
-#: users/admin.py:235
+#: users/admin.py:236
 msgid "Permissions"
 msgstr "Permissions"
 
-#: users/admin.py:246
+#: users/admin.py:247
 msgid "Important dates"
 msgstr "Important dates"
 
-#: users/admin.py:267
+#: users/admin.py:268
 msgid "Send email to selected users"
 msgstr "Send email to selected users"
 
-#: users/admin.py:499 users/admin.py:598
+#: users/admin.py:500 users/admin.py:604
 msgid "Participant last name"
 msgstr "Participant last name"
 
-#: users/admin.py:503 users/admin.py:604
+#: users/admin.py:504 users/admin.py:610
 msgid "Participant first name"
 msgstr "Participant first name"
 
-#: users/admin.py:508 users/admin.py:610 users/models.py:152
+#: users/admin.py:509 users/admin.py:616 users/models.py:152
 msgid "Participation form"
-msgstr "Participation form"
+msgstr "Participation grade"
 
-#: users/admin.py:513 users/templates/offline_appellation.html:43
+#: users/admin.py:514 users/templates/offline_appellation.html:43
 #: users/templates/online_appellation.html:39
 #: users/templates/online_submission.html:26
 msgid "Total score"
 msgstr "Total score"
 
-#: users/admin.py:532 users/models.py:46 users/models.py:110
+#: users/admin.py:533 users/models.py:46 users/models.py:110
 #: users/models.py:163
 msgid "Venue"
 msgstr "Venue"
 
-#: users/admin.py:558
+#: users/admin.py:564
 msgid "Problem name"
 msgstr "Problem name"
 
-#: users/admin.py:562
+#: users/admin.py:568
 msgid "Was submitted?"
 msgstr "Was submitted?"
 
@@ -82,7 +82,7 @@ msgstr "Was submitted?"
 msgid "Forgot Password?"
 msgstr "Forgot Password?"
 
-#: users/formhelpers.py:56 users/templates/base.html:148
+#: users/formhelpers.py:56 users/templates/base.html:150
 msgid "Login"
 msgstr "Login"
 
@@ -122,7 +122,7 @@ msgstr "Set password"
 msgid "Submit"
 msgstr "Submit"
 
-#: users/formhelpers.py:348 users/templates/venue_participants.html:29
+#: users/formhelpers.py:348 users/templates/venue_participants.html:31
 msgid "Upload"
 msgstr "Upload"
 
@@ -132,7 +132,7 @@ msgstr "Not a valid integer or hyphen."
 
 #: users/forms.py:82
 msgid "Only your form or higher is allowed."
-msgstr "Only your form or higher is allowed."
+msgstr "Only your grade or higher is allowed."
 
 #: users/forms.py:89
 msgid "Please fill your name and surname in separate fields."
@@ -190,7 +190,7 @@ msgstr "A photo or scan of a confirmation signed by your institution authority"
 msgid "User"
 msgstr "User"
 
-#: users/models.py:47 users/templates/base.html:72
+#: users/models.py:47 users/templates/base.html:73
 msgid "Venues"
 msgstr "Venues"
 
@@ -244,7 +244,8 @@ msgstr "Passport"
 
 #: users/models.py:141
 msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
-msgstr "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
+msgstr ""
+"Passport in format xxxx xxxxxx or birth certificate in format XX-XX xxxxxx"
 
 #: users/models.py:146
 msgid "School"
@@ -252,7 +253,7 @@ msgstr "School"
 
 #: users/models.py:149
 msgid "Actual form"
-msgstr "Actual form"
+msgstr "Actual grade"
 
 #: users/models.py:154
 msgid "VK link"
@@ -266,7 +267,7 @@ msgstr "Telegram nickname"
 msgid "Select only if you plan to participate in offline stage."
 msgstr "Select only if you plan to participate in offline stage."
 
-#: users/models.py:166 users/templates/base.html:98
+#: users/models.py:166 users/templates/base.html:99
 msgid "Online stage"
 msgstr "Online stage"
 
@@ -306,12 +307,12 @@ msgstr "Event"
 msgid "Events"
 msgstr "Events"
 
-#: users/models.py:222 users/models.py:373
+#: users/models.py:222 users/models.py:401
 #: users/templates/online_submission.html:24
 msgid "Scores"
 msgstr "Scores"
 
-#: users/models.py:226 users/models.py:359
+#: users/models.py:226 users/models.py:387
 msgid "Comment"
 msgstr "Comment"
 
@@ -319,7 +320,7 @@ msgstr "Comment"
 msgid "Original work"
 msgstr "Original work"
 
-#: users/models.py:234 users/models.py:381
+#: users/models.py:234 users/models.py:409
 msgid "Final scores after appellation"
 msgstr "Final scores after appellation"
 
@@ -391,11 +392,11 @@ msgstr "Annotation"
 msgid "Annotations"
 msgstr "Annotations"
 
-#: users/models.py:302
+#: users/models.py:302 users/models.py:352
 msgid "Statement"
 msgstr "Statement"
 
-#: users/models.py:303
+#: users/models.py:303 users/models.py:354
 msgid "Solutions"
 msgstr "Solutions"
 
@@ -411,88 +412,104 @@ msgstr "Closes at"
 msgid "Duration"
 msgstr "Duration"
 
-#: users/models.py:310
+#: users/models.py:310 users/models.py:356
 msgid "Visible"
 msgstr "Visible"
 
-#: users/models.py:312
+#: users/models.py:312 users/models.py:358
 msgid "Target form"
-msgstr "Target form"
+msgstr "Target grade"
 
-#: users/models.py:320 users/models.py:366
-msgid "Problem"
-msgstr "Problem"
+#: users/models.py:320
+msgid "online problem"
+msgstr "online stage problem"
 
 #: users/models.py:321
-msgid "Problems"
-msgstr "Problems"
+msgid "online problems"
+msgstr "online problems"
 
 #: users/models.py:328
 #, python-format
 msgid "Problem set for %dth form"
-msgstr "Problem set for %dth form"
+msgstr "Problem set for %dth grade"
 
-#: users/models.py:352
+#: users/models.py:366
+msgid "offline problem"
+msgstr "in-person stage problem"
+
+#: users/models.py:367
+msgid "offline problems"
+msgstr "in-person stage problems"
+
+#: users/models.py:380
 msgid "Solution file"
 msgstr "Solution file"
 
-#: users/models.py:353
+#: users/models.py:381
 msgid "Solution file in pdf format"
 msgstr "Solution file in pdf format"
 
-#: users/models.py:368
+#: users/models.py:394
+msgid "Problem"
+msgstr "Problem"
+
+#: users/models.py:396
 msgid "Started at"
 msgstr "Started at"
 
-#: users/models.py:387
+#: users/models.py:415
 msgid "Result (online)"
 msgstr "Result (online)"
 
-#: users/models.py:388
+#: users/models.py:416
 msgid "Results (online)"
 msgstr "Results (online)"
 
-#: users/models.py:415
+#: users/models.py:443
 msgid "Start of registration"
 msgstr "Start of registration"
 
-#: users/models.py:416
+#: users/models.py:444
 msgid "End of registration"
 msgstr "End of registration"
 
-#: users/models.py:417
+#: users/models.py:445
 msgid "start of venue registration"
 msgstr "start of venue registration"
 
-#: users/models.py:418
+#: users/models.py:446
 msgid "end of venue registration"
 msgstr "end of venue registration"
 
-#: users/models.py:419
+#: users/models.py:447
 msgid "Start of offline stage appeal"
 msgstr "Start of offline stage appeal"
 
-#: users/models.py:420
+#: users/models.py:448
 msgid "End of offline stage appeal"
 msgstr "End of offline stage appeal"
 
-#: users/models.py:421
+#: users/models.py:449
 msgid "Start of online stage appeal"
 msgstr "Start of online stage appeal"
 
-#: users/models.py:422
+#: users/models.py:450
 msgid "End of online stage appeal"
 msgstr "End of online stage appeal"
 
-#: users/models.py:423
+#: users/models.py:451
 msgid "forbid venue change"
 msgstr "forbid venue change"
 
-#: users/models.py:426
+#: users/models.py:453
+msgid "allow downloading offline stage problems"
+msgstr "allow downloading offline stage problems"
+
+#: users/models.py:457
 msgid "Configuration"
 msgstr "Configuration"
 
-#: users/models.py:427
+#: users/models.py:458
 msgid "Configurations"
 msgstr "Configurations"
 
@@ -562,63 +579,67 @@ msgstr "Please correct the errors below."
 msgid "Gradeable only"
 msgstr "Gradeable only"
 
-#: users/templates/base.html:11
+#: users/templates/base.html:12
 msgid "PChO"
 msgstr "PChO"
 
-#: users/templates/base.html:52
+#: users/templates/base.html:53
 msgid "Logo"
 msgstr "Logo"
 
-#: users/templates/base.html:69
+#: users/templates/base.html:70
 msgid "Index page"
 msgstr "Index page"
 
-#: users/templates/base.html:82
+#: users/templates/base.html:83
 msgid "Register"
 msgstr "Register"
 
-#: users/templates/base.html:84
+#: users/templates/base.html:85
 msgid "Register as participant"
 msgstr "Register as participant"
 
-#: users/templates/base.html:85
+#: users/templates/base.html:86
 msgid "Register a venue"
 msgstr "Register a venue"
 
-#: users/templates/base.html:90
+#: users/templates/base.html:91
 msgid "Profile"
 msgstr "Profile"
 
-#: users/templates/base.html:95
+#: users/templates/base.html:96
 msgid "In-person stage"
 msgstr "In-person stage"
 
-#: users/templates/base.html:105
+#: users/templates/base.html:106
 msgid "Judging"
 msgstr "Judging"
 
-#: users/templates/base.html:110
+#: users/templates/base.html:111
 msgid "Venue details"
 msgstr "Venue details"
 
-#: users/templates/base.html:113
+#: users/templates/base.html:114
 msgid "Participants"
 msgstr "Participants"
 
-#: users/templates/base.html:129
+#: users/templates/base.html:117
+msgid "Guides"
+msgstr "Guides"
+
+#: users/templates/base.html:131
 msgid "Change language"
 msgstr "Change language"
 
-#: users/templates/base.html:144
+#: users/templates/base.html:146
 msgid "Logout"
 msgstr "Logout"
 
-#: users/templates/base.html:205
+#: users/templates/base.html:207
 msgid "Error occurred"
 msgstr "Error occurred"
 
-#: users/templates/base.html:212 users/templates/online.html:80
+#: users/templates/base.html:214 users/templates/online.html:80
 msgid "OK"
 msgstr "OK"
 
@@ -674,8 +695,9 @@ msgstr "Problem statements for"
 #: users/templates/offline_appellation.html:38
 #: users/templates/online_appellation.html:32
 #: users/templates/online_appellation.html:35
+#: users/templates/venue_instructions.html:15
 msgid "form"
-msgstr "form"
+msgstr "grade"
 
 #: users/templates/offline_appellation.html:38
 #: users/templates/online_appellation.html:35
@@ -902,14 +924,14 @@ msgid "Registration"
 msgstr "Registration"
 
 #: users/templates/registration.html:12
-#: users/templates/venue_registration.html:22 users/views.py:93
-#: users/views.py:453
+#: users/templates/venue_registration.html:22 users/views.py:98
+#: users/views.py:458
 msgid "Registration not open yet."
 msgstr "Registration not open yet."
 
 #: users/templates/registration.html:14
-#: users/templates/venue_registration.html:24 users/views.py:96
-#: users/views.py:456
+#: users/templates/venue_registration.html:24 users/views.py:101
+#: users/views.py:461
 msgid "Registration closed."
 msgstr "Registration closed."
 
@@ -923,31 +945,422 @@ msgstr "By clicking \"save\", you agree with"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
+#: users/templates/venue_instructions.html:6
+msgid "Venue instructions"
+msgstr "Venue instructions"
+
+#: users/templates/venue_instructions.html:9
+msgid "Download statements"
+msgstr "Download problem statement"
+
+#: users/templates/venue_instructions.html:18
+msgid "No problem sets found"
+msgstr "No problem packs found"
+
+#: users/templates/venue_instructions.html:22
+msgid "Contacts"
+msgstr "Contacts"
+
+#: users/templates/venue_instructions.html:25
+msgid "Head of the team"
+msgstr "Head of the team"
+
+#: users/templates/venue_instructions.html:25
+msgid "Sergey Starykh"
+msgstr "Sergey Starykh"
+
+#: users/templates/venue_instructions.html:28
+msgid "General questions"
+msgstr "General questions"
+
+#: users/templates/venue_instructions.html:28
+#: users/templates/venue_instructions.html:98
+msgid "Yana Kulinich"
+msgstr "Yana Kulinich"
+
+#: users/templates/venue_instructions.html:31
+msgid "Questions about the problems"
+msgstr "Questions about the problems"
+
+#: users/templates/venue_instructions.html:31
+msgid "Nikolay Mescheryakov"
+msgstr "Nikolay Mescheryakov"
+
+#: users/templates/venue_instructions.html:34
+msgid "Day before the tour"
+msgstr "Day before the tour"
+
+#: users/templates/venue_instructions.html:37
+msgid ""
+"E-versions of problem sets will become available in your profile before "
+"<b>12:00</b>"
+msgstr ""
+"E-versions of problem sets will become available in your profile before "
+"<b>12:00</b>"
+
+#: users/templates/venue_instructions.html:40
+msgid ""
+"You can print the problems early. You are not permitted to share or show "
+"these problems to any third parties, especially participants or their "
+"teachers. Check the sets after printing to confirm that there are no serious "
+"polygraphical defects (such as unreadable text, black stripes from printer "
+"cartridge, etc.)"
+msgstr ""
+"You can print the problems early. You are not permitted to share or show "
+"these problems to any third parties, especially participants or their "
+"teachers. Check the sets after printing to confirm that there are no serious "
+"polygraphical defects (such as unreadable text, black stripes from printer "
+"cartridge, etc.)"
+
+#: users/templates/venue_instructions.html:43
+msgid ""
+"Prepare participants lists per auditory: every participant should be "
+"assigned an auditory number. Skip this step if one auditory is sufficient "
+"for your venue. You can find actual participants list in your profile."
+msgstr ""
+"Prepare participants lists per auditory: every participant should be "
+"assigned an auditory number. Skip this step if one auditory is sufficient "
+"for your venue. You can find actual participants list in your profile."
+
+#: users/templates/venue_instructions.html:46
+msgid ""
+"Prepare blank A4 paper sheets for answers (3 per participant) and paper for "
+"drafts (2 sheets per participant)"
+msgstr ""
+"Prepare blank A4 paper sheets for answers (3 per participant) and paper for "
+"drafts (2 sheets per participant)"
+
+#: users/templates/venue_instructions.html:49
+msgid "At the tour day"
+msgstr "At the tour day"
+
+#: users/templates/venue_instructions.html:52
+msgid "Participants should be allowed into your venue no later than"
+msgstr "Participants should be allowed into your venue no later than at"
+
+#: users/templates/venue_instructions.html:55
+msgid ""
+"Participants should present their passport (or other identity document) at "
+"the entrance. Please record cases when ID number does not match displayed in "
+"your profile. Please also record typos in personal details. Please check all "
+"participants in your statement (on paper or electronically)"
+msgstr ""
+"Participants should present their passport (or other identity document) at "
+"the entrance. Please record cases when ID number does not match displayed in "
+"your profile. Please also record typos in personal details. Please check all "
+"participants in your statement (on paper or electronically)"
+
+#: users/templates/venue_instructions.html:57
+msgid "Participants should present their passport when entering the auditory."
+msgstr "Participants should present their passport when entering the auditory."
+
+#: users/templates/venue_instructions.html:59
+msgid ""
+"Participants who are late for less than 1 hour should be allowed into the "
+"auditory. Their time should not be extended&nbsp;&mdash; they finish at the "
+"same time as other participants. Participants who are late for more than an "
+"hour should not be allowed into the venue."
+msgstr ""
+"Participants who are late for less than 1 hour should be allowed into the "
+"auditory. Their time should not be extended&nbsp;&mdash; they finish at the "
+"same time as other participants. Participants who are late for more than an "
+"hour should not be allowed into the venue."
+
+#: users/templates/venue_instructions.html:62
+msgid ""
+"Use of any printed materials is prohibited, except those included into "
+"problems pack. Use of any electronic devices except for non-programmable "
+"calculator is strictly prohibited. A warning should be issues to "
+"participants caught on cheating; the work is invalidated after second "
+"warning, and the participant should not complete the tour. Record such cases "
+"in your statement clearly."
+msgstr ""
+"Use of any printed materials is prohibited, except those included into "
+"problems pack. Use of any electronic devices except for non-programmable "
+"calculator is strictly prohibited. A warning should be issues to "
+"participants caught on cheating; the work is invalidated after second "
+"warning, and the participant should not complete the tour. Record such cases "
+"in your statement clearly."
+
+#: users/templates/venue_instructions.html:65
+msgid ""
+"You should start reading Participant Instructions aloud at <b>10:00</b>. "
+"After announcing the instructions, please handle the problem sets to "
+"participants (front side down). When all participants have received their "
+"packs, you may start the tour. Tour does not have to be started at the same "
+"time in all the rooms. When started, announce current time and end time, and "
+"write them on the whiteboard."
+msgstr ""
+"You should start reading Participant Instructions aloud at <b>10:00</b>. "
+"After announcing the instructions, please handle the problem sets to "
+"participants (front side down). When all participants have received their "
+"packs, you may start the tour. Tour does not have to be started at the same "
+"time in all the rooms. When started, announce current time and end time, and "
+"write them on the whiteboard."
+
+#: users/templates/venue_instructions.html:68
+msgid ""
+"Every hour, and also 30, 15 and 5 minutes before the deadline you should "
+"announce remaining time to the participants. If there is no clock in the "
+"room, consider also writing current time on the whiteboard and updating it "
+"regularly."
+msgstr ""
+"Every hour, and also 30, 15 and 5 minutes before the deadline you should "
+"announce remaining time to the participants. If there is no clock in the "
+"room, consider also writing current time on the whiteboard and updating it "
+"regularly."
+
+#: users/templates/venue_instructions.html:72
+msgid ""
+"You are not permitted to answer any questions about the problems, even if "
+"you think you know the answer for sure. Please contact our jury using the "
+"phone in \"Contacts\" section above and transmit our response to the "
+"participant."
+msgstr ""
+"You are not permitted to answer any questions about the problems, even if "
+"you think you know the answer for sure. Please contact our jury using the "
+"phone in the \"Contacts\" section above and transmit our response to the "
+"participant."
+
+#: users/templates/venue_instructions.html:76
+msgid ""
+"Participants are permitted to leave the auditory. Record leaving&amp;return "
+"time in your statement."
+msgstr ""
+"Participants are permitted to leave the auditory. Record leaving&amp;return "
+"time in your statement."
+
+#: users/templates/venue_instructions.html:78
+msgid "Participants can complete their work before the deadline."
+msgstr "Participants can complete their work before the deadline."
+
+#: users/templates/venue_instructions.html:80
+msgid ""
+"When the tour ends, participants must stop any writing. Collect the works "
+"after that. Please let participants sign and put page numbers after "
+"completion, but only under your supervision."
+msgstr ""
+"When the tour ends, participants must stop any writing. Collect the works "
+"after that. Please let participants sign and put page numbers after "
+"completion, but only under your supervision."
+
+#: users/templates/venue_instructions.html:83
+msgid ""
+"When collecting the work, please check that all pages (including problem "
+"statements) are present, page numbers are correct, and every page is signed "
+"appropriately. You do not need to fasten pages together, since they will be "
+"scanned later."
+msgstr ""
+"When collecting the work, please check that all pages (including problem "
+"statements) are present, page numbers are correct, and every page is signed "
+"appropriately. You do not need to fasten pages together, since they will be "
+"scanned later."
+
+#: users/templates/venue_instructions.html:86
+msgid "After the tour"
+msgstr "After the tour"
+
+#: users/templates/venue_instructions.html:90
+msgid ""
+"The submissions have to be scanned. <em>All scans should be submitted at the "
+"same day!</em> Please upload the files via \"Upload\" button near every "
+"participant on the list in your profile. Please upload exactly one file in "
+"PDF format for every participants with pages ordered properly."
+msgstr ""
+"The submissions have to be scanned. <em>All scans should be submitted at the "
+"same day!</em> Please upload the files via \"Upload\" button near every "
+"participant on the list in your profile. Please upload exactly one file in "
+"PDF format for every participants with pages ordered properly."
+
+#: users/templates/venue_instructions.html:94
+msgid ""
+"During next week, please send original works using any intermediary which is "
+"convenient for you. We will wait for them at"
+msgstr ""
+"During next week, please send original works using any intermediary which is "
+"convenient for you. We will wait for them at"
+
+#: users/templates/venue_instructions.html:96
+msgid "20 Boris Galushkin str., apt. 123<br />Moscow, 129301<br />Russia"
+msgstr "20 Boris Galushkin str., apt. 123<br/>Moscow, 129301<br/>Russia"
+
+#: users/templates/venue_instructions.html:107
+msgid "Instructions for participants"
+msgstr "Instructions for Participants"
+
+#: users/templates/venue_instructions.html:112
+msgid ""
+"Welcome to the in-person preliminary stage of the Project Chemistry "
+"Olympiad. You will have 5 problems from different chemistry fields to solve "
+"today. You will have 3 hours and 55 minutes to complete the tasks. Please "
+"beware that any cheating is strictly prohibited. You are not allowed to use "
+"any printed or electronic materials and devices, except for those included "
+"into your problems pack and a personal non-programmable calculator. "
+"Violation of this rule will result in your work rejection. We advice to "
+"handle your mobile phones and electronical watches to our colleagues."
+msgstr ""
+"Welcome to the in-person preliminary stage of the Project Chemistry "
+"Olympiad. You will have 5 problems from different chemistry fields to solve "
+"today. You will have 3 hours and 55 minutes to complete the tasks. Please "
+"beware that any cheating is strictly prohibited. You are not allowed to use "
+"any printed or electronic materials and devices, except for those included "
+"into your problems pack and a personal non-programmable calculator. "
+"Violation of this rule will result in your work rejection. We advice to "
+"handle your mobile phones and electronical watches to our colleagues."
+
+#: users/templates/venue_instructions.html:115
+msgid ""
+"You have received blank A4 paper sheets for your submissions. You can use "
+"draft paper sheets and write anything on problem statements. Your notes on "
+"draft paper and problem statements will not be checked. Plan your time not "
+"to be late to copy all solutions to blank sheets if you solve anywhere else. "
+"If you ran out of paper, ask us for more."
+msgstr ""
+"You have received blank A4 paper sheets for your submissions. You can use "
+"draft paper sheets and write anything on problem statements. Your notes on "
+"draft paper and problem statements will not be checked. Plan your time not "
+"to be late to copy all solutions to blank sheets if you solve anywhere else. "
+"If you ran out of paper, ask us for more."
+
+#: users/templates/venue_instructions.html:118
+msgid ""
+"You are allowed to leave the auditory. To leave, put all the materials on "
+"your desk and ask us to accompany you."
+msgstr ""
+"You are allowed to leave the auditory. To leave, put all the materials on "
+"your desk and ask us to accompany you."
+
+#: users/templates/venue_instructions.html:121
+msgid ""
+"Before submitting your work, please write your name, surname and grade "
+"number on every page, then number all the pages. Please do not staple the "
+"pages, your works will be scanned. Handle the problem statements and draft "
+"paper to us as well."
+msgstr ""
+"Before submitting your work, please write your name, surname and grade "
+"number on every page, then number all the pages. Please do not staple the "
+"pages, your works will be scanned. Handle the problem statements and draft "
+"paper to us as well."
+
+#: users/templates/venue_instructions.html:124
+msgid ""
+"You will find your results, as well as problem statements and solutions, on "
+"our site within a week"
+msgstr ""
+"You will find your results, as well as problem statements and solutions, on "
+"our site within a week"
+
+#: users/templates/venue_instructions.html:126
+msgid "Do not hesitate to ask any questions you may have. Have fun!"
+msgstr "Do not hesitate to ask any questions you may have. Have fun!"
+
+#: users/templates/venue_instructions.html:128
+msgid ""
+"(when problem statements are handled) You can begin now. The tour was "
+"started at ... and will be ended at ..."
+msgstr ""
+"(when problem statements are handled) You can begin now. The tour was "
+"started at ... and will be ended at ..."
+
+#: users/templates/venue_instructions.html:135
+msgid "Statement example"
+msgstr "Statement example"
+
+#: users/templates/venue_instructions.html:143
+#: users/templates/venue_participants.html:17
+msgid "Form"
+msgstr "Grade"
+
+#: users/templates/venue_instructions.html:144
+#: users/templates/venue_participants.html:16
+msgid "ID Number"
+msgstr "ID number"
+
+#: users/templates/venue_instructions.html:145
+msgid "Room"
+msgstr "Room"
+
+#: users/templates/venue_instructions.html:146
+msgid "Came"
+msgstr "Came"
+
+#: users/templates/venue_instructions.html:147
+msgid "Removed"
+msgstr "Removed"
+
+#: users/templates/venue_instructions.html:148
+msgid "Exits"
+msgstr "Exits"
+
+#: users/templates/venue_instructions.html:149
+msgid "Page count"
+msgstr "Page count"
+
+#: users/templates/venue_instructions.html:150
+msgid "Note"
+msgstr "Note"
+
+#: users/templates/venue_instructions.html:155
+msgid "John Doe"
+msgstr "John Doe"
+
+#: users/templates/venue_instructions.html:163
+msgid "Phone usage"
+msgstr "Phone usage"
+
+#: users/templates/venue_instructions.html:166
+msgid "Jane Doe"
+msgstr "Jane Doe"
+
+#: users/templates/venue_instructions.html:174
+msgid "Cheating suspected"
+msgstr "Cheating suspected"
+
+#: users/templates/venue_instructions.html:177
+msgid "John Smith"
+msgstr "John Smith"
+
+#: users/templates/venue_instructions.html:185
+msgid "Wrong ID number"
+msgstr "Wrong ID number"
+
+#: users/templates/venue_instructions.html:188
+msgid "John Smth"
+msgstr "John Smth"
+
+#: users/templates/venue_instructions.html:196
+msgid "Name typo: should be Smith"
+msgstr "Name typo: should be Smith"
+
+#: users/templates/venue_instructions.html:199
+msgid "Joe Bloggs"
+msgstr "Joe Bloggs"
+
+#: users/templates/venue_instructions.html:210
+msgid "Jane Austin"
+msgstr "Jane Austin"
+
 #: users/templates/venue_participants.html:6
 msgid "Registered participants"
 msgstr "Registered participants"
 
-#: users/templates/venue_participants.html:16
-msgid "Form"
-msgstr "Form"
-
-#: users/templates/venue_participants.html:17
+#: users/templates/venue_participants.html:18
 msgid "Scans"
 msgstr "Scans"
 
-#: users/templates/venue_participants.html:32
+#: users/templates/venue_participants.html:34
 msgid "Clear"
 msgstr "Clear"
 
-#: users/templates/venue_participants.html:37
+#: users/templates/venue_participants.html:39
 msgid "No participants yet."
 msgstr "No participants yet."
 
-#: users/templates/venue_participants.html:48
+#: users/templates/venue_participants.html:50
 msgid "Upload scan"
 msgstr "Upload scan"
 
-#: users/templates/venue_participants.html:54
+#: users/templates/venue_participants.html:56
 msgid "Please check participant data below:"
 msgstr "Please check participant data below:"
 
@@ -979,10 +1392,10 @@ msgstr "Available venues:"
 msgid "No venues registered so far."
 msgstr "No venues registered so far."
 
-#: users/views.py:166
+#: users/views.py:171
 msgid "You do not have access to editing annotations"
 msgstr "You do not have access to editing annotations"
 
-#: users/views.py:304
+#: users/views.py:309
 msgid "Cannot submit solutions to closed contest."
 msgstr "Cannot submit solutions to closed contest."

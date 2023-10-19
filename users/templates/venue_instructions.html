@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+{% block content %}
+  <div class="card">
+    <div class="card-header text-center">
+      <h1 class="w-100">{% trans "Venue instructions" %}</h1>
+    </div>
+    <div class="card-body">
+      <h2>{% trans "Download statements" %}:</h2>
+      <div class="d-flex justify-content-center">
+        {% for problem in problems %}
+          <a href="{% if problem.is_active %}{{ problem.file.url }}{% else %}#{% endif %}"
+             target="_blank"
+             class="btn btn-outline-primary{% if not problem.is_active %} disabled{% endif %}">
+            {{ problem.target_form }} {% trans "form" %}
+          </a>
+        {% empty %}
+          {% trans "No problem sets found" %}
+        {% endfor %}
+      </div>
+      <div>
+        <h2>{% trans "Contacts" %}:</h2>
+        <ul>
+          <li>
+            <em>{% trans "Head of the team" %}:</em> <pre class="d-inline">+7 925 361-34-96</pre>&nbsp;&mdash; {% trans "Sergey Starykh" %}
+          </li>
+          <li>
+            <em>{% trans "General questions" %}:</em> <pre class="d-inline">+7 916 097-43-48</pre>&nbsp;&mdash; {% trans "Yana Kulinich" %}
+          </li>
+          <li>
+            <em>{% trans "Questions about the problems" %}:</em> <pre class="d-inline">+7 922 576-56-90</pre>&nbsp;&mdash; {% trans "Nikolay Mescheryakov" %}
+          </li>
+        </ul>
+        <h2>{% trans "Day before the tour" %}</h2>
+        <ol>
+          <li>
+            {% trans "E-versions of problem sets will become available in your profile before <b>12:00</b>" %}
+          </li>
+          <li>
+            {% trans "You can print the problems early. You are not permitted to share or show these problems to any third parties, especially participants or their teachers. Check the sets after printing to confirm that there are no serious polygraphical defects (such as unreadable text, black stripes from printer cartridge, etc.)" %}
+          </li>
+          <li>
+            {% trans "Prepare participants lists per auditory: every participant should be assigned an auditory number. Skip this step if one auditory is sufficient for your venue. You can find actual participants list in your profile." %}
+          </li>
+          <li>
+            {% trans "Prepare blank A4 paper sheets for answers (3 per participant) and paper for drafts (2 sheets per participant)" %}
+          </li>
+        </ol>
+        <h2>{% trans "At the tour day" %}</h2>
+        <ol>
+          <li>
+            {% trans "Participants should be allowed into your venue no later than" %} <b>9:30</b>.
+          </li>
+          <li>
+            {% trans "Participants should present their passport (or other identity document) at the entrance. Please record cases when ID number does not match displayed in your profile. Please also record typos in personal details. Please check all participants in your statement (on paper or electronically)" %}
+          </li>
+          <li>{% trans "Participants should present their passport when entering the auditory." %}</li>
+          <li>
+            {% trans "Participants who are late for less than 1 hour should be allowed into the auditory. Their time should not be extended&nbsp;&mdash; they finish at the same time as other participants. Participants who are late for more than an hour should not be allowed into the venue." %}
+          </li>
+          <li>
+            {% trans "Use of any printed materials is prohibited, except those included into problems pack. Use of any electronic devices except for non-programmable calculator is strictly prohibited. A warning should be issues to participants caught on cheating; the work is invalidated after second warning, and the participant should not complete the tour. Record such cases in your statement clearly." %}
+          </li>
+          <li>
+            {% trans "You should start reading Participant Instructions aloud at <b>10:00</b>. After announcing the instructions, please handle the problem sets to participants (front side down). When all participants have received their packs, you may start the tour. Tour does not have to be started at the same time in all the rooms. When started, announce current time and end time, and write them on the whiteboard." %}
+          </li>
+          <li>
+            {% trans "Every hour, and also 30, 15 and 5 minutes before the deadline you should announce remaining time to the participants. If there is no clock in the room, consider also writing current time on the whiteboard and updating it regularly." %}
+          </li>
+          <li>
+            {# djlint:off T002 #}
+            {% trans 'You are not permitted to answer any questions about the problems, even if you think you know the answer for sure. Please contact our jury using the phone in "Contacts" section above and transmit our response to the participant.' %}
+            {# djlint:on #}
+          </li>
+          <li>
+            {% trans "Participants are permitted to leave the auditory. Record leaving&amp;return time in your statement." %}
+          </li>
+          <li>{% trans "Participants can complete their work before the deadline." %}</li>
+          <li>
+            {% trans "When the tour ends, participants must stop any writing. Collect the works after that. Please let participants sign and put page numbers after completion, but only under your supervision." %}
+          </li>
+          <li>
+            {% trans "When collecting the work, please check that all pages (including problem statements) are present, page numbers are correct, and every page is signed appropriately. You do not need to fasten pages together, since they will be scanned later." %}
+          </li>
+        </ol>
+        <h2>{% trans "After the tour" %}</h2>
+        <ol>
+          <li>
+            {# djlint:off T002 #}
+            {% trans 'The submissions have to be scanned. <em>All scans should be submitted at the same day!</em> Please upload the files via "Upload" button near every participant on the list in your profile. Please upload exactly one file in PDF format for every participants with pages ordered properly.' %}
+            {# djlint:on #}
+          </li>
+          <li>
+            {% trans "During next week, please send original works using any intermediary which is convenient for you. We will wait for them at" %}
+            <div class="d-flex justify-content-center mt-1">
+              {% trans "20 Boris Galushkin str., apt. 123<br />Moscow, 129301<br />Russia" %}
+              <br />
+              {% trans "Yana Kulinich" %}
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header text-center">
+      <h1 class="w-100">{% trans "Instructions for participants" %}</h1>
+    </div>
+    <div class="card-body">
+      <ol>
+        <li>
+          {% trans "Welcome to the in-person preliminary stage of the Project Chemistry Olympiad. You will have 5 problems from different chemistry fields to solve today. You will have 3 hours and 55 minutes to complete the tasks. Please beware that any cheating is strictly prohibited. You are not allowed to use any printed or electronic materials and devices, except for those included into your problems pack and a personal non-programmable calculator. Violation of this rule will result in your work rejection. We advice to handle your mobile phones and electronical watches to our colleagues." %}
+        </li>
+        <li>
+          {% trans "You have received blank A4 paper sheets for your submissions. You can use draft paper sheets and write anything on problem statements. Your notes on draft paper and problem statements will not be checked. Plan your time not to be late to copy all solutions to blank sheets if you solve anywhere else. If you ran out of paper, ask us for more." %}
+        </li>
+        <li>
+          {% trans "You are allowed to leave the auditory. To leave, put all the materials on your desk and ask us to accompany you." %}
+        </li>
+        <li>
+          {% trans "Before submitting your work, please write your name, surname and grade number on every page, then number all the pages. Please do not staple the pages, your works will be scanned. Handle the problem statements and draft paper to us as well." %}
+        </li>
+        <li>
+          {% trans "You will find your results, as well as problem statements and solutions, on our site within a week" %}: https://chemolymp.ru/
+        </li>
+        <li>{% trans "Do not hesitate to ask any questions you may have. Have fun!" %}</li>
+        <li>
+          {% trans "(when problem statements are handled) You can begin now. The tour was started at ... and will be ended at ..." %}
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header text-center">
+      <h1 class="w-100">{% trans "Statement example" %}</h1>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Form" %}</th>
+              <th>{% trans "ID Number" %}</th>
+              <th>{% trans "Room" %}</th>
+              <th>{% trans "Came" %}</th>
+              <th>{% trans "Removed" %}</th>
+              <th>{% trans "Exits" %}</th>
+              <th>{% trans "Page count" %}</th>
+              <th>{% trans "Note" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{% trans "John Doe" %}</th>
+              <td class="text-center">8</td>
+              <td>4516 123124</td>
+              <td class="text-center">204</td>
+              <td class="text-center">1</td>
+              <td class="text-center">1</td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td>{% trans "Phone usage" %}</td>
+            </tr>
+            <tr>
+              <th>{% trans "Jane Doe" %}</th>
+              <td class="text-center">9</td>
+              <td>4516 123125</td>
+              <td class="text-center">204</td>
+              <td class="text-center">1</td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center">3</td>
+              <td>{% trans "Cheating suspected" %}</td>
+            </tr>
+            <tr>
+              <th>{% trans "John Smith" %}</th>
+              <td class="text-center">9</td>
+              <td>4516 123126</td>
+              <td class="text-center">204</td>
+              <td class="text-center">1</td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center">3</td>
+              <td>{% trans "Wrong ID number" %}: 4516 124126</td>
+            </tr>
+            <tr>
+              <th>{% trans "John Smth" %}</th>
+              <td class="text-center">9</td>
+              <td>4516 123127</td>
+              <td class="text-center">205</td>
+              <td class="text-center">1</td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center">3</td>
+              <td>{% trans "Name typo: should be Smith" %}</td>
+            </tr>
+            <tr>
+              <th>{% trans "Joe Bloggs" %}</th>
+              <td class="text-center">9</td>
+              <td>4516 123128</td>
+              <td class="text-center">205</td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>{% trans "Jane Austin" %}</th>
+              <td class="text-center">10</td>
+              <td>4516 123123</td>
+              <td class="text-center">204</td>
+              <td class="text-center">1</td>
+              <td class="text-center"></td>
+              <td class="text-center">11.05—11.09</td>
+              <td class="text-center">4</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
