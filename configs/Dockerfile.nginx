@@ -1,8 +1,0 @@
-FROM nginx:1.23.0
-SHELL ["/bin/sh", "-e", "-u", "-x", "-c"]
-
-ARG NGINX_CONF
-
-RUN rm /etc/nginx/conf.d/default.conf
-COPY configs/${NGINX_CONF:-site.conf} /etc/nginx/templates/site.conf.template
-COPY static_files/ /home/rechol/static/

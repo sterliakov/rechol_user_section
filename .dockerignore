@@ -1,3 +1,5 @@
+.git
+.ruff_cache
 venv
 .eslintrc.js
 .gitignore
@@ -6,3 +8,4 @@ docker-compose.yaml
 Dockerfile
 LICENSE
 pyproject.toml
+*.sublime-*

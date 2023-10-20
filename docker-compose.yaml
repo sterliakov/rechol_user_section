@@ -37,20 +37,16 @@ services:
     networks:
       - djangonetwork
     restart: always
-    ports:
-      - 6379:6379
   app:
     env_file: .env
     build:
       context: .
       dockerfile: Dockerfile
+      target: deploy
       args:
         - APP_USER=${APP_USER}
         - SERVER_NAME=${SERVER_NAME}
         - SERVER_ADMIN=${SERVER_ADMIN}
-    links:
-      - db:db
-      - redis:redis
     depends_on:
       - db
       - redis
@@ -62,7 +58,8 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: configs/Dockerfile.nginx
+      dockerfile: Dockerfile
+      target: nginx
       args:
         - NGINX_CONF
     env_file: .env
@@ -88,7 +85,7 @@ services:
       - /etc/ssl/:/etc/ssl/
       # LetsEncrypt acme challenge
       - /var/www/well-known/:/var/www/well-known/
-      - media_volume:/var/www/rechol_user_section/media
+      - media_volume:/var/www/rechol_user_section/media:ro
 
 networks:
   djangonetwork:
