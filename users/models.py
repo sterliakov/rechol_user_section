@@ -41,13 +41,17 @@ class Venue(models.Model):
     owner = models.OneToOneField(
         'User', models.CASCADE, verbose_name=_('User'), related_name='owned_venue'
     )
+    is_full = models.BooleanField(_('registration closed (full)'), default=False)
 
     class Meta:
         verbose_name = _('Venue')
         verbose_name_plural = _('Venues')
 
     def __str__(self):
-        return f'{self.short_name} ({self.city}, {self.full_address})'
+        base = f'{self.short_name} ({self.city}, {self.full_address})'
+        if self.is_full:
+            return _('[REGISTRATION CLOSED]') + ' ' + base
+        return base
 
 
 class UserManager(UserManager_):

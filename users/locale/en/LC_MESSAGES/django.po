@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 02:27+0300\n"
+"POT-Creation-Date: 2023-10-23 20:09+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: users/admin.py:228 users/admin.py:251 users/models.py:301
-#: users/models.py:351 users/templates/venue_instructions.html:142
+#: users/admin.py:228 users/admin.py:251 users/models.py:305
+#: users/models.py:355 users/templates/venue_instructions.html:142
 msgid "Name"
 msgstr "Name"
 
@@ -26,8 +26,8 @@ msgstr "Name"
 msgid "Private"
 msgstr "Private"
 
-#: users/admin.py:233 users/models.py:107 users/models.py:218
-#: users/models.py:388
+#: users/admin.py:233 users/models.py:111 users/models.py:222
+#: users/models.py:392
 msgid "Participant"
 msgstr "Participant"
 
@@ -55,7 +55,7 @@ msgstr "Participant last name"
 msgid "Participant first name"
 msgstr "Participant first name"
 
-#: users/admin.py:509 users/admin.py:616 users/models.py:152
+#: users/admin.py:509 users/admin.py:616 users/models.py:156
 msgid "Participation form"
 msgstr "Participation grade"
 
@@ -65,8 +65,8 @@ msgstr "Participation grade"
 msgid "Total score"
 msgstr "Total score"
 
-#: users/admin.py:533 users/models.py:46 users/models.py:110
-#: users/models.py:163
+#: users/admin.py:533 users/models.py:47 users/models.py:114
+#: users/models.py:167
 msgid "Venue"
 msgstr "Venue"
 
@@ -131,30 +131,34 @@ msgid "Not a valid integer or hyphen."
 msgstr "Not a valid integer or hyphen."
 
 #: users/forms.py:82
+msgid "Registration to this venue is closed."
+msgstr "Registration to this venue is closed."
+
+#: users/forms.py:92
 msgid "Only your form or higher is allowed."
 msgstr "Only your grade or higher is allowed."
 
-#: users/forms.py:89
+#: users/forms.py:99
 msgid "Please fill your name and surname in separate fields."
 msgstr "Please fill your name and surname in separate fields."
 
-#: users/models.py:16 users/models.py:100
+#: users/models.py:16 users/models.py:104
 msgid "8"
 msgstr "8"
 
-#: users/models.py:17 users/models.py:101
+#: users/models.py:17 users/models.py:105
 msgid "9"
 msgstr "9"
 
-#: users/models.py:18 users/models.py:102
+#: users/models.py:18 users/models.py:106
 msgid "10"
 msgstr "10"
 
-#: users/models.py:19 users/models.py:103
+#: users/models.py:19 users/models.py:107
 msgid "11"
 msgstr "11"
 
-#: users/models.py:23 users/models.py:144
+#: users/models.py:23 users/models.py:148
 msgid "City"
 msgstr "City"
 
@@ -170,7 +174,7 @@ msgstr "full name"
 msgid "Address"
 msgstr "Address"
 
-#: users/models.py:31 users/models.py:132
+#: users/models.py:31 users/models.py:136
 msgid "Phone"
 msgstr "Phone"
 
@@ -186,330 +190,338 @@ msgstr "Confirmation letter"
 msgid "A photo or scan of a confirmation signed by your institution authority"
 msgstr "A photo or scan of a confirmation signed by your institution authority"
 
-#: users/models.py:42 users/models.py:177
+#: users/models.py:42 users/models.py:181
 msgid "User"
 msgstr "User"
 
-#: users/models.py:47 users/templates/base.html:73
+#: users/models.py:44
+msgid "registration closed (full)"
+msgstr "registration closed (full)"
+
+#: users/models.py:48 users/templates/base.html:73
 msgid "Venues"
 msgstr "Venues"
 
-#: users/models.py:96
+#: users/models.py:53
+msgid "[REGISTRATION CLOSED]"
+msgstr "[REGISTRATION CLOSED]"
+
+#: users/models.py:100
 msgid "Male"
 msgstr "Male"
 
-#: users/models.py:97
+#: users/models.py:101
 msgid "Female"
 msgstr "Female"
 
-#: users/models.py:104
+#: users/models.py:108
 msgid "Other"
 msgstr "Other"
 
-#: users/models.py:108
+#: users/models.py:112
 msgid "Admin"
 msgstr "Admin"
 
-#: users/models.py:109
+#: users/models.py:113
 msgid "Judge"
 msgstr "Judge"
 
-#: users/models.py:113
+#: users/models.py:117
 msgid "Email"
 msgstr "Email"
 
-#: users/models.py:116 users/templates/venue_participants.html:13
+#: users/models.py:120 users/templates/venue_participants.html:13
 msgid "First name"
 msgstr "First name"
 
-#: users/models.py:119 users/templates/venue_participants.html:14
+#: users/models.py:123 users/templates/venue_participants.html:14
 msgid "Last name"
 msgstr "Last name"
 
-#: users/models.py:122 users/templates/venue_participants.html:15
+#: users/models.py:126 users/templates/venue_participants.html:15
 msgid "Patronymic name"
 msgstr "Patronymic name"
 
-#: users/models.py:125
+#: users/models.py:129
 msgid "Gender"
 msgstr "Gender"
 
-#: users/models.py:131
+#: users/models.py:135
 msgid "Birth date"
 msgstr "Birth date"
 
-#: users/models.py:134
+#: users/models.py:138
 msgid "Passport"
 msgstr "Passport"
 
-#: users/models.py:141
+#: users/models.py:145
 msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
 msgstr ""
 "Passport in format xxxx xxxxxx or birth certificate in format XX-XX xxxxxx"
 
-#: users/models.py:146
+#: users/models.py:150
 msgid "School"
 msgstr "School"
 
-#: users/models.py:149
+#: users/models.py:153
 msgid "Actual form"
 msgstr "Actual grade"
 
-#: users/models.py:154
+#: users/models.py:158
 msgid "VK link"
 msgstr "VK link"
 
-#: users/models.py:156
+#: users/models.py:160
 msgid "Telegram nickname"
 msgstr "Telegram nickname"
 
-#: users/models.py:164
+#: users/models.py:168
 msgid "Select only if you plan to participate in offline stage."
 msgstr "Select only if you plan to participate in offline stage."
 
-#: users/models.py:166 users/templates/base.html:99
+#: users/models.py:170 users/templates/base.html:99
 msgid "Online stage"
 msgstr "Online stage"
 
-#: users/models.py:168
+#: users/models.py:172
 msgid "Role"
 msgstr "Role"
 
-#: users/models.py:178
+#: users/models.py:182
 msgid "Users"
 msgstr "Users"
 
-#: users/models.py:189
+#: users/models.py:193
 msgid "Title"
 msgstr "Title"
 
-#: users/models.py:190
+#: users/models.py:194
 msgid "Link"
 msgstr "Link"
 
-#: users/models.py:190
+#: users/models.py:194
 msgid "Link to news page etc."
 msgstr "Link to news page etc."
 
-#: users/models.py:191
+#: users/models.py:195
 msgid "Start"
 msgstr "Start"
 
-#: users/models.py:192
+#: users/models.py:196
 msgid "Description"
 msgstr "Description"
 
-#: users/models.py:195
+#: users/models.py:199
 msgid "Event"
 msgstr "Event"
 
-#: users/models.py:196
+#: users/models.py:200
 msgid "Events"
 msgstr "Events"
 
-#: users/models.py:222 users/models.py:401
+#: users/models.py:226 users/models.py:405
 #: users/templates/online_submission.html:24
 msgid "Scores"
 msgstr "Scores"
 
-#: users/models.py:226 users/models.py:387
+#: users/models.py:230 users/models.py:391
 msgid "Comment"
 msgstr "Comment"
 
-#: users/models.py:227
+#: users/models.py:231
 msgid "Original work"
 msgstr "Original work"
 
-#: users/models.py:234 users/models.py:409
+#: users/models.py:238 users/models.py:413
 msgid "Final scores after appellation"
 msgstr "Final scores after appellation"
 
-#: users/models.py:240
+#: users/models.py:244
 msgid "Result (offline)"
 msgstr "Result (offline)"
 
-#: users/models.py:241
+#: users/models.py:245
 msgid "Results (offline)"
 msgstr "Results (offline)"
 
-#: users/models.py:248
+#: users/models.py:252
 msgid "Message"
 msgstr "Message"
 
-#: users/models.py:249
+#: users/models.py:253
 msgid "Response"
 msgstr "Response"
 
-#: users/models.py:250
+#: users/models.py:254
 msgid "Created"
 msgstr "Created"
 
-#: users/models.py:251
+#: users/models.py:255
 msgid "Updated"
 msgstr "Updated"
 
-#: users/models.py:262 users/models.py:276
+#: users/models.py:266 users/models.py:280
 msgid "Result"
 msgstr "Result"
 
-#: users/models.py:266
+#: users/models.py:270
 msgid "Appellation (offline)"
 msgstr "Appellation (offline)"
 
-#: users/models.py:267
+#: users/models.py:271
 msgid "Appellations (offline)"
 msgstr "Appellations (offline)"
 
-#: users/models.py:280
+#: users/models.py:284
 msgid "Appellation (online)"
 msgstr "Appellation (online)"
 
-#: users/models.py:281
+#: users/models.py:285
 msgid "Appellations (online)"
 msgstr "Appellations (online)"
 
-#: users/models.py:285
+#: users/models.py:289
 msgid "Filename"
 msgstr "Filename"
 
-#: users/models.py:287
+#: users/models.py:291
 msgid "Annotation ID"
 msgstr "Annotation ID"
 
-#: users/models.py:289
+#: users/models.py:293
 msgid "Page number"
 msgstr "Page number"
 
-#: users/models.py:290 users/models.py:305
+#: users/models.py:294 users/models.py:309
 msgid "Annotation content"
 msgstr "Annotation content"
 
-#: users/models.py:293
+#: users/models.py:297
 msgid "Annotation"
 msgstr "Annotation"
 
-#: users/models.py:294
+#: users/models.py:298
 msgid "Annotations"
 msgstr "Annotations"
 
-#: users/models.py:302 users/models.py:352
+#: users/models.py:306 users/models.py:356
 msgid "Statement"
 msgstr "Statement"
 
-#: users/models.py:303 users/models.py:354
+#: users/models.py:307 users/models.py:358
 msgid "Solutions"
 msgstr "Solutions"
 
-#: users/models.py:307
+#: users/models.py:311
 msgid "Opens at"
 msgstr "Opens at"
 
-#: users/models.py:308
+#: users/models.py:312
 msgid "Closes at"
 msgstr "Closes at"
 
-#: users/models.py:309
+#: users/models.py:313
 msgid "Duration"
 msgstr "Duration"
 
-#: users/models.py:310 users/models.py:356
+#: users/models.py:314 users/models.py:360
 msgid "Visible"
 msgstr "Visible"
 
-#: users/models.py:312 users/models.py:358
+#: users/models.py:316 users/models.py:362
 msgid "Target form"
 msgstr "Target grade"
 
-#: users/models.py:320
+#: users/models.py:324
 msgid "online problem"
 msgstr "online stage problem"
 
-#: users/models.py:321
+#: users/models.py:325
 msgid "online problems"
 msgstr "online problems"
 
-#: users/models.py:328
+#: users/models.py:332
 #, python-format
 msgid "Problem set for %dth form"
 msgstr "Problem set for %dth grade"
 
-#: users/models.py:366
+#: users/models.py:370
 msgid "offline problem"
 msgstr "in-person stage problem"
 
-#: users/models.py:367
+#: users/models.py:371
 msgid "offline problems"
 msgstr "in-person stage problems"
 
-#: users/models.py:380
+#: users/models.py:384
 msgid "Solution file"
 msgstr "Solution file"
 
-#: users/models.py:381
+#: users/models.py:385
 msgid "Solution file in pdf format"
 msgstr "Solution file in pdf format"
 
-#: users/models.py:394
+#: users/models.py:398
 msgid "Problem"
 msgstr "Problem"
 
-#: users/models.py:396
+#: users/models.py:400
 msgid "Started at"
 msgstr "Started at"
 
-#: users/models.py:415
+#: users/models.py:419
 msgid "Result (online)"
 msgstr "Result (online)"
 
-#: users/models.py:416
+#: users/models.py:420
 msgid "Results (online)"
 msgstr "Results (online)"
 
-#: users/models.py:443
+#: users/models.py:447
 msgid "Start of registration"
 msgstr "Start of registration"
 
-#: users/models.py:444
+#: users/models.py:448
 msgid "End of registration"
 msgstr "End of registration"
 
-#: users/models.py:445
+#: users/models.py:449
 msgid "start of venue registration"
 msgstr "start of venue registration"
 
-#: users/models.py:446
+#: users/models.py:450
 msgid "end of venue registration"
 msgstr "end of venue registration"
 
-#: users/models.py:447
+#: users/models.py:451
 msgid "Start of offline stage appeal"
 msgstr "Start of offline stage appeal"
 
-#: users/models.py:448
+#: users/models.py:452
 msgid "End of offline stage appeal"
 msgstr "End of offline stage appeal"
 
-#: users/models.py:449
+#: users/models.py:453
 msgid "Start of online stage appeal"
 msgstr "Start of online stage appeal"
 
-#: users/models.py:450
+#: users/models.py:454
 msgid "End of online stage appeal"
 msgstr "End of online stage appeal"
 
-#: users/models.py:451
+#: users/models.py:455
 msgid "forbid venue change"
 msgstr "forbid venue change"
 
-#: users/models.py:453
+#: users/models.py:457
 msgid "allow downloading offline stage problems"
 msgstr "allow downloading offline stage problems"
 
-#: users/models.py:457
+#: users/models.py:461
 msgid "Configuration"
 msgstr "Configuration"
 
-#: users/models.py:458
+#: users/models.py:462
 msgid "Configurations"
 msgstr "Configurations"
 
@@ -635,11 +647,11 @@ msgstr "Change language"
 msgid "Logout"
 msgstr "Logout"
 
-#: users/templates/base.html:207
+#: users/templates/base.html:212
 msgid "Error occurred"
 msgstr "Error occurred"
 
-#: users/templates/base.html:214 users/templates/online.html:80
+#: users/templates/base.html:219 users/templates/online.html:80
 msgid "OK"
 msgstr "OK"
 
@@ -930,8 +942,8 @@ msgid "Registration not open yet."
 msgstr "Registration not open yet."
 
 #: users/templates/registration.html:14
-#: users/templates/venue_registration.html:24 users/views.py:101
-#: users/views.py:461
+#: users/templates/venue_registration.html:24
+#: users/templates/venues_list.html:11 users/views.py:101 users/views.py:461
 msgid "Registration closed."
 msgstr "Registration closed."
 
@@ -1388,7 +1400,7 @@ msgstr "Your venue will appear on list after our confirmation."
 msgid "Available venues:"
 msgstr "Available venues:"
 
-#: users/templates/venues_list.html:43
+#: users/templates/venues_list.html:46
 msgid "No venues registered so far."
 msgstr "No venues registered so far."
 

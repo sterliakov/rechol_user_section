@@ -108,7 +108,6 @@ class UserUpdateFormHelper(CustomFormHelper):
                     {
                         'data-live-search': 'true',
                         'data-container': 'body',
-                        'data-mobile': 'true',
                     },
                 ): '6 col-sm-12 col-lg-6',
                 Div(

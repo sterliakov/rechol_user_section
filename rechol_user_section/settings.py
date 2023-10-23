@@ -177,7 +177,7 @@ BOWER_INSTALLED_APPS = (
     'awesomplete',
     'knockout',
     'https://github.com/mdbootstrap/perfect-scrollbar.git',
-    'bootstrap-select',
+    'bootstrap-select#1.13.14',
     'moment',
     'https://github.com/dangrossman/daterangepicker.git',
     'humanize-duration',
