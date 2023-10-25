@@ -76,7 +76,11 @@ class UserCreateFormMixin:
     def clean_venue_selected(self):
         venue = self.cleaned_data['venue_selected']
         instance = getattr(self, 'instance', None)
-        if venue.is_full and (not instance or instance.venue_selected != venue):
+        if (
+            venue
+            and venue.is_full
+            and (not instance or instance.venue_selected != venue)
+        ):
             self.add_error(
                 'venue_selected',
                 ValidationError(_('Registration to this venue is closed.')),
