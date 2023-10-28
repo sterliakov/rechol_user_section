@@ -267,14 +267,9 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
 
     @admin.action(description=_('Send email to selected users'))
     def send_email(self, request, queryset):
-        __import__('logging').critical(queryset)
-        __import__('logging').critical(request.POST)
-        __import__('logging').critical(request.FILES)
         file = request.FILES.get('attachment')
         if 'subject' in request.POST:
             for user in queryset:
-                __import__('logging').critical(user)
-
                 try:
                     body = request.POST['template'].format(
                         name=f'{user.first_name} {user.last_name}'
@@ -298,7 +293,6 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
                 msg.send(fail_silently=False)
 
             self.message_user(request, f'Sent emails to {queryset.count()} users')
-            __import__('logging').critical('Done')
             return HttpResponseRedirect(request.get_full_path())
 
         return render(request, 'admin/email_send.html', context={'users': queryset})

@@ -16,7 +16,7 @@ RUN BUILD_DEPS="build-essential libpcre3-dev libpq-dev git pkg-config nodejs npm
     npm i -g bower sass && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --chown=${APP_USER}:${APP_USER} . ${APP_HOME}
+COPY . ${APP_HOME}
 RUN . /venv/bin/activate && \
     DJANGO_SECRET_KEY=1 ./manage.py bower install && \
     DJANGO_SECRET_KEY=1 ./manage.py collectstatic && \
@@ -32,13 +32,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USER} && \
     RUN_DEPS="libpcre3 mime-support postgresql-client" && \
     apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends $RUN_DEPS && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/www/rechol_user_section/media/ && \
+    chown -R ${APP_USER}:${APP_USER} /var/www/rechol_user_section/media/
 # Patch
 COPY --chown=${APP_USER}:${APP_USER} ./patches/locale_ru/ /usr/local/lib/python3.10/site-packages/django/conf/locale/ru/LC_MESSAGES
 COPY --from=build /venv /venv
 
-RUN mkdir -p /var/www/rechol_user_section/media/ &&\
-    chown -R ${APP_USER}:${APP_USER} /var/www/rechol_user_section/media/
 WORKDIR ${APP_HOME}
 COPY --from=build /static_files/compressed/manifest.json static_files/compressed/manifest.json
 COPY --chown=${APP_USER}:${APP_USER} . ${APP_HOME}

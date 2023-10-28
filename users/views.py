@@ -1,9 +1,11 @@
 import contextlib
+import io
 from textwrap import dedent
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
 from django.http.response import (
+    FileResponse,
     HttpResponseBadRequest,
     HttpResponseForbidden,
     HttpResponseRedirect,
@@ -18,7 +20,9 @@ from django.views.generic import (
     ListView,
     TemplateView,
     UpdateView,
+    View,
 )
+from openpyxl import Workbook
 from rest_framework import generics
 
 from . import forms
@@ -525,7 +529,45 @@ class VenueParticipantsView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return super().get_context_data(**kwargs) | {
             'upload_form': forms.ScanUploadForm(),
             'user_data_form': forms.DummyUserDataForm(),
+            'venue': Venue.objects.filter(owner=self.request.user).first(),
         }
+
+
+class VenueParticipantsDownloadView(LoginRequiredMixin, UserPassesTestMixin, View):
+    model = User
+    template_name = 'venue_participants.html'
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.VENUE
+
+    def get_queryset(self):
+        venue = self.request.user.owned_venue
+        return User.objects.filter(
+            role=User.Roles.PARTICIPANT, venue_selected=venue
+        ).order_by('participation_form', 'last_name', 'first_name', 'id')
+
+    def get(self, _request):
+        users = self.get_queryset()
+        columns = [
+            _('Name'),
+            _('ID number'),
+            _('Grade'),
+            _('Room'),
+            _('Arrived'),
+            _('Terminated'),
+            _('Exits'),
+            _('Pages count'),
+            _('Comments'),
+        ]
+        wb = Workbook()
+        ws = wb.active
+        ws.append([str(col) for col in columns])
+        for user in users:
+            ws.append([user.get_full_name(), user.passport, user.participation_form])
+        buf = io.BytesIO()
+        wb.save(buf)
+        buf.seek(0)
+        return FileResponse(buf, as_attachment=True, filename='participants.xlsx')
 
 
 class VenueScanUploadView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -591,5 +633,6 @@ class VenueInstructionsView(LoginRequiredMixin, UserPassesTestMixin, TemplateVie
         return super().get_context_data(**kwargs) | {
             'problems': OfflineProblem.objects.filter(visible=True).order_by(
                 'target_form'
-            )
+            ),
+            'venue': Venue.objects.filter(owner=self.request.user).first(),
         }

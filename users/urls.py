@@ -52,6 +52,11 @@ venue_urls = [
         name='venue_participants',
     ),
     path(
+        r'participants/download/',
+        views.VenueParticipantsDownloadView.as_view(),
+        name='venue_participants_download',
+    ),
+    path(
         r'participants/upload-scan/',
         views.VenueScanUploadView.as_view(),
         name='offline_scan_upload',

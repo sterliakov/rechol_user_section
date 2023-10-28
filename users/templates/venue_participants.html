@@ -2,8 +2,17 @@
 {% load crispy_forms_tags i18n static %}
 {% block content %}
   <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
       <h1 class="text-center py-2">{% trans "Registered participants" %}</h1>
+      {% if venue %}
+        <a href="{% url "venue_participants_download" %}"
+           download
+           class="btn btn-primary">{% trans "Download list" %}</a>
+      {% else %}
+        <a title="{% trans "Download available for approved venues only." %}"
+           href="#"
+           class="btn btn-primary disabled">{% trans "Download list" %}</a>
+      {% endif %}
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -14,7 +23,7 @@
             <th>{% trans "Last name" %}</th>
             <th>{% trans "Patronymic name" %}</th>
             <th>{% trans "ID Number" %}</th>
-            <th>{% trans "Form" %}</th>
+            <th>{% trans "Grade" %}</th>
             <th>{% trans "Scans" %}</th>
           </thead>
           {% for guy in object_list %}

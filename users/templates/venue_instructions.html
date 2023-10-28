@@ -8,15 +8,19 @@
     <div class="card-body">
       <h2>{% trans "Download statements" %}:</h2>
       <div class="d-flex justify-content-center">
-        {% for problem in problems %}
-          <a href="{% if problem.is_active %}{{ problem.file.url }}{% else %}#{% endif %}"
-             target="_blank"
-             class="btn btn-outline-primary{% if not problem.is_active %} disabled{% endif %}">
-            {{ problem.target_form }} {% trans "form" %}
-          </a>
-        {% empty %}
-          {% trans "No problem sets found" %}
-        {% endfor %}
+        {% if venue.is_confirmed %}
+          {% for problem in problems %}
+            <a href="{% if problem.is_active %}{{ problem.file.url }}{% else %}#{% endif %}"
+               target="_blank"
+               class="btn btn-outline-primary{% if not problem.is_active %} disabled{% endif %}">
+              {{ problem.target_form }} {% trans "grade" %}
+            </a>
+          {% empty %}
+            {% trans "No problem sets found" %}
+          {% endfor %}
+        {% else %}
+          {% trans "Only confirmed venues can see problem statements." %}
+        {% endif %}
       </div>
       <div>
         <h2>{% trans "Contacts" %}:</h2>
@@ -140,7 +144,7 @@
           <thead>
             <tr>
               <th>{% trans "Name" %}</th>
-              <th>{% trans "Form" %}</th>
+              <th>{% trans "Grade" %}</th>
               <th>{% trans "ID Number" %}</th>
               <th>{% trans "Room" %}</th>
               <th>{% trans "Came" %}</th>

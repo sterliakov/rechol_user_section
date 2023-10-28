@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-23 20:05+0300\n"
+"POT-Creation-Date: 2023-10-28 16:19+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -19,8 +19,9 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:228 users/admin.py:251 users/models.py:305
-#: users/models.py:355 users/templates/venue_instructions.html:142
+#: users/admin.py:228 users/admin.py:251 users/models.py:314
+#: users/models.py:364 users/templates/venue_instructions.html:146
+#: users/views.py:552
 msgid "Name"
 msgstr "Имя"
 
@@ -28,8 +29,8 @@ msgstr "Имя"
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:233 users/models.py:111 users/models.py:222
-#: users/models.py:392
+#: users/admin.py:233 users/models.py:111 users/models.py:231
+#: users/models.py:401
 msgid "Participant"
 msgstr "Участник"
 
@@ -49,34 +50,34 @@ msgstr "Важные даты"
 msgid "Send email to selected users"
 msgstr "Отправить email выбранным пользователям"
 
-#: users/admin.py:500 users/admin.py:604
+#: users/admin.py:494 users/admin.py:598
 msgid "Participant last name"
 msgstr "Фамилия участника"
 
-#: users/admin.py:504 users/admin.py:610
+#: users/admin.py:498 users/admin.py:604
 msgid "Participant first name"
 msgstr "Имя участника"
 
-#: users/admin.py:509 users/admin.py:616 users/models.py:156
+#: users/admin.py:503 users/admin.py:610 users/models.py:156
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/admin.py:514 users/templates/offline_appellation.html:43
+#: users/admin.py:508 users/templates/offline_appellation.html:43
 #: users/templates/online_appellation.html:39
 #: users/templates/online_submission.html:26
 msgid "Total score"
 msgstr "Общая оценка"
 
-#: users/admin.py:533 users/models.py:47 users/models.py:114
+#: users/admin.py:527 users/models.py:47 users/models.py:114
 #: users/models.py:167
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/admin.py:564
+#: users/admin.py:558
 msgid "Problem name"
 msgstr "Название задачи"
 
-#: users/admin.py:568
+#: users/admin.py:562
 msgid "Was submitted?"
 msgstr "Была отправлена?"
 
@@ -88,43 +89,43 @@ msgstr "Забыли пароль?"
 msgid "Login"
 msgstr "Войти"
 
-#: users/formhelpers.py:124 users/formhelpers.py:176 users/formhelpers.py:190
-#: users/formhelpers.py:221
+#: users/formhelpers.py:123 users/formhelpers.py:175 users/formhelpers.py:189
+#: users/formhelpers.py:220
 #: users/templates/admin/users/offlineresult/change_form.html:153
 #: users/templates/admin/users/onlinesubmission/change_form.html:153
 msgid "Save"
 msgstr "Сохранить"
 
-#: users/formhelpers.py:148
+#: users/formhelpers.py:147
 msgid "Change password"
 msgstr "Изменить пароль?"
 
-#: users/formhelpers.py:200
+#: users/formhelpers.py:199
 msgid "Download template"
 msgstr "Скачать образец"
 
-#: users/formhelpers.py:231
+#: users/formhelpers.py:230
 msgid "Back to login"
 msgstr "Назад на страницу входа."
 
-#: users/formhelpers.py:238
+#: users/formhelpers.py:237
 msgid "Continue"
 msgstr "Продолжить"
 
-#: users/formhelpers.py:261
+#: users/formhelpers.py:260
 msgid "Change"
 msgstr "Изменить"
 
-#: users/formhelpers.py:279
+#: users/formhelpers.py:278
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:299 users/templates/offline_appellation.html:52
+#: users/formhelpers.py:298 users/templates/offline_appellation.html:52
 #: users/templates/online_appellation.html:48
 msgid "Submit"
 msgstr "Отправить"
 
-#: users/formhelpers.py:348 users/templates/venue_participants.html:31
+#: users/formhelpers.py:347 users/templates/venue_participants.html:36
 msgid "Upload"
 msgstr "Загрузить"
 
@@ -132,15 +133,15 @@ msgstr "Загрузить"
 msgid "Not a valid integer or hyphen."
 msgstr "Введите число или дефис"
 
-#: users/forms.py:82
+#: users/forms.py:86
 msgid "Registration to this venue is closed."
 msgstr "Регистрация на эту площадку закрыта."
 
-#: users/forms.py:92
+#: users/forms.py:96
 msgid "Only your form or higher is allowed."
 msgstr "Допустим только Ваш класс или старше."
 
-#: users/forms.py:99
+#: users/forms.py:103
 msgid "Please fill your name and surname in separate fields."
 msgstr "Пожалуйста, введите имя и фамилию отдельно."
 
@@ -232,15 +233,15 @@ msgstr "Проверяющий"
 msgid "Email"
 msgstr "Email"
 
-#: users/models.py:120 users/templates/venue_participants.html:13
+#: users/models.py:120 users/templates/venue_participants.html:18
 msgid "First name"
 msgstr "Имя"
 
-#: users/models.py:123 users/templates/venue_participants.html:14
+#: users/models.py:123 users/templates/venue_participants.html:19
 msgid "Last name"
 msgstr "Фамилия"
 
-#: users/models.py:126 users/templates/venue_participants.html:15
+#: users/models.py:126 users/templates/venue_participants.html:20
 msgid "Patronymic name"
 msgstr "Отчество"
 
@@ -295,237 +296,237 @@ msgstr "Роль"
 msgid "Users"
 msgstr "Пользователи"
 
-#: users/models.py:193
+#: users/models.py:202
 msgid "Title"
 msgstr "Заголовок"
 
-#: users/models.py:194
+#: users/models.py:203
 msgid "Link"
 msgstr "Ссылка"
 
-#: users/models.py:194
+#: users/models.py:203
 msgid "Link to news page etc."
 msgstr "Ссылка на новость и т.п."
 
-#: users/models.py:195
+#: users/models.py:204
 msgid "Start"
 msgstr "Начало"
 
-#: users/models.py:196
+#: users/models.py:205
 msgid "Description"
 msgstr "Описание"
 
-#: users/models.py:199
+#: users/models.py:208
 msgid "Event"
 msgstr "Событие"
 
-#: users/models.py:200
+#: users/models.py:209
 msgid "Events"
 msgstr "События"
 
-#: users/models.py:226 users/models.py:405
+#: users/models.py:235 users/models.py:414
 #: users/templates/online_submission.html:24
 msgid "Scores"
 msgstr "Баллы"
 
-#: users/models.py:230 users/models.py:391
+#: users/models.py:239 users/models.py:400
 msgid "Comment"
 msgstr "Комментарий"
 
-#: users/models.py:231
+#: users/models.py:240
 msgid "Original work"
 msgstr "Скан работы"
 
-#: users/models.py:238 users/models.py:413
+#: users/models.py:247 users/models.py:422
 msgid "Final scores after appellation"
 msgstr "Окончательная оценка после апелляции"
 
-#: users/models.py:244
+#: users/models.py:253
 msgid "Result (offline)"
 msgstr "Результат (очный тур)"
 
-#: users/models.py:245
+#: users/models.py:254
 msgid "Results (offline)"
 msgstr "Результаты (очный тур)"
 
-#: users/models.py:252
+#: users/models.py:261
 msgid "Message"
 msgstr "Сообщение"
 
-#: users/models.py:253
+#: users/models.py:262
 msgid "Response"
 msgstr "Ответ"
 
-#: users/models.py:254
+#: users/models.py:263
 msgid "Created"
 msgstr "Создано"
 
-#: users/models.py:255
+#: users/models.py:264
 msgid "Updated"
 msgstr "Изменено"
 
-#: users/models.py:266 users/models.py:280
+#: users/models.py:275 users/models.py:289
 msgid "Result"
 msgstr "Результат"
 
-#: users/models.py:270
+#: users/models.py:279
 msgid "Appellation (offline)"
 msgstr "Апелляция (очный тур)"
 
-#: users/models.py:271
+#: users/models.py:280
 msgid "Appellations (offline)"
 msgstr "Апелляции (очный тур)"
 
-#: users/models.py:284
+#: users/models.py:293
 msgid "Appellation (online)"
 msgstr "Апелляция (онлайн)"
 
-#: users/models.py:285
+#: users/models.py:294
 msgid "Appellations (online)"
 msgstr "Апелляции (онлайн)"
 
-#: users/models.py:289
+#: users/models.py:298
 msgid "Filename"
 msgstr "Название файла"
 
-#: users/models.py:291
+#: users/models.py:300
 msgid "Annotation ID"
 msgstr "ID аннотации"
 
-#: users/models.py:293
+#: users/models.py:302
 msgid "Page number"
 msgstr "Номер страницы"
 
-#: users/models.py:294 users/models.py:309
+#: users/models.py:303 users/models.py:318
 msgid "Annotation content"
 msgstr "Содержимое аннотации"
 
-#: users/models.py:297
+#: users/models.py:306
 msgid "Annotation"
 msgstr "Аннотация"
 
-#: users/models.py:298
+#: users/models.py:307
 msgid "Annotations"
 msgstr "Аннотации"
 
-#: users/models.py:306 users/models.py:356
+#: users/models.py:315 users/models.py:365
 msgid "Statement"
 msgstr "Условия"
 
-#: users/models.py:307 users/models.py:358
+#: users/models.py:316 users/models.py:367
 msgid "Solutions"
 msgstr "Решения"
 
-#: users/models.py:311
+#: users/models.py:320
 msgid "Opens at"
 msgstr "Время открытия"
 
-#: users/models.py:312
+#: users/models.py:321
 msgid "Closes at"
 msgstr "Время закрытия"
 
-#: users/models.py:313
+#: users/models.py:322
 msgid "Duration"
 msgstr "Продолжительность"
 
-#: users/models.py:314 users/models.py:360
+#: users/models.py:323 users/models.py:369
 msgid "Visible"
 msgstr "Видимый"
 
-#: users/models.py:316 users/models.py:362
+#: users/models.py:325 users/models.py:371
 msgid "Target form"
 msgstr "Класс участника"
 
-#: users/models.py:324
+#: users/models.py:333
 msgid "online problem"
 msgstr "Задача онлайн-этапа"
 
-#: users/models.py:325
+#: users/models.py:334
 msgid "online problems"
 msgstr "Задачи онлайн-этапа"
 
-#: users/models.py:332
+#: users/models.py:341
 #, python-format
 msgid "Problem set for %dth form"
 msgstr "Комплект заданий для %d-го класса"
 
-#: users/models.py:370
+#: users/models.py:379
 msgid "offline problem"
 msgstr "Задача очного тура"
 
-#: users/models.py:371
+#: users/models.py:380
 msgid "offline problems"
 msgstr "Задачи очного тура"
 
-#: users/models.py:384
+#: users/models.py:393
 msgid "Solution file"
 msgstr "Файл с решением"
 
-#: users/models.py:385
+#: users/models.py:394
 msgid "Solution file in pdf format"
 msgstr "Файл с решениями в формате pdf"
 
-#: users/models.py:398
+#: users/models.py:407
 msgid "Problem"
 msgstr "Задача"
 
-#: users/models.py:400
+#: users/models.py:409
 msgid "Started at"
 msgstr "Время начала"
 
-#: users/models.py:419
+#: users/models.py:428
 msgid "Result (online)"
 msgstr "Результат (заочный тур)"
 
-#: users/models.py:420
+#: users/models.py:429
 msgid "Results (online)"
 msgstr "Результаты (заочный тур)"
 
-#: users/models.py:447
+#: users/models.py:456
 msgid "Start of registration"
 msgstr "Начало регистрации"
 
-#: users/models.py:448
+#: users/models.py:457
 msgid "End of registration"
 msgstr "Конец регистрации"
 
-#: users/models.py:449
+#: users/models.py:458
 msgid "start of venue registration"
 msgstr "Начало регистрации площадок"
 
-#: users/models.py:450
+#: users/models.py:459
 msgid "end of venue registration"
 msgstr "Конец регистрации площадок"
 
-#: users/models.py:451
+#: users/models.py:460
 msgid "Start of offline stage appeal"
 msgstr "Начало апелляции очного этапа"
 
-#: users/models.py:452
+#: users/models.py:461
 msgid "End of offline stage appeal"
 msgstr "Конец апелляции очного этапа"
 
-#: users/models.py:453
+#: users/models.py:462
 msgid "Start of online stage appeal"
 msgstr "Начало апелляции заочного этапа"
 
-#: users/models.py:454
+#: users/models.py:463
 msgid "End of online stage appeal"
 msgstr "Конец апелляции заочного этапа"
 
-#: users/models.py:455
+#: users/models.py:464
 msgid "forbid venue change"
 msgstr "Запретить смену площадки"
 
-#: users/models.py:457
+#: users/models.py:466
 msgid "allow downloading offline stage problems"
-msgstr "Разрешить скачивание задач онлайн-этапа"
+msgstr "Разрешить скачивание задач очного этапа"
 
-#: users/models.py:461
+#: users/models.py:470
 msgid "Configuration"
 msgstr "Настройки"
 
-#: users/models.py:462
+#: users/models.py:471
 msgid "Configurations"
 msgstr "Настройки"
 
@@ -715,7 +716,6 @@ msgstr "Условия задач для"
 #: users/templates/offline_appellation.html:38
 #: users/templates/online_appellation.html:32
 #: users/templates/online_appellation.html:35
-#: users/templates/venue_instructions.html:15
 msgid "form"
 msgstr "класса"
 
@@ -946,14 +946,14 @@ msgid "Registration"
 msgstr "Регистрация"
 
 #: users/templates/registration.html:12
-#: users/templates/venue_registration.html:22 users/views.py:98
-#: users/views.py:458
+#: users/templates/venue_registration.html:22 users/views.py:102
+#: users/views.py:462
 msgid "Registration not open yet."
 msgstr "Регистрация еще не началась."
 
 #: users/templates/registration.html:14
 #: users/templates/venue_registration.html:24
-#: users/templates/venues_list.html:11 users/views.py:101 users/views.py:461
+#: users/templates/venues_list.html:11 users/views.py:105 users/views.py:465
 msgid "Registration closed."
 msgstr "Регистрация закрыта."
 
@@ -975,44 +975,52 @@ msgstr "Инструкции для площадки проведения"
 msgid "Download statements"
 msgstr "Скачать условия"
 
-#: users/templates/venue_instructions.html:18
+#: users/templates/venue_instructions.html:16
+msgid "grade"
+msgstr "класс участия"
+
+#: users/templates/venue_instructions.html:19
 msgid "No problem sets found"
 msgstr "Задания не найдены"
 
 #: users/templates/venue_instructions.html:22
+msgid "Only confirmed venues can see problem statements."
+msgstr "Задания доступны только подтвержденным площадкам."
+
+#: users/templates/venue_instructions.html:26
 msgid "Contacts"
 msgstr "Контакты"
 
-#: users/templates/venue_instructions.html:25
+#: users/templates/venue_instructions.html:29
 msgid "Head of the team"
 msgstr "Главный организатор"
 
-#: users/templates/venue_instructions.html:25
+#: users/templates/venue_instructions.html:29
 msgid "Sergey Starykh"
 msgstr "Старых Сергей Алексеевич"
 
-#: users/templates/venue_instructions.html:28
+#: users/templates/venue_instructions.html:32
 msgid "General questions"
 msgstr "По организационным вопросам"
 
-#: users/templates/venue_instructions.html:28
-#: users/templates/venue_instructions.html:98
+#: users/templates/venue_instructions.html:32
+#: users/templates/venue_instructions.html:102
 msgid "Yana Kulinich"
 msgstr "Кулинич Яна Андреевна"
 
-#: users/templates/venue_instructions.html:31
+#: users/templates/venue_instructions.html:35
 msgid "Questions about the problems"
 msgstr "Глава методической комиссии"
 
-#: users/templates/venue_instructions.html:31
+#: users/templates/venue_instructions.html:35
 msgid "Nikolay Mescheryakov"
 msgstr "Мещеряков Николай Вадимович"
 
-#: users/templates/venue_instructions.html:34
+#: users/templates/venue_instructions.html:38
 msgid "Day before the tour"
 msgstr "За день до тура"
 
-#: users/templates/venue_instructions.html:37
+#: users/templates/venue_instructions.html:41
 msgid ""
 "E-versions of problem sets will become available in your profile before "
 "<b>12:00</b>"
@@ -1020,7 +1028,7 @@ msgstr ""
 "До <b>12:00</b> в личных кабинетах организаторов появятся электронные версии "
 "заданий (в формате .pdf) для печати."
 
-#: users/templates/venue_instructions.html:40
+#: users/templates/venue_instructions.html:44
 msgid ""
 "You can print the problems early. You are not permitted to share or show "
 "these problems to any third parties, especially participants or their "
@@ -1034,7 +1042,7 @@ msgstr ""
 "отсутствии полиграфических дефектов (блеклый или нечитаемый текст, полосы от "
 "барабана принтера, затрудняющие чтение, и т.п.)."
 
-#: users/templates/venue_instructions.html:43
+#: users/templates/venue_instructions.html:47
 msgid ""
 "Prepare participants lists per auditory: every participant should be "
 "assigned an auditory number. Skip this step if one auditory is sufficient "
@@ -1044,7 +1052,7 @@ msgstr ""
 "аудиториях. Актуальный список участников Вашей площадки отображается в Вашем "
 "личном кабинете."
 
-#: users/templates/venue_instructions.html:46
+#: users/templates/venue_instructions.html:50
 msgid ""
 "Prepare blank A4 paper sheets for answers (3 per participant) and paper for "
 "drafts (2 sheets per participant)"
@@ -1053,15 +1061,15 @@ msgstr ""
 "участника) и чистые листы формата А4 для записи ответов (из расчета 3 на "
 "участника)."
 
-#: users/templates/venue_instructions.html:49
+#: users/templates/venue_instructions.html:53
 msgid "At the tour day"
 msgstr "В день проведения"
 
-#: users/templates/venue_instructions.html:52
+#: users/templates/venue_instructions.html:56
 msgid "Participants should be allowed into your venue no later than"
 msgstr "Допуск участников внутрь точки проведения необходимо начать не позже"
 
-#: users/templates/venue_instructions.html:55
+#: users/templates/venue_instructions.html:59
 msgid ""
 "Participants should present their passport (or other identity document) at "
 "the entrance. Please record cases when ID number does not match displayed in "
@@ -1075,11 +1083,11 @@ msgstr ""
 "изменяйте данные в ведомости напрямую!). Всех явившихся участников "
 "необходимо отмечать в ведомости (бумажной или электронной)."
 
-#: users/templates/venue_instructions.html:57
+#: users/templates/venue_instructions.html:61
 msgid "Participants should present their passport when entering the auditory."
 msgstr "При входе в аудиторию участники повторно предъявляют паспорт."
 
-#: users/templates/venue_instructions.html:59
+#: users/templates/venue_instructions.html:63
 msgid ""
 "Participants who are late for less than 1 hour should be allowed into the "
 "auditory. Their time should not be extended&nbsp;&mdash; they finish at the "
@@ -1090,7 +1098,7 @@ msgstr ""
 "добавления времени (т.е. заканчивают одновременно с остальными участниками в "
 "аудитории). Участники, опоздавшие более чем на час, не допускаются на тур. "
 
-#: users/templates/venue_instructions.html:62
+#: users/templates/venue_instructions.html:66
 msgid ""
 "Use of any printed materials is prohibited, except those included into "
 "problems pack. Use of any electronic devices except for non-programmable "
@@ -1106,7 +1114,7 @@ msgstr ""
 "предупреждение, за повторную попытку участник удаляется из аудитории. При "
 "этом в ведомости необходимо отметить “удален” и указать причину удаления."
 
-#: users/templates/venue_instructions.html:65
+#: users/templates/venue_instructions.html:69
 msgid ""
 "You should start reading Participant Instructions aloud at <b>10:00</b>. "
 "After announcing the instructions, please handle the problem sets to "
@@ -1121,7 +1129,7 @@ msgstr ""
 "Организаторы объявляют время начала тура и записывают его на доске. На доске "
 "также записывается время окончания тура (время начала + 3:55)."
 
-#: users/templates/venue_instructions.html:68
+#: users/templates/venue_instructions.html:72
 msgid ""
 "Every hour, and also 30, 15 and 5 minutes before the deadline you should "
 "announce remaining time to the participants. If there is no clock in the "
@@ -1132,7 +1140,7 @@ msgstr ""
 "участникам оставшееся время. При отсутствии часов в аудитории также "
 "рекомендуем писать его на доске. "
 
-#: users/templates/venue_instructions.html:72
+#: users/templates/venue_instructions.html:76
 msgid ""
 "You are not permitted to answer any questions about the problems, even if "
 "you think you know the answer for sure. Please contact our jury using the "
@@ -1144,7 +1152,7 @@ msgstr ""
 "телефону (выше в разделе контактов), чтобы получить разъяснения по задаче и "
 "передать их участнику."
 
-#: users/templates/venue_instructions.html:76
+#: users/templates/venue_instructions.html:80
 msgid ""
 "Participants are permitted to leave the auditory. Record leaving&amp;return "
 "time in your statement."
@@ -1152,11 +1160,11 @@ msgstr ""
 "Участникам разрешено выходить из аудитории. Время выхода и возвращения в "
 "аудиторию фиксируется в ведомости."
 
-#: users/templates/venue_instructions.html:78
+#: users/templates/venue_instructions.html:82
 msgid "Participants can complete their work before the deadline."
 msgstr "Возможна досрочная сдача работы."
 
-#: users/templates/venue_instructions.html:80
+#: users/templates/venue_instructions.html:84
 msgid ""
 "When the tour ends, participants must stop any writing. Collect the works "
 "after that. Please let participants sign and put page numbers after "
@@ -1167,7 +1175,7 @@ msgstr ""
 "разрешено подписать работы и пронумеровать страницы после окончания тура "
 "только под наблюдением организатора. "
 
-#: users/templates/venue_instructions.html:83
+#: users/templates/venue_instructions.html:87
 msgid ""
 "When collecting the work, please check that all pages (including problem "
 "statements) are present, page numbers are correct, and every page is signed "
@@ -1179,11 +1187,11 @@ msgstr ""
 "листах работы. Работы не нужно скреплять, удобнее всего складывать их, "
 "чередуя ориентацию (следующая работа кладется перпендикулярно предыдущей). "
 
-#: users/templates/venue_instructions.html:86
+#: users/templates/venue_instructions.html:90
 msgid "After the tour"
 msgstr "После завершения тура"
 
-#: users/templates/venue_instructions.html:90
+#: users/templates/venue_instructions.html:94
 msgid ""
 "The submissions have to be scanned. <em>All scans should be submitted at the "
 "same day!</em> Please upload the files via \"Upload\" button near every "
@@ -1196,7 +1204,7 @@ msgstr ""
 "\"загрузить работу\". Работы загружаются в виде одного файла в формате PDF, "
 "содержащего все страницы работы одного участника."
 
-#: users/templates/venue_instructions.html:94
+#: users/templates/venue_instructions.html:98
 msgid ""
 "During next week, please send original works using any intermediary which is "
 "convenient for you. We will wait for them at"
@@ -1204,15 +1212,15 @@ msgstr ""
 "Также в течение недели необходимо отправить оригиналы работ любым удобным "
 "способом (Почта России/СДЭК и др.) по следующему адресу:"
 
-#: users/templates/venue_instructions.html:96
+#: users/templates/venue_instructions.html:100
 msgid "20 Boris Galushkin str., apt. 123<br />Moscow, 129301<br />Russia"
 msgstr "129301, Россия, г. Москва, ул. Бориса Галушкина, дом 20, кв. 123"
 
-#: users/templates/venue_instructions.html:107
+#: users/templates/venue_instructions.html:111
 msgid "Instructions for participants"
 msgstr "Инструкции для участников"
 
-#: users/templates/venue_instructions.html:112
+#: users/templates/venue_instructions.html:116
 msgid ""
 "Welcome to the in-person preliminary stage of the Project Chemistry "
 "Olympiad. You will have 5 problems from different chemistry fields to solve "
@@ -1233,7 +1241,7 @@ msgstr ""
 "часы организаторам в аудитории. Вы можете пользоваться непрограммируемым "
 "калькулятором."
 
-#: users/templates/venue_instructions.html:115
+#: users/templates/venue_instructions.html:119
 msgid ""
 "You have received blank A4 paper sheets for your submissions. You can use "
 "draft paper sheets and write anything on problem statements. Your notes on "
@@ -1247,7 +1255,7 @@ msgstr ""
 "так, чтобы успеть оформить все решения на чистых листах. Если Вам не хватило "
 "листов черновика или чистовика, обратитесь к организатору за дополнительными."
 
-#: users/templates/venue_instructions.html:118
+#: users/templates/venue_instructions.html:122
 msgid ""
 "You are allowed to leave the auditory. To leave, put all the materials on "
 "your desk and ask us to accompany you."
@@ -1255,7 +1263,7 @@ msgstr ""
 "Вы можете выходить из аудитории. Для выхода из аудитории оставьте все "
 "материалы на рабочем месте и обратитесь к организатору."
 
-#: users/templates/venue_instructions.html:121
+#: users/templates/venue_instructions.html:125
 msgid ""
 "Before submitting your work, please write your name, surname and grade "
 "number on every page, then number all the pages. Please do not staple the "
@@ -1267,7 +1275,7 @@ msgstr ""
 "нижнем углу. Пожалуйста, не скрепляйте листы, работы будут сканироваться. "
 "Условия задач также сдаются, позднее Вы сможете найти их на сайте олимпиады."
 
-#: users/templates/venue_instructions.html:124
+#: users/templates/venue_instructions.html:128
 msgid ""
 "You will find your results, as well as problem statements and solutions, on "
 "our site within a week"
@@ -1275,13 +1283,13 @@ msgstr ""
 "Результаты проверки работ будут опубликованы в течение недели на сайте "
 "олимпиады"
 
-#: users/templates/venue_instructions.html:126
+#: users/templates/venue_instructions.html:130
 msgid "Do not hesitate to ask any questions you may have. Have fun!"
 msgstr ""
 "По всем возникающим вопросам обращайтесь к дежурному по аудитории. Желаем "
 "удачи!"
 
-#: users/templates/venue_instructions.html:128
+#: users/templates/venue_instructions.html:132
 msgid ""
 "(when problem statements are handled) You can begin now. The tour was "
 "started at ... and will be ended at ..."
@@ -1289,81 +1297,81 @@ msgstr ""
 "(После выдачи заданий) Можете перевернуть условия. Время начала тура: …, "
 "время окончания: …"
 
-#: users/templates/venue_instructions.html:135
+#: users/templates/venue_instructions.html:139
 msgid "Statement example"
 msgstr "Образец ведомости"
 
-#: users/templates/venue_instructions.html:143
-#: users/templates/venue_participants.html:17
-msgid "Form"
+#: users/templates/venue_instructions.html:147
+#: users/templates/venue_participants.html:22 users/views.py:554
+msgid "Grade"
 msgstr "Класс участия"
 
-#: users/templates/venue_instructions.html:144
-#: users/templates/venue_participants.html:16
+#: users/templates/venue_instructions.html:148
+#: users/templates/venue_participants.html:21
 msgid "ID Number"
 msgstr "Паспорт"
 
-#: users/templates/venue_instructions.html:145
+#: users/templates/venue_instructions.html:149 users/views.py:555
 msgid "Room"
 msgstr "Аудитория"
 
-#: users/templates/venue_instructions.html:146
+#: users/templates/venue_instructions.html:150
 msgid "Came"
 msgstr "Явился"
 
-#: users/templates/venue_instructions.html:147
+#: users/templates/venue_instructions.html:151
 msgid "Removed"
 msgstr "Удален"
 
-#: users/templates/venue_instructions.html:148
+#: users/templates/venue_instructions.html:152 users/views.py:558
 msgid "Exits"
 msgstr "Выходы"
 
-#: users/templates/venue_instructions.html:149
+#: users/templates/venue_instructions.html:153
 msgid "Page count"
 msgstr "Страниц"
 
-#: users/templates/venue_instructions.html:150
+#: users/templates/venue_instructions.html:154
 msgid "Note"
 msgstr "Примечание"
 
-#: users/templates/venue_instructions.html:155
+#: users/templates/venue_instructions.html:159
 msgid "John Doe"
 msgstr "Иванов Иван Иванович"
 
-#: users/templates/venue_instructions.html:163
+#: users/templates/venue_instructions.html:167
 msgid "Phone usage"
 msgstr "Использование телефона"
 
-#: users/templates/venue_instructions.html:166
+#: users/templates/venue_instructions.html:170
 msgid "Jane Doe"
 msgstr "Петров Петр Петрович"
 
-#: users/templates/venue_instructions.html:174
+#: users/templates/venue_instructions.html:178
 msgid "Cheating suspected"
 msgstr "Подозрение на списывание"
 
-#: users/templates/venue_instructions.html:177
+#: users/templates/venue_instructions.html:181
 msgid "John Smith"
 msgstr "Иванов Иван Иванович"
 
-#: users/templates/venue_instructions.html:185
+#: users/templates/venue_instructions.html:189
 msgid "Wrong ID number"
 msgstr "Ошибка в номере паспорта"
 
-#: users/templates/venue_instructions.html:188
+#: users/templates/venue_instructions.html:192
 msgid "John Smth"
 msgstr "Иванв Иван Иванович"
 
-#: users/templates/venue_instructions.html:196
+#: users/templates/venue_instructions.html:200
 msgid "Name typo: should be Smith"
 msgstr "Опечатка в имени: Иванов"
 
-#: users/templates/venue_instructions.html:199
+#: users/templates/venue_instructions.html:203
 msgid "Joe Bloggs"
 msgstr "Иванов Иван Иванович"
 
-#: users/templates/venue_instructions.html:210
+#: users/templates/venue_instructions.html:214
 msgid "Jane Austin"
 msgstr "Иванов Иван Иванович"
 
@@ -1371,23 +1379,32 @@ msgstr "Иванов Иван Иванович"
 msgid "Registered participants"
 msgstr "Зарегистрированные участники"
 
-#: users/templates/venue_participants.html:18
+#: users/templates/venue_participants.html:8
+#: users/templates/venue_participants.html:10
+msgid "Download list"
+msgstr "Скачать список"
+
+#: users/templates/venue_participants.html:10
+msgid "Download available for approved venues only."
+msgstr "Загрузка доступна только для подтвержденных площадок."
+
+#: users/templates/venue_participants.html:23
 msgid "Scans"
 msgstr "Сканы работ"
 
-#: users/templates/venue_participants.html:34
+#: users/templates/venue_participants.html:39
 msgid "Clear"
 msgstr "Очистить"
 
-#: users/templates/venue_participants.html:39
+#: users/templates/venue_participants.html:44
 msgid "No participants yet."
 msgstr "Пока никого нет."
 
-#: users/templates/venue_participants.html:50
+#: users/templates/venue_participants.html:55
 msgid "Upload scan"
 msgstr "Загрузить скан"
 
-#: users/templates/venue_participants.html:56
+#: users/templates/venue_participants.html:61
 msgid "Please check participant data below:"
 msgstr "Пожалуйста, проверьте данные участника:"
 
@@ -1420,10 +1437,30 @@ msgstr "Доступные площадки"
 msgid "No venues registered so far."
 msgstr "Пока нет доступных площадок."
 
-#: users/views.py:171
+#: users/views.py:175
 msgid "You do not have access to editing annotations"
 msgstr "У Вас нет доступа к редактированию примечаний."
 
-#: users/views.py:309
+#: users/views.py:313
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."
+
+#: users/views.py:553
+msgid "ID number"
+msgstr "Паспорт"
+
+#: users/views.py:556
+msgid "Arrived"
+msgstr "Явился"
+
+#: users/views.py:557
+msgid "Terminated"
+msgstr "Удален"
+
+#: users/views.py:559
+msgid "Pages count"
+msgstr "Страниц"
+
+#: users/views.py:560
+msgid "Comments"
+msgstr "Комментарии"

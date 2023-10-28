@@ -7,9 +7,6 @@ from django.utils.translation import override as lang_override
 @register.simple_tag(takes_context=True)
 def change_lang(context, lang):
     path = context['request'].path
-    __import__('logging').critical('%s', django_translate_url('/', 'en'))
-    __import__('logging').critical('%s', django_translate_url('/ru/', 'en'))
-    __import__('logging').critical('%s', django_translate_url('/en/', 'en'))
     return django_translate_url(path, lang)
 
 

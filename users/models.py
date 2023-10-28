@@ -188,6 +188,15 @@ class User(AbstractUser):
         self.username = self.email
         return super().save(**kwargs)
 
+    def get_full_name(self):
+        return ' '.join(
+            [
+                self.first_name or '',
+                self.last_name or '',
+                self.patronymic_name or '',
+            ]
+        ).strip()
+
 
 class Event(models.Model):
     title = models.CharField(_('Title'), max_length=127, blank=False, null=False)

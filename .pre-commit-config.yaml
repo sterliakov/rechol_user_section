@@ -51,7 +51,6 @@ repos:
     hooks:
       - id: obsolete-messages
       - id: untranslated-messages
-        args: ['-m', '100%']
       - id: fuzzy-messages
 
   - repo: https://github.com/Riverside-Healthcare/djLint
