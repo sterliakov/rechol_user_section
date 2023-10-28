@@ -7,6 +7,16 @@
     <div class="card-header text-center">
       <h1>{% trans "Participant profile" %}</h1>
     </div>
-    <div class="card-body">{% crispy form %}</div>
+    <div class="card-body">
+      <div class="alert alert-dismissible alert-warning fade show" role="alert">
+        {% blocktrans %}
+          The in-person tour begins at 10 pm <b>(local time)</b> in all venues.
+        {% endblocktrans %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% crispy form %}
+    </div>
   </div>
 {% endblock content %}

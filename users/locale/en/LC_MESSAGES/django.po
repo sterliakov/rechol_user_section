@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-28 16:19+0300\n"
+"POT-Creation-Date: 2023-10-28 16:46+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -62,7 +62,7 @@ msgstr "Participation grade"
 
 #: users/admin.py:508 users/templates/offline_appellation.html:43
 #: users/templates/online_appellation.html:39
-#: users/templates/online_submission.html:26
+#: users/templates/online_submission.html:29
 msgid "Total score"
 msgstr "Total score"
 
@@ -123,7 +123,7 @@ msgstr "Set password"
 msgid "Submit"
 msgstr "Submit"
 
-#: users/formhelpers.py:347 users/templates/venue_participants.html:36
+#: users/formhelpers.py:347 users/templates/venue_participants.html:40
 msgid "Upload"
 msgstr "Upload"
 
@@ -231,15 +231,15 @@ msgstr "Judge"
 msgid "Email"
 msgstr "Email"
 
-#: users/models.py:120 users/templates/venue_participants.html:18
+#: users/models.py:120 users/templates/venue_participants.html:22
 msgid "First name"
 msgstr "First name"
 
-#: users/models.py:123 users/templates/venue_participants.html:19
+#: users/models.py:123 users/templates/venue_participants.html:23
 msgid "Last name"
 msgstr "Last name"
 
-#: users/models.py:126 users/templates/venue_participants.html:20
+#: users/models.py:126 users/templates/venue_participants.html:24
 msgid "Patronymic name"
 msgstr "Patronymic name"
 
@@ -321,7 +321,7 @@ msgid "Events"
 msgstr "Events"
 
 #: users/models.py:235 users/models.py:414
-#: users/templates/online_submission.html:24
+#: users/templates/online_submission.html:27
 msgid "Scores"
 msgstr "Scores"
 
@@ -848,15 +848,15 @@ msgstr ""
 "You can alter your submission during the contest until it ends or your time "
 "is over."
 
-#: users/templates/online_submission.html:19
+#: users/templates/online_submission.html:22
 msgid "Download problem statement"
 msgstr "Download problem statement"
 
-#: users/templates/online_submission.html:38
+#: users/templates/online_submission.html:41
 msgid "Appeal"
 msgstr "Appeal"
 
-#: users/templates/online_submission.html:43
+#: users/templates/online_submission.html:46
 msgid "You may safely leave this page and return later."
 msgstr "You may safely leave this page and return later."
 
@@ -931,29 +931,39 @@ msgstr ""
 msgid "Participant profile"
 msgstr "Participant profile"
 
+#: users/templates/personal.html:12
+msgid ""
+"\n"
+"          The in-person tour begins at 10 pm <b>(local time)</b> in all "
+"venues.\n"
+"        "
+msgstr ""
+"\n"
+"The in-person tour begins at <b>10 pm (local time)</b> in all venues"
+
 #: users/templates/registration.html:8
 msgid "Registration"
 msgstr "Registration"
 
 #: users/templates/registration.html:12
-#: users/templates/venue_registration.html:22 users/views.py:102
+#: users/templates/venue_registration.html:27 users/views.py:102
 #: users/views.py:462
 msgid "Registration not open yet."
 msgstr "Registration not open yet."
 
 #: users/templates/registration.html:14
-#: users/templates/venue_registration.html:24
+#: users/templates/venue_registration.html:29
 #: users/templates/venues_list.html:11 users/views.py:105 users/views.py:465
 msgid "Registration closed."
 msgstr "Registration closed."
 
 #: users/templates/registration.html:21
-#: users/templates/venue_registration.html:35
+#: users/templates/venue_registration.html:40
 msgid "By clicking \"save\", you agree with"
 msgstr "By clicking \"save\", you agree with"
 
 #: users/templates/registration.html:21
-#: users/templates/venue_registration.html:35
+#: users/templates/venue_registration.html:40
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
@@ -1287,12 +1297,12 @@ msgid "Statement example"
 msgstr "Statement example"
 
 #: users/templates/venue_instructions.html:147
-#: users/templates/venue_participants.html:22 users/views.py:554
+#: users/templates/venue_participants.html:26 users/views.py:554
 msgid "Grade"
 msgstr "Grade"
 
 #: users/templates/venue_instructions.html:148
-#: users/templates/venue_participants.html:21
+#: users/templates/venue_participants.html:25
 msgid "ID Number"
 msgstr "ID number"
 
@@ -1364,32 +1374,32 @@ msgstr "Jane Austin"
 msgid "Registered participants"
 msgstr "Registered participants"
 
-#: users/templates/venue_participants.html:8
 #: users/templates/venue_participants.html:10
+#: users/templates/venue_participants.html:14
 msgid "Download list"
 msgstr "Download list"
 
-#: users/templates/venue_participants.html:10
+#: users/templates/venue_participants.html:12
 msgid "Download available for approved venues only."
 msgstr "Download available for approved venues only."
 
-#: users/templates/venue_participants.html:23
+#: users/templates/venue_participants.html:27
 msgid "Scans"
 msgstr "Scans"
 
-#: users/templates/venue_participants.html:39
+#: users/templates/venue_participants.html:43
 msgid "Clear"
 msgstr "Clear"
 
-#: users/templates/venue_participants.html:44
+#: users/templates/venue_participants.html:48
 msgid "No participants yet."
 msgstr "No participants yet."
 
-#: users/templates/venue_participants.html:55
+#: users/templates/venue_participants.html:59
 msgid "Upload scan"
 msgstr "Upload scan"
 
-#: users/templates/venue_participants.html:61
+#: users/templates/venue_participants.html:65
 msgid "Please check participant data below:"
 msgstr "Please check participant data below:"
 
@@ -1405,11 +1415,11 @@ msgstr "Confirmed"
 msgid "Not confirmed"
 msgstr "Not confirmed"
 
-#: users/templates/venue_registration.html:20
+#: users/templates/venue_registration.html:21
 msgid "Submitted successfully."
 msgstr "Submitted successfully."
 
-#: users/templates/venue_registration.html:29
+#: users/templates/venue_registration.html:34
 msgid "Your venue will appear on list after our confirmation."
 msgstr "Your venue will appear on list after our confirmation."
 

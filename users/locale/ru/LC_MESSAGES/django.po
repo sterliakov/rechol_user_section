@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-28 16:19+0300\n"
+"POT-Creation-Date: 2023-10-28 16:40+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -125,7 +125,7 @@ msgstr "Установить пароль"
 msgid "Submit"
 msgstr "Отправить"
 
-#: users/formhelpers.py:347 users/templates/venue_participants.html:36
+#: users/formhelpers.py:347 users/templates/venue_participants.html:40
 msgid "Upload"
 msgstr "Загрузить"
 
@@ -233,15 +233,15 @@ msgstr "Проверяющий"
 msgid "Email"
 msgstr "Email"
 
-#: users/models.py:120 users/templates/venue_participants.html:18
+#: users/models.py:120 users/templates/venue_participants.html:22
 msgid "First name"
 msgstr "Имя"
 
-#: users/models.py:123 users/templates/venue_participants.html:19
+#: users/models.py:123 users/templates/venue_participants.html:23
 msgid "Last name"
 msgstr "Фамилия"
 
-#: users/models.py:126 users/templates/venue_participants.html:20
+#: users/models.py:126 users/templates/venue_participants.html:24
 msgid "Patronymic name"
 msgstr "Отчество"
 
@@ -941,29 +941,39 @@ msgstr ""
 msgid "Participant profile"
 msgstr "Личный кабинет участника"
 
+#: users/templates/personal.html:12
+msgid ""
+"\n"
+"          The in-person tour begins at 10 pm <b>(local time)</b> in all "
+"venues.\n"
+"        "
+msgstr ""
+"\n"
+"Очный тур начинается в <b>10:00 по местному времени</b> на всех площадках."
+
 #: users/templates/registration.html:8
 msgid "Registration"
 msgstr "Регистрация"
 
 #: users/templates/registration.html:12
-#: users/templates/venue_registration.html:22 users/views.py:102
+#: users/templates/venue_registration.html:27 users/views.py:102
 #: users/views.py:462
 msgid "Registration not open yet."
 msgstr "Регистрация еще не началась."
 
 #: users/templates/registration.html:14
-#: users/templates/venue_registration.html:24
+#: users/templates/venue_registration.html:29
 #: users/templates/venues_list.html:11 users/views.py:105 users/views.py:465
 msgid "Registration closed."
 msgstr "Регистрация закрыта."
 
 #: users/templates/registration.html:21
-#: users/templates/venue_registration.html:35
+#: users/templates/venue_registration.html:40
 msgid "By clicking \"save\", you agree with"
 msgstr "Нажимая кнопку \"Сохранить\", вы подтверждаете согласие с"
 
 #: users/templates/registration.html:21
-#: users/templates/venue_registration.html:35
+#: users/templates/venue_registration.html:40
 msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
@@ -1302,12 +1312,12 @@ msgid "Statement example"
 msgstr "Образец ведомости"
 
 #: users/templates/venue_instructions.html:147
-#: users/templates/venue_participants.html:22 users/views.py:554
+#: users/templates/venue_participants.html:26 users/views.py:554
 msgid "Grade"
 msgstr "Класс участия"
 
 #: users/templates/venue_instructions.html:148
-#: users/templates/venue_participants.html:21
+#: users/templates/venue_participants.html:25
 msgid "ID Number"
 msgstr "Паспорт"
 
@@ -1379,32 +1389,32 @@ msgstr "Иванов Иван Иванович"
 msgid "Registered participants"
 msgstr "Зарегистрированные участники"
 
-#: users/templates/venue_participants.html:8
 #: users/templates/venue_participants.html:10
+#: users/templates/venue_participants.html:14
 msgid "Download list"
 msgstr "Скачать список"
 
-#: users/templates/venue_participants.html:10
+#: users/templates/venue_participants.html:12
 msgid "Download available for approved venues only."
 msgstr "Загрузка доступна только для подтвержденных площадок."
 
-#: users/templates/venue_participants.html:23
+#: users/templates/venue_participants.html:27
 msgid "Scans"
 msgstr "Сканы работ"
 
-#: users/templates/venue_participants.html:39
+#: users/templates/venue_participants.html:43
 msgid "Clear"
 msgstr "Очистить"
 
-#: users/templates/venue_participants.html:44
+#: users/templates/venue_participants.html:48
 msgid "No participants yet."
 msgstr "Пока никого нет."
 
-#: users/templates/venue_participants.html:55
+#: users/templates/venue_participants.html:59
 msgid "Upload scan"
 msgstr "Загрузить скан"
 
-#: users/templates/venue_participants.html:61
+#: users/templates/venue_participants.html:65
 msgid "Please check participant data below:"
 msgstr "Пожалуйста, проверьте данные участника:"
 
@@ -1420,11 +1430,11 @@ msgstr "Подтверждено"
 msgid "Not confirmed"
 msgstr "Не подтверждено"
 
-#: users/templates/venue_registration.html:20
+#: users/templates/venue_registration.html:21
 msgid "Submitted successfully."
 msgstr "Информация сохранена."
 
-#: users/templates/venue_registration.html:29
+#: users/templates/venue_registration.html:34
 msgid "Your venue will appear on list after our confirmation."
 msgstr ""
 "Ваша площадка появится в списке после подтверждения со стороны организаторов."
