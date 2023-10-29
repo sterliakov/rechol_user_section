@@ -523,6 +523,7 @@ class OfflineResultAdmin(_ResultAdminMixin, ConcurrentModelAdmin):
         'user__venue_selected__name',
     )
     list_select_related = ('user',)
+    list_filter = ('user__venue_selected', 'user__participation_form')
 
     @admin.display(description=_('Venue'))
     def get_user__venue_selected(self, obj):
