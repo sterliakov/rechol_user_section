@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static crispy_forms_tags i18n %}
 {% block content %}
+  {% get_current_language as LANGUAGE_CODE %}
   <div class="card mb-0 dz-scroll"
        style="overflow-x: auto"
        id="participant-form">
@@ -19,7 +20,9 @@
       </div>
       <div class="mb-4">
         <p>{{ object.problem.repr_description|safe }}</p>
-        <a href="{{ object.problem.file.url }}" download target="_blank">{% trans "Download problem statement" %}</a>
+        <a href="{% if LANGUAGE_CODE == "ru" %}{{ object.problem.file.url }}{% else %}{{ object.problem.file_en.url }}{% endif %}"
+           download
+           target="_blank">{% trans "Download problem statement" %}</a>
       </div>
       {% crispy form %}
       {% if appeal_open %}
@@ -48,6 +51,7 @@
   </div>
 {% endblock content %}
 {% block extrascripts_after %}
+  {% get_current_language as LANGUAGE_CODE %}
   <script src="{% static 'humanize-duration/humanize-duration.js' %}"></script>
   <script>
 $(function(){
@@ -65,7 +69,7 @@ $(function(){
 
     $('#time-remaining').text(
       humanizeDuration(remaining, {
-        language: ['ru'],
+        language: ['{{ LANGUAGE_CODE|lower }}'],
         largest: 3,
         round: true,
       }),

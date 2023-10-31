@@ -313,10 +313,16 @@ class Annotation(models.Model):
 class OnlineProblem(models.Model):
     name = models.CharField(_('Name'), max_length=120, blank=False, null=False)
     file = models.FileField(_('Statement'), upload_to='problems')
-    solution = models.FileField(_('Solutions'), upload_to='solutions', null=True)
-    comment = models.TextField(
-        _('Annotation content'), blank=True, null=False, default=''
+    file_en = models.FileField(
+        _('Statement (en)'), upload_to='problems', null=True, blank=True
     )
+    solution = models.FileField(
+        _('Solutions'), upload_to='solutions', null=True, blank=True
+    )
+    solution_en = models.FileField(
+        _('Solutions (en)'), upload_to='solutions', null=True, blank=True
+    )
+    comment = models.TextField(_('Description'), blank=True, null=False, default='')
     opens = models.DateTimeField(_('Opens at'), blank=False, null=False)
     closes = models.DateTimeField(_('Closes at'), blank=False, null=False)
     duration = models.DurationField(_('Duration'), blank=False, null=False)

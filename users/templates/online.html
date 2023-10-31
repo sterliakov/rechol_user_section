@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags i18n humanize %}
 {% block content %}
+  {% get_current_language as LANGUAGE_CODE %}
   <div class="card mb-0 dz-scroll"
        style="overflow-x: auto"
        id="participant-form">
     <div class="card-header d-flex justify-content-between">
       <h1>{% trans "Available contests" %}</h1>
-      <span class="d-block">{{ time_remaining }}</span>
+      <span class="d-block">{{ time_remaining }} {{ LANGUAGE_CODE }}</span>
     </div>
     <div class="card-body">
       <ul class="list-unstyled">
