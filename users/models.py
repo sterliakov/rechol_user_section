@@ -9,6 +9,7 @@ from django.core.validators import FileExtensionValidator, MinLengthValidator
 from django.db import models
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
@@ -145,6 +146,7 @@ class User(AbstractUser):
             'Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx'
         ),
     )
+    country = CountryField(verbose_name=_('Country'), default='RU')
     city = models.CharField(_('City'), max_length=63, null=True, blank=False)  # noqa
     school = models.CharField(  # noqa
         _('School'), max_length=255, blank=False, null=True

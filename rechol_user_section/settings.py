@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'ajax_select',
     'bootstrap_datepicker_plus',
     'compressor',
+    'django_countries',
     'crispy_forms',
     'django_select2',
     'django_ses',

@@ -26,11 +26,13 @@ def one_row(fields: dict[str | Field, int | str]) -> Div:
     )
 
 
-def selectpicker(field, kwargs=None):
-    kwargs = kwargs or {}
+def selectpicker(field, live_search=False, kwargs=None):
     kwargs = {
         'data-style': 'form-control',
-    } | kwargs
+        'data-container': 'body',
+    } | (kwargs or {})
+    if live_search:
+        kwargs['data-live-search'] = 'true'
     return Field(field, css_class='selectpicker', **kwargs)
 
 
@@ -82,19 +84,18 @@ class UserUpdateFormHelper(CustomFormHelper):
         ),
         one_row(
             {
-                'city': '4 col-sm-12 col-lg-4',
-                'school': '4 col-sm-12 col-lg-4',
+                selectpicker('country', live_search=True): '6 col-sm-12 col-lg-6',
+                'city': '6 col-sm-12 col-lg-6',
+            }
+        ),
+        one_row(
+            {
+                'school': '8 col-sm-12 col-lg-8',
                 'phone': '4 col-sm-12 col-lg-4',
             }
         ),
     ]
     base_layout_2 = [
-        one_row(
-            {
-                'vk_link': '6 col-sm-12 col-lg-6',
-                'telegram_nickname': '6 col-sm-12 col-lg-6',
-            }
-        ),
         one_row(
             {
                 selectpicker('actual_form'): '6 col-sm-12 col-lg-6',
@@ -103,12 +104,14 @@ class UserUpdateFormHelper(CustomFormHelper):
         ),
         one_row(
             {
+                'vk_link': '6 col-sm-12 col-lg-6',
+                'telegram_nickname': '6 col-sm-12 col-lg-6',
+            }
+        ),
+        one_row(
+            {
                 selectpicker(
-                    'venue_selected',
-                    {
-                        'data-live-search': 'true',
-                        'data-container': 'body',
-                    },
+                    'venue_selected', live_search=True
                 ): '6 col-sm-12 col-lg-6',
                 Div(
                     Field('online_selected', template='checkbox_field.html'),
