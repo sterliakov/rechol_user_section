@@ -6,72 +6,71 @@ import users.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0008_event'),
+        ("users", "0008_event"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='user',
+            name="user",
             managers=[
-                ('objects', users.models.UserManager()),
+                ("objects", users.models.UserManager()),
             ],
         ),
         migrations.AddField(
-            model_name='venue',
-            name='name',
-            field=models.CharField(default='Foo', max_length=63, verbose_name='Name'),
+            model_name="venue",
+            name="name",
+            field=models.CharField(default="Foo", max_length=63, verbose_name="Name"),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='event',
-            name='start',
-            field=models.DateTimeField(null=True, verbose_name='Start'),
+            model_name="event",
+            name="start",
+            field=models.DateTimeField(null=True, verbose_name="Start"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='actual_form',
+            model_name="user",
+            name="actual_form",
             field=models.PositiveSmallIntegerField(
-                choices=[(8, '8'), (9, '9'), (10, '10'), (11, '11'), (1, 'Other')],
-                verbose_name='Actual form',
+                choices=[(8, "8"), (9, "9"), (10, "10"), (11, "11"), (1, "Other")],
+                verbose_name="Actual form",
             ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='first_name',
-            field=models.CharField(max_length=127, verbose_name='First name'),
+            model_name="user",
+            name="first_name",
+            field=models.CharField(max_length=127, verbose_name="First name"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='last_name',
-            field=models.CharField(max_length=127, verbose_name='Last name'),
+            model_name="user",
+            name="last_name",
+            field=models.CharField(max_length=127, verbose_name="Last name"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='participation_form',
+            model_name="user",
+            name="participation_form",
             field=models.PositiveSmallIntegerField(
-                choices=[(8, '8'), (9, '9'), (10, '10'), (11, '11')],
-                verbose_name='Participation form',
+                choices=[(8, "8"), (9, "9"), (10, "10"), (11, "11")],
+                verbose_name="Participation form",
             ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='patronymic_name',
+            model_name="user",
+            name="patronymic_name",
             field=models.CharField(
-                blank=True, default='', max_length=127, verbose_name='Patronymic name'
+                blank=True, default="", max_length=127, verbose_name="Patronymic name"
             ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='school',
-            field=models.CharField(max_length=255, verbose_name='School'),
+            model_name="user",
+            name="school",
+            field=models.CharField(max_length=255, verbose_name="School"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='telegram_nickname',
+            model_name="user",
+            name="telegram_nickname",
             field=models.CharField(
-                blank=True, default='', max_length=127, verbose_name='Telegram nickname'
+                blank=True, default="", max_length=127, verbose_name="Telegram nickname"
             ),
         ),
     ]

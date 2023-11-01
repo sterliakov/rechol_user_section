@@ -4,33 +4,32 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0007_alter_user_passport'),
+        ("users", "0007_alter_user_passport"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('title', models.CharField(max_length=127, verbose_name='Title')),
+                ("title", models.CharField(max_length=127, verbose_name="Title")),
                 (
-                    'link',
+                    "link",
                     models.URLField(
-                        help_text='Link to news page etc.', verbose_name='Link'
+                        help_text="Link to news page etc.", verbose_name="Link"
                     ),
                 ),
-                ('start', models.DateTimeField(verbose_name='Start')),
-                ('description', models.TextField(verbose_name='Description')),
+                ("start", models.DateTimeField(verbose_name="Start")),
+                ("description", models.TextField(verbose_name="Description")),
             ],
         ),
     ]

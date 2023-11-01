@@ -5,17 +5,16 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0050_onlineproblem_file_en_onlineproblem_solution_en_and_more'),
+        ("users", "0050_onlineproblem_file_en_onlineproblem_solution_en_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='venue',
-            name='country',
+            model_name="venue",
+            name="country",
             field=django_countries.fields.CountryField(
-                default='RU', max_length=2, verbose_name='Country'
+                default="RU", max_length=2, verbose_name="Country"
             ),
         ),
     ]

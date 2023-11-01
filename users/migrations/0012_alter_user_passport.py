@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0011_alter_user_venue_selected'),
+        ("users", "0011_alter_user_venue_selected"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='passport',
+            model_name="user",
+            name="passport",
             field=models.CharField(
-                help_text='Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx',
+                help_text="Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx",
                 max_length=15,
                 unique=True,
-                verbose_name='Passport',
+                verbose_name="Passport",
             ),
         ),
     ]

@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0013_alter_user_passport'),
+        ("users", "0013_alter_user_passport"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='online_selected',
-            field=models.BooleanField(default=True, verbose_name='Online stage'),
+            model_name="user",
+            name="online_selected",
+            field=models.BooleanField(default=True, verbose_name="Online stage"),
         ),
     ]

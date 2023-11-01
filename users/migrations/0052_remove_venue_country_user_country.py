@@ -5,21 +5,20 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0051_venue_country'),
+        ("users", "0051_venue_country"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='venue',
-            name='country',
+            model_name="venue",
+            name="country",
         ),
         migrations.AddField(
-            model_name='user',
-            name='country',
+            model_name="user",
+            name="country",
             field=django_countries.fields.CountryField(
-                default='RU', max_length=2, verbose_name='Country'
+                default="RU", max_length=2, verbose_name="Country"
             ),
         ),
     ]

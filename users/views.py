@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import contextlib
 import io
 from textwrap import dedent
@@ -22,8 +24,9 @@ from django.views.generic import (
     UpdateView,
     View,
 )
-from openpyxl import Workbook
 from rest_framework import generics
+
+from openpyxl import Workbook
 
 from . import forms
 from .models import (
@@ -41,8 +44,8 @@ from .serializers import AnnotationSerializer
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'personal.html'
-    success_url = '#'
+    template_name = "personal.html"
+    success_url = "#"
 
     def get_form_class(self):
         if self.request.user.role == self.request.user.Roles.JUDGE:
@@ -54,12 +57,12 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user.role == User.Roles.VENUE:
-            return HttpResponseRedirect(reverse('venue_registration'))
+            return HttpResponseRedirect(reverse("venue_registration"))
         return super().dispatch(request, *args, **kwargs)
 
 
 class RegistrationView(CreateView):
-    template_name = 'registration.html'
+    template_name = "registration.html"
     form_class = forms.UserCreateForm
 
     WELCOME_MAIL = dedent(
@@ -78,40 +81,40 @@ class RegistrationView(CreateView):
 
         С уважением,
         Оргкомитет Проектной химической олимпиады
-    """
+    """,
     )
 
     def get_success_url(self):
-        return reverse('profile')
+        return reverse("profile")
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_anonymous:
-            return HttpResponseRedirect(reverse('profile'))
+            return HttpResponseRedirect(reverse("profile"))
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         config = ConfigurationSingleton.objects.get()
         return super().get_context_data(**kwargs) | {
-            'registration_not_started': config.registration_start > tz.now(),
-            'registration_closed': tz.now() > config.registration_end,
+            "registration_not_started": config.registration_start > tz.now(),
+            "registration_closed": tz.now() > config.registration_end,
         }
 
     def form_valid(self, form):
         ctx = self.get_context_data()
-        if ctx['registration_not_started']:
-            form.add_error(_('Registration not open yet.'))
+        if ctx["registration_not_started"]:
+            form.add_error(_("Registration not open yet."))
             return self.form_invalid(form)
-        if ctx['registration_closed']:
-            form.add_error(_('Registration closed.'))
+        if ctx["registration_closed"]:
+            form.add_error(_("Registration closed."))
             return self.form_invalid(form)
 
         rsp = super().form_valid(form)
         user = form.instance
         send_mail(
-            'Регистрация на Проектную химическую олимпиаду',
+            "Регистрация на Проектную химическую олимпиаду",
             self.WELCOME_MAIL.format(
                 name=str(user),
-                suffix=('ый' if user.gender == 'm' else 'ая'),
+                suffix=("ый" if user.gender == "m" else "ая"),
             ),
             None,
             [user.email],
@@ -120,15 +123,15 @@ class RegistrationView(CreateView):
 
 
 class JudgeRegistrationView(CreateView):
-    template_name = 'registration.html'
+    template_name = "registration.html"
     form_class = forms.JudgeCreateForm
 
     def get_success_url(self):
-        return reverse('profile')
+        return reverse("profile")
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_anonymous:
-            return HttpResponseRedirect(reverse('profile'))
+            return HttpResponseRedirect(reverse("profile"))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -141,15 +144,15 @@ class JudgeRegistrationView(CreateView):
 
 
 class VenueUserRegistrationView(CreateView):
-    template_name = 'registration.html'
+    template_name = "registration.html"
     form_class = forms.JudgeCreateForm
 
     def get_success_url(self):
-        return reverse('profile')
+        return reverse("profile")
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_anonymous:
-            return HttpResponseRedirect(reverse('profile'))
+            return HttpResponseRedirect(reverse("profile"))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -162,8 +165,8 @@ class VenueUserRegistrationView(CreateView):
 
 class IndexView(ListView):
     model = Event
-    template_name = 'index.html'
-    ordering = ['start']
+    template_name = "index.html"
+    ordering = ["start"]
 
 
 class AnnotationList(LoginRequiredMixin, generics.ListCreateAPIView):
@@ -172,13 +175,13 @@ class AnnotationList(LoginRequiredMixin, generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         if request.user.role != request.user.Roles.JUDGE:
             return HttpResponseForbidden(
-                _('You do not have access to editing annotations')
+                _("You do not have access to editing annotations"),
             )
         return super().post(request, *args, **kwargs)
 
     def get_queryset(self):
-        filename = self.request.query_params.get('filename')
-        page = self.request.query_params.get('page')
+        filename = self.request.query_params.get("filename")
+        page = self.request.query_params.get("page")
         qs = Annotation.objects.filter(filename=filename)
         if page:
             qs = qs.filter(page=int(page))
@@ -186,7 +189,9 @@ class AnnotationList(LoginRequiredMixin, generics.ListCreateAPIView):
 
 
 class AnnotationDetail(
-    LoginRequiredMixin, UserPassesTestMixin, generics.RetrieveUpdateDestroyAPIView
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    generics.RetrieveUpdateDestroyAPIView,
 ):
     queryset = Annotation.objects.all()
     serializer_class = AnnotationSerializer
@@ -197,8 +202,8 @@ class AnnotationDetail(
 
 class OnlineStageListView(LoginRequiredMixin, ListView):
     model = OnlineProblem
-    template_name = 'online.html'
-    ordering = ['opens']
+    template_name = "online.html"
+    ordering = ["opens"]
 
     def get_queryset(self):
         user = self.request.user
@@ -225,7 +230,7 @@ class ProblemDispatchMixin(LoginRequiredMixin):
         if not self.request.user.is_authenticated:
             return None
         return OnlineProblem.objects.get(
-            id=int(self.kwargs['problem_pk']),
+            id=int(self.kwargs["problem_pk"]),
             target_form=self.request.user.participation_form,
         )
 
@@ -234,30 +239,30 @@ class ProblemDispatchMixin(LoginRequiredMixin):
             self.problem  # noqa: B018
         except OnlineProblem.DoesNotExist:
             return HttpResponseRedirect(
-                reverse('online_submission_index') + '?error=DENIED'
+                reverse("online_submission_index") + "?error=DENIED",
             )
         return super().dispatch(*args, **kwargs)
 
 
 class OnlineStageStartView(ProblemDispatchMixin, DetailView):
     model = OnlineSubmission
-    template_name = 'online_start.html'
+    template_name = "online_start.html"
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs) | {
-            'problem': self.problem,
-            'has_ended': self.object and self.object.remaining_time.total_seconds() < 0,
+            "problem": self.problem,
+            "has_ended": self.object and self.object.remaining_time.total_seconds() < 0,
         }
 
     def get_object(self, _queryset=None):
         return self.request.user.onlinesubmission_set.filter(
-            problem=self.problem
+            problem=self.problem,
         ).first()
 
     def post(self, *_args, **kwargs):
         if not self.problem.is_open_now():
             return HttpResponseRedirect(
-                reverse('online_submission_index') + '?error=GONE'
+                reverse("online_submission_index") + "?error=GONE",
             )
 
         with contextlib.suppress(Exception):
@@ -267,24 +272,24 @@ class OnlineStageStartView(ProblemDispatchMixin, DetailView):
                 started=tz.now(),
             )
 
-        return HttpResponseRedirect(reverse('online_submission_update', kwargs=kwargs))
+        return HttpResponseRedirect(reverse("online_submission_update", kwargs=kwargs))
 
 
 class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
     model = OnlineSubmission
     form_class = forms.OnlineSubmissionForm
-    template_name = 'online_submission.html'
-    success_url = '?success=true'
+    template_name = "online_submission.html"
+    success_url = "?success=true"
 
     @cached_property
     def problem(self):
-        return OnlineProblem.objects.get(id=int(self.kwargs['problem_pk']))
+        return OnlineProblem.objects.get(id=int(self.kwargs["problem_pk"]))
 
     @cached_property
     def is_over(self):
         return bool(
             not self.problem.is_open_now()
-            or self.object.remaining_time.total_seconds() < 0
+            or self.object.remaining_time.total_seconds() < 0,
         )
 
     def get_object(self, _queryset=None):
@@ -302,7 +307,7 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
             # AttributeError on AnonymousUser: LoginRequiredMixin affects super.dispatch
             # and is not checked yet
             return HttpResponseRedirect(
-                reverse('online_submission_start', kwargs=kwargs)
+                reverse("online_submission_start", kwargs=kwargs),
             )
 
         return super().dispatch(request, *args, **kwargs)
@@ -310,12 +315,12 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
     def post(self, *args, **kwargs):
         if self.is_over:
             return HttpResponseBadRequest(
-                _('Cannot submit solutions to closed contest.')
+                _("Cannot submit solutions to closed contest."),
             )
         return super().post(*args, **kwargs)
 
     def get_form_kwargs(self):
-        return super().get_form_kwargs() | {'contest_over': self.is_over}
+        return super().get_form_kwargs() | {"contest_over": self.is_over}
 
     def get_context_data(self, **kwargs):
         config = ConfigurationSingleton.objects.get()
@@ -323,16 +328,16 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
         appeal_open = config.online_appeal_start <= tz.now()
 
         return super().get_context_data(**kwargs) | {
-            'contest_over': self.is_over,
-            'appeal_open': appeal_open,
+            "contest_over": self.is_over,
+            "appeal_open": appeal_open,
         }
 
 
 class AppellationView(LoginRequiredMixin, UpdateView):
     model = OfflineResult
     form_class = forms.OfflineResultDisplayForm
-    template_name = 'offline_appellation.html'
-    success_url = '?success=True'
+    template_name = "offline_appellation.html"
+    success_url = "?success=True"
 
     def get_object(self, _queryset=None):
         try:
@@ -352,16 +357,16 @@ class AppellationView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs) | {
-            'object': self.object,
-            'is_open': self.is_open,
-            'was_open': self.was_open,
-            'problems': {
+            "object": self.object,
+            "is_open": self.is_open,
+            "was_open": self.was_open,
+            "problems": {
                 p.target_form: p for p in OfflineProblem.objects.filter(visible=True)
             },
         }
         if self.object:
-            ctx['helper'] = forms.helpers.AppellationFormHelper()
-            ctx['messages'] = (
+            ctx["helper"] = forms.helpers.AppellationFormHelper()
+            ctx["messages"] = (
                 forms.AppellationFormset
                 if self.is_open
                 else forms.AppellationDisplayFormset
@@ -370,10 +375,10 @@ class AppellationView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         if not self.is_open:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect("/")
         # Doing nothing with form - it's readonly
         if self.object:
-            formset = self.get_context_data()['messages']
+            formset = self.get_context_data()["messages"]
             if formset.is_valid():
                 formset.save()
             else:
@@ -385,13 +390,13 @@ class AppellationView(LoginRequiredMixin, UpdateView):
 class OnlineAppellationView(LoginRequiredMixin, UpdateView):
     model = OnlineSubmission
     form_class = forms.OnlineSubmissionDisplayForm
-    template_name = 'online_appellation.html'
-    success_url = '?success=True'
+    template_name = "online_appellation.html"
+    success_url = "?success=True"
 
     def get_object(self, _queryset=None):
         try:
             return self.request.user.onlinesubmission_set.get(
-                problem_id=int(self.kwargs['problem_pk'])
+                problem_id=int(self.kwargs["problem_pk"]),
             )
         except OnlineSubmission.DoesNotExist:
             return None
@@ -403,12 +408,12 @@ class OnlineAppellationView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs) | {
-            'object': self.object,
-            'is_open': self.is_open,
+            "object": self.object,
+            "is_open": self.is_open,
         }
         if self.object:
-            ctx['helper'] = forms.helpers.AppellationFormHelper()
-            ctx['messages'] = (
+            ctx["helper"] = forms.helpers.AppellationFormHelper()
+            ctx["messages"] = (
                 forms.OnlineAppellationFormset
                 if self.is_open
                 else forms.OnlineAppellationDisplayFormset
@@ -417,10 +422,10 @@ class OnlineAppellationView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         if not self.is_open:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect("/")
         # Doing nothing with form - it's readonly
         if self.object:
-            formset = self.get_context_data()['messages']
+            formset = self.get_context_data()["messages"]
             if formset.is_valid():
                 formset.save()
             else:
@@ -432,29 +437,29 @@ class OnlineAppellationView(LoginRequiredMixin, UpdateView):
 class VenueRegistrationView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Venue
     form_class = forms.VenueForm
-    template_name = 'venue_registration.html'
-    success_url = '?success=true'
+    template_name = "venue_registration.html"
+    success_url = "?success=true"
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_anonymous:
-            return HttpResponseRedirect(reverse('venue_user_registration'))
+            return HttpResponseRedirect(reverse("venue_user_registration"))
 
         try:
             request.user.owned_venue  # noqa: B018
         except Venue.DoesNotExist:
             return super().dispatch(request, *args, **kwargs)
 
-        dest = reverse('venue_update')
-        if request.GET.get('success'):
-            dest += '?success=true'
+        dest = reverse("venue_update")
+        if request.GET.get("success"):
+            dest += "?success=true"
         return HttpResponseRedirect(dest)
 
     def get_context_data(self, **kwargs):
         config = ConfigurationSingleton.objects.get()
         return super().get_context_data(**kwargs) | {
-            'registration_not_started': config.venue_registration_start > tz.now(),
-            'registration_closed': tz.now() > config.venue_registration_end,
-            'instance': None,
+            "registration_not_started": config.venue_registration_start > tz.now(),
+            "registration_closed": tz.now() > config.venue_registration_end,
+            "instance": None,
         }
 
     def test_func(self):
@@ -462,16 +467,16 @@ class VenueRegistrationView(LoginRequiredMixin, UserPassesTestMixin, CreateView)
 
     def get_form_kwargs(self, **kwargs):
         return super().get_form_kwargs(**kwargs) | {
-            'instance': Venue(owner=self.request.user)
+            "instance": Venue(owner=self.request.user),
         }
 
     def form_valid(self, form):
         ctx = self.get_context_data()
-        if ctx['registration_not_started']:
-            form.add_error(_('Registration not open yet.'))
+        if ctx["registration_not_started"]:
+            form.add_error(_("Registration not open yet."))
             return self.form_invalid(form)
-        if ctx['registration_closed']:
-            form.add_error(_('Registration closed.'))
+        if ctx["registration_closed"]:
+            form.add_error(_("Registration closed."))
             return self.form_invalid(form)
 
         return super().form_valid(form)
@@ -480,8 +485,8 @@ class VenueRegistrationView(LoginRequiredMixin, UserPassesTestMixin, CreateView)
 class VenueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Venue
     form_class = forms.VenueForm
-    template_name = 'venue_registration.html'
-    success_url = '?success=true'
+    template_name = "venue_registration.html"
+    success_url = "?success=true"
 
     def get_object(self, _queryset=None):
         if self.request.user.is_anonymous:
@@ -492,15 +497,15 @@ class VenueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         try:
             self.get_object()
         except Venue.DoesNotExist:
-            return HttpResponseRedirect(reverse('venue_registration'))
+            return HttpResponseRedirect(reverse("venue_registration"))
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         config = ConfigurationSingleton.objects.get()
         return super().get_context_data(**kwargs) | {
-            'registration_not_started': config.venue_registration_start > tz.now(),
-            'registration_closed': tz.now() > config.venue_registration_end,
-            'instance': self.get_object(),
+            "registration_not_started": config.venue_registration_start > tz.now(),
+            "registration_closed": tz.now() > config.venue_registration_end,
+            "instance": self.get_object(),
         }
 
     def test_func(self):
@@ -510,13 +515,13 @@ class VenueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class VenuesListView(ListView):
     queryset = Venue.objects.filter(is_confirmed=True)
     model = Venue
-    template_name = 'venues_list.html'
-    ordering = ['city']
+    template_name = "venues_list.html"
+    ordering = ["city"]
 
 
 class VenueParticipantsView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = User
-    template_name = 'venue_participants.html'
+    template_name = "venue_participants.html"
 
     def test_func(self):
         return self.request.user.role == User.Roles.VENUE
@@ -531,20 +536,21 @@ class VenueParticipantsView(LoginRequiredMixin, UserPassesTestMixin, ListView):
             return User.objects.none()
 
         return User.objects.filter(
-            role=User.Roles.PARTICIPANT, venue_selected=venue
-        ).order_by('participation_form', 'last_name', 'first_name', 'id')
+            role=User.Roles.PARTICIPANT,
+            venue_selected=venue,
+        ).order_by("participation_form", "last_name", "first_name", "id")
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs) | {
-            'upload_form': forms.ScanUploadForm(),
-            'user_data_form': forms.DummyUserDataForm(),
-            'venue': Venue.objects.filter(owner=self.request.user).first(),
+            "upload_form": forms.ScanUploadForm(),
+            "user_data_form": forms.DummyUserDataForm(),
+            "venue": Venue.objects.filter(owner=self.request.user).first(),
         }
 
 
 class VenueParticipantsDownloadView(LoginRequiredMixin, UserPassesTestMixin, View):
     model = User
-    template_name = 'venue_participants.html'
+    template_name = "venue_participants.html"
 
     def test_func(self):
         return self.request.user.role == User.Roles.VENUE
@@ -552,21 +558,22 @@ class VenueParticipantsDownloadView(LoginRequiredMixin, UserPassesTestMixin, Vie
     def get_queryset(self):
         venue = self.request.user.owned_venue
         return User.objects.filter(
-            role=User.Roles.PARTICIPANT, venue_selected=venue
-        ).order_by('participation_form', 'last_name', 'first_name', 'id')
+            role=User.Roles.PARTICIPANT,
+            venue_selected=venue,
+        ).order_by("participation_form", "last_name", "first_name", "id")
 
     def get(self, _request):
         users = self.get_queryset()
         columns = [
-            _('Name'),
-            _('ID number'),
-            _('Grade'),
-            _('Room'),
-            _('Arrived'),
-            _('Terminated'),
-            _('Exits'),
-            _('Pages count'),
-            _('Comments'),
+            _("Name"),
+            _("ID number"),
+            _("Grade"),
+            _("Room"),
+            _("Arrived"),
+            _("Terminated"),
+            _("Exits"),
+            _("Pages count"),
+            _("Comments"),
         ]
         wb = Workbook()
         ws = wb.active
@@ -576,16 +583,16 @@ class VenueParticipantsDownloadView(LoginRequiredMixin, UserPassesTestMixin, Vie
         buf = io.BytesIO()
         wb.save(buf)
         buf.seek(0)
-        return FileResponse(buf, as_attachment=True, filename='participants.xlsx')
+        return FileResponse(buf, as_attachment=True, filename="participants.xlsx")
 
 
 class VenueScanUploadView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = OfflineResult
     form_class = forms.ScanUploadForm
-    template_name = 'venue_participants.html'
+    template_name = "venue_participants.html"
 
     def get_success_url(self):
-        return reverse('venue_participants')
+        return reverse("venue_participants")
 
     def test_func(self):
         return self.request.user.role == User.Roles.VENUE
@@ -601,17 +608,19 @@ class VenueScanUploadView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             return None
 
     def get_form_kwargs(self, **kwargs):
-        participant_pk = self.request.GET.get('participant')
+        participant_pk = self.request.GET.get("participant")
         participant = User.objects.get(pk=participant_pk)
         if participant.venue_selected != self.venue:
-            return HttpResponseForbidden('Not registered to this venue.')
+            return HttpResponseForbidden("Not registered to this venue.")
         return super().get_form_kwargs(**kwargs) | {
-            'instance': OfflineResult(user=participant)
+            "instance": OfflineResult(user=participant),
         }
 
 
 class VenueScanDeleteView(
-    LoginRequiredMixin, UserPassesTestMixin, generics.DestroyAPIView
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    generics.DestroyAPIView,
 ):
     def test_func(self):
         return self.request.user.role == User.Roles.VENUE
@@ -633,15 +642,15 @@ class VenueScanDeleteView(
 
 
 class VenueInstructionsView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
-    template_name = 'venue_instructions.html'
+    template_name = "venue_instructions.html"
 
     def test_func(self):
         return self.request.user.role == User.Roles.VENUE
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs) | {
-            'problems': OfflineProblem.objects.filter(visible=True).order_by(
-                'target_form'
+            "problems": OfflineProblem.objects.filter(visible=True).order_by(
+                "target_form",
             ),
-            'venue': Venue.objects.filter(owner=self.request.user).first(),
+            "venue": Venue.objects.filter(owner=self.request.user).first(),
         }

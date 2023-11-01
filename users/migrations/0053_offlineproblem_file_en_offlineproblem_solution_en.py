@@ -4,30 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0052_remove_venue_country_user_country'),
+        ("users", "0052_remove_venue_country_user_country"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='offlineproblem',
-            name='file_en',
+            model_name="offlineproblem",
+            name="file_en",
             field=models.FileField(
                 blank=True,
                 null=True,
-                upload_to='problems',
-                verbose_name='Statement (en)',
+                upload_to="problems",
+                verbose_name="Statement (en)",
             ),
         ),
         migrations.AddField(
-            model_name='offlineproblem',
-            name='solution_en',
+            model_name="offlineproblem",
+            name="solution_en",
             field=models.FileField(
                 blank=True,
                 null=True,
-                upload_to='solutions',
-                verbose_name='Solutions (en)',
+                upload_to="solutions",
+                verbose_name="Solutions (en)",
             ),
         ),
     ]

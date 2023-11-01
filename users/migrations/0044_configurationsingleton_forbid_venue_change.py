@@ -4,17 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0043_alter_venue_confirmation_letter'),
+        ("users", "0043_alter_venue_confirmation_letter"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='configurationsingleton',
-            name='forbid_venue_change',
+            model_name="configurationsingleton",
+            name="forbid_venue_change",
             field=models.BooleanField(
-                default=False, verbose_name='forbid venue change'
+                default=False, verbose_name="forbid venue change"
             ),
         ),
     ]

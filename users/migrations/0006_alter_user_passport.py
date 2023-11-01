@@ -5,24 +5,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0005_rename_venuesavailable_venue_user_phone'),
+        ("users", "0005_rename_venuesavailable_venue_user_phone"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='passport',
+            model_name="user",
+            name="passport",
             field=models.CharField(
                 max_length=12,
                 unique=True,
                 validators=[
                     django.core.validators.RegexValidator(
-                        '(\\d{4} \\d{6})|(..-.. \\d{6})'
+                        "(\\d{4} \\d{6})|(..-.. \\d{6})"
                     )
                 ],
-                verbose_name='Passport',
+                verbose_name="Passport",
             ),
         ),
     ]

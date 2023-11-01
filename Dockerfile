@@ -6,18 +6,20 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 COPY requirements.txt /requirements.txt
 
+# hadolint ignore=DL3008,SC1091
 RUN BUILD_DEPS="build-essential libpcre3-dev libpq-dev git pkg-config nodejs npm gettext" && \
     apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS && \
     python -m venv venv && \
     . venv/bin/activate && \
-    pip install -U --no-cache-dir pip setuptools wheel && \
-    pip install -U --no-cache-dir gunicorn && \
+    pip install -U --no-cache-dir 'pip>=23.3.1' 'setuptools>=68.2.2' 'wheel>=0.41.3' && \
+    pip install -U --no-cache-dir 'gunicorn~=21.2.0' && \
     pip install --no-cache-dir -r /${REQUIREMENTS_FILE:-requirements.dev.txt} && \
     npm i -g bower sass && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY . /app
+# hadolint ignore=SC1091
 RUN . /venv/bin/activate && \
     DJANGO_SECRET_KEY=1 ./manage.py bower install && \
     DJANGO_SECRET_KEY=1 ./manage.py collectstatic && \
@@ -31,12 +33,12 @@ ARG APP_USER=rechol
 ARG APP_HOME=/home/rechol
 ARG DEBIAN_FRONTEND=noninteractive
 
+# hadolint ignore=DL3008
 RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USER} && \
-    RUN_DEPS="libpcre3 mime-support postgresql-client" && \
-    apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends $RUN_DEPS && \
+    apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends libpcre3 mime-support postgresql-client && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/www/rechol_user_section/media/ && \
-    chown -R ${APP_USER}:${APP_USER} /var/www/rechol_user_section/media/
+    chown -R "${APP_USER}:${APP_USER}" /var/www/rechol_user_section/media/
 
 WORKDIR ${APP_HOME}
 # Patch

@@ -1,69 +1,79 @@
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
     hooks:
-      - id: trailing-whitespace
+    -   id: trailing-whitespace
         exclude: bower_components|static_files
-      - id: end-of-file-fixer
+    -   id: end-of-file-fixer
         exclude: bower_components|static_files
-      - id: check-merge-conflict
-      - id: check-executables-have-shebangs
+    -   id: check-merge-conflict
+    -   id: check-executables-have-shebangs
         exclude: bower_components|static_files
-      - id: check-toml
+    -   id: check-toml
         exclude: bower_components|static_files
-      - id: check-yaml
+    -   id: check-yaml
         exclude: bower_components|static_files
-      - id: check-json
+    -   id: check-json
         exclude: bower_components|static_files
-      - id: pretty-format-json
+    -   id: pretty-format-json
         exclude: bower_components|static_files
-        args: ["--autofix", "--no-ensure-ascii"]
+        args: [--autofix, --no-ensure-ascii]
 
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.49.0
+-   repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.52.0
     hooks:
-      - id: eslint
-        args: ['--config', '.eslintrc.js']
+    -   id: eslint
+        args: [--config, .eslintrc.js]
         exclude: bower_components|static_files|users/static/font-awesome-pro|users/static/fullcalendar|users/static/pdf_js
 
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.11.0
+-   repo: https://github.com/psf/black
+    rev: 23.10.1
     hooks:
-      - id: pyupgrade
-        args: ["--py310-plus"]
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.10.1
+    -   id: black
+        args: [--target-version, py311]
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.3
     hooks:
-      - id: isort
-        name: isort
-        args: ["--profile", "black"]
-  - repo: https://github.com/grantjenks/blue
-    rev: v0.9.1
-    hooks:
-      - id: blue
-        args: ['--line-length', '88']
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.290
-    hooks:
-      - id: ruff
-  - repo: https://github.com/mondeja/pre-commit-po-hooks
+    -   id: ruff
+        args: [--fix]
+-   repo: https://github.com/mondeja/pre-commit-po-hooks
     rev: v1.7.3
     hooks:
-      - id: obsolete-messages
-      - id: untranslated-messages
-      - id: fuzzy-messages
+    -   id: obsolete-messages
+    -   id: untranslated-messages
+    -   id: fuzzy-messages
 
-  - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.32.1
+-   repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.34.0
     hooks:
       # We first reformat (spacing etc.)
-      - id: djlint-django
+    -   id: djlint-django
         alias: djlint
         # exclude: "bower_components"
-        args: ["--reformat"]
-        files: "users/templates/.*"
+        args: [--reformat]
+        files: users/templates/.*
       # And then check for non-autofixable issues
-      - id: djlint-django
+    -   id: djlint-django
         alias: djlint
-        files: "users/templates/.*"
+        files: users/templates/.*
         # exclude: "bower_components"
+
+-   repo: https://github.com/shellcheck-py/shellcheck-py       # Shellcheck
+    rev: v0.9.0.6
+    hooks:
+    -   id: shellcheck
+        args: [-x, -P, SCRIPTDIR]
+-   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.11.0
+    hooks:
+    -   id: pretty-format-yaml
+        args: [--autofix, --indent, '4']
+        exclude: bower_components|static_files
+    -   id: pretty-format-toml
+        args: [--autofix, --indent, '4', --trailing-comma]
+        exclude: bower_components|static_files
+-   repo: https://github.com/AleksaC/hadolint-py       # Dockerfiles lint
+    rev: v2.12.0.3
+    hooks:
+    -   id: hadolint
+        files: .*Dockerfile.*

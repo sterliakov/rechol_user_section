@@ -6,57 +6,56 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0030_onlineproblem_target_form'),
+        ("users", "0030_onlineproblem_target_form"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='offlineresult',
-            name='final_scores',
+            model_name="offlineresult",
+            name="final_scores",
             field=django.contrib.postgres.fields.ArrayField(
-                base_field=models.CharField(blank=True, default='', max_length=2),
+                base_field=models.CharField(blank=True, default="", max_length=2),
                 blank=True,
                 default=list,
                 size=6,
-                verbose_name='Final scores after appellation',
+                verbose_name="Final scores after appellation",
             ),
         ),
         migrations.CreateModel(
-            name='Appellation',
+            name="Appellation",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('message', models.TextField(verbose_name='Message')),
-                ('response', models.TextField(verbose_name='Response')),
+                ("message", models.TextField(verbose_name="Message")),
+                ("response", models.TextField(verbose_name="Response")),
                 (
-                    'when',
-                    models.DateTimeField(auto_now_add=True, verbose_name='Created'),
+                    "when",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Created"),
                 ),
                 (
-                    'updated',
-                    models.DateTimeField(auto_now=True, verbose_name='Updated'),
+                    "updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Updated"),
                 ),
                 (
-                    'result',
+                    "result",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='users.offlineresult',
-                        verbose_name='Result',
+                        to="users.offlineresult",
+                        verbose_name="Result",
                     ),
                 ),
             ],
             options={
-                'verbose_name': 'Appellation',
-                'verbose_name_plural': 'Appellations',
+                "verbose_name": "Appellation",
+                "verbose_name_plural": "Appellations",
             },
         ),
     ]

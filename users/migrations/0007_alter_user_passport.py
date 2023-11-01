@@ -5,25 +5,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0006_alter_user_passport'),
+        ("users", "0006_alter_user_passport"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='passport',
+            model_name="user",
+            name="passport",
             field=models.CharField(
-                help_text='Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx',
+                help_text="Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx",
                 max_length=12,
                 unique=True,
                 validators=[
                     django.core.validators.RegexValidator(
-                        '(\\d{4} \\d{6})|(..-.. \\d{6})'
+                        "(\\d{4} \\d{6})|(..-.. \\d{6})"
                     )
                 ],
-                verbose_name='Passport',
+                verbose_name="Passport",
             ),
         ),
     ]

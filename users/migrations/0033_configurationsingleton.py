@@ -6,7 +6,7 @@ from django.utils import timezone as tz
 
 def create_singleton(apps, schema_editor):
     db_alias = schema_editor.connection.alias
-    ConfigurationSingleton = apps.get_model('users', 'ConfigurationSingleton')
+    ConfigurationSingleton = apps.get_model("users", "ConfigurationSingleton")
     ConfigurationSingleton.objects.using(db_alias).create(
         offline_appeal_start=tz.datetime(
             2022, 11, 11, 0, 0, 0, tzinfo=tz.get_default_timezone()
@@ -18,36 +18,35 @@ def create_singleton(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0032_alter_appellation_response'),
+        ("users", "0032_alter_appellation_response"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ConfigurationSingleton',
+            name="ConfigurationSingleton",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'offline_appeal_start',
-                    models.DateTimeField(verbose_name='Start of offline stage appeal'),
+                    "offline_appeal_start",
+                    models.DateTimeField(verbose_name="Start of offline stage appeal"),
                 ),
                 (
-                    'offline_appeal_end',
-                    models.DateTimeField(verbose_name='End of offline stage appeal'),
+                    "offline_appeal_end",
+                    models.DateTimeField(verbose_name="End of offline stage appeal"),
                 ),
             ],
             options={
-                'verbose_name': 'Configuration',
-                'verbose_name_plural': 'Configurations',
+                "verbose_name": "Configuration",
+                "verbose_name_plural": "Configurations",
             },
         ),
         migrations.RunPython(create_singleton),

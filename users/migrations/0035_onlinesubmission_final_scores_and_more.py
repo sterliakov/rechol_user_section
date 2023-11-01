@@ -5,32 +5,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0034_alter_offlineresult_final_scores_and_more'),
+        ("users", "0034_alter_offlineresult_final_scores_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='onlinesubmission',
-            name='final_scores',
+            model_name="onlinesubmission",
+            name="final_scores",
             field=django.contrib.postgres.fields.ArrayField(
-                base_field=models.CharField(blank=True, default='', max_length=4),
+                base_field=models.CharField(blank=True, default="", max_length=4),
                 blank=True,
                 default=list,
                 size=4,
-                verbose_name='Final scores after appellation',
+                verbose_name="Final scores after appellation",
             ),
         ),
         migrations.AddField(
-            model_name='onlinesubmission',
-            name='scores',
+            model_name="onlinesubmission",
+            name="scores",
             field=django.contrib.postgres.fields.ArrayField(
-                base_field=models.CharField(blank=True, default='', max_length=4),
+                base_field=models.CharField(blank=True, default="", max_length=4),
                 blank=True,
                 default=list,
                 size=4,
-                verbose_name='Scores',
+                verbose_name="Scores",
             ),
         ),
     ]

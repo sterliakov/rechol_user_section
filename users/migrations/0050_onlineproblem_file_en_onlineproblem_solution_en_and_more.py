@@ -4,42 +4,41 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0049_venue_is_full'),
+        ("users", "0049_venue_is_full"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='onlineproblem',
-            name='file_en',
+            model_name="onlineproblem",
+            name="file_en",
             field=models.FileField(
                 blank=True,
                 null=True,
-                upload_to='problems',
-                verbose_name='Statement (en)',
+                upload_to="problems",
+                verbose_name="Statement (en)",
             ),
         ),
         migrations.AddField(
-            model_name='onlineproblem',
-            name='solution_en',
+            model_name="onlineproblem",
+            name="solution_en",
             field=models.FileField(
                 blank=True,
                 null=True,
-                upload_to='solutions',
-                verbose_name='Solutions (en)',
+                upload_to="solutions",
+                verbose_name="Solutions (en)",
             ),
         ),
         migrations.AlterField(
-            model_name='onlineproblem',
-            name='comment',
-            field=models.TextField(blank=True, default='', verbose_name='Description'),
+            model_name="onlineproblem",
+            name="comment",
+            field=models.TextField(blank=True, default="", verbose_name="Description"),
         ),
         migrations.AlterField(
-            model_name='onlineproblem',
-            name='solution',
+            model_name="onlineproblem",
+            name="solution",
             field=models.FileField(
-                blank=True, null=True, upload_to='solutions', verbose_name='Solutions'
+                blank=True, null=True, upload_to="solutions", verbose_name="Solutions"
             ),
         ),
     ]

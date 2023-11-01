@@ -4,15 +4,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0035_onlinesubmission_final_scores_and_more'),
+        ("users", "0035_onlinesubmission_final_scores_and_more"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='onlinesubmission',
-            old_name='file',
-            new_name='paper_original',
+            model_name="onlinesubmission",
+            old_name="file",
+            new_name="paper_original",
         ),
     ]

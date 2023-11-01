@@ -6,19 +6,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0027_onlineproblem_visible'),
+        ("users", "0027_onlineproblem_visible"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='onlinesubmission',
-            name='user',
+            model_name="onlinesubmission",
+            name="user",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
                 to=settings.AUTH_USER_MODEL,
-                verbose_name='Participant',
+                verbose_name="Participant",
             ),
         ),
     ]

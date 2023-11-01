@@ -5,20 +5,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0021_alter_user_actual_form_alter_user_birth_date_and_more'),
+        ("users", "0021_alter_user_actual_form_alter_user_birth_date_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='offlineresult',
-            name='scores',
+            model_name="offlineresult",
+            name="scores",
             field=django.contrib.postgres.fields.ArrayField(
-                base_field=models.CharField(blank=True, default='', max_length=2),
+                base_field=models.CharField(blank=True, default="", max_length=2),
                 blank=True,
                 size=5,
-                verbose_name='Scores',
+                verbose_name="Scores",
             ),
         ),
     ]

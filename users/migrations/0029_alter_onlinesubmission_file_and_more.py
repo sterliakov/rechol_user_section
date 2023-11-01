@@ -5,29 +5,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0028_alter_onlinesubmission_user'),
+        ("users", "0028_alter_onlinesubmission_user"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='onlinesubmission',
-            name='file',
+            model_name="onlinesubmission",
+            name="file",
             field=models.FileField(
-                help_text='Solution file in pdf format',
+                help_text="Solution file in pdf format",
                 null=True,
-                upload_to='online_submissions',
+                upload_to="online_submissions",
                 validators=[
                     django.core.validators.FileExtensionValidator(
-                        allowed_extensions=['pdf']
+                        allowed_extensions=["pdf"]
                     )
                 ],
-                verbose_name='Solution file',
+                verbose_name="Solution file",
             ),
         ),
         migrations.AlterUniqueTogether(
-            name='onlinesubmission',
-            unique_together={('user', 'problem')},
+            name="onlinesubmission",
+            unique_together={("user", "problem")},
         ),
     ]

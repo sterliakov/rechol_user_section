@@ -4,27 +4,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0045_alter_user_venue_selected'),
+        ("users", "0045_alter_user_venue_selected"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='venue',
-            name='name',
+            model_name="venue",
+            name="name",
         ),
         migrations.AddField(
-            model_name='venue',
-            name='full_name',
-            field=models.CharField(default='', max_length=63, verbose_name='full name'),
+            model_name="venue",
+            name="full_name",
+            field=models.CharField(default="", max_length=63, verbose_name="full name"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='venue',
-            name='short_name',
+            model_name="venue",
+            name="short_name",
             field=models.CharField(
-                default='', max_length=63, verbose_name='short name'
+                default="", max_length=63, verbose_name="short name"
             ),
             preserve_default=False,
         ),

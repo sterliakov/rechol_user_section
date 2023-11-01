@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0026_onlineproblem_onlinesubmission'),
+        ("users", "0026_onlineproblem_onlinesubmission"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='onlineproblem',
-            name='visible',
-            field=models.BooleanField(default=False, verbose_name='Visible'),
+            model_name="onlineproblem",
+            name="visible",
+            field=models.BooleanField(default=False, verbose_name="Visible"),
         ),
     ]

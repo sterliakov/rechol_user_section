@@ -4,32 +4,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0016_rename_score_offlineresult_scores'),
+        ("users", "0016_rename_score_offlineresult_scores"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Annotation',
+            name="Annotation",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('filename', models.CharField(max_length=255, verbose_name='Filename')),
-                ('annotation_id', models.UUIDField(verbose_name='Annotation ID')),
-                ('page', models.PositiveSmallIntegerField(verbose_name='Page number')),
-                ('annotation', models.TextField(verbose_name='Annotation content')),
+                ("filename", models.CharField(max_length=255, verbose_name="Filename")),
+                ("annotation_id", models.UUIDField(verbose_name="Annotation ID")),
+                ("page", models.PositiveSmallIntegerField(verbose_name="Page number")),
+                ("annotation", models.TextField(verbose_name="Annotation content")),
             ],
             options={
-                'verbose_name': 'Annotation',
-                'verbose_name_plural': 'Annotations',
+                "verbose_name": "Annotation",
+                "verbose_name_plural": "Annotations",
             },
         ),
     ]

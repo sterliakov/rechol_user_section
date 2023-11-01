@@ -5,22 +5,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0044_configurationsingleton_forbid_venue_change'),
+        ("users", "0044_configurationsingleton_forbid_venue_change"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='venue_selected',
+            model_name="user",
+            name="venue_selected",
             field=models.ForeignKey(
                 blank=True,
-                help_text='Select only if you plan to participate in offline stage.',
+                help_text="Select only if you plan to participate in offline stage.",
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                to='users.venue',
-                verbose_name='Venue',
+                to="users.venue",
+                verbose_name="Venue",
             ),
         ),
     ]

@@ -4,17 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0038_alter_appellation_options_onlineappellation'),
+        ("users", "0038_alter_appellation_options_onlineappellation"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='onlineproblem',
-            name='solution',
+            model_name="onlineproblem",
+            name="solution",
             field=models.FileField(
-                default=None, upload_to='solutions', verbose_name='Solutions', null=True
+                default=None, upload_to="solutions", verbose_name="Solutions", null=True
             ),
             preserve_default=False,
         ),

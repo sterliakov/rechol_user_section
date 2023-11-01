@@ -1,12 +1,16 @@
+from __future__ import annotations
+
 from django.template.defaultfilters import register
-from django.urls import reverse
-from django.urls import translate_url as django_translate_url
+from django.urls import (
+    reverse,
+    translate_url as django_translate_url,
+)
 from django.utils.translation import override as lang_override
 
 
 @register.simple_tag(takes_context=True)
 def change_lang(context, lang):
-    path = context['request'].path
+    path = context["request"].path
     return django_translate_url(path, lang)
 
 

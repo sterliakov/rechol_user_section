@@ -6,66 +6,65 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0020_remove_annotation_id_alter_annotation_annotation_id'),
+        ("users", "0020_remove_annotation_id_alter_annotation_annotation_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='actual_form',
+            model_name="user",
+            name="actual_form",
             field=models.PositiveSmallIntegerField(
-                choices=[(8, '8'), (9, '9'), (10, '10'), (11, '11'), (1, 'Other')],
+                choices=[(8, "8"), (9, "9"), (10, "10"), (11, "11"), (1, "Other")],
                 null=True,
-                verbose_name='Actual form',
+                verbose_name="Actual form",
             ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='birth_date',
-            field=models.DateField(null=True, verbose_name='Birth date'),
+            model_name="user",
+            name="birth_date",
+            field=models.DateField(null=True, verbose_name="Birth date"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='city',
-            field=models.CharField(max_length=63, null=True, verbose_name='City'),
+            model_name="user",
+            name="city",
+            field=models.CharField(max_length=63, null=True, verbose_name="City"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='participation_form',
+            model_name="user",
+            name="participation_form",
             field=models.PositiveSmallIntegerField(
-                choices=[(8, '8'), (9, '9'), (10, '10'), (11, '11')],
+                choices=[(8, "8"), (9, "9"), (10, "10"), (11, "11")],
                 null=True,
-                verbose_name='Participation form',
+                verbose_name="Participation form",
             ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='passport',
+            model_name="user",
+            name="passport",
             field=models.CharField(
-                help_text='Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx',
+                help_text="Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx",
                 max_length=15,
                 null=True,
                 unique=True,
                 validators=[django.core.validators.MinLengthValidator(9)],
-                verbose_name='Passport',
+                verbose_name="Passport",
             ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='phone',
+            model_name="user",
+            name="phone",
             field=phonenumber_field.modelfields.PhoneNumberField(
                 max_length=128,
                 null=True,
                 region=None,
                 unique=True,
-                verbose_name='Phone',
+                verbose_name="Phone",
             ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='school',
-            field=models.CharField(max_length=255, null=True, verbose_name='School'),
+            model_name="user",
+            name="school",
+            field=models.CharField(max_length=255, null=True, verbose_name="School"),
         ),
     ]

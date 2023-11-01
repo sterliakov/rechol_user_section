@@ -8,125 +8,124 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='VenuesAvailable',
+            name="VenuesAvailable",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('city', models.CharField(max_length=63, verbose_name='City')),
+                ("city", models.CharField(max_length=63, verbose_name="City")),
                 (
-                    'full_address',
-                    models.CharField(max_length=255, verbose_name='Address'),
+                    "full_address",
+                    models.CharField(max_length=255, verbose_name="Address"),
                 ),
             ],
         ),
         migrations.AddField(
-            model_name='user',
-            name='actual_form',
+            model_name="user",
+            name="actual_form",
             field=models.PositiveSmallIntegerField(
-                choices=[(8, '8'), (9, '9'), (10, '10'), (11, '11'), (1, 'Other')],
+                choices=[(8, "8"), (9, "9"), (10, "10"), (11, "11"), (1, "Other")],
                 default=8,
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='user',
-            name='birth_date',
+            model_name="user",
+            name="birth_date",
             field=models.DateField(
-                default=datetime.datetime(2022, 7, 30, 0, 0), verbose_name='Birth date'
+                default=datetime.datetime(2022, 7, 30, 0, 0), verbose_name="Birth date"
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='user',
-            name='city',
+            model_name="user",
+            name="city",
             field=models.CharField(
-                default='Vanadzor', max_length=63, verbose_name='City'
+                default="Vanadzor", max_length=63, verbose_name="City"
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='user',
-            name='gender',
+            model_name="user",
+            name="gender",
             field=models.CharField(
-                choices=[('m', 'Male'), ('f', 'Female')],
-                default='m',
+                choices=[("m", "Male"), ("f", "Female")],
+                default="m",
                 max_length=1,
-                verbose_name='Gender',
+                verbose_name="Gender",
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='user',
-            name='participation_form',
+            model_name="user",
+            name="participation_form",
             field=models.PositiveSmallIntegerField(
-                choices=[(8, '8'), (9, '9'), (10, '10'), (11, '11')], default=8
+                choices=[(8, "8"), (9, "9"), (10, "10"), (11, "11")], default=8
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='user',
-            name='passport',
+            model_name="user",
+            name="passport",
             field=models.CharField(
-                default='9090 099099',
+                default="9090 099099",
                 max_length=11,
                 unique=True,
                 validators=[
                     django.core.validators.RegexValidator(
-                        '(\\d{4} \\d{6})|(..-.. \\d{6})'
+                        "(\\d{4} \\d{6})|(..-.. \\d{6})"
                     )
                 ],
-                verbose_name='Passport',
+                verbose_name="Passport",
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='user',
-            name='patronymic_name',
-            field=models.CharField(blank=True, default='', max_length=127),
+            model_name="user",
+            name="patronymic_name",
+            field=models.CharField(blank=True, default="", max_length=127),
         ),
         migrations.AddField(
-            model_name='user',
-            name='school',
-            field=models.TextField(default='SomeSchool 1'),
+            model_name="user",
+            name="school",
+            field=models.TextField(default="SomeSchool 1"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='user',
-            name='telegram_nickname',
-            field=models.CharField(blank=True, default='', max_length=127),
+            model_name="user",
+            name="telegram_nickname",
+            field=models.CharField(blank=True, default="", max_length=127),
         ),
         migrations.AddField(
-            model_name='user',
-            name='vk_link',
-            field=models.URLField(blank=True, default='', verbose_name='VK link'),
+            model_name="user",
+            name="vk_link",
+            field=models.URLField(blank=True, default="", verbose_name="VK link"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='email',
-            field=models.EmailField(max_length=254, unique=True, verbose_name='Email'),
+            model_name="user",
+            name="email",
+            field=models.EmailField(max_length=254, unique=True, verbose_name="Email"),
         ),
         migrations.AddField(
-            model_name='user',
-            name='venue_selected',
+            model_name="user",
+            name="venue_selected",
             field=models.ForeignKey(
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                to='users.venuesavailable',
-                verbose_name='Venue',
+                to="users.venuesavailable",
+                verbose_name="Venue",
             ),
         ),
     ]

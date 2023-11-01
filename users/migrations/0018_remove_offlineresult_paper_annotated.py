@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0017_annotation'),
+        ("users", "0017_annotation"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='offlineresult',
-            name='paper_annotated',
+            model_name="offlineresult",
+            name="paper_annotated",
         ),
     ]

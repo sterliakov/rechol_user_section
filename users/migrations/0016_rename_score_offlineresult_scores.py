@@ -4,15 +4,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0015_user_role_offlineresult'),
+        ("users", "0015_user_role_offlineresult"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='offlineresult',
-            old_name='score',
-            new_name='scores',
+            model_name="offlineresult",
+            old_name="score",
+            new_name="scores",
         ),
     ]

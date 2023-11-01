@@ -9,46 +9,45 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0041_configurationsingleton_venue_registration_end_and_more'),
+        ("users", "0041_configurationsingleton_venue_registration_end_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='venue',
-            name='confirmation_letter',
+            model_name="venue",
+            name="confirmation_letter",
             field=models.FileField(
-                help_text='A photo or scan of a confirmation signed by your institution authority',
+                help_text="A photo or scan of a confirmation signed by your institution authority",
                 null=True,
                 upload_to=pathlib.PurePosixPath(
-                    '/var/www/rechol_user_section/media/venue_confirmation_letters'
+                    "/var/www/rechol_user_section/media/venue_confirmation_letters"
                 ),
-                verbose_name='Confirmation letter',
+                verbose_name="Confirmation letter",
             ),
         ),
         migrations.AddField(
-            model_name='venue',
-            name='contact_phone',
+            model_name="venue",
+            name="contact_phone",
             field=phonenumber_field.modelfields.PhoneNumberField(
-                default='', max_length=128, region=None, verbose_name='Phone'
+                default="", max_length=128, region=None, verbose_name="Phone"
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='venue',
-            name='is_confirmed',
-            field=models.BooleanField(default=False, verbose_name='is confirmed'),
+            model_name="venue",
+            name="is_confirmed",
+            field=models.BooleanField(default=False, verbose_name="is confirmed"),
         ),
         migrations.AddField(
-            model_name='venue',
-            name='owner',
+            model_name="venue",
+            name="owner",
             field=models.OneToOneField(
                 default=1,
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name='owned_venue',
+                related_name="owned_venue",
                 to=settings.AUTH_USER_MODEL,
-                verbose_name='User',
+                verbose_name="User",
             ),
             preserve_default=False,
         ),

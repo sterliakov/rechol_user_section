@@ -5,37 +5,36 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0009_alter_user_managers_venue_name_alter_event_start_and_more'),
+        ("users", "0009_alter_user_managers_venue_name_alter_event_start_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='event',
-            options={'verbose_name': 'Event', 'verbose_name_plural': 'Events'},
+            name="event",
+            options={"verbose_name": "Event", "verbose_name_plural": "Events"},
         ),
         migrations.AlterModelOptions(
-            name='user',
-            options={'verbose_name': 'User', 'verbose_name_plural': 'Users'},
+            name="user",
+            options={"verbose_name": "User", "verbose_name_plural": "Users"},
         ),
         migrations.AlterModelOptions(
-            name='venue',
-            options={'verbose_name': 'Venue', 'verbose_name_plural': 'Venues'},
+            name="venue",
+            options={"verbose_name": "Venue", "verbose_name_plural": "Venues"},
         ),
         migrations.AlterField(
-            model_name='user',
-            name='passport',
+            model_name="user",
+            name="passport",
             field=models.CharField(
-                help_text='Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx',
+                help_text="Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx",
                 max_length=15,
                 unique=True,
                 validators=[
                     django.core.validators.RegexValidator(
-                        '(\\d{4} \\d{6})|([IVX]{1,3}-.. \\d{6})'
+                        "(\\d{4} \\d{6})|([IVX]{1,3}-.. \\d{6})"
                     )
                 ],
-                verbose_name='Passport',
+                verbose_name="Passport",
             ),
         ),
     ]

@@ -5,17 +5,16 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0023_alter_offlineresult_scores'),
+        ("users", "0023_alter_offlineresult_scores"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='offlineresult',
-            name='version',
+            model_name="offlineresult",
+            name="version",
             field=concurrency.fields.IntegerVersionField(
-                default=0, help_text='record revision number'
+                default=0, help_text="record revision number"
             ),
         ),
     ]

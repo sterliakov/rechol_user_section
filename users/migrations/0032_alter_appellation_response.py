@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0031_offlineresult_final_scores_appellation'),
+        ("users", "0031_offlineresult_final_scores_appellation"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='appellation',
-            name='response',
-            field=models.TextField(blank=True, default='', verbose_name='Response'),
+            model_name="appellation",
+            name="response",
+            field=models.TextField(blank=True, default="", verbose_name="Response"),
         ),
     ]

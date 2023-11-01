@@ -5,56 +5,55 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0037_alter_onlinesubmission_options_and_more'),
+        ("users", "0037_alter_onlinesubmission_options_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='appellation',
+            name="appellation",
             options={
-                'verbose_name': 'Appellation (offline)',
-                'verbose_name_plural': 'Appellations (offline)',
+                "verbose_name": "Appellation (offline)",
+                "verbose_name_plural": "Appellations (offline)",
             },
         ),
         migrations.CreateModel(
-            name='OnlineAppellation',
+            name="OnlineAppellation",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('message', models.TextField(verbose_name='Message')),
+                ("message", models.TextField(verbose_name="Message")),
                 (
-                    'response',
-                    models.TextField(blank=True, default='', verbose_name='Response'),
+                    "response",
+                    models.TextField(blank=True, default="", verbose_name="Response"),
                 ),
                 (
-                    'when',
-                    models.DateTimeField(auto_now_add=True, verbose_name='Created'),
+                    "when",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Created"),
                 ),
                 (
-                    'updated',
-                    models.DateTimeField(auto_now=True, verbose_name='Updated'),
+                    "updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Updated"),
                 ),
                 (
-                    'result',
+                    "result",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='users.onlinesubmission',
-                        verbose_name='Result',
+                        to="users.onlinesubmission",
+                        verbose_name="Result",
                     ),
                 ),
             ],
             options={
-                'verbose_name': 'Appellation (online)',
-                'verbose_name_plural': 'Appellations (online)',
+                "verbose_name": "Appellation (online)",
+                "verbose_name_plural": "Appellations (online)",
             },
         ),
     ]

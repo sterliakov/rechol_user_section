@@ -7,71 +7,70 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0014_user_online_selected'),
+        ("users", "0014_user_online_selected"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='role',
+            model_name="user",
+            name="role",
             field=models.CharField(
-                choices=[('p', 'Participant'), ('a', 'Admin'), ('j', 'Judge')],
-                default='p',
+                choices=[("p", "Participant"), ("a", "Admin"), ("j", "Judge")],
+                default="p",
                 editable=False,
                 max_length=1,
-                verbose_name='Role',
+                verbose_name="Role",
             ),
         ),
         migrations.CreateModel(
-            name='OfflineResult',
+            name="OfflineResult",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'score',
+                    "score",
                     django.contrib.postgres.fields.ArrayField(
                         base_field=models.PositiveSmallIntegerField(),
                         size=5,
-                        verbose_name='Scores',
+                        verbose_name="Scores",
                     ),
                 ),
                 (
-                    'comment',
-                    models.TextField(blank=True, default='', verbose_name='Comment'),
+                    "comment",
+                    models.TextField(blank=True, default="", verbose_name="Comment"),
                 ),
                 (
-                    'paper_original',
+                    "paper_original",
                     models.FileField(
-                        upload_to='originals', verbose_name='Original work'
+                        upload_to="originals", verbose_name="Original work"
                     ),
                 ),
                 (
-                    'paper_annotated',
+                    "paper_annotated",
                     models.FileField(
-                        upload_to='annotated', verbose_name='Annotated work'
+                        upload_to="annotated", verbose_name="Annotated work"
                     ),
                 ),
                 (
-                    'user',
+                    "user",
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name='Participant',
+                        verbose_name="Participant",
                     ),
                 ),
             ],
             options={
-                'verbose_name': 'Result (offline)',
-                'verbose_name_plural': 'Results (offline)',
+                "verbose_name": "Result (offline)",
+                "verbose_name_plural": "Results (offline)",
             },
         ),
     ]

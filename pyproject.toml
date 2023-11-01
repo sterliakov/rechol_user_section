@@ -1,34 +1,4 @@
-[tool.mypy]
-plugins = ["mypy_django_plugin.main"]
-ignore_missing_imports = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-check_untyped_defs = true
-disallow_incomplete_defs = true
-disallow_any_generics = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_unreachable = true
-exclude = [
-    'test.*\.py$',
-    'migrations/*'
-]
-
-[tool.django-stubs]
-django_settings_module = "rechol_user_section.settings"
-
-[tool.coverage.run]
-omit = [
-    '*/migrations/*.py',
-    'manage.py',
-    'rechol_user_section/settings.py',
-    '*/tests.py',
-    '*/tests/*.py',
-]
-
 [tool.coverage.report]
-skip_covered = true
-skip_empty = true
 exclude_lines = [
     'pragma: no cover',
     'def __repr__',
@@ -39,9 +9,65 @@ exclude_lines = [
     'if __name__ == .__main__.:',
     '@(abc\.)?abstractmethod',
     'if TYPE_CHECKING:',
-    'import'
+    'import',
 ]
 show_missing = true
+skip_covered = true
+skip_empty = true
+
+[tool.coverage.run]
+omit = [
+    '*/migrations/*.py',
+    'manage.py',
+    'rechol_user_section/settings.py',
+    '*/tests.py',
+    '*/tests/*.py',
+]
+
+[tool.django-stubs]
+django_settings_module = "rechol_user_section.settings"
+
+[tool.djlint]
+exclude = "bower_components"
+# H006: img must have width and height attrs
+# H017: self-closing <input>
+# H019: javascript:void(0) is OK
+# H020: Empty pair tag
+# H021: inline styles
+# H023: entity references (&times;)
+# H026: Empty id and class tags can be removed (what does it mean?)
+ignore = "H006,H017,H019,H020,H021,H023,H026"
+indent = 2
+profile = "django"
+
+[tool.isort]
+known_first_party = [
+    "app",
+    "appointments",
+    "chat",
+    "dental_chart",
+    "integration",
+    "lib",
+    "smartcard",
+    "users",
+]
+profile = "black"
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+exclude = [
+    'test.*\.py$',
+    'migrations/*',
+]
+ignore_missing_imports = true
+no_implicit_optional = true
+plugins = ["mypy_django_plugin.main"]
+warn_redundant_casts = true
+warn_unreachable = true
+warn_unused_ignores = true
 
 [tool.ruff]
 exclude = [
@@ -66,32 +92,21 @@ extend-ignore = [
     "DJ006",  # Do not use `exclude` with `ModelForm`, use `fields` instead
     "DJ007",  # Do not use `__all__` with `ModelForm`, use `fields` instead
     "RUF001",  # Russian letters in strings
+    "ANN",  # Type hints
+    "D",  # Docstrings
+    "EM101",  # Exception must not use a string literal, assign to variable first
+    "E501",  # Let black care about line width, if not splitable - go on
+    # Conflicts with save(self, commit=True) overrides
+    "FBT002",  # Boolean default positional argument in function definition
 ]
-per-file-ignores = { "test/*" = ["S", "ARG002"], "*/test/*" = ["S", "ARG002"], "conftest.py" = ["S", "ARG002"]}
-select = ['E', 'F', 'W', 'B', 'C90', 'N', 'ASYNC', 'S', 'A', 'C4', 'DJ', 'G', 'PT', 'RET', 'SIM', 'ARG', 'PTH', 'ERA', 'PD', 'NPY', 'RUF', 'TRY']
+select = ['ALL']
+target-version = 'py311'
 
-[tool.isort]
-profile = "black"
-known_first_party = [
-    "app",
-    "appointments",
-    "chat",
-    "dental_chart",
-    "integration",
-    "lib",
-    "smartcard",
-    "users"
-]
+[tool.ruff.isort]
+combine-as-imports = true
+force-wrap-aliases = true
+required-imports = ["from __future__ import annotations"]
+section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
 
-[tool.djlint]
-# H006: img must have width and height attrs
-# H017: self-closing <input>
-# H019: javascript:void(0) is OK
-# H020: Empty pair tag
-# H021: inline styles
-# H023: entity references (&times;)
-# H026: Emty id and class tags can be removed (what does it mean?)
-ignore = "H006,H017,H019,H020,H021,H023,H026"
-indent = 2
-exclude = "bower_components"
-profile = "django"
+[tool.ruff.isort.sections]
+django = ['django', 'rest_framework']
