@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-01 02:41+0300\n"
+"POT-Creation-Date: 2023-11-01 05:05+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: users/admin.py:228 users/admin.py:251 users/models.py:316
 #: users/models.py:372 users/templates/venue_instructions.html:146
-#: users/views.py:552
+#: users/views.py:561
 msgid "Name"
 msgstr "Имя"
 
@@ -30,7 +30,7 @@ msgid "Private"
 msgstr "Персональные данные"
 
 #: users/admin.py:233 users/models.py:112 users/models.py:233
-#: users/models.py:409
+#: users/models.py:413
 msgid "Participant"
 msgstr "Участник"
 
@@ -62,7 +62,7 @@ msgstr "Имя участника"
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/admin.py:508 users/templates/offline_appellation.html:43
+#: users/admin.py:508 users/templates/offline_appellation.html:47
 #: users/templates/online_appellation.html:39
 #: users/templates/online_submission.html:32
 msgid "Total score"
@@ -120,7 +120,7 @@ msgstr "Изменить"
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:301 users/templates/offline_appellation.html:52
+#: users/formhelpers.py:301 users/templates/offline_appellation.html:56
 #: users/templates/online_appellation.html:48
 msgid "Submit"
 msgstr "Отправить"
@@ -328,12 +328,12 @@ msgstr "Событие"
 msgid "Events"
 msgstr "События"
 
-#: users/models.py:237 users/models.py:422
+#: users/models.py:237 users/models.py:426
 #: users/templates/online_submission.html:30
 msgid "Scores"
 msgstr "Баллы"
 
-#: users/models.py:241 users/models.py:408
+#: users/models.py:241 users/models.py:412
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -341,7 +341,7 @@ msgstr "Комментарий"
 msgid "Original work"
 msgstr "Скан работы"
 
-#: users/models.py:249 users/models.py:430
+#: users/models.py:249 users/models.py:434
 msgid "Final scores after appellation"
 msgstr "Окончательная оценка после апелляции"
 
@@ -417,15 +417,15 @@ msgstr "Аннотации"
 msgid "Statement"
 msgstr "Условия"
 
-#: users/models.py:319
+#: users/models.py:319 users/models.py:374
 msgid "Statement (en)"
 msgstr "Условия (англ.)"
 
-#: users/models.py:322 users/models.py:375
+#: users/models.py:322 users/models.py:376
 msgid "Solutions"
 msgstr "Решения"
 
-#: users/models.py:325
+#: users/models.py:325 users/models.py:379
 msgid "Solutions (en)"
 msgstr "Решения (англ.)"
 
@@ -441,11 +441,11 @@ msgstr "Время закрытия"
 msgid "Duration"
 msgstr "Продолжительность"
 
-#: users/models.py:331 users/models.py:377
+#: users/models.py:331 users/models.py:381
 msgid "Visible"
 msgstr "Видимый"
 
-#: users/models.py:333 users/models.py:379
+#: users/models.py:333 users/models.py:383
 msgid "Target form"
 msgstr "Класс участника"
 
@@ -462,83 +462,83 @@ msgstr "Задачи онлайн-этапа"
 msgid "Problem set for %dth form"
 msgstr "Комплект заданий для %d-го класса"
 
-#: users/models.py:387
+#: users/models.py:391
 msgid "offline problem"
 msgstr "Задача очного тура"
 
-#: users/models.py:388
+#: users/models.py:392
 msgid "offline problems"
 msgstr "Задачи очного тура"
 
-#: users/models.py:401
+#: users/models.py:405
 msgid "Solution file"
 msgstr "Файл с решением"
 
-#: users/models.py:402
+#: users/models.py:406
 msgid "Solution file in pdf format"
 msgstr "Файл с решениями в формате pdf"
 
-#: users/models.py:415
+#: users/models.py:419
 msgid "Problem"
 msgstr "Задача"
 
-#: users/models.py:417
+#: users/models.py:421
 msgid "Started at"
 msgstr "Время начала"
 
-#: users/models.py:436
+#: users/models.py:440
 msgid "Result (online)"
 msgstr "Результат (заочный тур)"
 
-#: users/models.py:437
+#: users/models.py:441
 msgid "Results (online)"
 msgstr "Результаты (заочный тур)"
 
-#: users/models.py:464
+#: users/models.py:468
 msgid "Start of registration"
 msgstr "Начало регистрации"
 
-#: users/models.py:465
+#: users/models.py:469
 msgid "End of registration"
 msgstr "Конец регистрации"
 
-#: users/models.py:466
+#: users/models.py:470
 msgid "start of venue registration"
 msgstr "Начало регистрации площадок"
 
-#: users/models.py:467
+#: users/models.py:471
 msgid "end of venue registration"
 msgstr "Конец регистрации площадок"
 
-#: users/models.py:468
+#: users/models.py:472
 msgid "Start of offline stage appeal"
 msgstr "Начало апелляции очного этапа"
 
-#: users/models.py:469
+#: users/models.py:473
 msgid "End of offline stage appeal"
 msgstr "Конец апелляции очного этапа"
 
-#: users/models.py:470
+#: users/models.py:474
 msgid "Start of online stage appeal"
 msgstr "Начало апелляции заочного этапа"
 
-#: users/models.py:471
+#: users/models.py:475
 msgid "End of online stage appeal"
 msgstr "Конец апелляции заочного этапа"
 
-#: users/models.py:472
+#: users/models.py:476
 msgid "forbid venue change"
 msgstr "Запретить смену площадки"
 
-#: users/models.py:474
+#: users/models.py:478
 msgid "allow downloading offline stage problems"
 msgstr "Разрешить скачивание задач очного этапа"
 
-#: users/models.py:478
+#: users/models.py:482
 msgid "Configuration"
 msgstr "Настройки"
 
-#: users/models.py:479
+#: users/models.py:483
 msgid "Configurations"
 msgstr "Настройки"
 
@@ -698,67 +698,74 @@ msgstr "Ближайшие мероприятия:"
 msgid "Log in"
 msgstr "Войти"
 
-#: users/templates/offline_appellation.html:14
+#: users/templates/offline_appellation.html:15
 msgid "In-person preliminary stage appellation"
 msgstr "Апелляция очного отборочного этапа"
 
-#: users/templates/offline_appellation.html:25
+#: users/templates/offline_appellation.html:26
 #: users/templates/online_appellation.html:25
 msgid "This browser does not support PDFs. Please download the PDF to view it"
 msgstr ""
 "Данный браузер не поддерживает просмотр PDF. Пожалуйста, скачайте файл, "
 "чтобы его просмотреть."
 
-#: users/templates/offline_appellation.html:25
+#: users/templates/offline_appellation.html:26
 #: users/templates/online_appellation.html:25
 msgid "Download PDF"
 msgstr "Скачать PDF"
 
-#: users/templates/offline_appellation.html:32
+#: users/templates/offline_appellation.html:33
 #: users/templates/online_appellation.html:31
 msgid "Problem statements and solutions"
 msgstr "Задания и решения"
 
-#: users/templates/offline_appellation.html:35
+#: users/templates/offline_appellation.html:36
 #: users/templates/online_appellation.html:32
 msgid "Problem statements for"
 msgstr "Условия задач для"
 
-#: users/templates/offline_appellation.html:35
-#: users/templates/offline_appellation.html:38
+#: users/templates/offline_appellation.html:36
+#: users/templates/offline_appellation.html:41
 #: users/templates/online_appellation.html:32
 #: users/templates/online_appellation.html:35
 msgid "form"
 msgstr "класса"
 
-#: users/templates/offline_appellation.html:38
+#: users/templates/offline_appellation.html:41
 #: users/templates/online_appellation.html:35
 msgid "Solutions for"
 msgstr "Решения для"
 
-#: users/templates/offline_appellation.html:41
+#: users/templates/offline_appellation.html:45
 #: users/templates/online_appellation.html:37
 msgid "Current scores:"
 msgstr "Текущая оценка:"
 
-#: users/templates/offline_appellation.html:46
+#: users/templates/offline_appellation.html:50
 #: users/templates/online_appellation.html:42
 msgid "Submit a claim"
 msgstr "Отправить вопрос"
 
-#: users/templates/offline_appellation.html:56
+#: users/templates/offline_appellation.html:60
 #: users/templates/online_appellation.html:52
 msgid "Submission closed."
 msgstr "Отправка закрыта."
 
-#: users/templates/offline_appellation.html:63
-#: users/templates/online_appellation.html:59
-msgid "Your work was not found. If you have participated, please contact us"
+#: users/templates/offline_appellation.html:64
+msgid "Results are not available yet."
+msgstr "Результаты еще не готовы."
+
+#: users/templates/offline_appellation.html:70
+msgid "Your work was not found."
+msgstr "Ваша работа не найдена."
+
+#: users/templates/offline_appellation.html:72
+msgid "If you have participated, please contact us"
 msgstr ""
-"Ваша работа не найдена. Если Вы принимали участие в очном туре, пожалуйста, "
+"Если Вы принимали участие в очном туре, пожалуйста, "
 "свяжитесь с нами"
 
-#: users/templates/offline_appellation.html:63
+#: users/templates/offline_appellation.html:72
 #: users/templates/online_appellation.html:59
 msgid "by email"
 msgstr "по электронной почте"
@@ -818,6 +825,12 @@ msgstr ""
 #: users/templates/online_appellation.html:14
 msgid "Online preliminary stage appellation"
 msgstr "Апелляция заочного отборочного этапа"
+
+#: users/templates/online_appellation.html:59
+msgid "Your work was not found. If you have participated, please contact us"
+msgstr ""
+"Ваша работа не найдена. Если Вы принимали участие в очном туре, пожалуйста, "
+"свяжитесь с нами"
 
 #: users/templates/online_start.html:9
 msgid "Contest is over."
@@ -959,13 +972,13 @@ msgstr "Регистрация"
 
 #: users/templates/registration.html:12
 #: users/templates/venue_registration.html:27 users/views.py:102
-#: users/views.py:462
+#: users/views.py:471
 msgid "Registration not open yet."
 msgstr "Регистрация еще не началась."
 
 #: users/templates/registration.html:14
 #: users/templates/venue_registration.html:29
-#: users/templates/venues_list.html:11 users/views.py:105 users/views.py:465
+#: users/templates/venues_list.html:11 users/views.py:105 users/views.py:474
 msgid "Registration closed."
 msgstr "Регистрация закрыта."
 
@@ -1314,7 +1327,7 @@ msgid "Statement example"
 msgstr "Образец ведомости"
 
 #: users/templates/venue_instructions.html:147
-#: users/templates/venue_participants.html:26 users/views.py:554
+#: users/templates/venue_participants.html:26 users/views.py:563
 msgid "Grade"
 msgstr "Класс участия"
 
@@ -1323,7 +1336,7 @@ msgstr "Класс участия"
 msgid "ID Number"
 msgstr "Паспорт"
 
-#: users/templates/venue_instructions.html:149 users/views.py:555
+#: users/templates/venue_instructions.html:149 users/views.py:564
 msgid "Room"
 msgstr "Аудитория"
 
@@ -1335,7 +1348,7 @@ msgstr "Явился"
 msgid "Removed"
 msgstr "Удален"
 
-#: users/templates/venue_instructions.html:152 users/views.py:558
+#: users/templates/venue_instructions.html:152 users/views.py:567
 msgid "Exits"
 msgstr "Выходы"
 
@@ -1457,22 +1470,22 @@ msgstr "У Вас нет доступа к редактированию прим
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."
 
-#: users/views.py:553
+#: users/views.py:562
 msgid "ID number"
 msgstr "Паспорт"
 
-#: users/views.py:556
+#: users/views.py:565
 msgid "Arrived"
 msgstr "Явился"
 
-#: users/views.py:557
+#: users/views.py:566
 msgid "Terminated"
 msgstr "Удален"
 
-#: users/views.py:559
+#: users/views.py:568
 msgid "Pages count"
 msgstr "Страниц"
 
-#: users/views.py:560
+#: users/views.py:569
 msgid "Comments"
 msgstr "Комментарии"

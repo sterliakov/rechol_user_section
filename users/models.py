@@ -371,8 +371,14 @@ class OnlineProblem(models.Model):
 class OfflineProblem(models.Model):
     name = models.CharField(_('Name'), max_length=120, blank=False, null=False)
     file = models.FileField(_('Statement'), upload_to='problems')
+    file_en = models.FileField(
+        _('Statement (en)'), upload_to='problems', blank=True, null=True
+    )
     solution = models.FileField(
         _('Solutions'), upload_to='solutions', null=True, blank=True
+    )
+    solution_en = models.FileField(
+        _('Solutions (en)'), upload_to='solutions', null=True, blank=True
     )
     visible = models.BooleanField(_('Visible'), blank=False, null=False, default=False)
     target_form = models.PositiveSmallIntegerField(

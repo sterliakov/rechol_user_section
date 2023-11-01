@@ -340,15 +340,24 @@ class AppellationView(LoginRequiredMixin, UpdateView):
         except OfflineResult.DoesNotExist:
             return None
 
-    @cached_property
+    @property
     def is_open(self):
         config = ConfigurationSingleton.objects.get()
         return config.offline_appeal_start <= tz.now() <= config.offline_appeal_end
+
+    @property
+    def was_open(self):
+        config = ConfigurationSingleton.objects.get()
+        return config.offline_appeal_start <= tz.now()
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs) | {
             'object': self.object,
             'is_open': self.is_open,
+            'was_open': self.was_open,
+            'problems': {
+                p.target_form: p for p in OfflineProblem.objects.filter(visible=True)
+            },
         }
         if self.object:
             ctx['helper'] = forms.helpers.AppellationFormHelper()

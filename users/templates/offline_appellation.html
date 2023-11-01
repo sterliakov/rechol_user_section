@@ -1,13 +1,14 @@
 {% extends "base.html" %}
-{% load static crispy_forms_tags i18n %}
+{% load static crispy_forms_tags i18n misc %}
 {% block content %}
+  {% get_current_language as LANGUAGE_CODE %}
   <style>
     textarea {
       resize:  none;
       overflow: hidden;
     }
   </style>
-  <div class="card mb-0 dz-scroll"
+  <div class="card mb-0 dz-scroll h-100"
        style="overflow-x: auto"
        id="participant-form">
     <div class="card-header">
@@ -15,7 +16,7 @@
     </div>
     <div class="card-body" id="body-div-wrapper">
       {% if object %}
-        <div class="row">
+        <div class="row h-100">
           <object data="{{ object.paper_original.url }}"
                   type="application/pdf"
                   width="600px"
@@ -28,39 +29,48 @@
         </object>
         <div class="col-12 col-md-6">
           <div>
-            {% with sol=user.participation_form|stringformat:'i'|add:'.pdf' %}
+            {% with problem=problems|get_item:user.participation_form %}
               <h2>{% trans "Problem statements and solutions" %}</h2>
-              <a class="d-block"
-                 href="{% static 'files/statements_offline_23/'|add:sol %}"
+              <a class="d-block {% if not problem %}disabled{% endif %}"
+                 href="{% if LANGUAGE_CODE == "ru" or not problem.file_en %}{{ problem.file.url }}{% else %}{{ problem.file_en.url }}{% endif %}"
                  target="_blank">{% trans "Problem statements for" %} {{ user.participation_form }} {% trans "form" %}</a>
-              <a class="d-block"
-                 href="{% static 'files/solutions_offline_23/'|add:sol %}"
+              <a class="d-block {% if not problem.solution and LANGUAGE_CODE == "ru" or not problem.solution_en and LANGUAGE_CODE != "ru" %}disabled{% endif %}"
+                 {% if problem.solution and LANGUAGE_CODE == "ru" or problem.solution_en and LANGUAGE_CODE != "ru" %} href="{% if LANGUAGE_CODE == "ru" %}{{ problem.solution.url }}{% else %}{{ problem.solution_en.url }}{% endif %}
+                 "
+                 {% endif %}
                  target="_blank">{% trans "Solutions for" %} {{ user.participation_form }} {% trans "form" %}</a>
             {% endwith %}
           </div>
-          <h2 class="mt-3">{% trans "Current scores:" %}</h2>
-          <p>
-            {% trans "Total score" %}: <b>{{ object.total_score }}</b>
-          </p>
-          {% crispy form %}
-          <h2 class="mt-3">{% trans "Submit a claim" %}</h2>
-          <form method="post">
-            {% crispy messages helper %}
-            {% if is_open %}
-              <div class="form-group">
-                <div class="text-center">
-                  <button role="submit" class="btn btn-primary submit_btn mt-4 f_20">{% trans "Submit" %}</button>
+          {% if was_open %}
+            <h2 class="mt-3">{% trans "Current scores:" %}</h2>
+            <p>
+              {% trans "Total score" %}: <b>{{ object.total_score }}</b>
+            </p>
+            {% crispy form %}
+            <h2 class="mt-3">{% trans "Submit a claim" %}</h2>
+            <form method="post">
+              {% crispy messages helper %}
+              {% if is_open %}
+                <div class="form-group">
+                  <div class="text-center">
+                    <button role="submit" class="btn btn-primary submit_btn mt-4 f_20">{% trans "Submit" %}</button>
+                  </div>
                 </div>
-              </div>
-            {% else %}
-              <p>{% trans "Submission closed." %}</p>
-            {% endif %}
-          </form>
+              {% else %}
+                <h4 class="mt-2">{% trans "Submission closed." %}</h4>
+              {% endif %}
+            </form>
+          {% else %}
+            <h3 class="mt-3">{% trans "Results are not available yet." %}</h3>
+          {% endif %}
         </div>
       </div>
     {% else %}
       <p class="text-center f_20">
-        {% trans "Your work was not found. If you have participated, please contact us" %} <a href="mailto:support@chemolymp.ru">{% trans "by email" %}</a>.
+        {% trans "Your work was not found." %}
+        {% if was_open %}
+          {% trans "If you have participated, please contact us" %} <a href="mailto:support@chemolymp.ru">{% trans "by email" %}</a>.
+        {% endif %}
       </p>
     {% endif %}
   </div>
