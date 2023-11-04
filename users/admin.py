@@ -231,6 +231,18 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         qs = qs.filter(role=User.Roles.PARTICIPANT)
         return qs, may_have_duplicates
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        form.base_fields["gender"].required = False
+        form.base_fields["birth_date"].required = False
+        form.base_fields["passport"].required = False
+        form.base_fields["school"].required = False
+        form.base_fields["form"].required = False
+        form.base_fields["participation_form"].required = False
+        form.base_fields["phone"].required = False
+        form.base_fields["city"].required = False
+        return form
+
 
 USER_FIELDS = (
     "user__first_name",
