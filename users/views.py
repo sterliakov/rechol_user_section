@@ -139,6 +139,7 @@ class JudgeRegistrationView(CreateView):
         user = form.instance
         user.role = user.Roles.JUDGE
         user.is_staff = True
+        user.is_active = False
         user.save()
         return rsp
 
