@@ -233,14 +233,19 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.base_fields["gender"].required = False
-        form.base_fields["birth_date"].required = False
-        form.base_fields["passport"].required = False
-        form.base_fields["school"].required = False
-        form.base_fields["actual_form"].required = False
-        form.base_fields["participation_form"].required = False
-        form.base_fields["phone"].required = False
-        form.base_fields["city"].required = False
+        not_required_fields = [
+            "gender",
+            "birth_date",
+            "passport",
+            "school",
+            "actual_form",
+            "participation_form",
+            "phone",
+            "city",
+        ]
+        for field_name in not_required_fields:
+            if field := form.base_fields.get(field_name):
+                field.required = False
         return form
 
 
