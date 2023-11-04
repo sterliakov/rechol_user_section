@@ -237,7 +237,7 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         form.base_fields["birth_date"].required = False
         form.base_fields["passport"].required = False
         form.base_fields["school"].required = False
-        form.base_fields["form"].required = False
+        form.base_fields["actual_form"].required = False
         form.base_fields["participation_form"].required = False
         form.base_fields["phone"].required = False
         form.base_fields["city"].required = False
