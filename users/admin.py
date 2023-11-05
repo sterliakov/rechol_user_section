@@ -136,6 +136,7 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
             _("Permissions"),
             {
                 "fields": (
+                    "role",
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -147,7 +148,7 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("email", "username", "password")}),
         (_("Name"), {"fields": ("first_name", "last_name", "patronymic_name")}),
     )
 
@@ -161,7 +162,7 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         "email",
     )
     search_fields = ("email", "first_name", "last_name", "city", "participation_form")
-    list_filter = ("city", "participation_form", "venue_selected", "role")
+    list_filter = ("role", "participation_form", "city", "venue_selected")
     ordering = ("participation_form", "last_name")
     actions = ["send_email"]
 
