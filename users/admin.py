@@ -136,7 +136,6 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
             _("Permissions"),
             {
                 "fields": (
-                    "role",
                     "is_active",
                     "is_staff",
                     "is_superuser",
