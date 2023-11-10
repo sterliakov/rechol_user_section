@@ -258,7 +258,7 @@ msgstr "Passport"
 #: users/models.py:176
 msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
 msgstr ""
-"Passport in format xxxx xxxxxx or birth certificate in format XX-XX xxxxxx"
+"ID number (or birth certificate if you have no passport yet)"
 
 #: users/models.py:179
 msgid "Country"
