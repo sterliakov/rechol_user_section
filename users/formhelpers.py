@@ -135,7 +135,10 @@ class UserUpdateFormHelper(CustomFormHelper):
         super().__init__(*args, **kwargs)
         if is_create:
             email_div = Div(
-                Div(Field("email"), css_class="col-12 order-1"),
+                Div(
+                    Field("email", autocomplete="username"),
+                    css_class="col-12 order-1",
+                ),
                 css_class="form-row",
             )
             passwords_row = one_row(
@@ -153,7 +156,10 @@ class UserUpdateFormHelper(CustomFormHelper):
         else:
             txt = _("Change password")
             email_div = Div(
-                Div(Field("email"), css_class="col-12 col-sm-9 order-2 order-sm-1"),
+                Div(
+                    Field("email", autocomplete="username"),
+                    css_class="col-12 col-sm-9 order-2 order-sm-1",
+                ),
                 Div(
                     HTML(
                         '<a class="btn btn-primary" '
@@ -186,7 +192,7 @@ class UserFormHelper(CustomFormHelper):
 
 class JudgeUpdateFormHelper(CustomFormHelper):
     layout = Layout(
-        "email",
+        Field("email", autocomplete="username"),
         "first_name",
         "last_name",
         "patronymic_name",
@@ -198,7 +204,7 @@ class JudgeUpdateFormHelper(CustomFormHelper):
 
 class JudgeCreateFormHelper(CustomFormHelper):
     layout = Layout(
-        "email",
+        Field("email", autocomplete="username"),
         "password1",
         "password2",
         "first_name",
@@ -248,7 +254,7 @@ class PasswordResetFormHelper(CustomFormHelper):
 
     txt = _("Back to login")
     layout = Layout(
-        "email",
+        Field("email", autocomplete="username"),
         FormActions(
             Div(
                 Submit(
