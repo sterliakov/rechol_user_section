@@ -149,7 +149,7 @@ class JudgeCreateForm(JudgeCreateFormMixin, UserCreationForm):
 
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
-        self.helper = helpers.JudgeUpdateFormHelper()
+        self.helper = helpers.JudgeCreateFormHelper()
 
 
 class JudgeUpdateForm(JudgeCreateFormMixin, forms.ModelForm):
