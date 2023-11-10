@@ -450,7 +450,7 @@ class OfflineResultAdmin(_ResultAdminMixin, ConcurrentModelAdmin):
     search_fields = (
         *_ResultAdminMixin.search_fields,
         "user__venue_selected__city",
-        "user__venue_selected__name",
+        "user__venue_selected__full_name",
     )
     list_select_related = ("user",)
     list_filter = ("user__venue_selected", "user__participation_form")

@@ -138,10 +138,6 @@ class JudgeCreateFormMixin:
         model = User
         fields = ("email", "first_name", "last_name", "patronymic_name")
 
-    def __init__(self, *args: Any, **kwargs: Any):
-        super().__init__(*args, **kwargs)
-        self.helper = helpers.JudgeUpdateFormHelper()
-
 
 class JudgeCreateForm(JudgeCreateFormMixin, UserCreationForm):
     def save(self, commit=True):
@@ -151,10 +147,15 @@ class JudgeCreateForm(JudgeCreateFormMixin, UserCreationForm):
             u.save()
         return u
 
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.JudgeUpdateFormHelper()
+
 
 class JudgeUpdateForm(JudgeCreateFormMixin, forms.ModelForm):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
+        self.helper = helpers.JudgeUpdateFormHelper()
         instance = getattr(self, "instance", None)
         if instance and instance.pk:
             self.fields["email"].disabled = True

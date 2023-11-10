@@ -198,7 +198,10 @@ class AnnotationDetail(
     serializer_class = AnnotationSerializer
 
     def test_func(self):
-        return self.request.user.role != self.request.user.Roles.JUDGE
+        return self.request.user.role == self.request.user.Roles.JUDGE
+
+    def handle_no_permission(self):
+        return HttpResponseForbidden("You do not have access to the requested resource")
 
 
 class OnlineStageListView(LoginRequiredMixin, ListView):

@@ -14,7 +14,7 @@
       <h1>{% trans "Online preliminary stage appellation" %}</h1>
     </div>
     <div class="card-body" id="body-div-wrapper">
-      {% if object %}
+      {% if object and object.paper_original %}
         <div class="row">
           <object data="{{ object.paper_original.url }}"
                   type="application/pdf"
