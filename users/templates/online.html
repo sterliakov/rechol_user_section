@@ -7,7 +7,7 @@
        id="participant-form">
     <div class="card-header d-flex justify-content-between">
       <h1>{% trans "Available contests" %}</h1>
-      <span class="d-block">{{ time_remaining }} {{ LANGUAGE_CODE }}</span>
+      <span class="d-block">{{ time_remaining }}</span>
     </div>
     <div class="card-body">
       <ul class="list-unstyled">
@@ -41,16 +41,16 @@
             <p class="my-3">{{ p.repr_description|safe }}</p>
             <div class="row">
               <div class="col-12 col-xl-4 row">
-                <span class="text-nowrap col-6">{% trans "Remaining time:" %}</span>
-                <span class="text-nowrap col-6">{{ p.real_end|timeuntil|default:'' }}</span>
+                <span class="text-nowrap col-6 col-md-3 col-xl-auto">{% trans "Remaining time:" %}</span>
+                <span class="text-nowrap col-6 col-md-9 col-xl-auto">{{ p.real_end|timeuntil|default:'' }}</span>
               </div>
               <div class="col-12 col-xl-4 row">
-                <span class="text-nowrap col-6">{% trans "Submission opens:" %}</span>
-                <span class="text-nowrap col-6">{{ p.opens|naturaltime }}</span>
+                <span class="text-nowrap col-6 col-md-3 col-xl-auto">{% trans "Submission opens:" %}</span>
+                <span class="text-nowrap col-6 col-md-9 col-xl-auto">{{ p.opens|naturaltime }}</span>
               </div>
               <div class="col-12 col-xl-4 row">
-                <span class="text-nowrap col-6">{% trans "Submission closes:" %}</span>
-                <span class="text-nowrap col-6">{{ p.closes|naturaltime }}</span>
+                <span class="text-nowrap col-6 col-md-3 col-xl-auto">{% trans "Submission closes:" %}</span>
+                <span class="text-nowrap col-6 col-md-9 col-xl-auto">{{ p.closes|naturaltime }}</span>
               </div>
             </div>
           </li>

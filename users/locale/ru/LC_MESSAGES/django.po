@@ -778,11 +778,11 @@ msgstr "Доступные комплекты"
 
 #: users/templates/online.html:24
 msgid "View the submission"
-msgstr "Просмотреть посылку"
+msgstr "Просмотреть работу"
 
 #: users/templates/online.html:26
 msgid "Edit the submission"
-msgstr "Изменить посылку"
+msgstr "Изменить работу"
 
 #: users/templates/online.html:28
 msgid "Submit a solution"
