@@ -6,7 +6,13 @@
        style="overflow-x: auto"
        id="participant-form">
     <div class="card-header d-flex justify-content-between">
-      <h1>{{ object.problem.name|safe }}</h1>
+      <h1>
+        {% if LANGUAGE_CODE == "ru" %}
+          {{ object.problem.name|safe }}
+        {% else %}
+          {{ object.problem.name_en|safe }}
+        {% endif %}
+      </h1>
       <span class="d-block" id="time-remaining">{{ object.actual_end|timeuntil }}</span>
     </div>
     <div class="card-body" id="body-div-wrapper">

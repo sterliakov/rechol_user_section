@@ -168,7 +168,7 @@ class User(AbstractUser):
     passport = models.CharField(  # noqa: DJ001
         _("Passport"),
         max_length=15,
-        validators=[MinLengthValidator(9)],
+        validators=[MinLengthValidator(6)],
         unique=True,
         blank=False,
         null=True,
@@ -366,6 +366,7 @@ class Annotation(models.Model):
 
 class OnlineProblem(models.Model):
     name = models.CharField(_("Name"), max_length=120, blank=False, null=False)
+    name_en = models.CharField(_("Name (en)"), max_length=120, blank=False, null=False)
     file = models.FileField(_("Statement"), upload_to="problems")
     file_en = models.FileField(
         _("Statement (en)"),
@@ -385,7 +386,6 @@ class OnlineProblem(models.Model):
         null=True,
         blank=True,
     )
-    comment = models.TextField(_("Description"), blank=True, null=False, default="")
     opens = models.DateTimeField(_("Opens at"), blank=False, null=False)
     closes = models.DateTimeField(_("Closes at"), blank=False, null=False)
     duration = models.DurationField(_("Duration"), blank=False, null=False)
@@ -407,7 +407,7 @@ class OnlineProblem(models.Model):
 
     @property
     def repr_description(self):
-        return self.comment or _("Problem set for %dth form") % self.target_form
+        return _("Problem set for %dth form") % self.target_form
 
     def get_remaining_time(self, user, now=None):
         now = now or tz.now()
@@ -431,6 +431,7 @@ class OnlineProblem(models.Model):
 
 class OfflineProblem(models.Model):
     name = models.CharField(_("Name"), max_length=120, blank=False, null=False)
+    name_en = models.CharField(_("Name (en)"), max_length=120, blank=False, null=False)
     file = models.FileField(_("Statement"), upload_to="problems")
     file_en = models.FileField(
         _("Statement (en)"),

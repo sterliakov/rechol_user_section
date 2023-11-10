@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-01 05:05+0300\n"
+"POT-Creation-Date: 2023-11-10 17:38+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -19,526 +19,530 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: users/admin.py:228 users/admin.py:251 users/models.py:316
-#: users/models.py:372 users/templates/venue_instructions.html:146
-#: users/views.py:561
+#: users/admin.py:128 users/admin.py:151 users/models.py:368
+#: users/models.py:433 users/templates/venue_instructions.html:146
+#: users/views.py:572
 msgid "Name"
 msgstr "Имя"
 
-#: users/admin.py:230
+#: users/admin.py:130
 msgid "Private"
 msgstr "Персональные данные"
 
-#: users/admin.py:233 users/models.py:112 users/models.py:233
-#: users/models.py:413
+#: users/admin.py:133 users/models.py:132 users/models.py:278
+#: users/models.py:486
 msgid "Participant"
 msgstr "Участник"
 
-#: users/admin.py:234
+#: users/admin.py:134
 msgid "Contact"
 msgstr "Контакты"
 
-#: users/admin.py:236
+#: users/admin.py:136
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: users/admin.py:247
+#: users/admin.py:147
 msgid "Important dates"
 msgstr "Важные даты"
 
-#: users/admin.py:268
+#: users/admin.py:168
 msgid "Send email to selected users"
 msgstr "Отправить email выбранным пользователям"
 
-#: users/admin.py:494 users/admin.py:599
+#: users/admin.py:423 users/admin.py:530
 msgid "Participant last name"
 msgstr "Фамилия участника"
 
-#: users/admin.py:498 users/admin.py:605
+#: users/admin.py:427 users/admin.py:537
 msgid "Participant first name"
 msgstr "Имя участника"
 
-#: users/admin.py:503 users/admin.py:611 users/models.py:158
+#: users/admin.py:433 users/admin.py:544 users/models.py:198
 msgid "Participation form"
 msgstr "Класс участия"
 
-#: users/admin.py:508 users/templates/offline_appellation.html:47
+#: users/admin.py:438 users/templates/offline_appellation.html:47
 #: users/templates/online_appellation.html:39
 #: users/templates/online_submission.html:32
 msgid "Total score"
 msgstr "Общая оценка"
 
-#: users/admin.py:528 users/models.py:48 users/models.py:115
-#: users/models.py:169
+#: users/admin.py:458 users/models.py:62 users/models.py:135
+#: users/models.py:214
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/admin.py:559
+#: users/admin.py:489
 msgid "Problem name"
 msgstr "Название задачи"
 
-#: users/admin.py:563
+#: users/admin.py:493
 msgid "Was submitted?"
 msgstr "Была отправлена?"
 
-#: users/formhelpers.py:46
+#: users/formhelpers.py:49
 msgid "Forgot Password?"
 msgstr "Забыли пароль?"
 
-#: users/formhelpers.py:58 users/templates/base.html:150
+#: users/formhelpers.py:61 users/templates/base.html:150
 msgid "Login"
 msgstr "Войти"
 
-#: users/formhelpers.py:126 users/formhelpers.py:178 users/formhelpers.py:192
-#: users/formhelpers.py:223
+#: users/formhelpers.py:130 users/formhelpers.py:182 users/formhelpers.py:194
+#: users/formhelpers.py:208 users/formhelpers.py:239
 #: users/templates/admin/users/offlineresult/change_form.html:153
 #: users/templates/admin/users/onlinesubmission/change_form.html:153
 msgid "Save"
 msgstr "Сохранить"
 
-#: users/formhelpers.py:150
+#: users/formhelpers.py:154
 msgid "Change password"
 msgstr "Изменить пароль?"
 
-#: users/formhelpers.py:202
+#: users/formhelpers.py:218
 msgid "Download template"
 msgstr "Скачать образец"
 
-#: users/formhelpers.py:233
+#: users/formhelpers.py:249
 msgid "Back to login"
 msgstr "Назад на страницу входа."
 
-#: users/formhelpers.py:240
+#: users/formhelpers.py:256
 msgid "Continue"
 msgstr "Продолжить"
 
-#: users/formhelpers.py:263
+#: users/formhelpers.py:279
 msgid "Change"
 msgstr "Изменить"
 
-#: users/formhelpers.py:281
+#: users/formhelpers.py:297
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:301 users/templates/offline_appellation.html:56
+#: users/formhelpers.py:317 users/templates/offline_appellation.html:56
 #: users/templates/online_appellation.html:48
 msgid "Submit"
 msgstr "Отправить"
 
-#: users/formhelpers.py:350 users/templates/venue_participants.html:40
+#: users/formhelpers.py:366 users/templates/venue_participants.html:40
 msgid "Upload"
 msgstr "Загрузить"
 
-#: users/forms.py:38
+#: users/forms.py:41
 msgid "Not a valid integer or hyphen."
 msgstr "Введите число или дефис"
 
-#: users/forms.py:86
+#: users/forms.py:90
 msgid "Registration to this venue is closed."
 msgstr "Регистрация на эту площадку закрыта."
 
-#: users/forms.py:96
+#: users/forms.py:100
 msgid "Only your form or higher is allowed."
 msgstr "Допустим только Ваш класс или старше."
 
-#: users/forms.py:103
+#: users/forms.py:107
 msgid "Please fill your name and surname in separate fields."
 msgstr "Пожалуйста, введите имя и фамилию отдельно."
 
-#: users/models.py:17 users/models.py:105
+#: users/models.py:22 users/models.py:125
 msgid "8"
 msgstr "8"
 
-#: users/models.py:18 users/models.py:106
+#: users/models.py:23 users/models.py:126
 msgid "9"
 msgstr "9"
 
-#: users/models.py:19 users/models.py:107
+#: users/models.py:24 users/models.py:127
 msgid "10"
 msgstr "10"
 
-#: users/models.py:20 users/models.py:108
+#: users/models.py:25 users/models.py:128
 msgid "11"
 msgstr "11"
 
-#: users/models.py:24 users/models.py:150
+#: users/models.py:29 users/models.py:181
 msgid "City"
 msgstr "Город"
 
-#: users/models.py:26
+#: users/models.py:31
 msgid "short name"
 msgstr "Краткое название"
 
-#: users/models.py:28
+#: users/models.py:36
 msgid "full name"
 msgstr "Полное название"
 
-#: users/models.py:30
+#: users/models.py:38
 msgid "Address"
 msgstr "Адрес"
 
-#: users/models.py:32 users/models.py:137
+#: users/models.py:43 users/models.py:167
 msgid "Phone"
 msgstr "Телефон"
 
-#: users/models.py:33
+#: users/models.py:44
 msgid "is confirmed"
 msgstr "Подтверждено"
 
-#: users/models.py:36
+#: users/models.py:47
 msgid "Confirmation letter"
 msgstr "Письмо подтверждения"
 
-#: users/models.py:38
+#: users/models.py:49
 msgid "A photo or scan of a confirmation signed by your institution authority"
 msgstr "Фотография или скан письма подтверждения от администрации"
 
-#: users/models.py:43 users/models.py:183
+#: users/models.py:56 users/models.py:228
 msgid "User"
 msgstr "Пользователь"
 
-#: users/models.py:45
+#: users/models.py:59
 msgid "registration closed (full)"
 msgstr "Регистрация закрыта (переполнена)."
 
-#: users/models.py:49 users/templates/base.html:73
+#: users/models.py:63 users/templates/base.html:73
 msgid "Venues"
 msgstr "Площадки"
 
-#: users/models.py:54
+#: users/models.py:68
 msgid "[REGISTRATION CLOSED]"
 msgstr "[РЕГИСТРАЦИЯ ЗАКРЫТА]"
 
-#: users/models.py:101
+#: users/models.py:121
 msgid "Male"
 msgstr "Мужской"
 
-#: users/models.py:102
+#: users/models.py:122
 msgid "Female"
 msgstr "Женский"
 
-#: users/models.py:109
+#: users/models.py:129
 msgid "Other"
 msgstr "Другое"
 
-#: users/models.py:113
+#: users/models.py:133
 msgid "Admin"
 msgstr "Администратор"
 
-#: users/models.py:114
+#: users/models.py:134
 msgid "Judge"
 msgstr "Проверяющий"
 
-#: users/models.py:118
+#: users/models.py:138
 msgid "Email"
 msgstr "Email"
 
-#: users/models.py:121 users/templates/venue_participants.html:22
+#: users/models.py:141 users/templates/venue_participants.html:22
 msgid "First name"
 msgstr "Имя"
 
-#: users/models.py:124 users/templates/venue_participants.html:23
+#: users/models.py:147 users/templates/venue_participants.html:23
 msgid "Last name"
 msgstr "Фамилия"
 
-#: users/models.py:127 users/templates/venue_participants.html:24
+#: users/models.py:153 users/templates/venue_participants.html:24
 msgid "Patronymic name"
 msgstr "Отчество"
 
-#: users/models.py:130
+#: users/models.py:160
 msgid "Gender"
 msgstr "Пол"
 
-#: users/models.py:136
+#: users/models.py:166
 msgid "Birth date"
 msgstr "Дата рождения"
 
-#: users/models.py:139
+#: users/models.py:169
 msgid "Passport"
 msgstr "Паспорт"
 
-#: users/models.py:146
+#: users/models.py:176
 msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
 msgstr ""
 "Номер паспорта (в формате xxxx xxxxxx) или свидетельства о рождении (XX-XX "
 "xxxxxx)"
 
-#: users/models.py:149
+#: users/models.py:179
 msgid "Country"
 msgstr "Страна"
 
-#: users/models.py:152
+#: users/models.py:187
 msgid "School"
 msgstr "Школа"
 
-#: users/models.py:155
+#: users/models.py:193
 msgid "Actual form"
 msgstr "Класс обучения"
 
-#: users/models.py:160
+#: users/models.py:202
 msgid "VK link"
 msgstr "аккаунт ВКонтакте"
 
-#: users/models.py:162
+#: users/models.py:204
 msgid "Telegram nickname"
 msgstr "Ник в Telegram"
 
-#: users/models.py:170
+#: users/models.py:215
 msgid "Select only if you plan to participate in offline stage."
 msgstr ""
 "Не выбирайте площадку, если Вы не планируете участвовать в очном этапе."
 
-#: users/models.py:172 users/templates/base.html:99
+#: users/models.py:217 users/templates/base.html:99
 msgid "Online stage"
 msgstr "Онлайн-этап"
 
-#: users/models.py:174
+#: users/models.py:219
 msgid "Role"
 msgstr "Роль"
 
-#: users/models.py:184
+#: users/models.py:229
 msgid "Users"
 msgstr "Пользователи"
 
-#: users/models.py:204
+#: users/models.py:249
 msgid "Title"
 msgstr "Заголовок"
 
-#: users/models.py:205
+#: users/models.py:250
 msgid "Link"
 msgstr "Ссылка"
 
-#: users/models.py:205
+#: users/models.py:250
 msgid "Link to news page etc."
 msgstr "Ссылка на новость и т.п."
 
-#: users/models.py:206
+#: users/models.py:251
 msgid "Start"
 msgstr "Начало"
 
-#: users/models.py:207 users/models.py:327
+#: users/models.py:252
 msgid "Description"
 msgstr "Описание"
 
-#: users/models.py:210
+#: users/models.py:255
 msgid "Event"
 msgstr "Событие"
 
-#: users/models.py:211
+#: users/models.py:256
 msgid "Events"
 msgstr "События"
 
-#: users/models.py:237 users/models.py:426
+#: users/models.py:282 users/models.py:499
 #: users/templates/online_submission.html:30
 msgid "Scores"
 msgstr "Баллы"
 
-#: users/models.py:241 users/models.py:412
+#: users/models.py:286 users/models.py:485
 msgid "Comment"
 msgstr "Комментарий"
 
-#: users/models.py:242
+#: users/models.py:287
 msgid "Original work"
 msgstr "Скан работы"
 
-#: users/models.py:249 users/models.py:434
+#: users/models.py:294 users/models.py:507
 msgid "Final scores after appellation"
 msgstr "Окончательная оценка после апелляции"
 
-#: users/models.py:255
+#: users/models.py:300
 msgid "Result (offline)"
 msgstr "Результат (очный тур)"
 
-#: users/models.py:256
+#: users/models.py:301
 msgid "Results (offline)"
 msgstr "Результаты (очный тур)"
 
-#: users/models.py:263
+#: users/models.py:308
 msgid "Message"
 msgstr "Сообщение"
 
-#: users/models.py:264
+#: users/models.py:309
 msgid "Response"
 msgstr "Ответ"
 
-#: users/models.py:265
+#: users/models.py:310
 msgid "Created"
 msgstr "Создано"
 
-#: users/models.py:266
+#: users/models.py:311
 msgid "Updated"
 msgstr "Изменено"
 
-#: users/models.py:277 users/models.py:291
+#: users/models.py:326 users/models.py:340
 msgid "Result"
 msgstr "Результат"
 
-#: users/models.py:281
+#: users/models.py:330
 msgid "Appellation (offline)"
 msgstr "Апелляция (очный тур)"
 
-#: users/models.py:282
+#: users/models.py:331
 msgid "Appellations (offline)"
 msgstr "Апелляции (очный тур)"
 
-#: users/models.py:295
+#: users/models.py:344
 msgid "Appellation (online)"
 msgstr "Апелляция (онлайн)"
 
-#: users/models.py:296
+#: users/models.py:345
 msgid "Appellations (online)"
 msgstr "Апелляции (онлайн)"
 
-#: users/models.py:300
+#: users/models.py:349
 msgid "Filename"
 msgstr "Название файла"
 
-#: users/models.py:302
+#: users/models.py:351
 msgid "Annotation ID"
 msgstr "ID аннотации"
 
-#: users/models.py:304
+#: users/models.py:356
 msgid "Page number"
 msgstr "Номер страницы"
 
-#: users/models.py:305
+#: users/models.py:357
 msgid "Annotation content"
 msgstr "Содержимое аннотации"
 
-#: users/models.py:308
+#: users/models.py:360
 msgid "Annotation"
 msgstr "Аннотация"
 
-#: users/models.py:309
+#: users/models.py:361
 msgid "Annotations"
 msgstr "Аннотации"
 
-#: users/models.py:317 users/models.py:373
+#: users/models.py:369 users/models.py:434
+msgid "Name (en)"
+msgstr "Название (англ.)"
+
+#: users/models.py:370 users/models.py:435
 msgid "Statement"
 msgstr "Условия"
 
-#: users/models.py:319 users/models.py:374
+#: users/models.py:372 users/models.py:437
 msgid "Statement (en)"
 msgstr "Условия (англ.)"
 
-#: users/models.py:322 users/models.py:376
+#: users/models.py:378 users/models.py:443
 msgid "Solutions"
 msgstr "Решения"
 
-#: users/models.py:325 users/models.py:379
+#: users/models.py:384 users/models.py:449
 msgid "Solutions (en)"
 msgstr "Решения (англ.)"
 
-#: users/models.py:328
+#: users/models.py:389
 msgid "Opens at"
 msgstr "Время открытия"
 
-#: users/models.py:329
+#: users/models.py:390
 msgid "Closes at"
 msgstr "Время закрытия"
 
-#: users/models.py:330
+#: users/models.py:391
 msgid "Duration"
 msgstr "Продолжительность"
 
-#: users/models.py:331 users/models.py:381
+#: users/models.py:392 users/models.py:454
 msgid "Visible"
 msgstr "Видимый"
 
-#: users/models.py:333 users/models.py:383
+#: users/models.py:394 users/models.py:456
 msgid "Target form"
 msgstr "Класс участника"
 
-#: users/models.py:341
+#: users/models.py:402
 msgid "online problem"
 msgstr "Задача онлайн-этапа"
 
-#: users/models.py:342
+#: users/models.py:403
 msgid "online problems"
 msgstr "Задачи онлайн-этапа"
 
-#: users/models.py:349
+#: users/models.py:410
 #, python-format
 msgid "Problem set for %dth form"
 msgstr "Комплект заданий для %d-го класса"
 
-#: users/models.py:391
+#: users/models.py:464
 msgid "offline problem"
 msgstr "Задача очного тура"
 
-#: users/models.py:392
+#: users/models.py:465
 msgid "offline problems"
 msgstr "Задачи очного тура"
 
-#: users/models.py:405
+#: users/models.py:478
 msgid "Solution file"
 msgstr "Файл с решением"
 
-#: users/models.py:406
+#: users/models.py:479
 msgid "Solution file in pdf format"
 msgstr "Файл с решениями в формате pdf"
 
-#: users/models.py:419
+#: users/models.py:492
 msgid "Problem"
 msgstr "Задача"
 
-#: users/models.py:421
+#: users/models.py:494
 msgid "Started at"
 msgstr "Время начала"
 
-#: users/models.py:440
+#: users/models.py:513
 msgid "Result (online)"
 msgstr "Результат (заочный тур)"
 
-#: users/models.py:441
+#: users/models.py:514
 msgid "Results (online)"
 msgstr "Результаты (заочный тур)"
 
-#: users/models.py:468
+#: users/models.py:541
 msgid "Start of registration"
 msgstr "Начало регистрации"
 
-#: users/models.py:469
+#: users/models.py:542
 msgid "End of registration"
 msgstr "Конец регистрации"
 
-#: users/models.py:470
+#: users/models.py:543
 msgid "start of venue registration"
 msgstr "Начало регистрации площадок"
 
-#: users/models.py:471
+#: users/models.py:544
 msgid "end of venue registration"
 msgstr "Конец регистрации площадок"
 
-#: users/models.py:472
+#: users/models.py:545
 msgid "Start of offline stage appeal"
 msgstr "Начало апелляции очного этапа"
 
-#: users/models.py:473
+#: users/models.py:546
 msgid "End of offline stage appeal"
 msgstr "Конец апелляции очного этапа"
 
-#: users/models.py:474
+#: users/models.py:547
 msgid "Start of online stage appeal"
 msgstr "Начало апелляции заочного этапа"
 
-#: users/models.py:475
+#: users/models.py:548
 msgid "End of online stage appeal"
 msgstr "Конец апелляции заочного этапа"
 
-#: users/models.py:476
+#: users/models.py:549
 msgid "forbid venue change"
 msgstr "Запретить смену площадки"
 
-#: users/models.py:478
+#: users/models.py:551
 msgid "allow downloading offline stage problems"
 msgstr "Разрешить скачивание задач очного этапа"
 
-#: users/models.py:482
+#: users/models.py:556
 msgid "Configuration"
 msgstr "Настройки"
 
-#: users/models.py:483
+#: users/models.py:557
 msgid "Configurations"
 msgstr "Настройки"
 
@@ -761,9 +765,7 @@ msgstr "Ваша работа не найдена."
 
 #: users/templates/offline_appellation.html:72
 msgid "If you have participated, please contact us"
-msgstr ""
-"Если Вы принимали участие в очном туре, пожалуйста, "
-"свяжитесь с нами"
+msgstr "Если Вы принимали участие в очном туре, пожалуйста, свяжитесь с нами"
 
 #: users/templates/offline_appellation.html:72
 #: users/templates/online_appellation.html:59
@@ -971,14 +973,14 @@ msgid "Registration"
 msgstr "Регистрация"
 
 #: users/templates/registration.html:12
-#: users/templates/venue_registration.html:27 users/views.py:102
-#: users/views.py:471
+#: users/templates/venue_registration.html:27 users/views.py:105
+#: users/views.py:480
 msgid "Registration not open yet."
 msgstr "Регистрация еще не началась."
 
 #: users/templates/registration.html:14
 #: users/templates/venue_registration.html:29
-#: users/templates/venues_list.html:11 users/views.py:105 users/views.py:474
+#: users/templates/venues_list.html:11 users/views.py:108 users/views.py:483
 msgid "Registration closed."
 msgstr "Регистрация закрыта."
 
@@ -1327,7 +1329,7 @@ msgid "Statement example"
 msgstr "Образец ведомости"
 
 #: users/templates/venue_instructions.html:147
-#: users/templates/venue_participants.html:26 users/views.py:563
+#: users/templates/venue_participants.html:26 users/views.py:574
 msgid "Grade"
 msgstr "Класс участия"
 
@@ -1336,7 +1338,7 @@ msgstr "Класс участия"
 msgid "ID Number"
 msgstr "Паспорт"
 
-#: users/templates/venue_instructions.html:149 users/views.py:564
+#: users/templates/venue_instructions.html:149 users/views.py:575
 msgid "Room"
 msgstr "Аудитория"
 
@@ -1348,7 +1350,7 @@ msgstr "Явился"
 msgid "Removed"
 msgstr "Удален"
 
-#: users/templates/venue_instructions.html:152 users/views.py:567
+#: users/templates/venue_instructions.html:152 users/views.py:578
 msgid "Exits"
 msgstr "Выходы"
 
@@ -1462,30 +1464,30 @@ msgstr "Доступные площадки"
 msgid "No venues registered so far."
 msgstr "Пока нет доступных площадок."
 
-#: users/views.py:175
+#: users/views.py:179
 msgid "You do not have access to editing annotations"
 msgstr "У Вас нет доступа к редактированию примечаний."
 
-#: users/views.py:313
+#: users/views.py:322
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."
 
-#: users/views.py:562
+#: users/views.py:573
 msgid "ID number"
 msgstr "Паспорт"
 
-#: users/views.py:565
+#: users/views.py:576
 msgid "Arrived"
 msgstr "Явился"
 
-#: users/views.py:566
+#: users/views.py:577
 msgid "Terminated"
 msgstr "Удален"
 
-#: users/views.py:568
+#: users/views.py:579
 msgid "Pages count"
 msgstr "Страниц"
 
-#: users/views.py:569
+#: users/views.py:580
 msgid "Comments"
 msgstr "Комментарии"
