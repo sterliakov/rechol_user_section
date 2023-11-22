@@ -29,7 +29,10 @@
                     {% endif %}
                   </a>
                   {# User has not opened the statement before, but still can #}
-                {% elif p.is_open_now %}
+                {% elif p.is_open_now and user.country == 'RU' %}
+                  <a href="{% url 'online_submission_start' p.id %}"
+                     class="btn btn-primary">{% trans "Join now" %}</a>
+                {% elif p.is_open_now_en and user.country != 'RU' %}
                   <a href="{% url 'online_submission_start' p.id %}"
                      class="btn btn-primary">{% trans "Join now" %}</a>
                   {# Nothing to do #}
@@ -50,7 +53,13 @@
               </div>
               <div class="col-12 col-xl-4 row">
                 <span class="text-nowrap col-6 col-md-3 col-xl-auto">{% trans "Submission closes:" %}</span>
-                <span class="text-nowrap col-6 col-md-9 col-xl-auto">{{ p.closes|naturaltime }}</span>
+                <span class="text-nowrap col-6 col-md-9 col-xl-auto">
+                  {% if user.country == 'RU' %}
+                    {{ p.closes|naturaltime }}
+                  {% else %}
+                    {{ p.closes_en|naturaltime }}
+                  {% endif %}
+                </span>
               </div>
             </div>
           </li>

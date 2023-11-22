@@ -27,13 +27,19 @@
       <div class="card-body">
         <h2>{% trans "You're now about to start online contest." %}</h2>
         <p>
-          {% trans "You'll have" %} {{ problem.duration }} {% trans "to complete. Submissions close " %} {{ problem.closes|naturaltime }}.
+          {% trans "You'll have" %} {{ problem.duration }} {% trans "to complete. Submissions close " %}
+          {% if user.country == 'RU' %}
+            {{ problem.closes|naturaltime }}
+          {% else %}
+            {{ problem.closes_en|naturaltime }}
+          {% endif %}
+          .
         </p>
       </div>
       <form class="card-footer text-center" method="post">
         {% csrf_token %}
         <button type="submit"
-                class="btn btn-primary {% if not problem.is_open_now %}disabled{% endif %}">
+                class="btn btn-primary{% if user.country == "RU" and not problem.is_open_now %} disabled{% endif %}{% if user.country != "RU" and not problem.is_open_now_en %} disabled{% endif %}">
           {% trans "Start!" %}
         </button>
         <a href="{% url 'online_submission_index' %}" class="btn btn-secondary">{% trans "Back" %}</a>

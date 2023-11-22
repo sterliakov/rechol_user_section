@@ -264,7 +264,7 @@ class OnlineStageStartView(ProblemDispatchMixin, DetailView):
         ).first()
 
     def post(self, *_args, **kwargs):
-        if not self.problem.is_open_now():
+        if not self.problem.is_open_now_for_user(self.request.user):
             return HttpResponseRedirect(
                 reverse("online_submission_index") + "?error=GONE",
             )
@@ -285,14 +285,14 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
     template_name = "online_submission.html"
     success_url = "?success=true"
 
-    @cached_property
+    @property
     def problem(self):
         return OnlineProblem.objects.get(id=int(self.kwargs["problem_pk"]))
 
-    @cached_property
+    @property
     def is_over(self):
         return bool(
-            not self.problem.is_open_now()
+            not self.problem.is_open_now_for_user(self.request.user)
             or self.object.remaining_time.total_seconds() < 0,
         )
 

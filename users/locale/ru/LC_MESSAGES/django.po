@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-10 17:38+0300\n"
+"POT-Creation-Date: 2023-11-22 05:55+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: users/admin.py:128 users/admin.py:151 users/models.py:368
-#: users/models.py:433 users/templates/venue_instructions.html:146
+#: users/models.py:444 users/templates/venue_instructions.html:146
 #: users/views.py:572
 msgid "Name"
 msgstr "Имя"
@@ -30,7 +30,7 @@ msgid "Private"
 msgstr "Персональные данные"
 
 #: users/admin.py:133 users/models.py:132 users/models.py:278
-#: users/models.py:486
+#: users/models.py:497
 msgid "Participant"
 msgstr "Участник"
 
@@ -64,7 +64,7 @@ msgstr "Класс участия"
 
 #: users/admin.py:438 users/templates/offline_appellation.html:47
 #: users/templates/online_appellation.html:39
-#: users/templates/online_submission.html:32
+#: users/templates/online_submission.html:38
 msgid "Total score"
 msgstr "Общая оценка"
 
@@ -89,43 +89,43 @@ msgstr "Забыли пароль?"
 msgid "Login"
 msgstr "Войти"
 
-#: users/formhelpers.py:130 users/formhelpers.py:182 users/formhelpers.py:194
-#: users/formhelpers.py:208 users/formhelpers.py:239
+#: users/formhelpers.py:130 users/formhelpers.py:188 users/formhelpers.py:200
+#: users/formhelpers.py:214 users/formhelpers.py:245
 #: users/templates/admin/users/offlineresult/change_form.html:153
-#: users/templates/admin/users/onlinesubmission/change_form.html:153
+#: users/templates/admin/users/onlinesubmission/change_form.html:142
 msgid "Save"
 msgstr "Сохранить"
 
-#: users/formhelpers.py:154
+#: users/formhelpers.py:157
 msgid "Change password"
 msgstr "Изменить пароль?"
 
-#: users/formhelpers.py:218
+#: users/formhelpers.py:224
 msgid "Download template"
 msgstr "Скачать образец"
 
-#: users/formhelpers.py:249
+#: users/formhelpers.py:255
 msgid "Back to login"
 msgstr "Назад на страницу входа."
 
-#: users/formhelpers.py:256
+#: users/formhelpers.py:262
 msgid "Continue"
 msgstr "Продолжить"
 
-#: users/formhelpers.py:279
+#: users/formhelpers.py:285
 msgid "Change"
 msgstr "Изменить"
 
-#: users/formhelpers.py:297
+#: users/formhelpers.py:303
 msgid "Set password"
 msgstr "Установить пароль"
 
-#: users/formhelpers.py:317 users/templates/offline_appellation.html:56
+#: users/formhelpers.py:323 users/templates/offline_appellation.html:56
 #: users/templates/online_appellation.html:48
 msgid "Submit"
 msgstr "Отправить"
 
-#: users/formhelpers.py:366 users/templates/venue_participants.html:40
+#: users/formhelpers.py:372 users/templates/venue_participants.html:40
 msgid "Upload"
 msgstr "Загрузить"
 
@@ -328,12 +328,12 @@ msgstr "Событие"
 msgid "Events"
 msgstr "События"
 
-#: users/models.py:282 users/models.py:499
-#: users/templates/online_submission.html:30
+#: users/models.py:282 users/models.py:510
+#: users/templates/online_submission.html:36
 msgid "Scores"
 msgstr "Баллы"
 
-#: users/models.py:286 users/models.py:485
+#: users/models.py:286 users/models.py:496
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -341,7 +341,7 @@ msgstr "Комментарий"
 msgid "Original work"
 msgstr "Скан работы"
 
-#: users/models.py:294 users/models.py:507
+#: users/models.py:294 users/models.py:518
 msgid "Final scores after appellation"
 msgstr "Окончательная оценка после апелляции"
 
@@ -413,23 +413,23 @@ msgstr "Аннотация"
 msgid "Annotations"
 msgstr "Аннотации"
 
-#: users/models.py:369 users/models.py:434
+#: users/models.py:369 users/models.py:445
 msgid "Name (en)"
 msgstr "Название (англ.)"
 
-#: users/models.py:370 users/models.py:435
+#: users/models.py:370 users/models.py:446
 msgid "Statement"
 msgstr "Условия"
 
-#: users/models.py:372 users/models.py:437
+#: users/models.py:372 users/models.py:448
 msgid "Statement (en)"
 msgstr "Условия (англ.)"
 
-#: users/models.py:378 users/models.py:443
+#: users/models.py:378 users/models.py:454
 msgid "Solutions"
 msgstr "Решения"
 
-#: users/models.py:384 users/models.py:449
+#: users/models.py:384 users/models.py:460
 msgid "Solutions (en)"
 msgstr "Решения (англ.)"
 
@@ -442,107 +442,111 @@ msgid "Closes at"
 msgstr "Время закрытия"
 
 #: users/models.py:391
+msgid "Closes at (en)"
+msgstr "Время закрытия для иностранцев"
+
+#: users/models.py:392
 msgid "Duration"
 msgstr "Продолжительность"
 
-#: users/models.py:392 users/models.py:454
+#: users/models.py:393 users/models.py:465
 msgid "Visible"
 msgstr "Видимый"
 
-#: users/models.py:394 users/models.py:456
+#: users/models.py:395 users/models.py:467
 msgid "Target form"
 msgstr "Класс участника"
 
-#: users/models.py:402
+#: users/models.py:403
 msgid "online problem"
 msgstr "Задача онлайн-этапа"
 
-#: users/models.py:403
+#: users/models.py:404
 msgid "online problems"
 msgstr "Задачи онлайн-этапа"
 
-#: users/models.py:410
+#: users/models.py:411
 #, python-format
 msgid "Problem set for %dth form"
 msgstr "Комплект заданий для %d-го класса"
 
-#: users/models.py:464
+#: users/models.py:475
 msgid "offline problem"
 msgstr "Задача очного тура"
 
-#: users/models.py:465
+#: users/models.py:476
 msgid "offline problems"
 msgstr "Задачи очного тура"
 
-#: users/models.py:478
+#: users/models.py:489
 msgid "Solution file"
 msgstr "Файл с решением"
 
-#: users/models.py:479
+#: users/models.py:490
 msgid "Solution file in pdf format"
 msgstr "Файл с решениями в формате pdf"
 
-#: users/models.py:492
+#: users/models.py:503
 msgid "Problem"
 msgstr "Задача"
 
-#: users/models.py:494
+#: users/models.py:505
 msgid "Started at"
 msgstr "Время начала"
 
-#: users/models.py:513
+#: users/models.py:524
 msgid "Result (online)"
 msgstr "Результат (заочный тур)"
 
-#: users/models.py:514
+#: users/models.py:525
 msgid "Results (online)"
 msgstr "Результаты (заочный тур)"
 
-#: users/models.py:541
+#: users/models.py:552
 msgid "Start of registration"
 msgstr "Начало регистрации"
 
-#: users/models.py:542
+#: users/models.py:553
 msgid "End of registration"
 msgstr "Конец регистрации"
 
-#: users/models.py:543
+#: users/models.py:554
 msgid "start of venue registration"
 msgstr "Начало регистрации площадок"
 
-#: users/models.py:544
+#: users/models.py:555
 msgid "end of venue registration"
 msgstr "Конец регистрации площадок"
 
-#: users/models.py:545
+#: users/models.py:556
 msgid "Start of offline stage appeal"
 msgstr "Начало апелляции очного этапа"
 
-#: users/models.py:546
+#: users/models.py:557
 msgid "End of offline stage appeal"
 msgstr "Конец апелляции очного этапа"
 
-#: users/models.py:547
+#: users/models.py:558
 msgid "Start of online stage appeal"
 msgstr "Начало апелляции заочного этапа"
 
-#: users/models.py:548
+#: users/models.py:559
 msgid "End of online stage appeal"
 msgstr "Конец апелляции заочного этапа"
 
-#: users/models.py:549
+#: users/models.py:560
 msgid "forbid venue change"
 msgstr "Запретить смену площадки"
 
-#: users/models.py:551
+#: users/models.py:562
 msgid "allow downloading offline stage problems"
 msgstr "Разрешить скачивание задач очного этапа"
 
-#: users/models.py:556
+#: users/models.py:567
 msgid "Configuration"
 msgstr "Настройки"
 
-#: users/models.py:557
+#: users/models.py:568
 msgid "Configurations"
 msgstr "Настройки"
 
@@ -584,27 +588,27 @@ msgid "Send"
 msgstr "Отправить"
 
 #: users/templates/admin/users/offlineresult/change_form.html:147
-#: users/templates/admin/users/onlinesubmission/change_form.html:147
+#: users/templates/admin/users/onlinesubmission/change_form.html:136
 msgid "Save and quit"
 msgstr "Сохранить и выйти"
 
 #: users/templates/admin/users/offlineresult/change_form.html:150
-#: users/templates/admin/users/onlinesubmission/change_form.html:150
+#: users/templates/admin/users/onlinesubmission/change_form.html:139
 msgid "Delete"
 msgstr "Удалить"
 
 #: users/templates/admin/users/offlineresult/change_form.html:152
-#: users/templates/admin/users/onlinesubmission/change_form.html:152
+#: users/templates/admin/users/onlinesubmission/change_form.html:141
 msgid "Save and add next"
 msgstr "Сохранить и добавить следующий"
 
 #: users/templates/admin/users/offlineresult/change_form.html:159
-#: users/templates/admin/users/onlinesubmission/change_form.html:159
+#: users/templates/admin/users/onlinesubmission/change_form.html:148
 msgid "Please correct the error below."
 msgstr "Пожалуйста, исправьте ошибку ниже."
 
 #: users/templates/admin/users/offlineresult/change_form.html:161
-#: users/templates/admin/users/onlinesubmission/change_form.html:161
+#: users/templates/admin/users/onlinesubmission/change_form.html:150
 msgid "Please correct the errors below."
 msgstr "Пожалуйста, исправьте ошибки ниже."
 
@@ -674,7 +678,7 @@ msgstr "Выход"
 msgid "Error occurred"
 msgstr "Ошибка"
 
-#: users/templates/base.html:214 users/templates/online.html:81
+#: users/templates/base.html:214 users/templates/online.html:84
 msgid "OK"
 msgstr "ОК"
 
@@ -788,35 +792,35 @@ msgstr "Изменить работу"
 msgid "Submit a solution"
 msgstr "Отправить решение"
 
-#: users/templates/online.html:34
+#: users/templates/online.html:34 users/templates/online.html:37
 msgid "Join now"
 msgstr "Присоединиться"
 
-#: users/templates/online.html:37
+#: users/templates/online.html:40
 msgid "Not available for submission"
 msgstr "Недоступно для отправки"
 
-#: users/templates/online.html:44
+#: users/templates/online.html:47
 msgid "Remaining time:"
 msgstr "Оставшееся время:"
 
-#: users/templates/online.html:48
+#: users/templates/online.html:51
 msgid "Submission opens:"
 msgstr "Открытие:"
 
-#: users/templates/online.html:52
+#: users/templates/online.html:55
 msgid "Submission closes:"
 msgstr "Закрытие:"
 
-#: users/templates/online.html:59
+#: users/templates/online.html:62
 msgid "No available contests"
 msgstr "Нет доступных комплектов"
 
-#: users/templates/online.html:70
+#: users/templates/online.html:73
 msgid "Cannot join requested contest."
 msgstr "Не удалось присоединиться к данному соревнованию."
 
-#: users/templates/online.html:77
+#: users/templates/online.html:80
 msgid ""
 "Unfortunately, joining the contest you requested is not possible now. If you "
 "believe it is a mistake, please contact us."
@@ -870,14 +874,14 @@ msgstr "на выполнение работы. Отправка закрыва�
 msgid "Start!"
 msgstr "Начать!"
 
-#: users/templates/online_submission.html:16
+#: users/templates/online_submission.html:22
 #: users/templates/password_change_done.html:4
 #: users/templates/password_reset_complete.html:4
 #: users/templates/password_reset_done.html:4
 msgid "Success!"
 msgstr "Успех!"
 
-#: users/templates/online_submission.html:16
+#: users/templates/online_submission.html:22
 msgid ""
 "You can alter your submission during the contest until it ends or your time "
 "is over."
@@ -885,15 +889,15 @@ msgstr ""
 "Вы можете изменить свое решение до конца контеста или отведенного Вам "
 "времени."
 
-#: users/templates/online_submission.html:25
+#: users/templates/online_submission.html:31
 msgid "Download problem statement"
 msgstr "Скачать условия"
 
-#: users/templates/online_submission.html:44
+#: users/templates/online_submission.html:50
 msgid "Appeal"
 msgstr "Апелляция"
 
-#: users/templates/online_submission.html:49
+#: users/templates/online_submission.html:55
 msgid "You may safely leave this page and return later."
 msgstr "Вы можете покинуть страницу и вернуться позже."
 

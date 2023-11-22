@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-10 17:39+0300\n"
+"POT-Creation-Date: 2023-11-22 05:55+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: users/admin.py:128 users/admin.py:151 users/models.py:368
-#: users/models.py:433 users/templates/venue_instructions.html:146
+#: users/models.py:444 users/templates/venue_instructions.html:146
 #: users/views.py:572
 msgid "Name"
 msgstr "Name"
@@ -28,7 +28,7 @@ msgid "Private"
 msgstr "Private"
 
 #: users/admin.py:133 users/models.py:132 users/models.py:278
-#: users/models.py:486
+#: users/models.py:497
 msgid "Participant"
 msgstr "Participant"
 
@@ -62,7 +62,7 @@ msgstr "Participation grade"
 
 #: users/admin.py:438 users/templates/offline_appellation.html:47
 #: users/templates/online_appellation.html:39
-#: users/templates/online_submission.html:32
+#: users/templates/online_submission.html:38
 msgid "Total score"
 msgstr "Total score"
 
@@ -87,43 +87,43 @@ msgstr "Forgot Password?"
 msgid "Login"
 msgstr "Login"
 
-#: users/formhelpers.py:130 users/formhelpers.py:182 users/formhelpers.py:194
-#: users/formhelpers.py:208 users/formhelpers.py:239
+#: users/formhelpers.py:130 users/formhelpers.py:188 users/formhelpers.py:200
+#: users/formhelpers.py:214 users/formhelpers.py:245
 #: users/templates/admin/users/offlineresult/change_form.html:153
-#: users/templates/admin/users/onlinesubmission/change_form.html:153
+#: users/templates/admin/users/onlinesubmission/change_form.html:142
 msgid "Save"
 msgstr "Save"
 
-#: users/formhelpers.py:154
+#: users/formhelpers.py:157
 msgid "Change password"
 msgstr "Change password"
 
-#: users/formhelpers.py:218
+#: users/formhelpers.py:224
 msgid "Download template"
 msgstr "Download template"
 
-#: users/formhelpers.py:249
+#: users/formhelpers.py:255
 msgid "Back to login"
 msgstr "Back to login"
 
-#: users/formhelpers.py:256
+#: users/formhelpers.py:262
 msgid "Continue"
 msgstr "Continue"
 
-#: users/formhelpers.py:279
+#: users/formhelpers.py:285
 msgid "Change"
 msgstr "Change"
 
-#: users/formhelpers.py:297
+#: users/formhelpers.py:303
 msgid "Set password"
 msgstr "Set password"
 
-#: users/formhelpers.py:317 users/templates/offline_appellation.html:56
+#: users/formhelpers.py:323 users/templates/offline_appellation.html:56
 #: users/templates/online_appellation.html:48
 msgid "Submit"
 msgstr "Submit"
 
-#: users/formhelpers.py:366 users/templates/venue_participants.html:40
+#: users/formhelpers.py:372 users/templates/venue_participants.html:40
 msgid "Upload"
 msgstr "Upload"
 
@@ -257,8 +257,7 @@ msgstr "Passport"
 
 #: users/models.py:176
 msgid "Passport in format xxxx xxxxxx or birth proof in format XX-XX xxxxxx"
-msgstr ""
-"ID number (or birth certificate if you have no passport yet)"
+msgstr "ID number (or birth certificate if you have no passport yet)"
 
 #: users/models.py:179
 msgid "Country"
@@ -324,12 +323,12 @@ msgstr "Event"
 msgid "Events"
 msgstr "Events"
 
-#: users/models.py:282 users/models.py:499
-#: users/templates/online_submission.html:30
+#: users/models.py:282 users/models.py:510
+#: users/templates/online_submission.html:36
 msgid "Scores"
 msgstr "Scores"
 
-#: users/models.py:286 users/models.py:485
+#: users/models.py:286 users/models.py:496
 msgid "Comment"
 msgstr "Comment"
 
@@ -337,7 +336,7 @@ msgstr "Comment"
 msgid "Original work"
 msgstr "Original work"
 
-#: users/models.py:294 users/models.py:507
+#: users/models.py:294 users/models.py:518
 msgid "Final scores after appellation"
 msgstr "Final scores after appellation"
 
@@ -409,23 +408,23 @@ msgstr "Annotation"
 msgid "Annotations"
 msgstr "Annotations"
 
-#: users/models.py:369 users/models.py:434
+#: users/models.py:369 users/models.py:445
 msgid "Name (en)"
 msgstr "Title (en)"
 
-#: users/models.py:370 users/models.py:435
+#: users/models.py:370 users/models.py:446
 msgid "Statement"
 msgstr "Statement"
 
-#: users/models.py:372 users/models.py:437
+#: users/models.py:372 users/models.py:448
 msgid "Statement (en)"
 msgstr "Statement (en)"
 
-#: users/models.py:378 users/models.py:443
+#: users/models.py:378 users/models.py:454
 msgid "Solutions"
 msgstr "Solutions"
 
-#: users/models.py:384 users/models.py:449
+#: users/models.py:384 users/models.py:460
 msgid "Solutions (en)"
 msgstr "Solutions (en)"
 
@@ -438,107 +437,111 @@ msgid "Closes at"
 msgstr "Closes at"
 
 #: users/models.py:391
+msgid "Closes at (en)"
+msgstr "Closes at (for non-Russian participants)"
+
+#: users/models.py:392
 msgid "Duration"
 msgstr "Duration"
 
-#: users/models.py:392 users/models.py:454
+#: users/models.py:393 users/models.py:465
 msgid "Visible"
 msgstr "Visible"
 
-#: users/models.py:394 users/models.py:456
+#: users/models.py:395 users/models.py:467
 msgid "Target form"
 msgstr "Target grade"
 
-#: users/models.py:402
+#: users/models.py:403
 msgid "online problem"
 msgstr "online stage problem"
 
-#: users/models.py:403
+#: users/models.py:404
 msgid "online problems"
 msgstr "online problems"
 
-#: users/models.py:410
+#: users/models.py:411
 #, python-format
 msgid "Problem set for %dth form"
 msgstr "Problem set for %dth grade"
 
-#: users/models.py:464
+#: users/models.py:475
 msgid "offline problem"
 msgstr "in-person stage problem"
 
-#: users/models.py:465
+#: users/models.py:476
 msgid "offline problems"
 msgstr "in-person stage problems"
 
-#: users/models.py:478
+#: users/models.py:489
 msgid "Solution file"
 msgstr "Solution file"
 
-#: users/models.py:479
+#: users/models.py:490
 msgid "Solution file in pdf format"
 msgstr "Solution file in pdf format"
 
-#: users/models.py:492
+#: users/models.py:503
 msgid "Problem"
 msgstr "Problem"
 
-#: users/models.py:494
+#: users/models.py:505
 msgid "Started at"
 msgstr "Started at"
 
-#: users/models.py:513
+#: users/models.py:524
 msgid "Result (online)"
 msgstr "Result (online)"
 
-#: users/models.py:514
+#: users/models.py:525
 msgid "Results (online)"
 msgstr "Results (online)"
 
-#: users/models.py:541
+#: users/models.py:552
 msgid "Start of registration"
 msgstr "Start of registration"
 
-#: users/models.py:542
+#: users/models.py:553
 msgid "End of registration"
 msgstr "End of registration"
 
-#: users/models.py:543
+#: users/models.py:554
 msgid "start of venue registration"
 msgstr "start of venue registration"
 
-#: users/models.py:544
+#: users/models.py:555
 msgid "end of venue registration"
 msgstr "end of venue registration"
 
-#: users/models.py:545
+#: users/models.py:556
 msgid "Start of offline stage appeal"
 msgstr "Start of offline stage appeal"
 
-#: users/models.py:546
+#: users/models.py:557
 msgid "End of offline stage appeal"
 msgstr "End of offline stage appeal"
 
-#: users/models.py:547
+#: users/models.py:558
 msgid "Start of online stage appeal"
 msgstr "Start of online stage appeal"
 
-#: users/models.py:548
+#: users/models.py:559
 msgid "End of online stage appeal"
 msgstr "End of online stage appeal"
 
-#: users/models.py:549
+#: users/models.py:560
 msgid "forbid venue change"
 msgstr "forbid venue change"
 
-#: users/models.py:551
+#: users/models.py:562
 msgid "allow downloading offline stage problems"
 msgstr "allow downloading offline stage problems"
 
-#: users/models.py:556
+#: users/models.py:567
 msgid "Configuration"
 msgstr "Configuration"
 
-#: users/models.py:557
+#: users/models.py:568
 msgid "Configurations"
 msgstr "Configurations"
 
@@ -580,27 +583,27 @@ msgid "Send"
 msgstr "Send"
 
 #: users/templates/admin/users/offlineresult/change_form.html:147
-#: users/templates/admin/users/onlinesubmission/change_form.html:147
+#: users/templates/admin/users/onlinesubmission/change_form.html:136
 msgid "Save and quit"
 msgstr "Save and quit"
 
 #: users/templates/admin/users/offlineresult/change_form.html:150
-#: users/templates/admin/users/onlinesubmission/change_form.html:150
+#: users/templates/admin/users/onlinesubmission/change_form.html:139
 msgid "Delete"
 msgstr "Delete"
 
 #: users/templates/admin/users/offlineresult/change_form.html:152
-#: users/templates/admin/users/onlinesubmission/change_form.html:152
+#: users/templates/admin/users/onlinesubmission/change_form.html:141
 msgid "Save and add next"
 msgstr "Save and add next"
 
 #: users/templates/admin/users/offlineresult/change_form.html:159
-#: users/templates/admin/users/onlinesubmission/change_form.html:159
+#: users/templates/admin/users/onlinesubmission/change_form.html:148
 msgid "Please correct the error below."
 msgstr "Please correct the error below."
 
 #: users/templates/admin/users/offlineresult/change_form.html:161
-#: users/templates/admin/users/onlinesubmission/change_form.html:161
+#: users/templates/admin/users/onlinesubmission/change_form.html:150
 msgid "Please correct the errors below."
 msgstr "Please correct the errors below."
 
@@ -668,7 +671,7 @@ msgstr "Logout"
 msgid "Error occurred"
 msgstr "Error occurred"
 
-#: users/templates/base.html:214 users/templates/online.html:81
+#: users/templates/base.html:214 users/templates/online.html:84
 msgid "OK"
 msgstr "OK"
 
@@ -780,35 +783,35 @@ msgstr "Edit the submission"
 msgid "Submit a solution"
 msgstr "Submit a solution"
 
-#: users/templates/online.html:34
+#: users/templates/online.html:34 users/templates/online.html:37
 msgid "Join now"
 msgstr "Join now"
 
-#: users/templates/online.html:37
+#: users/templates/online.html:40
 msgid "Not available for submission"
 msgstr "Not available for submission"
 
-#: users/templates/online.html:44
+#: users/templates/online.html:47
 msgid "Remaining time:"
 msgstr "Remaining time:"
 
-#: users/templates/online.html:48
+#: users/templates/online.html:51
 msgid "Submission opens:"
 msgstr "Submission opens:"
 
-#: users/templates/online.html:52
+#: users/templates/online.html:55
 msgid "Submission closes:"
 msgstr "Submission closes:"
 
-#: users/templates/online.html:59
+#: users/templates/online.html:62
 msgid "No available contests"
 msgstr "No available contests"
 
-#: users/templates/online.html:70
+#: users/templates/online.html:73
 msgid "Cannot join requested contest."
 msgstr "Cannot join requested contest."
 
-#: users/templates/online.html:77
+#: users/templates/online.html:80
 msgid ""
 "Unfortunately, joining the contest you requested is not possible now. If you "
 "believe it is a mistake, please contact us."
@@ -860,14 +863,14 @@ msgstr "to complete. Submissions close "
 msgid "Start!"
 msgstr "Start!"
 
-#: users/templates/online_submission.html:16
+#: users/templates/online_submission.html:22
 #: users/templates/password_change_done.html:4
 #: users/templates/password_reset_complete.html:4
 #: users/templates/password_reset_done.html:4
 msgid "Success!"
 msgstr "Success!"
 
-#: users/templates/online_submission.html:16
+#: users/templates/online_submission.html:22
 msgid ""
 "You can alter your submission during the contest until it ends or your time "
 "is over."
@@ -875,15 +878,15 @@ msgstr ""
 "You can alter your submission during the contest until it ends or your time "
 "is over."
 
-#: users/templates/online_submission.html:25
+#: users/templates/online_submission.html:31
 msgid "Download problem statement"
 msgstr "Download problem statement"
 
-#: users/templates/online_submission.html:44
+#: users/templates/online_submission.html:50
 msgid "Appeal"
 msgstr "Appeal"
 
-#: users/templates/online_submission.html:49
+#: users/templates/online_submission.html:55
 msgid "You may safely leave this page and return later."
 msgstr "You may safely leave this page and return later."
 

@@ -388,6 +388,7 @@ class OnlineProblem(models.Model):
     )
     opens = models.DateTimeField(_("Opens at"), blank=False, null=False)
     closes = models.DateTimeField(_("Closes at"), blank=False, null=False)
+    closes_en = models.DateTimeField(_("Closes at (en)"), blank=False, null=False)
     duration = models.DurationField(_("Duration"), blank=False, null=False)
     visible = models.BooleanField(_("Visible"), blank=False, null=False, default=False)
     target_form = models.PositiveSmallIntegerField(
@@ -411,6 +412,7 @@ class OnlineProblem(models.Model):
 
     def get_remaining_time(self, user, now=None):
         now = now or tz.now()
+        closes = self.closes if user.country == "RU" else self.closes_en
         start = None
         if user and not user.is_anonymous:
             start = (
@@ -420,13 +422,23 @@ class OnlineProblem(models.Model):
             ) or None
 
         if not start:
-            return min(self.duration, self.closes - now)
+            return min(self.duration, closes - now)
 
-        return min(self.closes - now, self.duration - (now - start))
+        return min(closes - now, self.duration - (now - start))
 
     def is_open_now(self, now=None):
         now = now or tz.now()
         return self.opens <= now <= self.closes + timedelta(seconds=10)
+
+    def is_open_now_en(self, now=None):
+        now = now or tz.now()
+        return self.opens <= now <= self.closes_en + timedelta(seconds=10)
+
+    def is_open_now_for_user(self, user, now=None):
+        now = now or tz.now()
+        if user.country == "RU":
+            return self.is_open_now()
+        return self.is_open_now_en()
 
 
 class OfflineProblem(models.Model):
