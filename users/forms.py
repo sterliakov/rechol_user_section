@@ -255,11 +255,13 @@ class OfflineResultDisplayForm(forms.ModelForm):
             MarkField(required=False),
             size=6,
             disabled=True,
+            required=False,
         )
         self.fields["final_scores"] = SplitArrayField(
             MarkField(required=False),
             size=6,
             disabled=True,
+            required=False,
         )
 
 
