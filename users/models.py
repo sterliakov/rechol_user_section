@@ -516,7 +516,7 @@ class OnlineSubmission(_TotalMixin, models.Model):
     final_scores = ArrayField(
         models.CharField(max_length=4, default="", blank=True, null=False),
         size=4,
-        verbose_name=_("Final scores after appellation"),
+        verbose_name=_("Final scores after appeal"),
         blank=True,
         default=list,
     )

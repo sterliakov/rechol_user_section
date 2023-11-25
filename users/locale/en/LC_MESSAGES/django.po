@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-22 05:55+0300\n"
+"POT-Creation-Date: 2023-11-25 16:57+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: users/admin.py:128 users/admin.py:151 users/models.py:368
-#: users/models.py:444 users/templates/venue_instructions.html:146
+#: users/models.py:445 users/templates/venue_instructions.html:146
 #: users/views.py:572
 msgid "Name"
 msgstr "Name"
@@ -28,7 +28,7 @@ msgid "Private"
 msgstr "Private"
 
 #: users/admin.py:133 users/models.py:132 users/models.py:278
-#: users/models.py:497
+#: users/models.py:498
 msgid "Participant"
 msgstr "Participant"
 
@@ -142,6 +142,15 @@ msgstr "Only your grade or higher is allowed."
 #: users/forms.py:107
 msgid "Please fill your name and surname in separate fields."
 msgstr "Please fill your name and surname in separate fields."
+
+#: users/forms.py:231 users/forms.py:261 users/models.py:282
+#: users/models.py:511 users/templates/online_submission.html:36
+msgid "Scores"
+msgstr "Scores"
+
+#: users/forms.py:238 users/forms.py:268 users/models.py:519
+msgid "Final scores after appeal"
+msgstr "Final scores after appellation"
 
 #: users/models.py:22 users/models.py:125
 msgid "8"
@@ -323,12 +332,7 @@ msgstr "Event"
 msgid "Events"
 msgstr "Events"
 
-#: users/models.py:282 users/models.py:510
-#: users/templates/online_submission.html:36
-msgid "Scores"
-msgstr "Scores"
-
-#: users/models.py:286 users/models.py:496
+#: users/models.py:286 users/models.py:497
 msgid "Comment"
 msgstr "Comment"
 
@@ -336,7 +340,7 @@ msgstr "Comment"
 msgid "Original work"
 msgstr "Original work"
 
-#: users/models.py:294 users/models.py:518
+#: users/models.py:294
 msgid "Final scores after appellation"
 msgstr "Final scores after appellation"
 
@@ -408,23 +412,23 @@ msgstr "Annotation"
 msgid "Annotations"
 msgstr "Annotations"
 
-#: users/models.py:369 users/models.py:445
+#: users/models.py:369 users/models.py:446
 msgid "Name (en)"
 msgstr "Title (en)"
 
-#: users/models.py:370 users/models.py:446
+#: users/models.py:370 users/models.py:447
 msgid "Statement"
 msgstr "Statement"
 
-#: users/models.py:372 users/models.py:448
+#: users/models.py:372 users/models.py:449
 msgid "Statement (en)"
 msgstr "Statement (en)"
 
-#: users/models.py:378 users/models.py:454
+#: users/models.py:378 users/models.py:455
 msgid "Solutions"
 msgstr "Solutions"
 
-#: users/models.py:384 users/models.py:460
+#: users/models.py:384 users/models.py:461
 msgid "Solutions (en)"
 msgstr "Solutions (en)"
 
@@ -444,11 +448,11 @@ msgstr "Closes at (for non-Russian participants)"
 msgid "Duration"
 msgstr "Duration"
 
-#: users/models.py:393 users/models.py:465
+#: users/models.py:393 users/models.py:466
 msgid "Visible"
 msgstr "Visible"
 
-#: users/models.py:395 users/models.py:467
+#: users/models.py:395 users/models.py:468
 msgid "Target form"
 msgstr "Target grade"
 
@@ -465,83 +469,83 @@ msgstr "online problems"
 msgid "Problem set for %dth form"
 msgstr "Problem set for %dth grade"
 
-#: users/models.py:475
+#: users/models.py:476
 msgid "offline problem"
 msgstr "in-person stage problem"
 
-#: users/models.py:476
+#: users/models.py:477
 msgid "offline problems"
 msgstr "in-person stage problems"
 
-#: users/models.py:489
+#: users/models.py:490
 msgid "Solution file"
 msgstr "Solution file"
 
-#: users/models.py:490
+#: users/models.py:491
 msgid "Solution file in pdf format"
 msgstr "Solution file in pdf format"
 
-#: users/models.py:503
+#: users/models.py:504
 msgid "Problem"
 msgstr "Problem"
 
-#: users/models.py:505
+#: users/models.py:506
 msgid "Started at"
 msgstr "Started at"
 
-#: users/models.py:524
+#: users/models.py:525
 msgid "Result (online)"
 msgstr "Result (online)"
 
-#: users/models.py:525
+#: users/models.py:526
 msgid "Results (online)"
 msgstr "Results (online)"
 
-#: users/models.py:552
+#: users/models.py:553
 msgid "Start of registration"
 msgstr "Start of registration"
 
-#: users/models.py:553
+#: users/models.py:554
 msgid "End of registration"
 msgstr "End of registration"
 
-#: users/models.py:554
+#: users/models.py:555
 msgid "start of venue registration"
 msgstr "start of venue registration"
 
-#: users/models.py:555
+#: users/models.py:556
 msgid "end of venue registration"
 msgstr "end of venue registration"
 
-#: users/models.py:556
+#: users/models.py:557
 msgid "Start of offline stage appeal"
 msgstr "Start of offline stage appeal"
 
-#: users/models.py:557
+#: users/models.py:558
 msgid "End of offline stage appeal"
 msgstr "End of offline stage appeal"
 
-#: users/models.py:558
+#: users/models.py:559
 msgid "Start of online stage appeal"
 msgstr "Start of online stage appeal"
 
-#: users/models.py:559
+#: users/models.py:560
 msgid "End of online stage appeal"
 msgstr "End of online stage appeal"
 
-#: users/models.py:560
+#: users/models.py:561
 msgid "forbid venue change"
 msgstr "forbid venue change"
 
-#: users/models.py:562
+#: users/models.py:563
 msgid "allow downloading offline stage problems"
 msgstr "allow downloading offline stage problems"
 
-#: users/models.py:567
+#: users/models.py:568
 msgid "Configuration"
 msgstr "Configuration"
 
-#: users/models.py:568
+#: users/models.py:569
 msgid "Configurations"
 msgstr "Configurations"
 
@@ -671,7 +675,7 @@ msgstr "Logout"
 msgid "Error occurred"
 msgstr "Error occurred"
 
-#: users/templates/base.html:214 users/templates/online.html:84
+#: users/templates/base.html:214 users/templates/online.html:90
 msgid "OK"
 msgstr "OK"
 
@@ -803,15 +807,15 @@ msgstr "Submission opens:"
 msgid "Submission closes:"
 msgstr "Submission closes:"
 
-#: users/templates/online.html:62
+#: users/templates/online.html:68
 msgid "No available contests"
 msgstr "No available contests"
 
-#: users/templates/online.html:73
+#: users/templates/online.html:79
 msgid "Cannot join requested contest."
 msgstr "Cannot join requested contest."
 
-#: users/templates/online.html:80
+#: users/templates/online.html:86
 msgid ""
 "Unfortunately, joining the contest you requested is not possible now. If you "
 "believe it is a mistake, please contact us."
@@ -839,7 +843,7 @@ msgstr "You can still view your solutions."
 msgid "View"
 msgstr "View"
 
-#: users/templates/online_start.html:18 users/templates/online_start.html:39
+#: users/templates/online_start.html:18 users/templates/online_start.html:45
 msgid "Back"
 msgstr "Back"
 
@@ -859,7 +863,7 @@ msgstr "You'll have"
 msgid "to complete. Submissions close "
 msgstr "to complete. Submissions close "
 
-#: users/templates/online_start.html:37
+#: users/templates/online_start.html:43
 msgid "Start!"
 msgstr "Start!"
 

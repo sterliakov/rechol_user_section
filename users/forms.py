@@ -228,12 +228,14 @@ class OnlineSubmissionDisplayForm(forms.ModelForm):
             size=4,
             disabled=True,
             required=False,
+            label=_("Scores"),
         )
         self.fields["final_scores"] = SplitArrayField(
             MarkField(required=False),
             size=4,
             disabled=True,
             required=False,
+            label=_("Final scores after appeal"),
         )
 
 
@@ -256,12 +258,14 @@ class OfflineResultDisplayForm(forms.ModelForm):
             size=6,
             disabled=True,
             required=False,
+            label=_("Scores"),
         )
         self.fields["final_scores"] = SplitArrayField(
             MarkField(required=False),
             size=6,
             disabled=True,
             required=False,
+            label=_("Final scores after appeal"),
         )
 
 
