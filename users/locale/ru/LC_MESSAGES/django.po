@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-25 16:57+0300\n"
+"POT-Creation-Date: 2023-12-09 23:57+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -50,15 +50,15 @@ msgstr "Важные даты"
 msgid "Send email to selected users"
 msgstr "Отправить email выбранным пользователям"
 
-#: users/admin.py:423 users/admin.py:530
+#: users/admin.py:423 users/admin.py:551
 msgid "Participant last name"
 msgstr "Фамилия участника"
 
-#: users/admin.py:427 users/admin.py:537
+#: users/admin.py:427 users/admin.py:558
 msgid "Participant first name"
 msgstr "Имя участника"
 
-#: users/admin.py:433 users/admin.py:544 users/models.py:198
+#: users/admin.py:433 users/admin.py:565 users/models.py:198
 msgid "Participation form"
 msgstr "Класс участия"
 
@@ -68,16 +68,20 @@ msgstr "Класс участия"
 msgid "Total score"
 msgstr "Общая оценка"
 
-#: users/admin.py:458 users/models.py:62 users/models.py:135
+#: users/admin.py:443
+msgid "country"
+msgstr "страна"
+
+#: users/admin.py:478 users/models.py:62 users/models.py:135
 #: users/models.py:214
 msgid "Venue"
 msgstr "Площадка"
 
-#: users/admin.py:489
+#: users/admin.py:510
 msgid "Problem name"
 msgstr "Название задачи"
 
-#: users/admin.py:493
+#: users/admin.py:514
 msgid "Was submitted?"
 msgstr "Была отправлена?"
 

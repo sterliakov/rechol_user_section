@@ -440,6 +440,30 @@ class _ResultAdminMixin(ExportMixin):
         return obj.total_score
 
 
+class CountryListFilter(admin.SimpleListFilter):
+    title = _("country")
+    parameter_name = "user__country"
+
+    def lookups(self, _request, model_admin):
+        from django_countries import countries
+
+        countries_map = dict(countries)
+        used_countries = (
+            model_admin.model.objects.order_by("user__country")
+            .values_list("user__country", flat=True)
+            .distinct()
+        )
+        return [(co, countries_map[co]) for co in used_countries]
+
+    def queryset(self, _request, queryset):
+        # Compare the requested value (either '80s' or '90s')
+        # to decide how to filter the queryset.
+        value = self.value()
+        if value:
+            return queryset.filter(user__country=value)
+        return queryset
+
+
 @admin.register(OfflineResult)
 class OfflineResultAdmin(_ResultAdminMixin, ConcurrentModelAdmin):
     resource_class = OfflineResultResource
@@ -453,7 +477,11 @@ class OfflineResultAdmin(_ResultAdminMixin, ConcurrentModelAdmin):
         "user__venue_selected__full_name",
     )
     list_select_related = ("user",)
-    list_filter = ("user__venue_selected", "user__participation_form")
+    list_filter = (
+        "user__participation_form",
+        CountryListFilter,
+        "user__venue_selected",
+    )
 
     @admin.display(description=_("Venue"))
     def get_user__venue_selected(self, obj):
@@ -484,6 +512,7 @@ class OnlineSubmissionAdmin(_ResultAdminMixin, admin.ModelAdmin):
         "started",
     )
     search_fields = (*_ResultAdminMixin.search_fields, "problem__name")
+    list_filter = ("user__participation_form", CountryListFilter)
     list_select_related = ("user", "problem")
 
     @admin.display(ordering="problem__name", description=_("Problem name"))
