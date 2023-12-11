@@ -10,6 +10,7 @@ from django.contrib.auth.models import (
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import FileExtensionValidator, MinLengthValidator
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
 
@@ -243,6 +244,19 @@ class User(AbstractUser):
                 self.patronymic_name or "",
             ],
         ).strip()
+
+    def get_certificates(self):
+        certs = {}
+        try:
+            self.offlineresult  # noqa: B018  # Checking reverse rel
+        except OfflineResult.DoesNotExist:
+            pass
+        else:
+            certs["prelim_offline"] = (
+                _("In-person preliminary stage participant"),
+                reverse("certificate_download", kwargs={"kind": "prelim_offline"}),
+            )
+        return certs
 
 
 class Event(models.Model):

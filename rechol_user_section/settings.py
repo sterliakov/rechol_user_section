@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "compressor",
     "django_countries",
     "crispy_forms",
+    "django_object_actions",
     "django_select2",
     "django_ses",
     "djangobower",

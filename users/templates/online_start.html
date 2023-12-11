@@ -17,9 +17,7 @@
            class="btn btn-primary">{% trans "View" %}</a>
         <a href="{% url 'online_submission_index' %}" class="btn btn-secondary">{% trans "Back" %}</a>
       </div>
-    </div>
-  {% else %}
-    <div>
+    {% else %}
       <div class="card-header d-flex justify-content-between">
         <h1>{% trans "Ready to start?" %}</h1>
         <span class="d-block">{{ time_remaining }}</span>
@@ -44,6 +42,6 @@
         </button>
         <a href="{% url 'online_submission_index' %}" class="btn btn-secondary">{% trans "Back" %}</a>
       </form>
-    </div>
-  {% endif %}
+    {% endif %}
+  </div>
 {% endblock content %}

@@ -658,3 +658,34 @@ class VenueInstructionsView(LoginRequiredMixin, UserPassesTestMixin, TemplateVie
             ),
             "venue": Venue.objects.filter(owner=self.request.user).first(),
         }
+
+
+class CertificatesListView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = "certificates.html"
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.PARTICIPANT
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {
+            "certificates": self.request.user.get_certificates(),
+        }
+
+
+class CertificateDownloadView(LoginRequiredMixin, UserPassesTestMixin, View):
+    template_name = "certificates.html"
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.PARTICIPANT
+
+    def get(self, request, kind, **_kwargs):
+        from users.certificates import make_prelim_offline_cert
+
+        if kind not in request.user.get_certificates():
+            return HttpResponseBadRequest("Certificate not issued.")
+        match kind:
+            case "prelim_offline":
+                cert = make_prelim_offline_cert(request.user)
+                return FileResponse(cert, content_type="application/pdf")
+            case _:
+                return HttpResponseBadRequest("Unknown certificate kind.")

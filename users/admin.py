@@ -10,13 +10,14 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.postgres.forms import SplitArrayField
 from django.core.mail import EmailMessage
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import FileResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
 import openpyxl
 import tablib
 from concurrency.admin import ConcurrentModelAdmin
+from django_object_actions import DjangoObjectActions, action
 from import_export.admin import ExportMixin, ImportExportMixin, ImportExportModelAdmin
 from import_export.fields import Field
 from import_export.formats.base_formats import XLSX
@@ -120,7 +121,7 @@ class EventAdmin(ImportExportModelAdmin):
 
 
 @admin.register(User)
-class UserAdmin(ImportExportMixin, DjangoUserAdmin):
+class UserAdmin(ImportExportMixin, DjangoObjectActions, DjangoUserAdmin):
     resource_class = UserResource
 
     fieldsets = (
@@ -157,13 +158,15 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         "participation_form",
         "patronymic_name",
         "city",
-        "venue_selected",
         "email",
+        "phone",
+        "venue_selected",
     )
     search_fields = ("email", "first_name", "last_name", "city", "participation_form")
     list_filter = ("role", "participation_form", "city", "venue_selected")
     ordering = ("participation_form", "last_name")
     actions = ["send_email"]
+    change_actions = ("view_pdf",)
 
     @admin.action(description=_("Send email to selected users"))
     def send_email(self, request, queryset):
@@ -247,6 +250,13 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
             if field := form.base_fields.get(field_name):
                 field.required = False
         return form
+
+    @action(label="Download PDF", description="Download certificate in PDF")
+    def view_pdf(self, _request, obj):
+        from users.certificates import make_prelim_offline_cert
+
+        pdf = make_prelim_offline_cert(obj)
+        return FileResponse(pdf, content_type="application/pdf")
 
 
 USER_FIELDS = (

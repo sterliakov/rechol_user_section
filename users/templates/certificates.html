@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n humanize %}
+{% block content %}
+  <div class="card mb-0 dz-scroll"
+       style="overflow-x: auto"
+       id="participant-form">
+    <div class="card-header d-flex justify-content-between">
+      <h1>{% trans "Available certificates" %}</h1>
+    </div>
+    <div class="card-body">
+      <p class="mb-3 h4">{% trans "You can download all certificated available to you below." %}</p>
+      {% if certificates %}
+        <ul class="list-group" style="max-width: 500px">
+          {% for kind, props in certificates.items %}
+            <li class="list-group-item d-flex align-items-center justify-content-between">
+              <div>
+                <i class="fal fa-award"></i>
+                <span class="pl-3">{{ props.0 }}</span>
+              </div>
+              <a class="btn btn-primary" href="{{ props.1 }}" target="_download">{% trans "Download" %}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="d-flex flex-column align-items-center">
+          <h3>{% trans "Unfortunately, no certificates have been issued for you." %}</h3>
+          <h4 class="mb-1">{% trans "If you believe it was a mistake, do not hesitate to contact us." %}</h4>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}

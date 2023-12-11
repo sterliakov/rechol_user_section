@@ -139,6 +139,16 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path(
+        "certificates/",
+        views.CertificatesListView.as_view(),
+        name="certificates_list",
+    ),
+    path(
+        "certificates/<kind>/",
+        views.CertificateDownloadView.as_view(),
+        name="certificate_download",
+    ),
     path("api/v1/", include(api_urls)),
     path("online/", include(online_stage_urls)),
     path("in_person/", include(offline_stage_urls)),
