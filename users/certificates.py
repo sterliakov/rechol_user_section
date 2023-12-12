@@ -4,9 +4,42 @@ import io
 from pathlib import Path
 
 from pypdf import PdfReader, PdfWriter
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
+FONTS_ROOT = Path(__file__).parent / "fonts"
 CERTIFICATES_ROOT = Path(__file__).parent / "files" / "certificates"
+
+
+def add_fonts():
+    pdfmetrics.registerFont(
+        TTFont(
+            "LiberationSans-Regular",
+            str(FONTS_ROOT / "Liberation_Sans/LiberationSans-Regular.ttf"),
+        ),
+    )
+    pdfmetrics.registerFont(
+        TTFont(
+            "LiberationSans-Bold",
+            str(FONTS_ROOT / "Liberation_Sans/LiberationSans-Bold.ttf"),
+        ),
+    )
+    pdfmetrics.registerFont(
+        TTFont(
+            "LiberationSans-Italic",
+            str(FONTS_ROOT / "Liberation_Sans/LiberationSans-Italic.ttf"),
+        ),
+    )
+    pdfmetrics.registerFont(
+        TTFont(
+            "LiberationSans-BoldItalic",
+            str(FONTS_ROOT / "Liberation_Sans/LiberationSans-BoldItalic.ttf"),
+        ),
+    )
+
+
+add_fonts()
 
 
 def make_prelim_offline_cert(user):
@@ -20,7 +53,7 @@ def make_prelim_offline_cert(user):
             packet,
             pagesize=(page.mediabox.width, page.mediabox.height),
         )
-        can.setFont("Helvetica", 56)
+        can.setFont("LiberationSans-Italic", 56)
         can.setFillColorRGB(0x12 / 0xFF, 0x02 / 0xFF, 0x49 / 0xFF)
         can.drawString(560, 630, user.first_name)
         can.drawString(560, 550, user.last_name)
