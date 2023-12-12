@@ -197,7 +197,7 @@ STATICFILES_FINDERS = (
 LOGIN_URL = LOGOUT_REDIRECT_URL = "/profile/login"
 LOGIN_REDIRECT_URL = "/profile/update/"
 
-AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = os.getenv("USER_MODEL", "users.User")
 
 # django-phone-number
 PHONENUMBER_DEFAULT_REGION = "RU"
