@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 02:00+0300\n"
+"POT-Creation-Date: 2023-12-12 13:21+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -61,7 +61,7 @@ msgid "Participation form"
 msgstr "Participation grade"
 
 #: users/admin.py:448 users/templates/offline_appellation.html:47
-#: users/templates/online_appellation.html:39
+#: users/templates/online_appellation.html:46
 #: users/templates/online_submission.html:38
 msgid "Total score"
 msgstr "Total score"
@@ -123,7 +123,7 @@ msgid "Set password"
 msgstr "Set password"
 
 #: users/formhelpers.py:323 users/templates/offline_appellation.html:56
-#: users/templates/online_appellation.html:48
+#: users/templates/online_appellation.html:55
 msgid "Submit"
 msgstr "Submit"
 
@@ -740,49 +740,49 @@ msgid "In-person preliminary stage appellation"
 msgstr "In-person preliminary stage appellation"
 
 #: users/templates/offline_appellation.html:26
-#: users/templates/online_appellation.html:25
+#: users/templates/online_appellation.html:26
 msgid "This browser does not support PDFs. Please download the PDF to view it"
 msgstr "This browser does not support PDFs. Please download the PDF to view it"
 
 #: users/templates/offline_appellation.html:26
-#: users/templates/online_appellation.html:25
+#: users/templates/online_appellation.html:26
 msgid "Download PDF"
 msgstr "Download PDF"
 
 #: users/templates/offline_appellation.html:33
-#: users/templates/online_appellation.html:31
+#: users/templates/online_appellation.html:32
 msgid "Problem statements and solutions"
 msgstr "Problem statements and solutions"
 
 #: users/templates/offline_appellation.html:36
-#: users/templates/online_appellation.html:32
+#: users/templates/online_appellation.html:36
 msgid "Problem statements for"
 msgstr "Problem statements for"
 
 #: users/templates/offline_appellation.html:36
 #: users/templates/offline_appellation.html:41
-#: users/templates/online_appellation.html:32
-#: users/templates/online_appellation.html:35
+#: users/templates/online_appellation.html:36
+#: users/templates/online_appellation.html:42
 msgid "form"
 msgstr "grade"
 
 #: users/templates/offline_appellation.html:41
-#: users/templates/online_appellation.html:35
+#: users/templates/online_appellation.html:42
 msgid "Solutions for"
 msgstr "Solutions for"
 
 #: users/templates/offline_appellation.html:45
-#: users/templates/online_appellation.html:37
+#: users/templates/online_appellation.html:44
 msgid "Current scores:"
 msgstr "Current scores:"
 
 #: users/templates/offline_appellation.html:50
-#: users/templates/online_appellation.html:42
+#: users/templates/online_appellation.html:49
 msgid "Submit a claim"
 msgstr "Submit a claim"
 
 #: users/templates/offline_appellation.html:60
-#: users/templates/online_appellation.html:52
+#: users/templates/online_appellation.html:59
 msgid "Submission closed."
 msgstr "Submission closed."
 
@@ -799,7 +799,7 @@ msgid "If you have participated, please contact us"
 msgstr "If you have participated, please contact us"
 
 #: users/templates/offline_appellation.html:72
-#: users/templates/online_appellation.html:59
+#: users/templates/online_appellation.html:66
 msgid "by email"
 msgstr "by email"
 
@@ -855,11 +855,15 @@ msgstr ""
 "Unfortunately, joining the contest you requested is not possible now. If you "
 "believe it is a mistake, please contact us."
 
-#: users/templates/online_appellation.html:14
+#: users/templates/online_appellation.html:15
 msgid "Online preliminary stage appellation"
 msgstr "Online preliminary stage appellation"
 
-#: users/templates/online_appellation.html:59
+#: users/templates/online_appellation.html:42
+msgid "(not available)"
+msgstr "(not available)"
+
+#: users/templates/online_appellation.html:66
 msgid "Your work was not found. If you have participated, please contact us"
 msgstr "Your work was not found. If you have participated, please contact us"
 

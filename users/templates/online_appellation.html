@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static crispy_forms_tags i18n %}
 {% block content %}
+  {% get_current_language as LANGUAGE_CODE %}
   <style>
     textarea {
       resize:  none;
@@ -29,10 +30,18 @@
         <div class="col-12 col-md-6">
           <div>
             <h2>{% trans "Problem statements and solutions" %}</h2>
-            <a class="d-block" href="{{ object.problem.file.url }}" target="_blank">{% trans "Problem statements for" %} {{ user.participation_form }} {% trans "form" %}</a>
             <a class="d-block"
-               href="{{ object.problem.solution.url }}"
-               target="_blank">{% trans "Solutions for" %} {{ user.participation_form }} {% trans "form" %}</a>
+               href="{% if LANGUAGE_CODE == "ru" or not problem.file_en %}{{ problem.file.url }}{% else %}{{ problem.file_en.url }}{% endif %}"
+               target="_blank">{% trans "Problem statements for" %} {{ user.participation_form }} {% trans "form" %}</a>
+            <a class="d-block {% if not object.problem.solution and not object.problem.solution_en %}disabled{% endif %}"
+               {% if object.problem.solution or object.problem.solution_en %} href="{% if LANGUAGE_CODE == "ru" or not problem.solution_en.url %}{{ object.problem.solution.url }}{% else %}{{ object.problem.solution_en.url }}{% endif %}
+               "
+               {% endif %}
+               target="_blank">{% trans "Solutions for" %} {{ user.participation_form }} {% trans "form" %}
+              {% if not object.problem.solution and not object.problem.solution_en %}
+                {% trans "(not available)" %}
+              {% endif %}
+            </a>
           </div>
           <h2 class="mt-3">{% trans "Current scores:" %}</h2>
           <p>
