@@ -212,7 +212,7 @@ msgstr "Пользователь"
 
 #: users/models.py:61
 msgid "registration closed (full)"
-msgstr "Регистрация закрыта (переполнена)."
+msgstr "Регистрация закрыта (переполнена)"
 
 #: users/models.py:65 users/templates/base.html:73
 msgid "Venues"

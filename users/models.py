@@ -600,13 +600,13 @@ class OrganizerCertificate(models.Model):
         verbose_name=_("venue"),
         related_name="certificates",
     )
-    first_name_gen = models.CharField(
-        max_length=255,
-        verbose_name=_("first name (dativ)"),
-    )
     last_name_gen = models.CharField(
         max_length=255,
         verbose_name=_("last name (dativ)"),
+    )
+    first_name_gen = models.CharField(
+        max_length=255,
+        verbose_name=_("first name (dativ)"),
     )
     middle_name_gen = models.CharField(
         max_length=255,

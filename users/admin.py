@@ -115,6 +115,16 @@ class UserResource(ModelResource):
 class VenueAdmin(ImportExportModelAdmin):
     resource_class = VenueResource
 
+    list_display = (
+        "short_name",
+        "city",
+        "is_confirmed",
+        "is_full",
+        "full_name",
+    )
+    search_fields = ("short_name", "full_name", "city")
+    list_filter = ("is_full", "is_confirmed", "city")
+
 
 @admin.register(Event)
 class EventAdmin(ImportExportModelAdmin):
@@ -610,11 +620,11 @@ class OnlineAppellationAdmin(AppellationBaseAdmin):
 @admin.register(OrganizerCertificate)
 class OrganizerCertificateAdmin(admin.ModelAdmin):
     list_display = search_fields = (
-        "venue",
-        "first_name_gen",
         "last_name_gen",
+        "first_name_gen",
         "middle_name_gen",
+        "venue",
     )
     list_select_related = ("venue",)
     list_filter = ("venue",)
-    ordering = ("venue", "first_name_gen")
+    ordering = ("venue", "last_name_gen")
