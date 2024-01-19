@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 from datetime import timedelta
 from itertools import zip_longest
 
@@ -584,3 +585,38 @@ class ConfigurationSingleton(models.Model):
 
     def __str__(self):
         return "Configuration singleton"
+
+
+class OrganizerCertificate(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name=_("id"),
+    )
+    venue = models.ForeignKey(
+        Venue,
+        models.CASCADE,
+        verbose_name=_("venue"),
+        related_name="certificates",
+    )
+    first_name_gen = models.CharField(
+        max_length=255,
+        verbose_name=_("first name (genitiv)"),
+    )
+    last_name_gen = models.CharField(
+        max_length=255,
+        verbose_name=_("last name (genitiv)"),
+    )
+    middle_name_gen = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("middle name (genitiv)"),
+    )
+
+    class Meta:
+        verbose_name = _("organizer certificate")
+        verbose_name_plural = _("organizer certificates")
+
+    def __str__(self):
+        return f"{self.first_name_gen} {self.last_name_gen} ({self.venue.short_name})"

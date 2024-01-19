@@ -70,6 +70,16 @@ venue_urls = [
         views.VenueScanDeleteView.as_view(),
         name="offline_scan_delete",
     ),
+    path(
+        "certificates/",
+        views.OrganizerCertificatesListView.as_view(),
+        name="venue_certificates_list",
+    ),
+    path(
+        "certificates/<pk>/",
+        views.OrganizerCertificateDownloadView.as_view(),
+        name="venue_certificate_download",
+    ),
 ]
 
 urlpatterns = [

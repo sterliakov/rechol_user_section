@@ -37,6 +37,7 @@ from .models import (
     OfflineResult,
     OnlineProblem,
     OnlineSubmission,
+    OrganizerCertificate,
     User,
     Venue,
 )
@@ -673,8 +674,6 @@ class CertificatesListView(LoginRequiredMixin, UserPassesTestMixin, TemplateView
 
 
 class CertificateDownloadView(LoginRequiredMixin, UserPassesTestMixin, View):
-    template_name = "certificates.html"
-
     def test_func(self):
         return self.request.user.role == User.Roles.PARTICIPANT
 
@@ -689,3 +688,36 @@ class CertificateDownloadView(LoginRequiredMixin, UserPassesTestMixin, View):
                 return FileResponse(cert, content_type="application/pdf")
             case _:
                 return HttpResponseBadRequest("Unknown certificate kind.")
+
+
+class OrganizerCertificatesListView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    TemplateView,
+):
+    template_name = "venue_certificates.html"
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.VENUE
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {
+            "certificates": self.request.user.owned_venue.certificates.all(),
+        }
+
+
+class OrganizerCertificateDownloadView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    DetailView,
+):
+    model = OrganizerCertificate
+
+    def test_func(self):
+        return self.request.user.role == User.Roles.VENUE
+
+    def get(self, request, pk, **_kwargs):  # noqa: ARG002
+        from users.certificates import make_organizer_thanks_cert
+
+        pdf = make_organizer_thanks_cert(self.get_object())
+        return FileResponse(pdf, content_type="application/pdf")

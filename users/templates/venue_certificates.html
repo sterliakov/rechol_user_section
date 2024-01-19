@@ -11,19 +11,21 @@
       {% if certificates %}
         <p class="mb-3 h4">{% trans "You can download all certificated available to you below." %}</p>
         <ul class="list-group" style="max-width: 500px">
-          {% for kind, props in certificates.items %}
+          {% for cert in certificates %}
             <li class="list-group-item d-flex align-items-center justify-content-between">
               <div>
                 <i class="fal fa-award text-success"></i>
-                <span class="pl-3">{{ props.0 }}</span>
+                <span class="pl-3">{{ cert.first_name_gen }} {{ cert.last_name_gen }}</span>
               </div>
-              <a class="btn btn-primary" href="{{ props.1 }}" target="_download">{% trans "Download" %}</a>
+              <a class="btn btn-primary"
+                 href="{% url 'venue_certificate_download' cert.pk %}"
+                 target="_download">{% trans "Download" %}</a>
             </li>
           {% endfor %}
         </ul>
       {% else %}
         <div class="d-flex flex-column align-items-center">
-          <h3>{% trans "Unfortunately, no certificates have been issued for you." %}</h3>
+          <h3>{% trans "Unfortunately, no certificates have been issued for this venue." %}</h3>
           <h4 class="mb-1">{% trans "If you believe it was a mistake, do not hesitate to contact us." %}</h4>
         </div>
       {% endif %}

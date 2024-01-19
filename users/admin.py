@@ -33,6 +33,7 @@ from .models import (
     OnlineAppellation,
     OnlineProblem,
     OnlineSubmission,
+    OrganizerCertificate,
     User,
     Venue,
 )
@@ -604,3 +605,16 @@ class OnlineAppellationResource(ModelResource):
 @admin.register(OnlineAppellation)
 class OnlineAppellationAdmin(AppellationBaseAdmin):
     resource_class = OnlineAppellationResource
+
+
+@admin.register(OrganizerCertificate)
+class OrganizerCertificateAdmin(admin.ModelAdmin):
+    list_display = search_fields = (
+        "venue",
+        "first_name_gen",
+        "last_name_gen",
+        "middle_name_gen",
+    )
+    list_select_related = ("venue",)
+    list_filter = ("venue",)
+    ordering = ("venue", "first_name_gen")
