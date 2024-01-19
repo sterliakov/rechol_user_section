@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-19 19:02+0300\n"
+"POT-Creation-Date: 2024-01-19 19:50+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -562,31 +562,31 @@ msgstr "Настройки"
 msgid "Configurations"
 msgstr "Настройки"
 
-#: users/models.py:591
+#: users/models.py:595
 msgid "id"
 msgstr "id"
 
-#: users/models.py:592
+#: users/models.py:600
 msgid "venue"
 msgstr "площадка"
 
-#: users/models.py:593
-msgid "first name (genitiv)"
-msgstr "имя (в родительном падеже)"
+#: users/models.py:605
+msgid "first name (dativ)"
+msgstr "имя (в дательном падеже)"
 
-#: users/models.py:594
-msgid "last name (genitiv)"
-msgstr "фамилия (в родительном падеже)"
+#: users/models.py:609
+msgid "last name (dativ)"
+msgstr "фамилия (в дательном падеже)"
 
-#: users/models.py:595
-msgid "middle name (genitiv)"
-msgstr "отчество (в родительном падеже)"
+#: users/models.py:614
+msgid "middle name (dativ)"
+msgstr "отчество (в дательном падеже)"
 
-#: users/models.py:598
+#: users/models.py:618
 msgid "organizer certificate"
 msgstr "Сертификат организатора"
 
-#: users/models.py:599
+#: users/models.py:619
 msgid "organizer certificates"
 msgstr "Сертификаты организатора"
 
@@ -741,7 +741,7 @@ msgid "You can download all certificated available to you below."
 msgstr "Ниже вы можете скачать все доступные дипломы."
 
 #: users/templates/certificates.html:20
-#: users/templates/venue_certificates.html:20
+#: users/templates/venue_certificates.html:22
 msgid "Download"
 msgstr "Скачать"
 
@@ -750,7 +750,7 @@ msgid "Unfortunately, no certificates have been issued for you."
 msgstr "К сожалению, на Ваше имя нет выданных дипломов."
 
 #: users/templates/certificates.html:27
-#: users/templates/venue_certificates.html:27
+#: users/templates/venue_certificates.html:29
 msgid "If you believe it was a mistake, do not hesitate to contact us."
 msgstr ""
 "Если вы видите это сообщение по ошибке, свяжитесь с нами для ее исправления."
@@ -1075,7 +1075,7 @@ msgstr "Нажимая кнопку \"Сохранить\", вы подтвер�
 msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
-#: users/templates/venue_certificates.html:26
+#: users/templates/venue_certificates.html:28
 msgid "Unfortunately, no certificates have been issued for this venue."
 msgstr "К сожалению, на имя данной площадки нет выданных сертификатов."
 

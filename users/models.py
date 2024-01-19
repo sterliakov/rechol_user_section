@@ -602,16 +602,16 @@ class OrganizerCertificate(models.Model):
     )
     first_name_gen = models.CharField(
         max_length=255,
-        verbose_name=_("first name (genitiv)"),
+        verbose_name=_("first name (dativ)"),
     )
     last_name_gen = models.CharField(
         max_length=255,
-        verbose_name=_("last name (genitiv)"),
+        verbose_name=_("last name (dativ)"),
     )
     middle_name_gen = models.CharField(
         max_length=255,
         blank=True,
-        verbose_name=_("middle name (genitiv)"),
+        verbose_name=_("middle name (dativ)"),
     )
 
     class Meta:
