@@ -27,11 +27,12 @@ repos:
         exclude: bower_components|static_files|users/static/font-awesome-pro|users/static/fullcalendar|users/static/pdf_js
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.13
+    rev: v0.3.2
     hooks:
     -   id: ruff-format
     -   id: ruff
         args: [--fix]
+
 -   repo: https://github.com/mondeja/pre-commit-po-hooks
     rev: v1.7.3
     hooks:
