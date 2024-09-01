@@ -1,5 +1,5 @@
 babel
-Django==4.2.15
+Django==4.0.10
 djangorestframework==3.14.0
 django-addanother==2.2.2
 django-ajax-selects==2.2.0
