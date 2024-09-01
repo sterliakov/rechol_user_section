@@ -9,12 +9,12 @@ services:
         volumes:
         -   /var/run/docker.sock:/var/run/docker.sock
     db:
-        image: postgres:14-alpine
+        image: postgres:16-alpine
         env_file:
         -   .env
         restart: always
         volumes:
-        -   db_volume:/var/lib/postgresql/data
+        -   db_volume_24_25:/var/lib/postgresql/data
         healthcheck:
             test: pg_isready -U ${POSTGRES_USER}
             interval: 10s
@@ -53,7 +53,7 @@ services:
         networks:
         -   djangonetwork
         volumes:
-        -   media_volume:/var/www/rechol_user_section/media
+        -   media_volume_24_25:/var/www/rechol_user_section/media
         restart: always
     nginx:
         build:
@@ -85,14 +85,14 @@ services:
         -   /etc/ssl/:/etc/ssl/
       # LetsEncrypt acme challenge
         -   /var/www/well-known/:/var/www/well-known/
-        -   media_volume:/var/www/rechol_user_section/media:ro
+        -   media_volume_24_25:/var/www/rechol_user_section/media:ro
 
 networks:
     djangonetwork:
         driver: bridge
 
 volumes:
-    db_volume:
-    media_volume:
+    db_volume_24_25:
+    media_volume_24_25:
     redis_data:
     redis_conf:
