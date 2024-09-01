@@ -3,28 +3,14 @@ repos:
     rev: v4.6.0
     hooks:
     -   id: trailing-whitespace
-        exclude: bower_components|static_files
     -   id: end-of-file-fixer
-        exclude: bower_components|static_files
     -   id: check-merge-conflict
     -   id: check-executables-have-shebangs
-        exclude: bower_components|static_files
     -   id: check-toml
-        exclude: bower_components|static_files
     -   id: check-yaml
-        exclude: bower_components|static_files
     -   id: check-json
-        exclude: bower_components|static_files
     -   id: pretty-format-json
-        exclude: bower_components|static_files
         args: [--autofix, --no-ensure-ascii]
-
--   repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.56.0
-    hooks:
-    -   id: eslint
-        args: [--config, .eslintrc.js]
-        exclude: bower_components|static_files|users/static/font-awesome-pro|users/static/fullcalendar|users/static/pdf_js
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.3
@@ -65,10 +51,8 @@ repos:
     hooks:
     -   id: pretty-format-yaml
         args: [--autofix, --indent, '4']
-        exclude: bower_components|static_files
     -   id: pretty-format-toml
         args: [--autofix, --indent, '4', --trailing-comma]
-        exclude: bower_components|static_files
 -   repo: https://github.com/AleksaC/hadolint-py       # Dockerfiles lint
     rev: v2.12.1b3
     hooks:
