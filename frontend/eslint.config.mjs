@@ -105,6 +105,9 @@ export default [
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/init-declarations': 'off',
+      //
+      '@typescript-eslint/strict-boolean-expressions': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
     },
     ignores: JS_FILES,
   },

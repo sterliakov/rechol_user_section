@@ -1,4 +1,4 @@
-FROM python:3.11-slim as build
+FROM python:3.11-slim AS build
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
 ARG REQUIREMENTS_FILE=requirements.txt
@@ -43,7 +43,7 @@ COPY users/templatetags ./users/templatetags
 RUN . /venv/bin/activate && ./manage.py compress
 
 
-FROM python:3.11-slim as deploy
+FROM python:3.11-slim AS deploy
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
 ARG APP_USER=rechol
@@ -71,7 +71,7 @@ USER ${APP_USER}:${APP_USER}
 ENTRYPOINT ["/bin/bash", "-c", "/venv/bin/gunicorn -w 3 --timeout 3600 rechol_user_section.wsgi:application -b 0.0.0.0:${APP_PORT} --preload"]
 
 
-FROM nginx:1.25.2 as nginx
+FROM nginx:1.25.2 AS nginx
 SHELL ["/bin/sh", "-e", "-u", "-x", "-c"]
 
 ARG NGINX_CONF

@@ -1,35 +1,31 @@
-import type { ReactNode } from 'react';
-import { useState } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import StyledEngineProvider from '@mui/material/StyledEngineProvider';
+import { ThemeProvider } from '@mui/material/styles';
+import { useMemo, type ReactNode } from 'react';
 
-import reactLogo from 'assets/react.svg';
-import './App.css';
+import { AuthProvider } from 'contexts/AuthContext';
+import { CustomizationProvider } from 'contexts/CustomizationContext';
+import Locales from 'locales';
+import Routes from 'routes';
+import createCustomTheme from 'theme';
 
-function App(): ReactNode {
-  const [count, setCount] = useState(0);
-
+export default function App(): ReactNode {
+  const theme = useMemo(
+    createCustomTheme,
+    []
+  );
   return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button
-          onClick={() => {
-            setCount((count) => count + 1);
-          }}
-        >
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Locales>
+          <AuthProvider>
+            <CustomizationProvider>
+              <Routes />
+            </CustomizationProvider>
+          </AuthProvider>
+        </Locales>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }
-
-export default App;
