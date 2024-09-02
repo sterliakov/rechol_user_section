@@ -1,16 +1,16 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import FormHelperText from "@mui/material/FormHelperText";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormHelperText from '@mui/material/FormHelperText';
 import { Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import PasswordInput from 'components/fields/PasswordInput';
 import TextInput from 'components/fields/TextInput';
+import useAuth from 'contexts/AuthContext';
 import FormWrapper from 'layout/FormWrapper';
-import useAuth from "contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { getErrors } from "utils/errors";
+import { getErrors } from 'utils/errors';
 
 interface FormState {
   email: string;
@@ -32,18 +32,18 @@ const schema = Yup.object().shape({
 });
 
 export default function Login() {
-  const {login} = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   return (
-    <FormWrapper width="md">
+    <FormWrapper width="sm" titleId="sign-in" minWidth="450px">
       <Formik
         initialValues={initialState}
         validationSchema={schema}
         onSubmit={async (values, { setErrors }) => {
           try {
             await login(values);
-            navigate('/not-found');
+            navigate('/profile');
           } catch (err: any) {
             setErrors(getErrors(err?.response?.data));
           }
@@ -57,6 +57,7 @@ export default function Login() {
               labelKey="email-address"
               required
               autoComplete="email"
+              fullWidth
             />
 
             <Box sx={{ mt: 3 }} />
@@ -67,15 +68,21 @@ export default function Login() {
               labelKey="password"
               required
               autoComplete="current-password"
+              fullWidth
             />
+
+            <Box sx={{ my: 2 }} display="flex" justifyContent="end">
+              <Link to="/auth/reset-password/begin">
+                <FormattedMessage id="forgot-password-q" />
+              </Link>
+            </Box>
 
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
                 <FormHelperText error>{errors.submit}</FormHelperText>
               </Box>
             )}
-
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 3 }}>
               <Button
                 disableElevation
                 disabled={isSubmitting}
@@ -83,7 +90,7 @@ export default function Login() {
                 size="large"
                 type="submit"
                 variant="contained"
-                color="secondary"
+                color="primary"
               >
                 <FormattedMessage id="sign-in" />
               </Button>

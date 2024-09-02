@@ -1,6 +1,7 @@
 /**
  * Password validator for login pages
  */
+import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
@@ -19,16 +20,16 @@ const hasSpecial = (passwd: string): boolean => /[!#@$%^&*)(+=._-]/.test(passwd)
 
 interface PasswordQuality {
   label: string;
-  color: string;
+  colorLabel: string;
 }
 // set color based on password strength
 function strengthColor(count: number): PasswordQuality {
-  if (count < 2) return { label: 'Poor', color: 'error' };
-  if (count < 3) return { label: 'Weak', color: 'warning' };
-  if (count < 4) return { label: 'Normal', color: 'orange' };
-  if (count < 5) return { label: 'Good', color: 'success' };
-  if (count < 6) return { label: 'Strong', color: 'success.dark' };
-  return { label: 'Poor', color: 'error' };
+  if (count < 2) return { label: 'Poor', colorLabel: 'error.main' };
+  if (count < 3) return { label: 'Weak', colorLabel: 'warning.light' };
+  if (count < 4) return { label: 'Normal', colorLabel: 'warning.main' };
+  if (count < 5) return { label: 'Good', colorLabel: 'success.main' };
+  if (count < 6) return { label: 'Strong', colorLabel: 'success.dark' };
+  return { label: 'Poor', colorLabel: 'error.main' };
 }
 
 // password strength indicator
@@ -47,8 +48,13 @@ interface StrengthIndicatorProps {
 }
 
 const StrengthIndicator = ({ password }: StrengthIndicatorProps): ReactNode => {
+  const theme = useTheme();
   const strength = strengthIndicator(password);
-  const level = strengthColor(strength);
+  const { label, colorLabel } = strengthColor(strength);
+  const [colorName, colorLevel] = colorLabel.split('.');
+  // @ts-expect-error I don't want to do trash typing for these labels
+  const color = theme.palette[colorName][colorLevel ?? 'main'];
+  console.log(theme.palette, colorName, colorLevel);
 
   return strength !== 0 ? (
     <FormControl fullWidth>
@@ -57,7 +63,7 @@ const StrengthIndicator = ({ password }: StrengthIndicatorProps): ReactNode => {
           <Grid item>
             <Box
               sx={{
-                backgroundColor: level?.color,
+                backgroundColor: color,
                 width: 85,
                 height: 8,
                 borderRadius: '7px',
@@ -66,7 +72,7 @@ const StrengthIndicator = ({ password }: StrengthIndicatorProps): ReactNode => {
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" fontSize="0.75rem">
-              {level?.label}
+              {label}
             </Typography>
           </Grid>
         </Grid>

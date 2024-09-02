@@ -108,6 +108,7 @@ export default [
       //
       '@typescript-eslint/strict-boolean-expressions': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
     },
     ignores: JS_FILES,
   },

@@ -26,12 +26,10 @@ const TextInput = ({
   const [field, meta] = useField<string>(fieldName);
 
   const label = (
-    <FormattedMessage
-      id={labelKey}
-      values={{
-        value: required ? '*' : undefined,
-      }}
-    />
+    <>
+      <FormattedMessage id={labelKey} />
+      {required && ' *'}
+    </>
   );
 
   return (

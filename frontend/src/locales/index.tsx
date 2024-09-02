@@ -5,12 +5,12 @@ import { IntlProvider } from 'react-intl';
 import useCustomization from 'contexts/CustomizationContext';
 
 type TranslationMap = Record<string, string>;
-const loadLocaleData = async (locale: string): Promise<TranslationMap> => {
+const loadLocaleData = async (locale: string): Promise<{ default: TranslationMap }> => {
   switch (locale) {
     case 'ru':
-      return await import('./ru.json');
+      return (await import('./ru.json')) as any;
     default:
-      return await import('./en.json');
+      return (await import('./en.json')) as any;
   }
 };
 
@@ -20,7 +20,7 @@ export default function Locales({ children }: { children: ReactNode }): ReactNod
 
   useEffect(() => {
     loadLocaleData(customization.locale).then((d) => {
-      setMessages(d);
+      setMessages(d.default);
     });
   }, [customization.locale]);
 

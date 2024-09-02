@@ -9,3 +9,4 @@ Dockerfile
 LICENSE
 pyproject.toml
 *.sublime-*
+frontend

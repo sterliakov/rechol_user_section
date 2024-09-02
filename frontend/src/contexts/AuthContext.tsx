@@ -25,27 +25,21 @@ const AuthContext = createContext<AuthState | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const isLoggedIn = user != null;
-  const serviceToken = window.localStorage.getItem('serviceToken');
 
   // HACK: /api/accounts/me is handled inside `_mockApis/account`.
   const refreshUserInfo = async () => {
-    const response = await axios.get('/api/account/me');
-    const { user } = response.data;
-    setUser(user);
+    const response = await axios.get('/api/auth/user/');
+    setUser(response.data);
   };
   const performLogout = async () => {
     setUser(null);
-    await axios.post('/api/account/logout');
+    await axios.post('/api/auth/logout/');
   };
 
   useEffect(() => {
     const init = async () => {
       try {
-        if (serviceToken) {
-          await refreshUserInfo();
-        } else {
-          await performLogout();
-        }
+        await refreshUserInfo();
       } catch (err: any) {
         // StrictMode artifact - nothing harmful
         if (err.toString().includes('removeChild')) return;
@@ -54,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     };
     init();
-  }, [serviceToken]);
+  }, []);
 
   useEffect(() => {
     const interceptorId = axios.interceptors.response.use(undefined, (error) => {
@@ -80,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isLoggedIn]);
 
   const login = async (payload: LoginDetails): Promise<void> => {
-    await axios.post('/api/account/login', payload);
+    await axios.post('/api/auth/login/', payload);
     await refreshUserInfo();
   };
 

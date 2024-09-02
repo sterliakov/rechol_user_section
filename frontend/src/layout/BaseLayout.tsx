@@ -32,13 +32,19 @@ function Routes({ direction }: { direction: 'row' | 'column' }): ReactNode {
 
 export default function BaseLayout() {
   return (
-    <div style={{height: '100%'}}>
+    <div>
       <AppBar routes={Routes} />
-      <main>
-        <Grid container display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Outlet />
-        </Grid>
-      </main>
+      <Grid
+        component="main"
+        id="main-wrapper"
+        container
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{ pt: '76px', height: '100vh' }}
+      >
+        <Outlet />
+      </Grid>
     </div>
   );
 }

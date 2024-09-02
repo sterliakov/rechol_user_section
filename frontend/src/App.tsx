@@ -10,10 +10,7 @@ import Routes from 'routes';
 import createCustomTheme from 'theme';
 
 export default function App(): ReactNode {
-  const theme = useMemo(
-    createCustomTheme,
-    []
-  );
+  const theme = useMemo(createCustomTheme, []);
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>

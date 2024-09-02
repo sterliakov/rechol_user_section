@@ -1,3 +1,12 @@
 {
-  "X": "Y"
+  "email-address": "Email",
+  "forgot-password-q": "Forgot your password?",
+  "new-password": "New password",
+  "new-password-confirm": "Confirm password",
+  "password": "Password",
+  "reset-password": "Reset password",
+  "sign-in": "Sign In",
+  "sign-out": "Logout",
+  "sign-up": "Sign Up",
+  "user-info": "{email}"
 }

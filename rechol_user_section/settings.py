@@ -21,6 +21,7 @@ if not DEBUG:
     CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("SERVER_NAME")}']
 else:
     ALLOWED_HOSTS = ["*"]
+    CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 # Application definition
 
@@ -34,6 +35,8 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "django.contrib.postgres",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework.authtoken",
     # 3rd party
     "ajax_select",
     "bootstrap_datepicker_plus",
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "psqlextra",
     "widget_tweaks",
+    "dj_rest_auth",
     # 1st party
     "users",
     # dev apps below
@@ -124,6 +128,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("dj_rest_auth.jwt_auth.JWTCookieAuthentication",)
+}
+REST_AUTH = {
+    "USE_JWT": True,
+    "JWT_AUTH_COOKIE": "pcho-auth",
+    "JWT_AUTH_REFRESH_COOKIE": "pcho-refresh-token",
+}
 
 LANGUAGE_CODE = "ru"
 LOCALE = "ru"

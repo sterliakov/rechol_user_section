@@ -35,7 +35,9 @@ export function PasswordAdornment({
   );
 }
 
-const PasswordInput = (props: Omit<TextInputProps, 'type' | 'endAdornment'>) => {
+export default function PasswordInput(
+  props: Omit<TextInputProps, 'type' | 'endAdornment'>
+) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -45,6 +47,4 @@ const PasswordInput = (props: Omit<TextInputProps, 'type' | 'endAdornment'>) => 
       endAdornment={<PasswordAdornment {...{ showPassword, setShowPassword }} />}
     />
   );
-};
-
-export default PasswordInput;
+}

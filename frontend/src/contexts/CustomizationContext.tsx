@@ -9,7 +9,7 @@ interface CustomizationState {
 interface Customization extends CustomizationState {
   setLocale: (locale: Locale) => void;
 }
-const DEFAULT_LOCALE: Locale = 'ru';
+const DEFAULT_LOCALE: Locale = 'en';
 const CustomizationContext = createContext<Customization>({
   locale: DEFAULT_LOCALE,
   setLocale() {
