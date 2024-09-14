@@ -26,12 +26,10 @@ const initialState: FormState = {
 };
 
 const schema = Yup.object().shape({
-  new_password1: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .required('Password is required'),
+  new_password1: Yup.string().min(8, 'password-too-short').required('required-field'),
   new_password2: Yup.string().when('new_password1', ([val]) => {
     return val && val.length > 0
-      ? Yup.string().oneOf([Yup.ref('new_password1')], 'Both passwords must match!')
+      ? Yup.string().oneOf([Yup.ref('new_password1')], 'passwords-dont-match')
       : Yup.string();
   }),
 });

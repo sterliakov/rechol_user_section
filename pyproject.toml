@@ -72,6 +72,9 @@ warn_unused_ignores = true
 [tool.ruff]
 target-version = 'py311'
 
+[tool.ruff.format]
+preview = true
+
 [tool.ruff.lint]
 exclude = [
     ".svn",
@@ -97,6 +100,12 @@ extend-ignore = [
     "RUF001",  # Russian letters in strings
     "ANN",  # Type hints
     "D",  # Docstrings
+    "DOC",  # Docstrings
+    "TD",  # TODO
+    "FIX",  # FIXME
+    "CPY",
+    "PLC0415",  # `import` should be at the top-level of a file
+    "PLR6301",  # Method `XXX` could be a function, class method, or static method
     "EM101",  # Exception must not use a string literal, assign to variable first
     "E501",  # Let black care about line width, if not splitable - go on
     # Conflicts with save(self, commit=True) overrides
@@ -105,7 +114,10 @@ extend-ignore = [
     "COM812",
     "ISC001",
 ]
+extend-safe-fixes = ["F401", "TCH002"]
+preview = true
 select = ['ALL']
+unfixable = ['ERA001']
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
@@ -118,3 +130,6 @@ django = ['django', 'rest_framework']
 
 [tool.ruff.lint.per-file-ignores]
 "**/migrations/*" = ["DTZ"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

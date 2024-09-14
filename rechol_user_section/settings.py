@@ -231,8 +231,6 @@ COMPRESS_FILTERS = {
 LIBSASS_OUTPUT_STYLE = "compressed"
 LIBSASS_SOURCE_COMMENTS = False
 
-DATE_INPUT_FORMATS = ("%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d")
-
 # Email
 EMAIL_BACKEND = "django_ses.SESBackend"
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")

@@ -13,7 +13,7 @@ const PageLoaderWrapper = styled(LoaderWrapper)({
   left: 0,
 });
 
-function Loader({ isFullPage = true }: { isFullPage?: boolean }) {
+export function Loader({ isFullPage = true }: { isFullPage?: boolean }) {
   return isFullPage ? (
     <PageLoaderWrapper>
       <LinearProgress color="primary" />

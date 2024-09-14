@@ -11,6 +11,7 @@ repos:
     -   id: check-json
     -   id: pretty-format-json
         args: [--autofix, --no-ensure-ascii]
+        exclude: ^frontend/src/locales/
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.3
@@ -32,14 +33,12 @@ repos:
       # We first reformat (spacing etc.)
     -   id: djlint-django
         alias: djlint
-        # exclude: "bower_components"
         args: [--reformat]
         files: users/templates/.*
       # And then check for non-autofixable issues
     -   id: djlint-django
         alias: djlint
         files: users/templates/.*
-        # exclude: "bower_components"
 
 -   repo: https://github.com/shellcheck-py/shellcheck-py       # Shellcheck
     rev: v0.10.0.1

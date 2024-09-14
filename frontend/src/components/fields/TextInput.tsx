@@ -45,7 +45,9 @@ const TextInput = ({
         {...extra}
       />
       {meta.touched && meta.error && (
-        <FormHelperText error>{meta.error}</FormHelperText>
+        <FormHelperText error>
+          <FormattedMessage id={meta.error} defaultMessage={meta.error} />
+        </FormHelperText>
       )}
       {helperText}
     </FormControl>

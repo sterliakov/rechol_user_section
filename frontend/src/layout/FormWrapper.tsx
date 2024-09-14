@@ -7,7 +7,7 @@ import type { PropsWithChildren, ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 interface WrapperProps {
-  width?: 'sm' | 'md' | 'lg';
+  width?: 'sm' | 'md' | 'lg' | string;
   minWidth: string | number;
   titleId: string;
 }
@@ -18,8 +18,13 @@ export default function FormWrapper({
   width = 'sm',
 }: PropsWithChildren<WrapperProps>): ReactNode {
   return (
-    <Grid container maxWidth={width} mt={3}>
-      <Card sx={{ minWidth }}>
+    <Grid
+      container
+      maxWidth={width}
+      sx={{ width: ['sm', 'md', 'lg'].includes(width) ? undefined : width }}
+      mt={3}
+    >
+      <Card sx={{ minWidth, flexGrow: 1 }}>
         <CardHeader
           title={
             <Typography variant="h4" component="h2">

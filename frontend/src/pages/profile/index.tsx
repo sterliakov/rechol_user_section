@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import ParticipantProfile from './ParticipantProfile';
+
 export default function Profile(): ReactNode {
-  return <h1>Placeholder</h1>;
+  return <ParticipantProfile mode="edit" />;
 }

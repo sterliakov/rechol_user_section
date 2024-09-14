@@ -173,7 +173,7 @@ function LogOutSection() {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            logout();
+            void logout();
           }}
         >
           <FormattedMessage id="sign-out" />

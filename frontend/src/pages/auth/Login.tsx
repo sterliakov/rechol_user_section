@@ -24,11 +24,8 @@ const initialState: FormState = {
 };
 
 const schema = Yup.object().shape({
-  email: Yup.string()
-    .email('Must be a valid email')
-    .max(255)
-    .required('Email is required'),
-  password: Yup.string().max(255).required('Password is required'),
+  email: Yup.string().email('email-invalid').max(255).required('required-field'),
+  password: Yup.string().max(255).required('required-field'),
 });
 
 export default function Login() {

@@ -1,12 +1,14 @@
 import type { ReactNode } from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
+import { Loader } from 'components/Loadable';
 import axios from 'utils/axios';
 
-interface User {
+export interface User {
   email: string;
   first_name: string;
   last_name: string;
+  patronymic_name: string;
 }
 interface LoginDetails {
   email: string;
@@ -24,17 +26,20 @@ const AuthContext = createContext<AuthState | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const isLoggedIn = user != null;
 
-  // HACK: /api/accounts/me is handled inside `_mockApis/account`.
   const refreshUserInfo = async () => {
     const response = await axios.get('/api/auth/user/');
     setUser(response.data);
   };
-  const performLogout = async () => {
+  const performLogout = useCallback(async () => {
+    if (!isLoggedIn) return;
+    setHasLoaded(false);
     setUser(null);
     await axios.post('/api/auth/logout/');
-  };
+    setHasLoaded(true);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const init = async () => {
@@ -45,10 +50,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (err.toString().includes('removeChild')) return;
         console.info('Authorization token malformed or expired', err);
         await performLogout();
+      } finally {
+        setHasLoaded(true);
       }
     };
-    init();
-  }, []);
+    void init();
+  }, [performLogout]);
 
   useEffect(() => {
     const interceptorId = axios.interceptors.response.use(undefined, (error) => {
@@ -71,12 +78,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       axios.interceptors.response.eject(interceptorId);
     };
-  }, [isLoggedIn]);
+  }, [isLoggedIn, performLogout]);
 
   const login = async (payload: LoginDetails): Promise<void> => {
     await axios.post('/api/auth/login/', payload);
     await refreshUserInfo();
   };
+
+  if (!hasLoaded) {
+    return <Loader />;
+  }
 
   const providerOptions: AuthState = {
     user,

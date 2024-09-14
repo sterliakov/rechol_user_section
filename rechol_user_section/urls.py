@@ -15,6 +15,7 @@ i18n_paths = [
     path("master/admin/", admin.site.urls),
     path("", IndexView.as_view(), name="index"),
     path("profile/", include("users.urls")),
+    path("api/v1/", include("users.api_urls")),
     path("api/auth/", include("dj_rest_auth.urls")),
 ]
 

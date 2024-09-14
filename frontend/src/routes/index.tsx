@@ -19,6 +19,9 @@ const ResetPassword = Loadable(
 const ConfirmResetPassword = Loadable(
   lazy(async () => await import('pages/auth/ConfirmResetPassword'))
 );
+const ParticipantProfile = Loadable(
+  lazy(async () => await import('pages/profile/ParticipantProfile'))
+);
 
 export default function ThemeRoutes() {
   return useRoutes([
@@ -31,6 +34,7 @@ export default function ThemeRoutes() {
       ),
       children: [
         { path: 'login', element: <Login /> },
+        { path: 'signup', element: <ParticipantProfile mode="signup" /> },
         { path: 'reset-password/begin', element: <ResetPassword /> },
         {
           path: 'reset-password/confirm/:uid/:token',
