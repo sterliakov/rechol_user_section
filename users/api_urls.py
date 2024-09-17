@@ -1,18 +1,30 @@
 from __future__ import annotations
 
-from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+
+from users.models import User
 
 from . import api_views as views
 
 app_name = "users"
 
-router = DefaultRouter(trailing_slash=True)
-router.register("profile", views.ProfileViewSet, "profile")
-router.register("venues", views.VenueViewSet, "venue")
-
 urlpatterns = [
-    path("", include(router.urls)),
     path("config/", views.ConfigView.as_view(), name="config"),
-    path("register/", views.RegisterView.as_view(), name="register"),
+    path("venues/", views.VenueListView.as_view(), name="venues"),
+    path(
+        "register/participant/",
+        views.RegisterView.as_view(role=User.Roles.PARTICIPANT),
+        name="participant_register",
+    ),
+    path(
+        "profile/participant/",
+        views.ParticipantProfileView.as_view(),
+        name="participant_profile",
+    ),
+    path(
+        "register/venue/",
+        views.RegisterView.as_view(role=User.Roles.VENUE),
+        name="venue_register",
+    ),
+    path("profile/venue/", views.VenueProfileView.as_view(), name="venue_profile"),
 ]

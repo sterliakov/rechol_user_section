@@ -16,3 +16,11 @@ class IsParticipant(BasePermission):
     def has_permission(self, request: Request, _view):
         user = request.user
         return user.is_authenticated and user.role == User.Roles.PARTICIPANT
+
+
+class IsVenue(BasePermission):
+    """Allows access only to teachers."""
+
+    def has_permission(self, request: Request, _view):
+        user = request.user
+        return user.is_authenticated and user.role == User.Roles.VENUE

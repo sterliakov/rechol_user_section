@@ -40,11 +40,14 @@ const PhoneInput = ({
         onChange={(value: string) => {
           void helper.setValue(value);
         }}
+        error={meta.error}
         label={label}
         defaultCountry={defaultCountry}
       />
       {meta.touched && meta.error && (
-        <FormHelperText error>{meta.error}</FormHelperText>
+        <FormHelperText error>
+          <FormattedMessage id={meta.error} defaultMessage={meta.error} />
+        </FormHelperText>
       )}
     </FormControl>
   );

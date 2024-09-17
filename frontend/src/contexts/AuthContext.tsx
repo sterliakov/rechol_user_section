@@ -4,11 +4,16 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { Loader } from 'components/Loadable';
 import axios from 'utils/axios';
 
+export type Role = 'p' | 'v' | 'j';
+export type FullRole = 'participant' | 'venue' | 'judge';
+
 export interface User {
+  pk: number;
   email: string;
   first_name: string;
   last_name: string;
-  patronymic_name: string;
+  role: Role;
+  fullRole: FullRole;
 }
 interface LoginDetails {
   email: string;
@@ -17,21 +22,35 @@ interface LoginDetails {
 
 interface AuthState {
   user: User | null;
-  login: (login: LoginDetails) => Promise<void>;
-  // signup(info: LoginDetails): Promise<void>;
+  login: (login: LoginDetails) => Promise<User>;
+  refreshUserInfo: () => Promise<User>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthState | null>(null);
 
+function getFullRole(role: Role): FullRole {
+  return (
+    {
+      p: 'participant',
+      v: 'venue',
+      j: 'judge',
+    } as const
+  )[role];
+}
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const isLoggedIn = user != null;
 
-  const refreshUserInfo = async () => {
+  const refreshUserInfo = async (): Promise<User> => {
     const response = await axios.get('/api/auth/user/');
-    setUser(response.data);
+    const user = {
+      ...response.data,
+      fullRole: getFullRole(response.data.role),
+    };
+    setUser(user);
+    return user;
   };
   const performLogout = useCallback(async () => {
     if (!isLoggedIn) return;
@@ -80,9 +99,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [isLoggedIn, performLogout]);
 
-  const login = async (payload: LoginDetails): Promise<void> => {
+  const login = async (payload: LoginDetails): Promise<User> => {
     await axios.post('/api/auth/login/', payload);
-    await refreshUserInfo();
+    return await refreshUserInfo();
   };
 
   if (!hasLoaded) {
@@ -91,6 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const providerOptions: AuthState = {
     user,
+    refreshUserInfo,
     login,
     logout: performLogout,
   };

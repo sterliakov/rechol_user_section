@@ -14,6 +14,12 @@ class AnnotationSerializer(ModelSerializer):
         fields = "__all__"
 
 
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["pk", "email", "first_name", "last_name", "role"]
+
+
 class ParticipantProfileSerializer(ModelSerializer):
     class Meta:
         model = User
@@ -45,13 +51,20 @@ class ParticipantProfileSerializer(ModelSerializer):
         return city.strip()
 
 
-class RegisterSerializer(ParticipantProfileSerializer):
+class RegisterSerializer(ModelSerializer):
     password1 = serializers.CharField(write_only=True, max_length=255)
     password2 = serializers.CharField(write_only=True, max_length=255)
 
     class Meta:
         model = User
-        fields = [*ParticipantProfileSerializer.Meta.fields, "password1", "password2"]
+        fields = [
+            "email",
+            "first_name",
+            "last_name",
+            "patronymic_name",
+            "password1",
+            "password2",
+        ]
 
     def validate(self, attrs):
         res = super().validate(attrs)
@@ -79,7 +92,9 @@ class VenueSerializer(ModelSerializer):
             "full_address",
             "contact_phone",
             "is_full",
+            "confirmation_letter",
         ]
+        extra_kwargs = {"confirmation_letter": {"write_only": True}}
 
 
 class ConfigSerializer(ModelSerializer):

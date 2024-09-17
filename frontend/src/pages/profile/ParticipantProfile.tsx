@@ -5,18 +5,19 @@ import Grid from '@mui/material/Grid2';
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import CheckboxInput from 'components/fields/CheckboxInput';
 import CountryInput from 'components/fields/CountryInput';
 import DateInput from 'components/fields/DateInput';
-import PasswordInput from 'components/fields/PasswordInput';
 import PhoneInput from 'components/fields/PhoneInput';
 import SelectInput from 'components/fields/SelectInput';
 import TextInput from 'components/fields/TextInput';
 import type { User } from 'contexts/AuthContext';
 import useConfig from 'contexts/ConfigContext';
 import useVenues from 'contexts/VenuesContext';
+import useAlerts from 'hooks/useAlerts';
 import FormWrapper from 'layout/FormWrapper';
 import axios from 'utils/axios';
 import { getErrors } from 'utils/errors';
@@ -24,7 +25,8 @@ import { getErrors } from 'utils/errors';
 type SupportedForm = 8 | 9 | 10 | 11;
 const SUPPORTED_FORMS: SupportedForm[] = [8, 9, 10, 11];
 
-export interface Participant extends User {
+export interface Participant extends Omit<User, 'role' | 'fullRole' | 'pk'> {
+  patronymic_name: string;
   passport: string;
   birth_date: string;
   gender: 'm' | 'f' | null;
@@ -41,8 +43,6 @@ export interface Participant extends User {
 }
 
 interface FormState extends Participant {
-  password1: string;
-  password2: string;
   submit: string | null;
 }
 
@@ -64,24 +64,26 @@ const initialState: FormState = {
   telegram_nickname: '',
   venue_selected: null,
   online_selected: false,
-  password1: '',
-  password2: '',
   submit: null,
 };
 
 const today = new Date();
 const earlieastBirthDate = new Date(+today - 21 * 365 * 24 * 60 * 60 * 1000);
 const latestBirthDate = new Date(+today - 12 * 365 * 24 * 60 * 60 * 1000);
-const editSchema = Yup.object().shape({
+const profileSchema = Yup.object().shape({
   email: Yup.string().max(255).required('required-field'),
-  first_name: Yup.string().max(255).required('required-field'),
-  last_name: Yup.string().max(255).required('required-field'),
-  patronymic_name: Yup.string().max(255),
-  passport: Yup.string().max(15).required('required-field'),
+  first_name: Yup.string().max(127).required('required-field'),
+  last_name: Yup.string().max(127).required('required-field'),
+  patronymic_name: Yup.string().max(127),
+  school: Yup.string().max(255).required('required-field'),
+  city: Yup.string().max(63).required('required-field'),
+  phone_number: Yup.string().max(13).required('required-field'),
+  passport: Yup.string().min(6).max(15).required('required-field'),
   birth_date: Yup.date()
     .min(earlieastBirthDate.toDateString(), 'birth-date-too-old')
     .max(latestBirthDate.toDateString(), 'birth-date-too-young')
     .required('required-field'),
+  actual_form: Yup.number().required('required-field'),
   participation_form: Yup.number()
     .required('required-field')
     .when('actual_form', ([val], schema) => {
@@ -89,53 +91,42 @@ const editSchema = Yup.object().shape({
       return schema.min(val, 'actual-form-above-participation');
     }),
 });
-const signupSchema = editSchema.concat(
-  Yup.object().shape({
-    password1: Yup.string().min(8, 'password-too-short').required('required-field'),
-    password2: Yup.string().when('password1', ([val]) => {
-      return val && val.length > 0
-        ? Yup.string().oneOf([Yup.ref('password1')], 'passwords-dont-match')
-        : Yup.string();
-    }),
-  })
-);
 
 async function readProfile(): Promise<Participant> {
-  const response = await axios.get('/api/v1/profile/me/');
+  const response = await axios.get('/api/v1/profile/participant/');
   return response.data;
 }
-async function registerParticipant(params: any): Promise<void> {
-  await axios.post('/api/v1/register/', params);
+async function updateProfile(params: Omit<FormState, 'submit'>): Promise<void> {
+  await axios.put('/api/v1/profile/participant/', params);
 }
 
-export default function ParticipantProfile({ mode }: { mode: 'signup' | 'edit' }) {
+export default function ParticipantProfile() {
   const [fullProfile, setFullProfile] = useState<Participant>();
   const { venues } = useVenues();
   const { config } = useConfig();
+  const { showAlert } = useAlerts();
 
   useEffect(() => {
-    if (mode === 'signup') return;
     readProfile().then(setFullProfile);
-  }, [mode]);
+  }, []);
 
   const formOptions = SUPPORTED_FORMS.map((f) => ({ id: f, value: f }));
 
   return (
-    <FormWrapper
-      width="min(1200px, 100vw)"
-      titleId={mode === 'signup' ? 'sign-up' : 'profile'}
-      minWidth="300px"
-    >
-      <Formik
+    <FormWrapper width="min(1200px, 100vw)" titleId="profile" minWidth="300px">
+      <Formik<FormState>
         initialValues={fullProfile ? { ...fullProfile, submit: null } : initialState}
-        validationSchema={mode === 'edit' ? editSchema : signupSchema}
-        onSubmit={async (values, { setErrors }) => {
-          values = {
-            ...values,
-            birth_date: new Date(values.birth_date).toISOString().slice(0, 10),
-          };
+        validationSchema={profileSchema}
+        onSubmit={async (
+          { submit, birth_date: birthDate, ...values },
+          { setErrors }
+        ) => {
           try {
-            await registerParticipant(values);
+            await updateProfile({
+              ...values,
+              birth_date: new Date(birthDate).toISOString().slice(0, 10),
+            });
+            showAlert('success', 'alert-profile-updated');
           } catch (err: any) {
             setErrors(getErrors(err?.response?.data));
           }
@@ -153,34 +144,10 @@ export default function ParticipantProfile({ mode }: { mode: 'signup' | 'edit' }
                   required
                   autoComplete="email"
                   fullWidth
-                  readOnly={mode === 'edit'}
+                  readOnly
                 />
               </Grid>
             </Grid>
-            {mode === 'signup' && (
-              <Grid container pt={2} spacing={2}>
-                <Grid size={{ xs: 12, lg: 6 }}>
-                  <PasswordInput
-                    fieldName="password1"
-                    id="new-password-1"
-                    labelKey="new-password"
-                    required
-                    autoComplete="new-password"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid size={{ xs: 12, lg: 6 }}>
-                  <PasswordInput
-                    fieldName="password2"
-                    id="new-password-2"
-                    labelKey="new-password-confirm"
-                    required
-                    autoComplete="new-password"
-                    fullWidth
-                  />
-                </Grid>
-              </Grid>
-            )}
             <Grid container pt={2} spacing={2}>
               <Grid size={{ xs: 12, lg: 4 }}>
                 <TextInput
@@ -351,7 +318,7 @@ export default function ParticipantProfile({ mode }: { mode: 'signup' | 'edit' }
                 variant="contained"
                 color="primary"
               >
-                <FormattedMessage id="sign-up" />
+                <FormattedMessage id="save" />
               </Button>
             </Box>
           </form>

@@ -135,6 +135,7 @@ REST_AUTH = {
     "USE_JWT": True,
     "JWT_AUTH_COOKIE": "pcho-auth",
     "JWT_AUTH_REFRESH_COOKIE": "pcho-refresh-token",
+    "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
 }
 
 LANGUAGE_CODE = "ru"

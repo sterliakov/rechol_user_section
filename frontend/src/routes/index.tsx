@@ -3,12 +3,9 @@ import { useRoutes } from 'react-router-dom';
 
 import Loadable from 'components/Loadable';
 import BaseLayout from 'layout/BaseLayout';
+import SignUp from 'pages/auth/SignUp';
 
 import { Anonymous, Authenticated } from './auth-guards';
-
-// import AuthenticationRoutes from './AuthenticationRoutes';
-// import LoginRoutes from './LoginRoutes';
-// import MainRoutes from './MainRoutes';
 
 const NotFound = Loadable(lazy(async () => await import('pages/technical/NotFound')));
 const Login = Loadable(lazy(async () => await import('pages/auth/Login')));
@@ -18,9 +15,6 @@ const ResetPassword = Loadable(
 );
 const ConfirmResetPassword = Loadable(
   lazy(async () => await import('pages/auth/ConfirmResetPassword'))
-);
-const ParticipantProfile = Loadable(
-  lazy(async () => await import('pages/profile/ParticipantProfile'))
 );
 
 export default function ThemeRoutes() {
@@ -34,7 +28,8 @@ export default function ThemeRoutes() {
       ),
       children: [
         { path: 'login', element: <Login /> },
-        { path: 'signup', element: <ParticipantProfile mode="signup" /> },
+        { path: 'signup/participant', element: <SignUp role="participant" /> },
+        { path: 'signup/venue', element: <SignUp role="venue" /> },
         { path: 'reset-password/begin', element: <ResetPassword /> },
         {
           path: 'reset-password/confirm/:uid/:token',
@@ -51,9 +46,6 @@ export default function ThemeRoutes() {
       ),
       children: [{ path: 'participant', element: <Profile /> }],
     },
-    // AuthenticationRoutes,
-    // LoginRoutes,
-    // ...MainRoutes,
     {
       path: '*',
       element: <NotFound />,

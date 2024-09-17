@@ -1,6 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { ThemeProvider } from '@mui/material/styles';
+import { SnackbarProvider } from 'notistack';
 import { useMemo, type ReactNode } from 'react';
 
 import { AuthProvider } from 'contexts/AuthContext';
@@ -19,13 +20,17 @@ export default function App(): ReactNode {
         <CssBaseline />
         <Locales>
           <AuthProvider>
-            <CustomizationProvider>
-              <VenuesProvider>
-                <ConfigProvider>
-                  <Routes />
-                </ConfigProvider>
-              </VenuesProvider>
-            </CustomizationProvider>
+            <SnackbarProvider
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <CustomizationProvider>
+                <VenuesProvider>
+                  <ConfigProvider>
+                    <Routes />
+                  </ConfigProvider>
+                </VenuesProvider>
+              </CustomizationProvider>
+            </SnackbarProvider>
           </AuthProvider>
         </Locales>
       </ThemeProvider>

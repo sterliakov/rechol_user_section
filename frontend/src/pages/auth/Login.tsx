@@ -39,8 +39,8 @@ export default function Login() {
         validationSchema={schema}
         onSubmit={async (values, { setErrors }) => {
           try {
-            await login(values);
-            navigate('/profile');
+            const user = await login(values);
+            navigate(`/profile/${user.fullRole}`);
           } catch (err: any) {
             setErrors(getErrors(err?.response?.data));
           }

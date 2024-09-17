@@ -27,7 +27,7 @@ export default function CheckboxInput({
             onChange={(event) => {
               void helper.setValue(event.target.checked);
             }}
-            name="tos-consent"
+            name={fieldName}
             color="primary"
           />
         }

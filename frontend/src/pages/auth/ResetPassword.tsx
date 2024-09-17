@@ -3,7 +3,6 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Grid from '@mui/material/Grid2';
 import { Formik } from 'formik';
 import { FormattedMessage } from 'react-intl';
-import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import TextInput from 'components/fields/TextInput';
@@ -29,8 +28,6 @@ async function resetPassword(email: string): Promise<void> {
 }
 
 export default function ResetPassword() {
-  const navigate = useNavigate();
-
   return (
     <FormWrapper width="sm" titleId="reset-password" minWidth="450px">
       <Formik
