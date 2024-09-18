@@ -1,7 +1,7 @@
 import LinearProgress from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
 import type { ComponentType, LazyExoticComponent } from 'react';
-import { createElement, Suspense } from 'react';
+import { Suspense, createElement } from 'react';
 
 const LoaderWrapper = styled('div')({
   zIndex: 1301,
@@ -31,7 +31,7 @@ type AnyComponent<TProps> =
 
 export default function Loadable<TProps>(
   Component: AnyComponent<TProps>,
-  isFullPage = true
+  isFullPage = true,
 ) {
   return function Loaded(props: TProps) {
     return (

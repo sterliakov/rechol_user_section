@@ -27,8 +27,8 @@ const NotFound = () => {
           <FormattedMessage id="go-home" />
         </Button>
       </Container>
-      <div className="not-found__shape1"></div>
-      <div className="not-found__shape2"></div>
+      <div className="not-found__shape1" />
+      <div className="not-found__shape2" />
     </Box>
   );
 };

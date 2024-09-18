@@ -48,12 +48,12 @@ const schema = Yup.object().shape({
 
 async function signUp(
   params: Omit<FormState, 'submit'>,
-  role: FullRole
+  userRole: FullRole,
 ): Promise<void> {
-  await axios.post(`/api/v1/register/${role}/`, params);
+  await axios.post(`/api/v1/register/${userRole}/`, params);
 }
 
-export default function SignUp({ role }: { role: FullRole }) {
+export default function SignUp({ userRole }: { userRole: FullRole }) {
   const navigate = useNavigate();
 
   return (
@@ -63,8 +63,8 @@ export default function SignUp({ role }: { role: FullRole }) {
         validationSchema={schema}
         onSubmit={async (values, { setErrors }) => {
           try {
-            await signUp(values, role);
-            navigate(`/profile/${role}`);
+            await signUp(values, userRole);
+            navigate(`/profile/${userRole}`);
           } catch (err: any) {
             setErrors(getErrors(err?.response?.data));
           }

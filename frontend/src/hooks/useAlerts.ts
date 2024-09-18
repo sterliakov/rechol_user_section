@@ -9,7 +9,7 @@ export default function useAlerts(): {
   showAlert: (
     severity: AlertSeverity,
     messageId: string,
-    messageValues?: Record<string, ReactNode>
+    messageValues?: Record<string, ReactNode>,
   ) => void;
 } {
   const { formatMessage } = useIntl();
@@ -18,7 +18,7 @@ export default function useAlerts(): {
       (
         severity: AlertSeverity,
         messageId: string,
-        messageValues?: Record<string, ReactNode>
+        messageValues?: Record<string, ReactNode>,
       ) => {
         const messageText = formatMessage({ id: messageId }, messageValues);
         enqueueSnackbar({
@@ -26,7 +26,7 @@ export default function useAlerts(): {
           variant: severity,
         });
       },
-      [formatMessage]
+      [formatMessage],
     ),
   };
 }

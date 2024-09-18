@@ -36,9 +36,10 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [config, setConfig] = useState<Config | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const refreshConfig = useCallback((): void => {
-    setRefreshKey((k) => k++);
+    setRefreshKey((k) => k + 1);
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: using to refresh
   useEffect(() => {
     getConfig().then(setConfig);
   }, [refreshKey]);

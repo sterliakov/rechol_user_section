@@ -50,7 +50,7 @@ async function readProfile(): Promise<FormState> {
   return { ...response.data, submit: null };
 }
 async function updateProfile(
-  params: Omit<FormState, 'submit' | 'is_confirmed'>
+  params: Omit<FormState, 'submit' | 'is_confirmed'>,
 ): Promise<void> {
   const formData = new FormData();
   for (const [key, value] of Object.entries(params)) {

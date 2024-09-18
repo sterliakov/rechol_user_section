@@ -33,9 +33,10 @@ export const VenuesProvider = ({ children }: { children: ReactNode }) => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const refreshVenues = useCallback((): void => {
-    setRefreshKey((k) => k++);
+    setRefreshKey((k) => k + 1);
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: using to refresh
   useEffect(() => {
     getVenues().then(setVenues);
   }, [refreshKey]);

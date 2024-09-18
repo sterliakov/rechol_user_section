@@ -57,3 +57,26 @@ repos:
     hooks:
     -   id: hadolint
         files: .*Dockerfile.*
+
+
+-   repo: local
+    hooks:
+    -   id: biome
+        name: biome check
+        entry: bash -c "cd frontend && pnpm run lint:biome --files-ignore-unknown=true --no-errors-on-unmatched"
+        language: system
+        types: [text]
+        files: \.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\.(ts|cts|mts)|jsonc?|css)$
+    -   id: eslint
+        name: eslint mui-paths-imports
+        entry: bash -c "cd frontend && pnpm run lint:eslint"
+        language: system
+        types: [text]
+        files: \.tsx?$
+    -   id: knip
+        name: knip
+        entry: bash -c "cd frontend && pnpm run lint:knip"
+        pass_filenames: false
+        language: system
+        types: [text]
+        files: \.(jsx?|tsx?|jsonc?)$

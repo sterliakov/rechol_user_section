@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [hasLoaded, setHasLoaded] = useState<boolean>(false);
   const isLoggedIn = user != null;
 
-  const refreshUserInfo = async (): Promise<User> => {
+  const refreshUserInfo = useCallback(async (): Promise<User> => {
     const response = await axios.get('/api/auth/user/');
     const user = {
       ...response.data,
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
     setUser(user);
     return user;
-  };
+  }, []);
   const performLogout = useCallback(async () => {
     if (!isLoggedIn) return;
     setHasLoaded(false);
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     };
     void init();
-  }, [performLogout]);
+  }, [performLogout, refreshUserInfo]);
 
   useEffect(() => {
     const interceptorId = axios.interceptors.response.use(undefined, (error) => {

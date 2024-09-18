@@ -2,7 +2,7 @@ import { matchIsValidTel } from 'mui-tel-input';
 import * as Yup from 'yup';
 
 Yup.addMethod(Yup.string, 'phone', function (errorMessage) {
-  return this.test(`test-phone`, errorMessage, function (value) {
+  return this.test('test-phone', errorMessage, function (value) {
     const { path, createError } = this;
 
     // Allow phone as non-required field
@@ -14,7 +14,7 @@ Yup.addMethod(Yup.string, 'phone', function (errorMessage) {
   });
 });
 
-export class YupErrorExt {
+class YupErrorExt {
   public id: string;
   public values?: Record<string, any>;
 

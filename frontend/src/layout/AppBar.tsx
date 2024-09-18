@@ -65,6 +65,7 @@ export default function ResAppBar({
               ) : (
                 <img
                   src={Logo}
+                  alt="Logo"
                   width="150"
                   style={{ paddingTop: '6px', paddingBottom: '6px' }}
                 />
@@ -78,7 +79,13 @@ export default function ResAppBar({
 
       {hasDrawer && (
         <SwipeableDrawer open={drawerOpen} onClose={closeDrawer} onOpen={openDrawer}>
-          <div tabIndex={0} role="button" onClick={closeDrawer} onKeyDown={closeDrawer}>
+          <div
+            // biome-ignore lint/a11y/useSemanticElements: will break layout
+            tabIndex={0}
+            role="button"
+            onClick={closeDrawer}
+            onKeyDown={closeDrawer}
+          >
             <Routes direction="column" />
           </div>
         </SwipeableDrawer>

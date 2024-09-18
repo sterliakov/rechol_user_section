@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import react from '@vitejs/plugin-react';
-import { defineConfig, createFilter, transformWithEsbuild } from 'vite';
+import { createFilter, defineConfig, transformWithEsbuild } from 'vite';
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
 

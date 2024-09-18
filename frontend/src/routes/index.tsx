@@ -10,16 +10,16 @@ import { Anonymous, Authenticated } from './auth-guards';
 const NotFound = Loadable(lazy(async () => await import('pages/technical/NotFound')));
 const Login = Loadable(lazy(async () => await import('pages/auth/Login')));
 const ParticipantProfile = Loadable(
-  lazy(async () => await import('pages/profile/ParticipantProfile'))
+  lazy(async () => await import('pages/profile/ParticipantProfile')),
 );
 const VenueProfile = Loadable(
-  lazy(async () => await import('pages/profile/VenueProfile'))
+  lazy(async () => await import('pages/profile/VenueProfile')),
 );
 const ResetPassword = Loadable(
-  lazy(async () => await import('pages/auth/ResetPassword'))
+  lazy(async () => await import('pages/auth/ResetPassword')),
 );
 const ConfirmResetPassword = Loadable(
-  lazy(async () => await import('pages/auth/ConfirmResetPassword'))
+  lazy(async () => await import('pages/auth/ConfirmResetPassword')),
 );
 
 export default function ThemeRoutes() {
@@ -33,8 +33,11 @@ export default function ThemeRoutes() {
       ),
       children: [
         { path: 'login', element: <Login /> },
-        { path: 'signup/participant', element: <SignUp role="participant" /> },
-        { path: 'signup/venue', element: <SignUp role="venue" /> },
+        {
+          path: 'signup/participant',
+          element: <SignUp userRole="participant" />,
+        },
+        { path: 'signup/venue', element: <SignUp userRole="venue" /> },
         { path: 'reset-password/begin', element: <ResetPassword /> },
         {
           path: 'reset-password/confirm/:uid/:token',

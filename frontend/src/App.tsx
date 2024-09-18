@@ -2,7 +2,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
-import { useMemo, type ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 
 import { AuthProvider } from 'contexts/AuthContext';
 import { ConfigProvider } from 'contexts/ConfigContext';

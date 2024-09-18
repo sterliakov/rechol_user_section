@@ -140,7 +140,7 @@ export default function ParticipantProfile() {
           validationSchema={profileSchema}
           onSubmit={async (
             { submit, birth_date: birthDate, ...values },
-            { setErrors }
+            { setErrors },
           ) => {
             try {
               await updateProfile({
