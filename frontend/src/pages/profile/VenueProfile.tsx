@@ -81,7 +81,7 @@ export default function VenueProfile() {
     config != null && new Date(config.venue_registration_start) > now;
 
   return (
-    <FormWrapper width="min(1200px, 100vw)" titleId="profile" minWidth="300px">
+    <FormWrapper width="md" titleId="venue-profile" minWidth="300px">
       {config == null ? (
         <Box
           width="100%"
@@ -117,7 +117,7 @@ export default function VenueProfile() {
                   <Typography
                     variant="h4"
                     component="p"
-                    pb={3}
+                    pb={5}
                     width="100%"
                     textAlign="center"
                   >

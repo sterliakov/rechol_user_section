@@ -41,7 +41,7 @@ export default function BaseLayout() {
         display="flex"
         flexDirection="column"
         alignItems="center"
-        sx={{ pt: '76px', height: '100vh' }}
+        sx={{ pt: { xs: '58px', md: '76px' }, height: '100vh' }}
       >
         <Outlet />
       </Grid>

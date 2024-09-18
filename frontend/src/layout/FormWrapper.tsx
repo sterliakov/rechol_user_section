@@ -22,7 +22,7 @@ export default function FormWrapper({
       container
       maxWidth={width}
       sx={{ width: ['sm', 'md', 'lg'].includes(width) ? undefined : width }}
-      mt={3}
+      mt={{ sm: 0, md: 3 }}
     >
       <Card sx={{ minWidth, flexGrow: 1 }}>
         <CardHeader

@@ -33,7 +33,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   return (
-    <FormWrapper width="sm" titleId="sign-in" minWidth="450px">
+    <FormWrapper width="sm" titleId="sign-in" minWidth="min(100vw,450px)">
       <Formik
         initialValues={initialState}
         validationSchema={schema}

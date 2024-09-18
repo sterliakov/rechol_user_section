@@ -51,7 +51,7 @@ export default function ConfirmResetPassword() {
   if (!uid || !token) throw new Error('Missing params');
 
   return (
-    <FormWrapper width="sm" titleId="reset-password" minWidth="450px">
+    <FormWrapper width="sm" titleId="reset-password" minWidth="min(100vw,450px)">
       <Formik
         initialValues={initialState}
         validationSchema={schema}

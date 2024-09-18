@@ -29,7 +29,7 @@ async function resetPassword(email: string): Promise<void> {
 
 export default function ResetPassword() {
   return (
-    <FormWrapper width="sm" titleId="reset-password" minWidth="450px">
+    <FormWrapper width="sm" titleId="reset-password" minWidth="min(100vw,450px)">
       <Formik
         initialValues={initialState}
         validationSchema={schema}

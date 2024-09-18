@@ -162,7 +162,7 @@ export default function ParticipantProfile() {
                   <Typography
                     variant="h4"
                     component="p"
-                    pb={3}
+                    pb={5}
                     width="100%"
                     textAlign="center"
                   >
