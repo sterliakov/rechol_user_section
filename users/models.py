@@ -35,7 +35,9 @@ class Venue(models.Model):
         blank=False,
         null=False,
     )
-    full_name = models.CharField(_("full name"), max_length=63, blank=False, null=False)
+    full_name = models.CharField(
+        _("full name"), max_length=255, blank=False, null=False
+    )
     full_address = models.CharField(
         _("Address"),
         max_length=255,
