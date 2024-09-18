@@ -1,23 +1,27 @@
-import type { OutlinedInputProps } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import { useField } from 'formik';
 import type { ReactNode } from 'react';
-import { FormattedMessage } from 'react-intl';
 
-export interface TextInputProps extends OutlinedInputProps {
+import { useReadOnlyForm } from 'contexts/ReadOnlyFormContext';
+
+import { ExtendedError, ExtendedLabel } from './_parts';
+
+export interface CheckboxInputProps {
   fieldName: string;
   labelKey: string;
   required?: boolean;
+  readOnly?: boolean;
 }
 
 export default function CheckboxInput({
   fieldName,
   labelKey,
   required,
-}: TextInputProps): ReactNode {
+  readOnly,
+}: CheckboxInputProps): ReactNode {
   const [field, meta, helper] = useField<boolean>(fieldName);
+  const allReadonly = useReadOnlyForm();
   return (
     <>
       <FormControlLabel
@@ -29,21 +33,12 @@ export default function CheckboxInput({
             }}
             name={fieldName}
             color="primary"
+            readOnly={readOnly ?? allReadonly}
           />
         }
-        label={
-          <>
-            <FormattedMessage id={labelKey} />
-            {required && ' *'}
-          </>
-        }
+        label={<ExtendedLabel {...{ labelKey, required }} />}
       />
-
-      {meta.touched && meta.error && (
-        <FormHelperText error>
-          <FormattedMessage id={meta.error} defaultMessage={meta.error} />
-        </FormHelperText>
-      )}
+      {meta.touched && <ExtendedError error={meta.error} />}
     </>
   );
 }

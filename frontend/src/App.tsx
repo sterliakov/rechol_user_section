@@ -12,6 +12,8 @@ import Locales from 'locales';
 import Routes from 'routes';
 import createCustomTheme from 'theme';
 
+import 'utils/validation';
+
 export default function App(): ReactNode {
   const theme = useMemo(createCustomTheme, []);
   return (

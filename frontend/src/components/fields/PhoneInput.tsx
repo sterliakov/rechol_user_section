@@ -1,15 +1,16 @@
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import { useField } from 'formik';
 import type { MuiTelInputCountry } from 'mui-tel-input';
 import { MuiTelInput } from 'mui-tel-input';
-import { FormattedMessage } from 'react-intl';
+
+import { useReadOnlyForm } from 'contexts/ReadOnlyFormContext';
 
 import type { TextInputProps } from './TextInput';
+import { ExtendedError, ExtendedLabel } from './_parts';
 
 type PhoneInputProps = Pick<
   TextInputProps,
-  'fieldName' | 'id' | 'labelKey' | 'required'
+  'fieldName' | 'id' | 'labelKey' | 'required' | 'readOnly'
 > & {
   defaultCountry?: MuiTelInputCountry;
 };
@@ -19,17 +20,13 @@ const PhoneInput = ({
   id,
   labelKey,
   required,
+  readOnly,
   defaultCountry,
 }: PhoneInputProps) => {
   const [field, meta, helper] = useField<string>(fieldName);
+  const allReadonly = useReadOnlyForm();
 
-  const label = (
-    <>
-      <FormattedMessage id={labelKey} />
-      {required && ' *'}
-    </>
-  );
-
+  const label = <ExtendedLabel {...{ labelKey, required }} />;
   return (
     <FormControl fullWidth error={Boolean(meta.touched && meta.error)}>
       <MuiTelInput
@@ -42,13 +39,10 @@ const PhoneInput = ({
         }}
         error={meta.error}
         label={label}
+        readOnly={readOnly ?? allReadonly}
         defaultCountry={defaultCountry}
       />
-      {meta.touched && meta.error && (
-        <FormHelperText error>
-          <FormattedMessage id={meta.error} defaultMessage={meta.error} />
-        </FormHelperText>
-      )}
+      {meta.touched && <ExtendedError error={meta.error} />}
     </FormControl>
   );
 };

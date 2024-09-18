@@ -1,16 +1,17 @@
 import type { AutocompleteProps } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
 import { useField } from 'formik';
-import { FormattedMessage } from 'react-intl';
+
+import { useReadOnlyForm } from 'contexts/ReadOnlyFormContext';
 
 import type { TextInputProps } from './TextInput';
+import { ExtendedError, ExtendedLabel } from './_parts';
 
 type AutocompleteInputProps<Option> = Pick<
   TextInputProps,
-  'fieldName' | 'id' | 'labelKey' | 'required'
+  'fieldName' | 'id' | 'labelKey' | 'required' | 'readOnly'
 > & {
   options: Option[];
   getOptionLabel?: (option: Option) => string;
@@ -36,18 +37,15 @@ export default function AutocompleteInput<Option>({
   options,
   getOptionLabel = (option) => (hasLabel(option) ? option.label : ''),
   getOptionValue = (option) => (hasValue(option) ? option.value : ''),
+  readOnly,
   renderOption,
 }: AutocompleteInputProps<Option>) {
   const [field, meta, helper] = useField<string>(fieldName);
-  const label = (
-    <>
-      <FormattedMessage id={labelKey} />
-      {required && ' *'}
-    </>
-  );
+  const allReadonly = useReadOnlyForm();
 
   const value = options.find((option) => getOptionValue(option) === meta.value) ?? null;
 
+  const label = <ExtendedLabel {...{ labelKey, required }} />;
   return (
     <FormControl fullWidth>
       <Autocomplete
@@ -67,10 +65,9 @@ export default function AutocompleteInput<Option>({
           <TextField {...params} label={label} name={field.name} id={id} />
         )}
         renderOption={renderOption}
+        readOnly={readOnly ?? allReadonly}
       />
-      {meta.touched && meta.error && (
-        <FormHelperText error>{meta.error}</FormHelperText>
-      )}
+      {meta.touched && <ExtendedError error={meta.error} />}
     </FormControl>
   );
 }

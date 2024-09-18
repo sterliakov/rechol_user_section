@@ -9,7 +9,12 @@ import { Anonymous, Authenticated } from './auth-guards';
 
 const NotFound = Loadable(lazy(async () => await import('pages/technical/NotFound')));
 const Login = Loadable(lazy(async () => await import('pages/auth/Login')));
-const Profile = Loadable(lazy(async () => await import('pages/profile')));
+const ParticipantProfile = Loadable(
+  lazy(async () => await import('pages/profile/ParticipantProfile'))
+);
+const VenueProfile = Loadable(
+  lazy(async () => await import('pages/profile/VenueProfile'))
+);
 const ResetPassword = Loadable(
   lazy(async () => await import('pages/auth/ResetPassword'))
 );
@@ -44,7 +49,10 @@ export default function ThemeRoutes() {
           <BaseLayout />
         </Authenticated>
       ),
-      children: [{ path: 'participant', element: <Profile /> }],
+      children: [
+        { path: 'participant', element: <ParticipantProfile /> },
+        { path: 'venue', element: <VenueProfile /> },
+      ],
     },
     {
       path: '*',

@@ -24,8 +24,9 @@ const VenuesContext = createContext<VenuesState>({
   },
 });
 
-async function getVenues(): Promise<{ results: Venue[] }> {
-  return await axios.get('/api/v1/venues/');
+async function getVenues(): Promise<Venue[]> {
+  const response = await axios.get('/api/v1/venues/');
+  return response.data;
 }
 
 export const VenuesProvider = ({ children }: { children: ReactNode }) => {
@@ -36,9 +37,7 @@ export const VenuesProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    getVenues().then(({ results }) => {
-      setVenues(results);
-    });
+    getVenues().then(setVenues);
   }, [refreshKey]);
 
   return (

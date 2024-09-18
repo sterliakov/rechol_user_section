@@ -1,6 +1,5 @@
 import type { SelectProps } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -8,7 +7,10 @@ import { useField } from 'formik';
 import type { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { useReadOnlyForm } from 'contexts/ReadOnlyFormContext';
+
 import type { TextInputProps } from './TextInput';
+import { ExtendedError, ExtendedLabel } from './_parts';
 
 export interface Option<ID = string> {
   id: ID;
@@ -18,7 +20,7 @@ export interface Option<ID = string> {
 
 type SelectInputProps<ID> = Pick<
   TextInputProps,
-  'fieldName' | 'id' | 'labelKey' | 'required' | 'disabled'
+  'fieldName' | 'id' | 'labelKey' | 'required' | 'disabled' | 'readOnly'
 > & {
   options: Array<Option<ID>>;
   onChange?: SelectProps<string>['onChange'];
@@ -33,16 +35,13 @@ export default function SelectInput<ID extends string | number = string>({
   options,
   onChange,
   disabled,
+  readOnly,
   helperText,
 }: SelectInputProps<ID>) {
   const [field, meta] = useField<string>(fieldName);
+  const allReadonly = useReadOnlyForm();
   const labelId = `${id}-label`;
-  const label = (
-    <>
-      <FormattedMessage id={labelKey} />
-      {required && ' *'}
-    </>
-  );
+  const label = <ExtendedLabel {...{ labelKey, required }} />;
 
   return (
     <FormControl fullWidth>
@@ -59,6 +58,7 @@ export default function SelectInput<ID extends string | number = string>({
             field.onChange(event);
           }
         }}
+        readOnly={readOnly ?? allReadonly}
         onBlur={field.onBlur}
         error={!!(meta.touched && meta.error)}
         name={field.name}
@@ -73,11 +73,7 @@ export default function SelectInput<ID extends string | number = string>({
           </MenuItem>
         ))}
       </Select>
-      {meta.touched && meta.error && (
-        <FormHelperText error>
-          <FormattedMessage id={meta.error} defaultMessage={meta.error} />
-        </FormHelperText>
-      )}
+      {meta.touched && <ExtendedError error={meta.error} />}
       {helperText}
     </FormControl>
   );

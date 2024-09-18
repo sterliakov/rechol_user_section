@@ -28,7 +28,8 @@ const ConfigContext = createContext<ConfigState>({
 });
 
 async function getConfig(): Promise<Config> {
-  return await axios.get('/api/v1/config/');
+  const response = await axios.get('/api/v1/config/');
+  return response.data;
 }
 
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {

@@ -14,6 +14,7 @@ export interface CountryInputProps {
   labelKey: string;
   id: string;
   required?: boolean;
+  readOnly?: boolean;
 }
 
 export default function CountryInput({
@@ -21,6 +22,7 @@ export default function CountryInput({
   labelKey,
   id,
   required = false,
+  readOnly,
 }: CountryInputProps): ReactNode {
   return (
     <AutocompleteInput<Country>
@@ -31,6 +33,7 @@ export default function CountryInput({
       options={countries}
       getOptionLabel={(country) => country.country}
       getOptionValue={(country) => country.iso2}
+      readOnly={readOnly}
       renderOption={(props, option: Country) => (
         <Box
           component="li"

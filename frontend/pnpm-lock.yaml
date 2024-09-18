@@ -35,6 +35,9 @@ importers:
             formik:
                 specifier: ^2.4.6
                 version: 2.4.6(react@18.3.1)
+            mui-file-input:
+                specifier: ^6.0.0
+                version: 6.0.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@6.0.1(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
             mui-tel-input:
                 specifier: ^6.0.0
                 version: 6.0.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@6.0.1(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1933,6 +1936,19 @@ packages:
     ms@2.1.2:
         resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
+    mui-file-input@6.0.0:
+        resolution: {integrity: sha512-obxuGvY2+SuafXUdKOq06jw/Ams3xPsYafkSb71wmnC2jz6k+DHeKomXlawqAUM7w6WbRy2J3mQ4yoRLZYMx3A==}
+        peerDependencies:
+            '@emotion/react': ^11.13.3
+            '@emotion/styled': ^11.13.0
+            '@mui/material': ^5.0.0 || ^6.0.0
+            '@types/react': ^18.0.0
+            react: ^18.0.0
+            react-dom: ^18.0.0
+        peerDependenciesMeta:
+            '@types/react':
+                optional: true
+
     mui-tel-input@6.0.0:
         resolution: {integrity: sha512-C3xUnJQwBqsHFqCWR+SG/jfo5mJk0NnByYtwC9Rl/WEczicwydWXQ9+w7uNSd4VemLPGZXQzPNrY260YaR4zGA==}
         peerDependencies:
@@ -2084,6 +2100,10 @@ packages:
         resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
         engines: {node: '>=14'}
         hasBin: true
+
+    pretty-bytes@6.1.1:
+        resolution: {integrity: sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==}
+        engines: {node: ^14.13.1 || >=16.0.0}
 
     pretty-ms@9.1.0:
         resolution: {integrity: sha512-o1piW0n3tgKIKCwk2vpM/vOV13zjJzvP37Ioze54YlTHE06m4tjEbzg9WsKkvTuyYln2DHjo5pY4qrZGI0otpw==}
@@ -4743,6 +4763,17 @@ snapshots:
 
     ms@2.1.2: {}
 
+    ? mui-file-input@6.0.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@6.0.1(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    :   dependencies:
+            '@emotion/react': 11.13.3(@types/react@18.3.5)(react@18.3.1)
+            '@emotion/styled': 11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
+            '@mui/material': 6.0.1(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+            pretty-bytes: 6.1.1
+            react: 18.3.1
+            react-dom: 18.3.1(react@18.3.1)
+        optionalDependencies:
+            '@types/react': 18.3.5
+
     ? mui-tel-input@6.0.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@6.0.1(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     :   dependencies:
             '@emotion/react': 11.13.3(@types/react@18.3.5)(react@18.3.1)
@@ -4884,6 +4915,8 @@ snapshots:
     prelude-ls@1.2.1: {}
 
     prettier@3.3.3: {}
+
+    pretty-bytes@6.1.1: {}
 
     pretty-ms@9.1.0:
         dependencies:

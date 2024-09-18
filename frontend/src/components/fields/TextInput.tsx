@@ -1,11 +1,13 @@
 import type { OutlinedInputProps } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useField } from 'formik';
 import type { ReactNode } from 'react';
-import { FormattedMessage } from 'react-intl';
+
+import { useReadOnlyForm } from 'contexts/ReadOnlyFormContext';
+
+import { ExtendedError, ExtendedLabel } from './_parts';
 
 export interface TextInputProps extends OutlinedInputProps {
   fieldName: string;
@@ -20,18 +22,14 @@ const TextInput = ({
   id,
   labelKey,
   required,
+  readOnly,
   helperText,
   ...extra
 }: TextInputProps) => {
   const [field, meta] = useField<string>(fieldName);
+  const allReadonly = useReadOnlyForm();
 
-  const label = (
-    <>
-      <FormattedMessage id={labelKey} />
-      {required && ' *'}
-    </>
-  );
-
+  const label = <ExtendedLabel {...{ labelKey, required }} />;
   return (
     <FormControl fullWidth error={Boolean(meta.touched && meta.error)}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
@@ -42,13 +40,10 @@ const TextInput = ({
         onBlur={field.onBlur}
         onChange={field.onChange}
         label={label}
+        readOnly={readOnly ?? allReadonly}
         {...extra}
       />
-      {meta.touched && meta.error && (
-        <FormHelperText error>
-          <FormattedMessage id={meta.error} defaultMessage={meta.error} />
-        </FormHelperText>
-      )}
+      {meta.touched && <ExtendedError error={meta.error} />}
       {helperText}
     </FormControl>
   );

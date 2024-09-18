@@ -1,13 +1,14 @@
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useField } from 'formik';
 import type { ComponentProps } from 'react';
-import { FormattedMessage } from 'react-intl';
 
+import { useReadOnlyForm } from 'contexts/ReadOnlyFormContext';
 import { toEndOfDay, toStartOfDay } from 'utils/date';
+
+import { ExtendedError, ExtendedLabel } from './_parts';
 
 export interface DateInputProps
   extends Omit<
@@ -34,17 +35,13 @@ export default function DateInput({
   labelKey,
   required,
   normalize,
+  readOnly,
   ...props
 }: DateInputProps) {
   const [field, meta, helper] = useField<string>(fieldName);
+  const allReadonly = useReadOnlyForm();
 
-  const label = (
-    <>
-      <FormattedMessage id={labelKey} />
-      {required && ' *'}
-    </>
-  );
-
+  const label = <ExtendedLabel {...{ labelKey, required }} />;
   const performNormalize = (value: Date | null) => {
     if (!value || Number.isNaN(value.getDate())) {
       return '';
@@ -73,18 +70,14 @@ export default function DateInput({
               fullWidth: true,
             },
           }}
-          // renderInput={(props: any) => <TextField {...props} helperText="" />}
           onChange={(value: Date | null) => {
             void helper.setValue(performNormalize(value));
           }}
+          readOnly={readOnly ?? allReadonly}
           {...props}
         />
       </LocalizationProvider>
-      {meta.touched && meta.error && (
-        <FormHelperText error>
-          <FormattedMessage id={meta.error} defaultMessage={meta.error} />
-        </FormHelperText>
-      )}
+      {meta.touched && <ExtendedError error={meta.error} />}
     </FormControl>
   );
 }

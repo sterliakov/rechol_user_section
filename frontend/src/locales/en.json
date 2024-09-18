@@ -15,6 +15,7 @@
   "sign-up": "Sign Up",
   "save": "Save",
   "user-info": "{email}",
+  "already-have-an-account-q": "Already have an account?",
 
   "profile": "Profile",
   "first-name": "First name",
@@ -37,9 +38,23 @@
   "online-selected": "Online stage",
   "other": "Other",
 
+  "venue-full-name": "Full name",
+  "venue-short-name": "Short name",
+  "venue-short-name-explained": "This name will be shown to the participants.",
+  "venue-full-address": "Address",
+  "venue-confirmation-letter": "Confirmation letter",
+  "venue-confirmation-letter-explained": "A photo or scan of a confirmation signed by your institution authority",
+  "venue-wait-for-confirmation": "Your venue will be publicly listed after our confirmation.",
+  "venue-confirmed": "Your venue is confirmed and open for registration.",
+
+  "registration-ended": "Registration closed.",
+  "registration-not-started": "Registration not started yet.",
+
   "birth-date-too-old": "Birth date too far in the past",
   "birth-date-too-young": "You are too young to participate",
   "actual-form-above-participation": "You can participate for your grade or higher.",
+  "e-string-max": "Should be no longer than {max} characters.",
+  "e-string-min": "Should be at least {min} characters.",
 
   "alert-profile-updated": "Your profile was updated successfully."
 }

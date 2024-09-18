@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -129,13 +130,19 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("dj_rest_auth.jwt_auth.JWTCookieAuthentication",)
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    ),
+    "EXCEPTION_HANDLER": "users.exception_handler.exception_handler",
 }
 REST_AUTH = {
     "USE_JWT": True,
     "JWT_AUTH_COOKIE": "pcho-auth",
     "JWT_AUTH_REFRESH_COOKIE": "pcho-refresh-token",
     "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
+}
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
 }
 
 LANGUAGE_CODE = "ru"

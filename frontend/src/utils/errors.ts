@@ -24,7 +24,8 @@ export function getErrors<T extends MinimalForm>(
       };
     } else if (field === 'non_field_errors') {
       if (!Array.isArray(value)) throw new Error('Expected array');
-      errors.submit += '; ' + value.join('; ');
+      const errString = value.join('; ');
+      errors.submit = errors.submit == null ? errString : '; ' + errString;
     } else {
       // @ts-expect-error I don't care about safety of this function
       errors[field] = value;

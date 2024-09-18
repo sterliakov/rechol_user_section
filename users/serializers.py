@@ -92,9 +92,23 @@ class VenueSerializer(ModelSerializer):
             "full_address",
             "contact_phone",
             "is_full",
+            "is_confirmed",
             "confirmation_letter",
         ]
-        extra_kwargs = {"confirmation_letter": {"write_only": True}}
+
+
+class VenueListSerializer(ModelSerializer):
+    class Meta:
+        model = Venue
+        fields = [
+            "id",
+            "city",
+            "short_name",
+            "full_name",
+            "full_address",
+            "contact_phone",
+            "is_full",
+        ]
 
 
 class ConfigSerializer(ModelSerializer):
