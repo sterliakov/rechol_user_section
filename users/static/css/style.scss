@@ -358,7 +358,10 @@ ul.timeline {
 
 .bootstrap-select {
     display: block !important;
-    width: unset !important;
+
+    .dropdown-item {
+        white-space: normal;
+    }
 }
 
 .custom_modal {
