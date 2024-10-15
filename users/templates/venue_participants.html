@@ -4,7 +4,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <h1 class="text-center py-2">{% trans "Registered participants" %}</h1>
-      {% if venue %}
+      {% if venue.is_confirmed %}
         <a href="{% url "venue_participants_download" %}"
            download
            class="btn btn-primary">{% trans "Download list" %}</a>
@@ -33,9 +33,9 @@
               <td>{{ guy.first_name }}</td>
               <td>{{ guy.last_name }}</td>
               <td>{{ guy.patronymic_name }}</td>
-              <td>{{ guy.passport }}</td>
+              <td>{{ guy.passport | default:"&mdash;" }}</td>
               <td class="text-center">{{ guy.participation_form }}</td>
-              <td>{{ guy.phone }}</td>
+              <td>{{ guy.phone | default:"&mdash;" }}</td>
               <td class="text-center">
                 <button class="btn btn-outline-primary"
                         onclick="showUploadModal( '{{ guy.pk }}', '{{ guy.first_name }}', '{{ guy.last_name }}', '{{ guy.patronymic_name }}', '{{ guy.participation_form }}', )"
