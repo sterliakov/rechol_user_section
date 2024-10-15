@@ -24,6 +24,7 @@
             <th>{% trans "Patronymic name" %}</th>
             <th>{% trans "ID Number" %}</th>
             <th>{% trans "Grade" %}</th>
+            <th>{% trans "Phone" %}</th>
             <th>{% trans "Scans" %}</th>
           </thead>
           {% for guy in object_list %}
@@ -34,6 +35,7 @@
               <td>{{ guy.patronymic_name }}</td>
               <td>{{ guy.passport }}</td>
               <td class="text-center">{{ guy.participation_form }}</td>
+              <td>{{ guy.phone }}</td>
               <td class="text-center">
                 <button class="btn btn-outline-primary"
                         onclick="showUploadModal( '{{ guy.pk }}', '{{ guy.first_name }}', '{{ guy.last_name }}', '{{ guy.patronymic_name }}', '{{ guy.participation_form }}', )"
