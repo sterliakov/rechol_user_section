@@ -570,9 +570,9 @@ class VenueParticipantsDownloadView(LoginRequiredMixin, UserPassesTestMixin, Vie
     def get(self, _request):
         users = self.get_queryset()
         columns = [
+            _("Last name"),
             _("First name"),
             _("Patronymic name"),
-            _("Last name"),
             _("ID number"),
             _("Grade"),
             _("Room"),
@@ -588,9 +588,9 @@ class VenueParticipantsDownloadView(LoginRequiredMixin, UserPassesTestMixin, Vie
         for user in users:
             ws.append(
                 [
+                    user.last_name,
                     user.first_name,
                     user.patronymic_name,
-                    user.last_name,
                     user.passport,
                     user.participation_form,
                 ]
