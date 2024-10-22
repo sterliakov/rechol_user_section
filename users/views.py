@@ -586,15 +586,13 @@ class VenueParticipantsDownloadView(LoginRequiredMixin, UserPassesTestMixin, Vie
         ws = wb.active
         ws.append([str(col) for col in columns])
         for user in users:
-            ws.append(
-                [
-                    user.last_name,
-                    user.first_name,
-                    user.patronymic_name,
-                    user.passport,
-                    user.participation_form,
-                ]
-            )
+            ws.append([
+                user.last_name,
+                user.first_name,
+                user.patronymic_name,
+                user.passport,
+                user.participation_form,
+            ])
         buf = io.BytesIO()
         wb.save(buf)
         buf.seek(0)

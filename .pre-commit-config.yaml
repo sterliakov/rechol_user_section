@@ -6,18 +6,23 @@ repos:
     -   id: end-of-file-fixer
     -   id: check-merge-conflict
     -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+    -   id: check-symlinks
+    -   id: mixed-line-ending
+        args: [--fix=lf]
     -   id: check-toml
     -   id: check-yaml
     -   id: check-json
     -   id: pretty-format-json
         args: [--autofix, --no-ensure-ascii]
 
-# -   repo: https://github.com/pre-commit/mirrors-eslint
-#     rev: v8.56.0
-#     hooks:
-#     -   id: eslint
-#         args: [--config, .eslintrc.js]
-#         exclude: users/static/font-awesome-pro|users/static/fullcalendar|users/static/pdf_js
+-   repo: https://github.com/biomejs/pre-commit
+    rev: v0.5.0
+    hooks:
+    -   id: biome-check
+        language_version: lts
+        additional_dependencies: ['@biomejs/biome@1.9.4']
+        exclude: users/static/font-awesome-pro|users/static/pdf_js
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.7.0
@@ -25,6 +30,11 @@ repos:
     -   id: ruff-format
     -   id: ruff
         args: [--fix]
+
+-   repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.4.25
+    hooks:
+    -   id: uv-lock
 
 -   repo: https://github.com/mondeja/pre-commit-po-hooks
     rev: v1.7.3
@@ -51,6 +61,7 @@ repos:
     hooks:
     -   id: shellcheck
         args: [-x, -P, SCRIPTDIR]
+
 -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
     rev: v2.14.0
     hooks:
@@ -58,6 +69,7 @@ repos:
         args: [--autofix, --indent, '4']
     -   id: pretty-format-toml
         args: [--autofix, --indent, '4', --trailing-comma]
+
 -   repo: https://github.com/AleksaC/hadolint-py       # Dockerfiles lint
     rev: v2.12.1b3
     hooks:
