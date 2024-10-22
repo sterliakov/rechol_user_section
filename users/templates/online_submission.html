@@ -58,7 +58,10 @@
 {% endblock content %}
 {% block extrascripts_after %}
   {% get_current_language as LANGUAGE_CODE %}
-  <script src="{% static 'humanize-duration/humanize-duration.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-duration/3.32.1/humanize-duration.min.js"
+          integrity="sha512-IuW3C7hqTl2pnZ+OX+lHFEc8QOYJCVyNSKmRTAmJJ9J0xwru4wYTar2MM80MSbhOiZKmGc+uypnPZKrCVga2xg=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script>
   <script>
 $(function(){
   if (new URL(window.location.href).searchParams.get('success') === 'true') {
