@@ -35,15 +35,12 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "django.contrib.staticfiles",
     # 3rd party
-    "ajax_select",
     "bootstrap_datepicker_plus",
     "compressor",
     "django_countries",
     "crispy_forms",
     "django_object_actions",
-    "django_select2",
     "django_ses",
-    "djangobower",
     "import_export",
     "phonenumber_field",
     "psqlextra",
@@ -154,15 +151,6 @@ CACHES = {
             "DEFAULT_TIMEOUT": 3600,
         },
     },
-    "select2": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.getenv("REDIS_HOST", "redis://127.0.0.1:6379") + "/1",
-        "TIMEOUT": 86400,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "DEFAULT_TIMEOUT": 86400,
-        },
-    },
     # Used only for django-compressor offline CI
     "filesystem": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
@@ -172,25 +160,9 @@ CACHES = {
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-BOWER_INSTALLED_APPS = (
-    "jquery#3.5.1",  # 3.6.0 results in select2 widget problems
-    "bootstrap#4",
-    "eonasdan-bootstrap-datetimepicker#4.17.49",
-    "jQuery-contextMenu#2.7.1",
-    "https://github.com/koalyptus/TableFilter.git",
-    "awesomplete",
-    "knockout",
-    "https://github.com/mdbootstrap/perfect-scrollbar.git",
-    "bootstrap-select#1.13.14",
-    "moment",
-    "https://github.com/dangrossman/daterangepicker.git",
-    "humanize-duration",
-)
-
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "djangobower.finders.BowerFinder",
     "compressor.finders.CompressorFinder",
 )
 
@@ -209,9 +181,9 @@ COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 COMPRESS_CACHE_BACKEND = os.getenv("COMPRESSOR_CACHE", "default")
 COMPRESS_OUTPUT_DIR = "compressed"
-# We now depend on dart sass implementation.
-# Install with `npm i -g sass`
-COMPRESS_PRECOMPILERS = (("text/x-scss", "/usr/local/bin/sass {infile} {outfile}"),)
+# django_libsass fails to compile bootstrap and uses deprecated c++ libsass anyway
+_SASS_EXECUTABLE = os.getenv("SASS_EXECUTABLE", "")
+COMPRESS_PRECOMPILERS = (("text/x-scss", _SASS_EXECUTABLE + " {infile} {outfile}"),)
 COMPRESS_FILTERS = {
     "css": ["compressor.filters.css_default.CssAbsoluteFilter"],
     "js": ["compressor.filters.jsmin.JSMinFilter"],

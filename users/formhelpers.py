@@ -9,7 +9,6 @@ from crispy_forms.layout import HTML, Div, Field, Layout, Submit
 
 
 class CustomFormHelper(FormHelper):
-    include_media = False
     html5_required = True
     form_class = ""
     use_custom_control = False

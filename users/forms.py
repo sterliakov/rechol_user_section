@@ -13,7 +13,10 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.postgres.forms import SplitArrayField
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import (
+    get_language,
+    gettext_lazy as _,
+)
 
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 
@@ -68,6 +71,9 @@ class UserCreateFormMixin:
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.fields["birth_date"].input_formats = settings.DATE_INPUT_FORMATS
+        self.fields["birth_date"].widget = DatePickerInput(
+            format="%d/%m/%Y", options={"locale": get_language()}
+        )
         self.helper = helpers.UserUpdateFormHelper(is_create=self.is_create)
         config = ConfigurationSingleton.objects.get()
         self.fields["venue_selected"].queryset = Venue.objects.filter(is_confirmed=True)
