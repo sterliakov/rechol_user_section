@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="d-flex flex-column align-items-center flex-grow-1">
+    <h1 class="my-3">{% trans "Permission denied." %}</h1>
+    <p>
+      {% trans "If you believe that you should be able to access this page, please contact us at" %}<a href="mailto:support@cheolymp.ru">support@chemolymp.ru</a>
+    </p>
+  </div>
+{% endblock content %}

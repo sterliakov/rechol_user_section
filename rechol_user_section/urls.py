@@ -25,3 +25,8 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
+
+handler400 = "rechol_user_section.views.handler_400"
+handler403 = "rechol_user_section.views.handler_403"
+handler404 = "rechol_user_section.views.handler_404"
+handler500 = "rechol_user_section.views.handler_500"

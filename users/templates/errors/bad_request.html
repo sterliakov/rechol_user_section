@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="d-flex flex-column align-items-center flex-grow-1">
+    <h1 class="my-3">{% trans "Something bad happened." %}</h1>
+    <p>{% trans "If you didn't do anything wrong, please try to reload the page and come back in a few minutes." %}</p>
+    <p>{% trans "We already know about this problem and started working on it!" %}</p>
+  </div>
+{% endblock content %}

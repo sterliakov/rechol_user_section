@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="d-flex flex-column align-items-center flex-grow-1">
+    <h1 class="my-3">{% trans "Page not found." %}</h1>
+    <p>{% trans "The page you were trying to reach does not exist. Try starting again from the home page:" %}</p>
+    {# djlint:off D018 #}
+    <a href="/">{% trans "Home" %}</a>
+    {# djlint:on #}
+  </div>
+{% endblock content %}
