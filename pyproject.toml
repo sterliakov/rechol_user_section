@@ -1,34 +1,32 @@
-[tool.coverage.report]
-exclude_lines = [
-    'pragma: no cover',
-    'def __repr__',
-    'def __str__',
-    'if settings.DEBUG:',
-    'raise AssertionError',
-    'raise NotImplementedError',
-    'if __name__ == .__main__.:',
-    '@(abc\.)?abstractmethod',
-    'if TYPE_CHECKING:',
-    'import',
+[project]
+dependencies = [
+    "Django~=5.1",
+    "djangorestframework~=3.15.2",
+    "django-compressor~=4.4",
+    "django-countries~=7.5.1",
+    "django-crispy-forms~=1.14.0",
+    "django-bootstrap-datepicker-plus ~= 5.0",
+    "django-object-actions ~= 4.2.0",
+    "django-phonenumber-field ~= 7.2",
+    "django-postgres-extra ~= 2.0",
+    "django-redis ~= 5.4",
+    "django-widget-tweaks~=1.4.12",
+    "django-ses ~= 4.2",
+    "django-import-export ~= 3.2",
+    "django-concurrency ~= 2.6",
+    "django-debug-toolbar ~= 4.4",
+    "psycopg2-binary~=2.9.9",
+    "tablib[cli,xlsx] ~= 3.7",
+    "pypdf ~= 3.17.2",
+    "reportlab ~= 4.0.8",
+    "phonenumbers>=8.13.48",
 ]
-show_missing = true
-skip_covered = true
-skip_empty = true
-
-[tool.coverage.run]
-omit = [
-    '*/migrations/*.py',
-    'manage.py',
-    'rechol_user_section/settings.py',
-    '*/tests.py',
-    '*/tests/*.py',
-]
-
-[tool.django-stubs]
-django_settings_module = "rechol_user_section.settings"
+description = ""
+name = "rechol"
+requires-python = ">=3.11.7"
+version = "0.1.0"
 
 [tool.djlint]
-exclude = "bower_components"
 # H006: img must have width and height attrs
 # H017: self-closing <input>
 # H019: javascript:void(0) is OK
@@ -40,37 +38,9 @@ ignore = "H006,H017,H019,H020,H021,H023,H026"
 indent = 2
 profile = "django"
 
-[tool.isort]
-known_first_party = [
-    "app",
-    "appointments",
-    "chat",
-    "dental_chart",
-    "integration",
-    "lib",
-    "smartcard",
-    "users",
-]
-profile = "black"
-
-[tool.mypy]
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
-exclude = [
-    'test.*\.py$',
-    'migrations/*',
-]
-ignore_missing_imports = true
-no_implicit_optional = true
-plugins = ["mypy_django_plugin.main"]
-warn_redundant_casts = true
-warn_unreachable = true
-warn_unused_ignores = true
-
 [tool.ruff]
-target-version = 'py311'
+preview = true
+target-version = 'py312'
 
 [tool.ruff.lint]
 exclude = [
@@ -97,19 +67,23 @@ extend-ignore = [
     "RUF001",  # Russian letters in strings
     "ANN",  # Type hints
     "D",  # Docstrings
+    "DOC",  # Docstrings
+    "CPY",  # copyright
     "EM101",  # Exception must not use a string literal, assign to variable first
+    "PLR6301",  # Method `xxx` could be a function, class method, or static method
+    "PLC0415",  # `import` should be at the top-level of a file
     "E501",  # Let black care about line width, if not splitable - go on
     # Conflicts with save(self, commit=True) overrides
     "FBT002",  # Boolean default positional argument in function definition
     # conflicts with ruff-fmt
     "COM812",
-    "ISC001",
 ]
 select = ['ALL']
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
 force-wrap-aliases = true
+known-first-party = ["users", "rechol_user_section"]
 required-imports = ["from __future__ import annotations"]
 section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
 
@@ -118,3 +92,8 @@ django = ['django', 'rest_framework']
 
 [tool.ruff.lint.per-file-ignores]
 "**/migrations/*" = ["DTZ"]
+
+[tool.uv]
+compile-bytecode = true
+dev-dependencies = []
+link-mode = "copy"
