@@ -389,7 +389,7 @@ class AppellationView(LoginRequiredMixin, UpdateView):
             else:
                 return self.form_invalid(form)
 
-        return super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class OnlineAppellationView(LoginRequiredMixin, UpdateView):
@@ -436,7 +436,7 @@ class OnlineAppellationView(LoginRequiredMixin, UpdateView):
             else:
                 return self.form_invalid(form)
 
-        return super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class VenueRegistrationView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
