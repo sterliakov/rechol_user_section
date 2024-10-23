@@ -27,3 +27,13 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "private" {
     }
   }
 }
+
+resource "aws_s3_bucket_cors_configuration" "private_allow_access_from_everywhere" {
+  bucket = aws_s3_bucket.private.id
+
+  cors_rule {
+    allowed_methods = ["GET", "POST"]
+    allowed_origins = ["*"]
+    allowed_headers = ["*"]
+  }
+}

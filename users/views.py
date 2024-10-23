@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import contextlib
 import io
+import uuid
 from textwrap import dedent
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -26,6 +27,7 @@ from django.views.generic import (
 )
 from rest_framework import generics
 
+import boto3
 from openpyxl import Workbook
 
 from . import forms
@@ -332,9 +334,30 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
         # Check only for start time, the page remains available when appeal is closed
         appeal_open = config.online_appeal_start <= tz.now()
 
+        dest = OnlineSubmission.paper_original.field
+        client = boto3.client("s3")
+        filename = dest.storage.get_available_name(uuid.uuid4())
+        full_key = "/".join([
+            dest.storage.location,
+            dest.upload_to,
+            str(self.request.user.pk),
+            f"{filename}.pdf",
+        ])
+        upload_to = client.generate_presigned_post(
+            dest.storage.bucket_name,
+            full_key,
+            Fields={"Content-Type": "application/pdf"},
+            Conditions=[
+                ["content-length-range", 1, 50 * 1024 * 1024],
+                {"Content-Type": "application/pdf"},
+            ],
+            ExpiresIn=3600,
+        )
+
         return super().get_context_data(**kwargs) | {
             "contest_over": self.is_over,
             "appeal_open": appeal_open,
+            "upload_to": upload_to,
         }
 
 

@@ -189,6 +189,8 @@ class SetPasswordForm(_SetPasswordForm):
 
 
 class OnlineSubmissionForm(forms.ModelForm):
+    uploaded_to = forms.CharField()
+
     class Meta:
         model = OnlineSubmission
         fields = ("paper_original", "comment")
@@ -198,6 +200,35 @@ class OnlineSubmissionForm(forms.ModelForm):
                 attrs={"accept": "application/pdf"},
             ),
         }
+
+    def clean(self):
+        data = super().clean()
+        field = OnlineSubmission.paper_original.field
+        _, _, user_id, _ = data["uploaded_to"].split("/")
+        if user_id != str(self.instance.user.pk):
+            raise ValidationError("File not owned.")
+
+        try:
+            field.storage.open(
+                self.data["uploaded_to"].removeprefix(field.storage.location + "/")
+            )
+        except FileNotFoundError as exc:
+            raise ValidationError("File not found.") from exc
+
+        return data
+
+    def save(self, commit=True):
+        assert commit
+        instance = super().save(commit=False)
+
+        field = OnlineSubmission.paper_original.field
+        filename = self.cleaned_data["uploaded_to"].removeprefix(
+            field.storage.location + "/"
+        )
+        instance.paper_original.name = filename
+        if commit:
+            instance.save()
+        return instance
 
     def __init__(self, *args: Any, **kwargs: Any):
         contest_over = kwargs.pop("contest_over")

@@ -31,6 +31,9 @@
            target="_blank">{% trans "Download problem statement" %}</a>
       </div>
       {% crispy form %}
+      <form id="upload-helper" class="d-none">
+        {% for k, v in upload_to.fields.items %}<input type="hidden" name="{{ k }}" value="{{ v }}" />{% endfor %}
+      </form>
       {% if appeal_open %}
         <div class="mb-4">
           <h2>{% trans "Scores" %}</h2>
@@ -73,12 +76,62 @@ $(function(){
     setTimeout(() => window.location.search = '', 3000);
   }
 
+  const form = $('#submit-id-submit').parents('form');
+
+  async function submitForm() {
+    const data = new FormData(form.get()[0]);
+    const uploadTo = "{{ upload_to.url }}";
+    const uploadKey = "{{ upload_to.fields.key }}";
+
+    const file = data.get('paper_original');
+    if (file) {
+      const fileData = new FormData($('#upload-helper').get()[0]);
+      fileData.append('file', file);
+      try {
+        await $.ajax({
+          type: 'POST',
+          url: uploadTo,
+          contentType: false,
+          processData: false,
+          data: fileData
+        })
+      } catch (e) {
+        console.error(e);
+        throw e;
+      }
+
+      data.set("uploaded_to", uploadKey);
+    }
+    data.delete('paper_original');
+    try {
+      await $.ajax({
+        type: 'POST',
+        url: window.location.href,
+        contentType: false,
+        processData: false,
+        data: data
+      })
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+    window.location.search = '?success=true';
+
+    return false;
+  }
+
+  form.on("submit", (e) => {
+    e.preventDefault();
+    submitForm();
+    return false;
+  });
+
   {% if not contest_over %}
   const end = moment('{{ object.actual_end.isoformat }}');
   setInterval(() => {
     const remaining = end - moment();
     if (remaining < 0)
-      $('#body-div-wrapper form').submit();
+      submitForm();
 
     $('#time-remaining').text(
       humanizeDuration(remaining, {
@@ -87,7 +140,7 @@ $(function(){
         round: true,
       }),
     );
-  }, 1000);
+  }, 500);
   {% endif %}
 });
   </script>
