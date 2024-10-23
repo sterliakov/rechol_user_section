@@ -64,10 +64,6 @@ class UserCreateFormMixin:
             "username",
         )
 
-        widgets = {
-            "birth_date": DatePickerInput(format="%d/%m/%Y"),
-        }
-
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         self.fields["birth_date"].input_formats = settings.DATE_INPUT_FORMATS

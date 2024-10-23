@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views.i18n import JavaScriptCatalog
@@ -23,7 +21,6 @@ urlpatterns = [
     path("jsi18n/", JavaScriptCatalog.as_view(), name="js-i18n"),
     path("__debug__/", include(debug_toolbar.urls)),
     path("i18n/", include("django.conf.urls.i18n")),
-    *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
 
 handler400 = "rechol_user_section.views.handler_400"

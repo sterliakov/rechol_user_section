@@ -83,19 +83,21 @@ TEMPLATES = [
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
-        "mail_admins": {
-            "level": "ERROR",
-            "class": "django.utils.log.AdminEmailHandler",
+    "root": {
+        "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+        "handlers": ["console"],
+    },
+    "formatters": {
+        "verbose": {
+            "format": "[%(levelname)s] %(asctime)s %(module)s:%(lineno)d %(message)s"
         },
     },
-    "root": {
-        "handlers": ["console", "mail_admins"],
-        "level": "DEBUG",
-        "propagate": False,
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
     },
 }
 
@@ -134,13 +136,6 @@ LANGUAGES = (
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static_files"
-STATICFILES_STORAGE = "compressor.storage.CompressorFileStorage"
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = "/var/www/rechol_user_section/media/"
-
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -177,9 +172,43 @@ PHONENUMBER_DB_FORMAT = "E164"
 PHONENUMBER_DEFAULT_FORMAT = "INTERNATIONAL"
 
 # django-compressor
+COMPRESS_URL = STATIC_URL = "https://rechol-static.s3.amazonaws.com/"
+STATIC_PREFIX = "static"
+STATIC_ROOT = BASE_DIR / "static_files"
+COMPRESS_ROOT = STATIC_ROOT
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "bucket_name": "rechol-private",
+            "querystring_expire": 8 * 60 * 60,
+            "file_overwrite": False,
+            "location": "dev",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "rechol_user_section.storages.CachedS3Storage",
+        "OPTIONS": {
+            "bucket_name": "rechol-static",
+            "querystring_auth": False,
+            "file_overwrite": False,
+            "location": STATIC_PREFIX,
+        },
+    },
+    "compressor": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "bucket_name": "rechol-static",
+            "querystring_auth": False,
+            "file_overwrite": False,
+            "location": STATIC_PREFIX,
+        },
+    },
+}
+COMPRESS_OFFLINE_MANIFEST_STORAGE_ALIAS = COMPRESS_STORAGE_ALIAS = "compressor"
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
-COMPRESS_CACHE_BACKEND = os.getenv("COMPRESSOR_CACHE", "default")
+COMPRESS_CACHE_BACKEND = "filesystem"
 COMPRESS_OUTPUT_DIR = "compressed"
 # django_libsass fails to compile bootstrap and uses deprecated c++ libsass anyway
 _SASS_EXECUTABLE = os.getenv("SASS_EXECUTABLE", "")
@@ -188,8 +217,6 @@ COMPRESS_FILTERS = {
     "css": ["compressor.filters.css_default.CssAbsoluteFilter"],
     "js": ["compressor.filters.jsmin.JSMinFilter"],
 }
-LIBSASS_OUTPUT_STYLE = "compressed"
-LIBSASS_SOURCE_COMMENTS = False
 
 DATE_INPUT_FORMATS = ("%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d")
 

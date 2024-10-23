@@ -274,6 +274,23 @@ wheels = [
 ]
 
 [[package]]
+name = "django-storages"
+version = "1.14.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6d/88/77b5ede11147941dece064bd80ac618f6a4b91b4c9d5d305a2660014941e/django-storages-1.14.4.tar.gz", hash = "sha256:69aca94d26e6714d14ad63f33d13619e697508ee33ede184e462ed766dc2a73f", size = 83496 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e0/69/a4b2f2dfa51fd18fd898e10cc41d73a30965da7cb3b683f1375b1dc3dd5c/django_storages-1.14.4-py3-none-any.whl", hash = "sha256:d61930acb4a25e3aebebc6addaf946a3b1df31c803a6bf1af2f31c9047febaa3", size = 31809 },
+]
+
+[package.optional-dependencies]
+s3 = [
+    { name = "boto3" },
+]
+
+[[package]]
 name = "django-widget-tweaks"
 version = "1.4.12"
 source = { registry = "https://pypi.org/simple" }
@@ -588,6 +605,7 @@ dependencies = [
     { name = "django-postgres-extra" },
     { name = "django-redis" },
     { name = "django-ses" },
+    { name = "django-storages", extra = ["s3"] },
     { name = "django-widget-tweaks" },
     { name = "djangorestframework" },
     { name = "phonenumbers" },
@@ -612,6 +630,7 @@ requires-dist = [
     { name = "django-postgres-extra", specifier = "~=2.0" },
     { name = "django-redis", specifier = "~=5.4" },
     { name = "django-ses", specifier = "~=4.2" },
+    { name = "django-storages", extras = ["s3"], specifier = ">=1.14.4" },
     { name = "django-widget-tweaks", specifier = "~=1.4.12" },
     { name = "djangorestframework", specifier = "~=3.15.2" },
     { name = "phonenumbers", specifier = ">=8.13.48" },
