@@ -23,7 +23,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 # hadolint ignore=DL3008
 RUN --mount=type=cache,target=/root/.cache \
     apt-get -qq update \
-    && apt-get -qq install -y --no-install-recommends git gettext \
+    && apt-get -qq install -y --no-install-recommends gettext \
     && rm -rf /var/lib/apt/lists/* \
     && uv sync ${UV_FLAGS} --locked --no-install-project \
     && uv pip install --no-cache-dir 'setuptools >= 69.1.1' 'gunicorn ~= 21.2.0'
@@ -39,18 +39,7 @@ COPY patches/ ./patches/
 COPY users/locale ./users/locale
 RUN ./manage.py compilemessages
 
-COPY users/static ./users/static
-COPY --from=npm /app/node_modules node_modules
-COPY --from=get-sass /sass/dart-sass/ /tmp/sass/
-RUN ./manage.py collectstatic
-
-COPY users/templates ./users/templates
-COPY users/templatetags ./users/templatetags
-# hadolint ignore=SC1091
-RUN SASS_EXECUTABLE=/tmp/sass/sass ./manage.py compress && rm -rf node_modules
-
-
-FROM python:3.12-slim AS deploy
+FROM python:3.12-slim AS base
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
 ARG APP_USER=rechol
@@ -64,17 +53,25 @@ RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USE
     && apt-get -qq install -y --no-install-recommends libpcre3 mime-support \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /var/www/rechol_user_section/media/ \
-    && chown -R "${APP_USER}:${APP_USER}" /var/www/rechol_user_section/media/
+    && chown -R "${APP_USER}:${APP_USER}" /var/www/rechol_user_section/media/ \
+    && mkdir -p /home/${APP_USER}/static_files \
+    && chown -R "${APP_USER}:${APP_USER}" /home/${APP_USER}/static_files
 
 WORKDIR ${APP_HOME}
 COPY --from=build /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
 # Patch
 COPY --from=build --chown=${APP_USER}:${APP_USER} /app/patches/locale_ru/ /.venv/lib/python3.12/site-packages/django/conf/locale/ru/LC_MESSAGES
-COPY --from=build --chown=${APP_USER}:${APP_USER} /app/static_files/compressed/manifest.json static_files/compressed/manifest.json
 COPY . .
 COPY --from=build --chown=${APP_USER}:${APP_USER} /app .
 
+# FROM base AS staticfiles
+COPY --from=npm /app/node_modules ./node_modules
+COPY --from=get-sass /sass/dart-sass/ /tmp/sass/
+ENV SASS_EXECUTABLE=/tmp/sass/sass
+# ENTRYPOINT ["manage.py"]
+
+FROM base AS deploy
 USER ${APP_USER}:${APP_USER}
 # We use single worker here, because gunicorn cannot handle multiple async eventlet
 # workers. We need eventlet to support websockets.
@@ -88,4 +85,5 @@ ARG NGINX_CONF
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY configs/${NGINX_CONF:-site.conf} /etc/nginx/templates/site.conf.template
-COPY --from=build --chmod=777 --chown=root:root /app/static_files/ /home/rechol/static/
+# COPY --from=build --chmod=777 --chown=root:root /app/static_files/ /home/rechol/static/
+RUN mkdir -p /home/rechol/static/

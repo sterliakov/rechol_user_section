@@ -54,6 +54,7 @@ services:
         -   djangonetwork
         volumes:
         -   media_volume_24_25:/var/www/rechol_user_section/media
+        -   temp:/home/${APP_USER}/static_files/
         restart: always
     nginx:
         build:
@@ -96,3 +97,4 @@ volumes:
     media_volume_24_25:
     redis_data:
     redis_conf:
+    temp:
