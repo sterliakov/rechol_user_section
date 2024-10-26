@@ -37,30 +37,30 @@ wheels = [
 
 [[package]]
 name = "boto3"
-version = "1.35.45"
+version = "1.35.49"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "botocore" },
     { name = "jmespath" },
     { name = "s3transfer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/39/61/a545e0d5c331205bcf9e6d24b0bfc95dce91d285787f7d1f967b8228bfce/boto3-1.35.45.tar.gz", hash = "sha256:9f4a081e1940846171b51d903000a04322f1356d53225ce1028fc1760a155a70", size = 111009 }
+sdist = { url = "https://files.pythonhosted.org/packages/73/c6/a18789b17138bc4f3001bfee42c07f85b9432475f5e8188c5699d481a376/boto3-1.35.49.tar.gz", hash = "sha256:ddecb27f5699ca9f97711c52b6c0652c2e63bf6c2bfbc13b819b4f523b4d30ff", size = 111007 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/40/82/42f9e6078cd72a9d2f437c6d6ef03f0d4ee77f72ff2c0528169ca461cd2f/boto3-1.35.45-py3-none-any.whl", hash = "sha256:f16c7edfcbbeb0a0c22d67d6ebbfcb332fa78d3ea88275e082260ba04fe65347", size = 139159 },
+    { url = "https://files.pythonhosted.org/packages/ce/4e/181f3fb8bb54b34a6cfa1e36f9088f66ce8f00c8bf5d1d78a07db9193f9a/boto3-1.35.49-py3-none-any.whl", hash = "sha256:b660c649a27a6b47a34f6f858f5bd7c3b0a798a16dec8dda7cbebeee80fd1f60", size = 139160 },
 ]
 
 [[package]]
 name = "botocore"
-version = "1.35.45"
+version = "1.35.49"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jmespath" },
     { name = "python-dateutil" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6f/c8/7cd28382cd4d45210cbd81ad452add0b8e198c9fc5dc2b1bd27df53e1b4b/botocore-1.35.45.tar.gz", hash = "sha256:9a898bfdd6b0027fee2018711192c15c2716bf6a7096b1168bd8a896df3664a1", size = 12843110 }
+sdist = { url = "https://files.pythonhosted.org/packages/16/c3/20c4d7df35b7a93a4999c881beaf38dbf91fd7c82c28d876c3cdd0959fe3/botocore-1.35.49.tar.gz", hash = "sha256:07d0c1325fdbfa49a4a054413dbdeab0a6030449b2aa66099241af2dac48afd8", size = 12834141 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0a/04/20f732562f89f32b88a7456a86c6b32e8af51e81e9819d4e7af880929284/botocore-1.35.45-py3-none-any.whl", hash = "sha256:e07e170975721c94ec1e3bf71a484552ad63e2499f769dd14f9f37375b4993fd", size = 12629459 },
+    { url = "https://files.pythonhosted.org/packages/e3/3f/7c932ed4f6884b37e9a5bd3b37f88b35fa89491d635ab5b2cfeb8b800f95/botocore-1.35.49-py3-none-any.whl", hash = "sha256:aed4d3643afd702920792b68fbe712a8c3847993820d1048cd238a6469354da1", size = 12618818 },
 ]
 
 [[package]]
@@ -313,11 +313,11 @@ wheels = [
 
 [[package]]
 name = "et-xmlfile"
-version = "1.1.0"
+version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/3d/5d/0413a31d184a20c763ad741cc7852a659bf15094c24840c5bdd1754765cd/et_xmlfile-1.1.0.tar.gz", hash = "sha256:8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c", size = 3218 }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/38/af70d7ab1ae9d4da450eeec1fa3918940a5fafb9055e934af8d6eb0c2313/et_xmlfile-2.0.0.tar.gz", hash = "sha256:dab3f4764309081ce75662649be815c4c9081e88f0837825f90fd28317d4da54", size = 17234 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/96/c2/3dd434b0108730014f1b96fd286040dc3bcb70066346f7e01ec2ac95865f/et_xmlfile-1.1.0-py3-none-any.whl", hash = "sha256:a2ba85d1d6a74ef63837eed693bcb89c3f752169b0e3e7ae5b16ca5e1b3deada", size = 4688 },
+    { url = "https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl", hash = "sha256:7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa", size = 18059 },
 ]
 
 [[package]]
@@ -642,11 +642,11 @@ requires-dist = [
 
 [[package]]
 name = "redis"
-version = "5.1.1"
+version = "5.2.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e0/58/dcf97c3c09d429c3bb830d6075322256da3dba42df25359bd1c82b442d20/redis-5.1.1.tar.gz", hash = "sha256:f6c997521fedbae53387307c5d0bf784d9acc28d9f1d058abeac566ec4dbed72", size = 4607302 }
+sdist = { url = "https://files.pythonhosted.org/packages/53/17/2f4a87ffa4cd93714cf52edfa3ea94589e9de65f71e9f99cbcfa84347a53/redis-5.2.0.tar.gz", hash = "sha256:0b1087665a771b1ff2e003aa5bdd354f15a70c9e25d5a7dbf9c722c16528a7b0", size = 4607878 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/15/f1/feeeaaaac0f589bcbc12c02da357cf635ee383c9128b77230a1e99118885/redis-5.1.1-py3-none-any.whl", hash = "sha256:f8ea06b7482a668c6475ae202ed8d9bcaa409f6e87fb77ed1043d912afd62e24", size = 261283 },
+    { url = "https://files.pythonhosted.org/packages/12/f5/ffa560ecc4bafbf25f7961c3d6f50d627a90186352e27e7d0ba5b1f6d87d/redis-5.2.0-py3-none-any.whl", hash = "sha256:ae174f2bb3b1bf2b09d54bf3e51fbc1469cf6c10aa03e21141f51969801a7897", size = 261428 },
 ]
 
 [[package]]

@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-import contextlib
 import io
-import uuid
+import logging
 from textwrap import dedent
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
+from django.db import IntegrityError, transaction
 from django.http.response import (
     FileResponse,
     HttpResponseBadRequest,
@@ -27,7 +27,6 @@ from django.views.generic import (
 )
 from rest_framework import generics
 
-import boto3
 from openpyxl import Workbook
 
 from . import forms
@@ -44,6 +43,9 @@ from .models import (
     Venue,
 )
 from .serializers import AnnotationSerializer
+from .utils import generate_upload_url
+
+LOG = logging.getLogger(__name__)
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
@@ -144,6 +146,12 @@ class JudgeRegistrationView(CreateView):
         user.is_staff = True
         user.is_active = False
         user.save()
+        LOG.info(
+            "Registered a judge: id %s, email %s, name %s",
+            user.pk,
+            user.email,
+            user.get_full_name(),
+        )
         return rsp
 
 
@@ -164,6 +172,12 @@ class VenueUserRegistrationView(CreateView):
         user = form.instance
         user.role = user.Roles.VENUE
         user.save()
+        LOG.info(
+            "Registered a venue user: id %s, email %s, name %s",
+            user.pk,
+            user.email,
+            user.get_full_name(),
+        )
         return rsp
 
 
@@ -271,12 +285,20 @@ class OnlineStageStartView(ProblemDispatchMixin, DetailView):
             return HttpResponseRedirect(
                 reverse("online_submission_index") + "?error=GONE",
             )
+        LOG.info("Starting online submission for %s", self.request.user.email)
 
-        with contextlib.suppress(Exception):
+        try:
+            with transaction.atomic():
+                self.request.user.onlinesubmission_set.create(
+                    problem=self.problem,
+                    started=tz.now(),
+                )
+        except IntegrityError:
             # Someone's trying to open twice, what for?
-            self.request.user.onlinesubmission_set.create(
-                problem=self.problem,
-                started=tz.now(),
+            LOG.warning(
+                "Attempted to start a submission twice. User: %s, problem: %s",
+                self.request.user.email,
+                self.problem.pk,
             )
 
         return HttpResponseRedirect(reverse("online_submission_update", kwargs=kwargs))
@@ -319,12 +341,21 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, *args, **kwargs):
+    def post(self, request, problem_pk: str):
+        del problem_pk
         if self.is_over:
+            LOG.warning("Late submission attempted by user %s", request.user.email)
             return HttpResponseBadRequest(
                 _("Cannot submit solutions to closed contest."),
             )
-        return super().post(*args, **kwargs)
+        form = self.get_form()
+        if form.is_valid():
+            LOG.info("Submission by user %s accepted.", request.user.email)
+            return self.form_valid(form)
+        LOG.warning(
+            "Submission by user %s rejected: %s.", request.user.email, form.errors
+        )
+        return HttpResponseBadRequest("Submission failed")
 
     def get_form_kwargs(self):
         return super().get_form_kwargs() | {"contest_over": self.is_over}
@@ -334,24 +365,8 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
         # Check only for start time, the page remains available when appeal is closed
         appeal_open = config.online_appeal_start <= tz.now()
 
-        dest = OnlineSubmission.paper_original.field
-        client = boto3.client("s3")
-        filename = dest.storage.get_available_name(uuid.uuid4())
-        full_key = "/".join([
-            dest.storage.location,
-            dest.upload_to,
-            str(self.request.user.pk),
-            f"{filename}.pdf",
-        ])
-        upload_to = client.generate_presigned_post(
-            dest.storage.bucket_name,
-            full_key,
-            Fields={"Content-Type": "application/pdf"},
-            Conditions=[
-                ["content-length-range", 1, 50 * 1024 * 1024],
-                {"Content-Type": "application/pdf"},
-            ],
-            ExpiresIn=3600,
+        upload_to = generate_upload_url(
+            str(self.request.user.pk), OnlineSubmission.paper_original.field
         )
 
         return super().get_context_data(**kwargs) | {

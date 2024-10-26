@@ -1,0 +1,50 @@
+body {
+  max-height: calc(100vh - 35px - 5px);
+  overflow: hidden;
+}
+input[type="submit"].default,
+.submit-row input.default {
+  order: 1;
+  float: unset;
+}
+.submit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.submit-row p.deletelink-box {
+  float: unset;
+  order: -1;
+  display: flex;
+}
+.submit-row a.deletelink {
+  height: 35px;
+  line-height: 15px;
+}
+#onlinesubmission_form,
+#onlinesubmission_form .field-scores,
+#onlinesubmission_form .field-final_scores {
+  width: min-content;
+}
+.pdfViewer .canvasWrapper {
+  box-shadow: 0 0 3px #bbb;
+}
+.pdfViewer .page {
+  margin-bottom: 10px;
+}
+
+.annotationLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#content-wrapper {
+  top: 35px;
+  left: 0;
+  right: 250px;
+  bottom: 0;
+  overflow: auto;
+}
