@@ -21,6 +21,7 @@ dependencies = [
     "reportlab ~= 4.0.8",
     "phonenumbers>=8.13.48",
     "django-storages[s3]>=1.14.4",
+    "collectfasta>=3.2.0",
 ]
 description = ""
 name = "rechol"

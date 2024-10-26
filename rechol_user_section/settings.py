@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.humanize",
     "django.contrib.postgres",
+    "collectfasta",  # must come before staticfiles
     "django.contrib.staticfiles",
     # 3rd party
     "bootstrap_datepicker_plus",
@@ -151,6 +152,10 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "LOCATION": "/tmp/django_cache",  # noqa: S108
     },
+    "collectfasta": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/tmp/django_cache",  # noqa: S108
+    },
 }
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -217,6 +222,9 @@ COMPRESS_FILTERS = {
     "css": ["compressor.filters.css_default.CssAbsoluteFilter"],
     "js": ["compressor.filters.jsmin.JSMinFilter"],
 }
+
+COLLECTFASTA_THREADS = 20
+COLLECTFASTA_STRATEGY = "collectfasta.strategies.boto3.Boto3Strategy"
 
 DATE_INPUT_FORMATS = ("%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d")
 
