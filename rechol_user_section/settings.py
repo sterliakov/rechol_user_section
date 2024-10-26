@@ -18,7 +18,7 @@ DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 if not DEBUG:
     ALLOWED_HOSTS = [os.getenv("SERVER_NAME")]
-    CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("SERVER_NAME")}']
+    CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('SERVER_NAME')}"]
 else:
     ALLOWED_HOSTS = ["*"]
 

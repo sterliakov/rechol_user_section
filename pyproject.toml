@@ -35,7 +35,8 @@ version = "0.1.0"
 # H021: inline styles
 # H023: entity references (&times;)
 # H026: Empty id and class tags can be removed (what does it mean?)
-ignore = "H006,H017,H019,H020,H021,H023,H026"
+# T003: Endblock should have name. Ex: {% endblock body %}.
+ignore = "H006,H017,H019,H020,H021,H023,H026,T003"
 indent = 2
 profile = "django"
 
@@ -96,5 +97,5 @@ django = ['django', 'rest_framework']
 
 [tool.uv]
 compile-bytecode = true
-dev-dependencies = []
+# dev-dependencies = []
 link-mode = "copy"

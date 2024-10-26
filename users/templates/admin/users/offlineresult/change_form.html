@@ -1,213 +1,138 @@
-{# djlint:off #}
+{# djlint:off H030 H031 #}
 {% load i18n static admin_urls static admin_modify %}
 <!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
-<head>
-<title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
-{% if not is_popup and is_nav_sidebar_enabled %}
-<link rel="stylesheet" type="text/css" href="{% static "admin/css/nav_sidebar.css" %}">
-<script src="{% static 'admin/js/nav_sidebar.js' %}" defer></script>
-{% endif %}
-{% block extrastyle %}
-<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
-{% endblock %}
-{% if LANGUAGE_BIDI %}
-<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">
-{% endif %}
-{% block extrahead %}
-<script src="{% url 'admin:jsi18n' %}"></script>
-{{ media }}
-{% endblock %}
-{% block responsive %}
-<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.css" %}">
-{% if LANGUAGE_BIDI %}
-<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">
-{% endif %}
-{% endblock %}
-{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
-</head>
-<body class="{% if is_popup %}popup{% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
-<!-- Container -->
-<div id="container">
-<link rel="stylesheet" type="text/css" href="{% static 'pdf_js/toolbar.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'pdf_js/pdf_viewer.css' %}"/>
-<style type="text/css">
-    body {
-        max-height: calc(100vh - 35px - 5px);
-        overflow: hidden;
-    }
-    input[type=submit].default, .submit-row input.default {
-      order: 1;
-      float: unset;
-    }
-    .submit-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .submit-row p.deletelink-box {
-      float: unset;
-      order: -1;
-      display: flex;
-    }
-    .submit-row a.deletelink {
-      height: 35px;
-      line-height: 15px;
-    }
-    #offlineresult_form,
-    #offlineresult_form .field-scores,
-    #offlineresult_form .field-final_scores {
-        width: min-content;
-    }
-    .pdfViewer .canvasWrapper {
-      box-shadow: 0 0 3px #bbb;
-    }
-    .pdfViewer .page {
-      margin-bottom: 10px;
-    }
-
-    .annotationLayer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    #content-wrapper {
-      /*position: absolute;*/
-      top: 35px;
-      left: 0;
-      right: 250px;
-      bottom: 0;
-      overflow: auto;
-    }
-</style>
-<div class="toolbar">
-<button class="cursor" type="button" title="Cursor" data-tooltype="cursor">➚</button>
-<button class="eraser" type="button" title="Eraser" data-tooltype="eraser">⌫</button>
-<div class="spacer"></div>
-<button class="rectangle" type="button" title="Rectangle" data-tooltype="area">&nbsp;</button>
-<button class="circle" type="button" title="Circle" data-tooltype="circle">○</button>
-<button class="circle" type="button" title="fillCircle" data-tooltype="fillcircle">◉</button>
-<button class="circle" type="button" title="emptyCircle" data-tooltype="emptycircle">⦿</button>
-<button class="arrow" type="arrow" title="Arrow" data-tooltype="arrow">➤</button>
-<div class="hotspot-color"></div>
-<button class="highlight" type="button" title="Highlight" data-tooltype="highlight">&nbsp;</button>
-<button class="strikeout" type="button" title="Strikeout" data-tooltype="strikeout">&nbsp;</button>
-<div class="spacer"></div>
-<button class="text" type="button" title="Text Tool" data-tooltype="text"></button>
-<select class="text-size">
-</select>
-<div class="text-color"></div>
-<div class="spacer"></div>
-<button class="pen" type="button" title="Pen Tool" data-tooltype="draw">✎</button>
-<select class="pen-size">
-</select>
-<div class="pen-color"></div>
-<div class="spacer"></div>
-<select class="scale">
-<option value=".5">
-50%
-</option>
-<option value="1">
-100%
-</option>
-<option value="1.33">
-133%
-</option>
-<option value="1.5">
-150%
-</option>
-<option value="2">
-200%
-</option>
-</select>
-<a href="javascript://" class="rotate-ccw" title="Rotate Counter Clockwise">⟲</a>
-<a href="javascript://" class="rotate-cw" title="Rotate Clockwise">⟳</a>
-<div class="spacer"></div>
-<a href="javascript://" class="clear" title="Clear Annotations">×</a>
-</div>
-<div style="display: flex; overflow: hidden; max-height: 100%;">
-<div id="content-wrapper" style="padding: 1em;">
-<div id="viewer" class="pdfViewer"></div>
-</div>
-<div style="padding: 1em;">
-<form {% if has_file_field %}enctype="multipart/form-data"{% endif %} {% if form_url %}action="{{ form_url }}"{% endif %} method="post" id="{{ opts.model_name }}_form" novalidate>
-{% csrf_token %}
-{% block form_top %}{% endblock %}
-<div>
-{% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
-{% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
-<div class="submit-row">
-{% block submit-row %}
-<input type="submit" value="{% translate 'Save and quit' %}" name="_save">
-{% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-<p class="deletelink-box">
-<a href="{% add_preserved_filters delete_url %}" class="deletelink">{% translate "Delete" %}</a>
-</p>
-<input type="submit" value="{% translate 'Save and add next' %}" class="default" name="_addanother">
-<input type="submit" value="{% translate 'Save' %}" name="_continue">
-{% endblock %}
-</div>
-{% if errors %}
-<p class="errornote">
-{% if errors|length == 1 %}
-{% translate "Please correct the error below." %}
-{% else %}
-{% translate "Please correct the errors below." %}
-{% endif %}
-</p>
-{{ adminform.form.non_field_errors }}
-{% endif %}
-{% block field_sets %}
-{% for fieldset in adminform %}
-{% include "admin/includes/fieldset.html" %}
-{% endfor %}
-{% endblock %}
-{% block after_field_sets %}{% endblock %}
-{% block inline_field_sets %}
-{% for inline_admin_formset in inline_admin_formsets %}
-{% include inline_admin_formset.opts.template %}
-{% endfor %}
-{% endblock %}
-{% block after_related_objects %}{% endblock %}
-{% block admin_change_form_document_ready %}
-<script id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}" {% if adminform and add %} data-model-name="{{ opts.model_name }}"{% endif %} async>
-</script>
-{% endblock %}
-{# JavaScript for prepopulated fields #}
-{% prepopulated_fields_js %}
-</div>
-</form>
-</div>
-</div>
-{% if adminform.form.instance.paper_original %}
-<script src="{% static 'pdf_js/pdf-annotate.min.js' %}"></script>
-<script src="{% static 'pdf_js/pdf.js' %}"></script>
-<script src="{% static 'pdf_js/pdf_viewer.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="{% static 'js/pdf_editor.js' %}"></script>
-<script type="module">
-  import initColorPicker from '{% static "pdf_js/initColorPicker.js" %}';
-  const csrfmiddlewaretoken = '{{ csrf_token }}';
-  renderPdfEditor({
-    initColorPicker,
-    csrfmiddlewaretoken,
-    workerSrc: '{% static "pdf_js/pdf.worker.js" %}',
-    documentId: "{{ adminform.form.instance.paper_original.url }}",
-  }, {
-      listAnnotations: '{% url "annotation_list" %}',
-      annotationDetail: '{% url "annotation_detail" "__unknown__" %}',
-      cMaps: '{% static "pdf_js/cmaps/" %}',
-    }
-  )
-</script>
-{% endif %}
-</div>
-</body>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}"
+      dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+  <head>
+    <title>
+      {% block title %}{% endblock %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+    {% if not is_popup and is_nav_sidebar_enabled %}
+      <link rel="stylesheet" type="text/css" href="{% static "admin/css/nav_sidebar.css" %}">
+      <script src="{% static 'admin/js/nav_sidebar.js' %}" defer></script>
+    {% endif %}
+    {% block extrastyle %}
+      <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+    {% endblock %}
+    {% if LANGUAGE_BIDI %}
+      <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">
+    {% endif %}
+    {% block extrahead %}
+      <script src="{% url 'admin:jsi18n' %}"></script>
+      {{ media }}
+      <link rel="stylesheet"
+            type="text/css"
+            href="{% static 'pdf_js/toolbar.css' %}" />
+      <link rel="stylesheet"
+            type="text/css"
+            href="{% static 'pdf_js/pdf_viewer.css' %}" />
+      <link rel="stylesheet"
+            type="text/css"
+            href="{% static 'css/admin_pdf_editor.css' %}" />
+    {% endblock %}
+    {% block responsive %}
+      <meta name="viewport"
+            content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.css" %}">
+      {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">
+      {% endif %}
+    {% endblock %}
+    {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+  </head>
+  <body class="{% if is_popup %}popup{% endif %}{% block bodyclass %}{% endblock %}"
+        data-admin-utc-offset="{% now "Z" %}">
+    <!-- Container -->
+    <div id="container">
+      {% include "blocks/pdf_toolbar.html" %}
+      <div style="display: flex; overflow: hidden; max-height: 100%;">
+        <div id="content-wrapper" style="padding: 1em;">
+          <div id="viewer" class="pdfViewer"></div>
+        </div>
+        <div style="padding: 1em;">
+          <form {% if has_file_field %}enctype="multipart/form-data"{% endif %}
+                {% if form_url %}action="{{ form_url }}"{% endif %}
+                method="post"
+                id="{{ opts.model_name }}_form"
+                novalidate>
+            {% csrf_token %}
+            {% block form_top %}{% endblock %}
+            <div>
+              {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
+              {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
+              <div class="submit-row">
+                {% block submit-row %}
+                  <input type="submit" value="{% translate "Save and quit" %}" name="_save">
+                  {% url opts|admin_urlname:"delete" original.pk|admin_urlquote as delete_url %}
+                  <p class="deletelink-box">
+                    <a href="{% add_preserved_filters delete_url %}" class="deletelink">{% translate "Delete" %}</a>
+                  </p>
+                  <input type="submit"
+                         value="{% translate "Save and add next" %}"
+                         class="default"
+                         name="_addanother">
+                  <input type="submit" value="{% translate "Save" %}" name="_continue">
+                {% endblock %}
+              </div>
+              {% if errors %}
+                <p class="errornote">
+                  {% if errors|length == 1 %}
+                    {% translate "Please correct the error below." %}
+                  {% else %}
+                    {% translate "Please correct the errors below." %}
+                  {% endif %}
+                </p>
+                {{ adminform.form.non_field_errors }}
+              {% endif %}
+              {% block field_sets %}
+                {% for fieldset in adminform %}
+                  {% include "admin/includes/fieldset.html" %}
+                {% endfor %}
+              {% endblock %}
+              {% block after_field_sets %}{% endblock %}
+              {% block inline_field_sets %}
+                {% for inline_admin_formset in inline_admin_formsets %}
+                  {% include inline_admin_formset.opts.template %}
+                {% endfor %}
+              {% endblock %}
+              {% block after_related_objects %}{% endblock %}
+              {% block admin_change_form_document_ready %}
+                <script id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}" {% if adminform and add %} data-model-name="{{ opts.model_name }}"{% endif %} async>
+                </script>
+              {% endblock %}
+              {# JavaScript for prepopulated fields #}
+              {% prepopulated_fields_js %}
+            </div>
+          </form>
+        </div>
+      </div>
+      {% if adminform.form.instance.paper_original %}
+        <script src="{% static 'pdf_js/pdf-annotate.min.js' %}"></script>
+        <script src="{% static 'pdf_js/pdf.js' %}"></script>
+        <script src="{% static 'pdf_js/pdf_viewer.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+                integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+                crossorigin="anonymous"></script>
+        <script src="{% static 'js/pdf_editor.js' %}"></script>
+        <script type="module">
+          import initColorPicker from '{% static "pdf_js/initColorPicker.js" %}';
+          const csrfmiddlewaretoken = '{{ csrf_token }}';
+          renderPdfEditor({
+            initColorPicker,
+            csrfmiddlewaretoken,
+            workerSrc: '{% static "pdf_js/pdf.worker.js" %}',
+            documentId: "{{ adminform.form.instance.paper_original.url|safe }}",
+          }, {
+              listAnnotations: '{% url "annotation_list" %}',
+              annotationDetail: '{% url "annotation_detail" "__unknown__" %}',
+              cMaps: '{% static "pdf_js/cmaps/" %}',
+            }
+          )
+        </script>
+      {% endif %}
+    </div>
+  </body>
 </html>
 {# djlint:on #}

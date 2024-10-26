@@ -24,6 +24,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div id="error-alert"
+           class="alert alert-danger alert-dismissible"
+           style="display: none">
+        <strong>{% trans "Error!" %}</strong> {% trans "Submission failed. Please reload the page and try again. If the problem persists, contact us at" %} <a href="mailto:support@chemolymp.ru">support@chemolymp.ru</a> {% trans "with your file attached - we'll accept it if sent within reasonable time frame." %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div class="mb-4">
         <p>{{ object.problem.repr_description|safe }}</p>
         <a href="{% if LANGUAGE_CODE == "ru" %}{{ object.problem.file.url }}{% else %}{{ object.problem.file_en.url }}{% endif %}"
@@ -76,53 +84,52 @@ $(function(){
     setTimeout(() => window.location.search = '', 3000);
   }
 
-  const form = $('#submit-id-submit').parents('form');
+  const submit = $('#submit-id-submit');
+  const form = submit.parents('form');
 
   async function submitForm() {
+    // TODO: show loading and lock against concurrent submissions
     const data = new FormData(form.get()[0]);
     const uploadTo = "{{ upload_to.url }}";
     const uploadKey = "{{ upload_to.fields.key }}";
 
     const file = data.get('paper_original');
-    if (file) {
-      const fileData = new FormData($('#upload-helper').get()[0]);
-      fileData.append('file', file);
-      try {
-        await $.ajax({
-          type: 'POST',
-          url: uploadTo,
-          contentType: false,
-          processData: false,
-          data: fileData
-        })
-      } catch (e) {
-        console.error(e);
-        throw e;
-      }
-
-      data.set("uploaded_to", uploadKey);
+    if (!file) {
+      return;
     }
+
+    const fileData = new FormData($('#upload-helper').get()[0]);
+    fileData.append('file', file);
+    await $.ajax({
+      type: 'POST',
+      url: uploadTo,
+      contentType: false,
+      processData: false,
+      data: fileData
+    })
+
+    data.set("uploaded_to", uploadKey);
     data.delete('paper_original');
-    try {
-      await $.ajax({
-        type: 'POST',
-        url: window.location.href,
-        contentType: false,
-        processData: false,
-        data: data
-      })
-    } catch (e) {
-      console.error(e);
-      throw e;
-    }
-    window.location.search = '?success=true';
-
-    return false;
+    await $.ajax({
+      type: 'POST',
+      url: window.location.href,
+      contentType: false,
+      processData: false,
+      data: data
+    })
   }
 
   form.on("submit", (e) => {
     e.preventDefault();
-    submitForm();
+    submit.prop('disabled', true)
+    submitForm().then(()=>{
+      window.location.search = '?success=true';
+    }).catch((e)=>{
+      console.error(e);
+      $("#error-alert").show();
+    }).finally(()=>{
+      submit.prop('disabled', false);
+    });
     return false;
   });
 
@@ -130,9 +137,6 @@ $(function(){
   const end = moment('{{ object.actual_end.isoformat }}');
   setInterval(() => {
     const remaining = end - moment();
-    if (remaining < 0)
-      submitForm();
-
     $('#time-remaining').text(
       humanizeDuration(remaining, {
         language: ['{{ LANGUAGE_CODE|lower }}'],

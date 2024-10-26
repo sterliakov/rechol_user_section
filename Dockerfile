@@ -1,5 +1,4 @@
 FROM public.ecr.aws/docker/library/node:20.18-alpine AS npm
-
 WORKDIR /app
 RUN npm i bootstrap@4.6.2
 
@@ -80,10 +79,6 @@ ENTRYPOINT ["/bin/bash", "-c", "/.venv/bin/gunicorn -w 3 --timeout 3600 rechol_u
 
 FROM nginx:1.25.2 AS nginx
 SHELL ["/bin/sh", "-e", "-u", "-x", "-c"]
-
-ARG NGINX_CONF
-
+ARG NGINX_CONF=site.conf
 RUN rm /etc/nginx/conf.d/default.conf
-COPY configs/${NGINX_CONF:-site.conf} /etc/nginx/templates/site.conf.template
-# COPY --from=build --chmod=777 --chown=root:root /app/static_files/ /home/rechol/static/
-RUN mkdir -p /home/rechol/static/
+COPY configs/${NGINX_CONF} /etc/nginx/templates/site.conf.template
