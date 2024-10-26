@@ -73,6 +73,20 @@ wheels = [
 ]
 
 [[package]]
+name = "collectfasta"
+version = "3.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "django-storages" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d9/4c/a40bffdbc56f7c082518745bb01b9ca6ae93d79e2b7fe1761e17d55c803f/collectfasta-3.2.0.tar.gz", hash = "sha256:63f306d5bebebcb806e22dd00c9c8556b5ee8b582287fa72f7a8b39842096a78", size = 20111 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/33/a8/bca3a4a0597cad59c2469a313271a2795bded9dd990da5c8884ff594a34a/Collectfasta-3.2.0-py2.py3-none-any.whl", hash = "sha256:d05d25c45f762d76b1f671b7469b9fd403516317c619253f1725f57b442661f5", size = 26531 },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -592,6 +606,7 @@ name = "rechol"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "collectfasta" },
     { name = "django" },
     { name = "django-bootstrap-datepicker-plus" },
     { name = "django-compressor" },
@@ -617,6 +632,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "collectfasta", specifier = ">=3.2.0" },
     { name = "django", specifier = "~=5.1" },
     { name = "django-bootstrap-datepicker-plus", specifier = "~=5.0" },
     { name = "django-compressor", specifier = "~=4.4" },
