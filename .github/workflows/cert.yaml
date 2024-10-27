@@ -74,30 +74,24 @@ jobs:
 
         # Reg.ru sucks: they have some IP restrictions. Github actions IPs change often
         # and there are too many, reg.ru allows to whitelist only up to 75 x.x.x.x/16 ranges.
-        # Free Russian proxies are 95% dead.
         # WebShare gives us 10 semi-public proxies, let's hope at least one of those
         # will work every time.
+        # If this step fails, add a new proxy to reg.ru manually and update it
+        # in github secrets.
         -   name: Pick a proxy
             run: |
-                set -o pipefail
-                curl -fsSL \
-                    -H "Authorization: Token ${{ secrets.WebShareToken }}" \
-                    'https://proxy.webshare.io/api/v2/proxy/list/?mode=direct' \
-                | jq -r '.results | map(
-                    "http://" + .username + ":" + .password + "@" + .proxy_address + ":" + (.port|tostring)
-                  ) | .[]' >proxies.txt
-                while read -r proxy; do
-                    if https_proxy="$proxy" curl --connect-timeout 10 -fsSL https://reg.ru/ &>/dev/null; then
-                        working_proxy=$proxy
-                        break
-                    fi
-                done <proxies.txt
-                echo "PROXY=${working_proxy:?No proxy found}" >> $GITHUB_ENV
+                export HTTPS_PROXY="${{ secrets.PROXY }}"
+                if curl --connect-timeout 10 -fsSL https://reg.ru/ &>/dev/null; then
+                    echo "Proxy still alive"
+                else
+                    echo "::error::Proxy is out of date"
+                    exit 1
+                fi
 
         -   name: Renew certiicate
             run: |
                 set -o pipefail
-                export HTTPS_PROXY="${{ env.PROXY }}"
+                export HTTPS_PROXY="${{ secrets.PROXY }}"
                 # ZeroSSL is the default one, and it rejects .ru
                 ~/.acme.sh/acme.sh --issue --debug \
                     --dns dns_regru \
