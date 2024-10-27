@@ -139,20 +139,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.getenv("REDIS_HOST", "redis://127.0.0.1:6379") + "/0",
-        "TIMEOUT": 3600,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "DEFAULT_TIMEOUT": 3600,
-        },
-    },
-    # Used only for django-compressor offline CI
-    "filesystem": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": "/tmp/django_cache",  # noqa: S108
-    },
-    "collectfasta": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "LOCATION": "/tmp/django_cache",  # noqa: S108
     },

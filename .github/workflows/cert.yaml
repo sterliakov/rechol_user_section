@@ -1,0 +1,93 @@
+name: Renew SSL certificate
+
+on:
+    workflow_dispatch:
+    push:
+        branches: [feature/st-clean-static]
+    # schedule:
+    #     - cron: '0 4 * * *'
+
+env:
+    DOMAIN: dev.proile.chemolymp.ru
+    DEPLOY_ROLE: arn:aws:iam::129037961992:role/terraform-20241026231340698700000002
+    CERTIFICATE_ARN: arn:aws:acm:us-east-1:129037961992:certificate/773633f9-2d48-47e9-ad74-3a524610b4b6
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        outputs:
+            needs_renewal: ${{ steps.check.outputs.needs_renewal }}
+        steps:
+        -   name: Check current certificate expiration
+            id: check
+            run: |
+                set -o pipefail
+                set +e
+                raw_not_after=$(
+                    printf Q | openssl s_client -servername ${{ env.DOMAIN }} -connect ${{ env.DOMAIN }}:443 \
+                    | openssl x509 -noout -dates \
+                    | grep notAfter
+                )
+                if [ -z "$raw_not_after" ]; then
+                    echo "::notice::Cannot connect to server"
+                    echo "needs_renewal=true" >>$GITHUB_OUTPUT
+                    exit 0
+                fi
+                set -e
+                not_after_ts=$(date --date="${raw_not_after/notAfter=/}" --utc +"%s")
+                now_ts=$(date +"%s")
+                days_remaining=$(( ($not_after_ts - $now_ts) / (24 * 60 * 60) ))
+                if [ $days_remaining -lt 30 ]; then
+                    echo "needs_renewal=true" >>$GITHUB_OUTPUT
+                else
+                    echo "needs_renewal=false" >>$GITHUB_OUTPUT
+                    printf "::notice::Renewal not needed: %s > 30" "$days_remaining"
+                fi
+
+    renew:
+        runs-on: ubuntu-latest
+        needs: check
+        if: ${{ needs.check.outputs.needs_renewal == 'true' }}
+        permissions:
+            id-token: write
+            contents: read
+        steps:
+      # Login
+        -   uses: aws-actions/configure-aws-credentials@v4
+            with:
+                role-to-assume: ${{ env.DEPLOY_ROLE }}
+                aws-region: us-east-1
+
+        -   name: Install acme.sh
+            run: |
+                git clone --depth 1 https://github.com/acmesh-official/acme.sh.git
+                cd acme.sh
+                ./acme.sh --install --nocron
+        -   id: install-aws-cli
+            uses: unfor19/install-aws-cli-action@v1
+            with:
+                version: 2
+                verbose: false
+                arch: amd64
+
+        -   name: Renew certiicate
+            run: |
+                ~/.acme.sh/acme.sh --issue --dns dns_regru -d '${{ env.DOMAIN }}'
+            env:
+                REGRU_API_Username: ${{ secrets.RegRuUsername }}
+                REGRU_API_Password: ${{ secrets.RegRuPassword }}
+
+        -   name: Upload certiicate
+            run: |
+                certroot="{{ runner.home }}/certs"
+                mkdir "$certroot"
+                ~/.acme.sh/acme.sh --install-cert -d '${{ env.DOMAIN }}' \
+                    --cert-file "$certroot"/cert.pem  \
+                    --key-file "$certroot"/key.pem  \
+                    --fullchain-file "$certroot"/fullchain.pem \
+                    --reloadcmd "true"
+                aws acm import-certificate \
+                    --certificate-arn "${{ env.CERTIFICATE_ARN }}"
+                    --certificate file://"$certroot"/cert.pem \
+                    --certificate-chain file://"$certroot"/fullchain.pem \
+                    --private-key file://"$certroot"/key.pem

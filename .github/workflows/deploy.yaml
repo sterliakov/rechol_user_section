@@ -1,0 +1,64 @@
+name: Deploy
+
+on:
+    workflow_dispatch:
+    push:
+        branches: [main]
+
+env:
+    STATIC_TAG: app:static
+    DEPLOY_ROLE: arn:aws:iam::129037961992:role/terraform-20241026231340698700000002
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: read
+        steps:
+        -   uses: actions/checkout@v4
+
+      # Login
+        -   uses: aws-actions/configure-aws-credentials@v4
+            with:
+                role-to-assume: ${{ env.DEPLOY_ROLE }}
+                aws-region: us-east-1
+        -   uses: aws-actions/amazon-ecr-login@v2
+            id: ecr
+
+      # Build a container image
+        -   name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v3
+        -   uses: docker/build-push-action@v6
+            with:
+                push: true
+                tags: ${{ steps.ecr.outputs.registry }}/rechol-backend:latest,${{ steps.ecr.outputs.registry }}/rechol-backend:deployed
+                target: deploy
+
+      # Build a dev image to run collectstatic
+        -   uses: docker/build-push-action@v6
+            with:
+                tags: ${{ env.STATIC_TAG }}
+                target: staticfiles
+        -   name: Run collectstatic
+            run: |
+                docker run --rm ${{ env.STATIC_TAG }} collectstatic
+                docker run --rm ${{ env.STATIC_TAG }} compress
+
+      # Deploy a function
+        -   uses: int128/deploy-lambda-action@v1
+            with:
+                function-name: rechol-backend
+                image-uri: ${{ steps.ecr.outputs.registry }}/rechol-backend:deployed
+                alias-name: stable
+
+      # Migrate
+        -   name: Invoke the Lambda
+            uses: gagoar/invoke-aws-lambda@v3
+            with:
+                FunctionName: rechol-backend
+                Payload: '{ "action": "migrate" }'
+                AWS_ACCESS_KEY_ID: ${{env.AWS_ACCESS_KEY_ID}}
+                AWS_SECRET_ACCESS_KEY: ${{env.AWS_SECRET_ACCESS_KEY}}
+                AWS_SESSION_TOKEN: ${{env.AWS_SESSION_TOKEN}}
+                REGION: ${{env.AWS_REGION}}
