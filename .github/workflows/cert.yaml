@@ -8,6 +8,7 @@ on:
     #     - cron: '0 4 * * *'
 
 env:
+    ADMIN_EMAIL: support@chemolymp.ru
     DOMAIN: dev.proile.chemolymp.ru
     DEPLOY_ROLE: arn:aws:iam::129037961992:role/terraform-20241026231340698700000002
     CERTIFICATE_ARN: arn:aws:acm:us-east-1:129037961992:certificate/773633f9-2d48-47e9-ad74-3a524610b4b6
@@ -62,7 +63,7 @@ jobs:
             run: |
                 git clone --depth 1 https://github.com/acmesh-official/acme.sh.git
                 cd acme.sh
-                ./acme.sh --install --nocron
+                ./acme.sh --install --nocron -m '${{ env.ADMIN_EMAIL }}'
         -   id: install-aws-cli
             uses: unfor19/install-aws-cli-action@v1
             with:
