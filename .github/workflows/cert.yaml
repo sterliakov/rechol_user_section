@@ -59,6 +59,7 @@ jobs:
                 role-to-assume: ${{ env.DEPLOY_ROLE }}
                 aws-region: us-east-1
 
+        # Install helpers
         -   name: Install acme.sh
             run: |
                 git clone --depth 1 https://github.com/acmesh-official/acme.sh.git
@@ -71,8 +72,33 @@ jobs:
                 verbose: false
                 arch: amd64
 
+        # Reg.ru sucks: they have some IP restrictions. Github actions IPs change often
+        # and there are too many, reg.ru allows to whitelist only up to 75 x.x.x.x/16 ranges.
+        # Free Russian proxies are 95% dead, so let's connect to a free VPN.
+        # Let's hope that VPN service won't die anytime soon...
+        -   name: Install OpenVPN
+            run: |
+                sudo apt update
+                sudo apt install -y openvpn openvpn-systemd-resolved
+        -   name: Pull a free .ovpn configuration
+            run: |
+                set -o pipefail
+                server="https://www.freeopenvpn.org"
+                location=$(
+                    curl -fsSL "$server/private.php?cntid=Russia&lang=en" \
+                    | grep 'href="/pservers' \
+                    | sed -E 's/.*href="([^"]+)".*/\1/g' \
+                    | head -n1
+                )
+                curl -fsSL "$server$location" --output ./client.ovpn
+        -   name: Connect to VPN
+            uses: kota65535/github-openvpn-connect-action@v2
+            with:
+                config_file: ./client.ovpn
+
         -   name: Renew certiicate
             run: |
+                set -o pipefail
                 # ZeroSSL is the default one, and it rejects .ru
                 ~/.acme.sh/acme.sh --issue --debug \
                     --dns dns_regru \
