@@ -12,3 +12,6 @@ output "backend_lambda_deployed_tag" {
 output "ssl_certificate_arn" {
   value = aws_acm_certificate.cloudfront.arn
 }
+output "api_gateway_fqdn" {
+  value = aws_apigatewayv2_api.main.api_endpoint
+}

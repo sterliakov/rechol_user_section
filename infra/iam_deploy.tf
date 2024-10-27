@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "github_actions_deploy_lambda" {
   }
   statement {
     effect  = "Allow"
-    actions = ["acm:ImportCertiicate"]
+    actions = ["acm:ImportCertificate"]
     # Apparently we can't reimport a cert with resource-specific permission?
     # https://docs.aws.amazon.com/acm/latest/userguide/authen-apipermissions.html
     resources = ["*"]
