@@ -78,7 +78,7 @@ jobs:
         # will work every time.
         # If this step fails, add a new proxy to reg.ru manually and update it
         # in github secrets.
-        -   name: Pick a proxy
+        -   name: Validate the proxy
             run: |
                 export HTTPS_PROXY="${{ secrets.PROXY }}"
                 if curl --connect-timeout 10 -fsSL https://reg.ru/ &>/dev/null; then
@@ -93,7 +93,7 @@ jobs:
                 set -o pipefail
                 export HTTPS_PROXY="${{ secrets.PROXY }}"
                 # ZeroSSL is the default one, and it rejects .ru
-                ~/.acme.sh/acme.sh --issue --debug \
+                ~/.acme.sh/acme.sh --issue \
                     --dns dns_regru \
                     --server letsencrypt \
                     -d '${{ env.DOMAIN }}'
@@ -103,7 +103,7 @@ jobs:
 
         -   name: Upload certiicate
             run: |
-                certroot="{{ runner.home }}/certs"
+                certroot="$(pwd)/certs"
                 mkdir "$certroot"
                 ~/.acme.sh/acme.sh --install-cert -d '${{ env.DOMAIN }}' \
                     --cert-file "$certroot"/cert.pem  \
@@ -111,7 +111,7 @@ jobs:
                     --fullchain-file "$certroot"/fullchain.pem \
                     --reloadcmd "true"
                 aws acm import-certificate \
-                    --certificate-arn "${{ env.CERTIFICATE_ARN }}"
+                    --certificate-arn "${{ env.CERTIFICATE_ARN }}" \
                     --certificate file://"$certroot"/cert.pem \
                     --certificate-chain file://"$certroot"/fullchain.pem \
                     --private-key file://"$certroot"/key.pem
