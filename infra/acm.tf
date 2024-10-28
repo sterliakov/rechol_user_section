@@ -16,11 +16,7 @@ resource "tls_self_signed_cert" "temporary" {
   }
 
   validity_period_hours = 24
-  allowed_uses = [
-    "key_encipherment",
-    "digital_signature",
-    "server_auth",
-  ]
+  allowed_uses          = []
 }
 
 resource "aws_acm_certificate" "cloudfront" {
