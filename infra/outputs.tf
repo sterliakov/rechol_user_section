@@ -13,5 +13,5 @@ output "ssl_certificate_arn" {
   value = aws_acm_certificate.cloudfront.arn
 }
 output "api_gateway_fqdn" {
-  value = aws_apigatewayv2_api.main.api_endpoint
+  value = aws_apigatewayv2_domain_name.main.domain_name_configuration[0].target_domain_name
 }
