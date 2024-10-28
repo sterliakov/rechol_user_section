@@ -32,8 +32,10 @@ jobs:
         -   uses: docker/build-push-action@v6
             with:
                 push: true
-                tags: ${{ steps.ecr.outputs.registry }}/rechol-backend:latest,${{ steps.ecr.outputs.registry }}/rechol-backend:deployed
+                tags: ${{ steps.ecr.outputs.registry }}/rechol-backend:${{ github.sha }},${{ steps.ecr.outputs.registry }}/rechol-backend:deployed
                 target: deploy
+                provenance: false
+                context: .
 
       # Build a dev image to run collectstatic
         -   uses: docker/build-push-action@v6
