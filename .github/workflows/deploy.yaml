@@ -40,6 +40,7 @@ jobs:
             with:
                 tags: ${{ env.STATIC_TAG }}
                 target: staticfiles
+                load: true
         -   name: Run collectstatic
             run: |
                 docker run --rm ${{ env.STATIC_TAG }} collectstatic

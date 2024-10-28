@@ -15,6 +15,28 @@ resource "aws_iam_policy" "github_actions_deploy_lambda" {
 
 data "aws_iam_policy_document" "github_actions_deploy_lambda" {
   statement {
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:GetRepositoryPolicy",
+      "ecr:DescribeRepositories",
+      "ecr:ListImages",
+      "ecr:DescribeImages",
+      "ecr:BatchGetImage",
+      "ecr:ListTagsForResource",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload",
+      "ecr:PutImage"
+    ]
+    resources = [aws_ecr_repository.backend_lambda.arn]
+  }
+  statement {
+    actions   = ["ecr:GetAuthorizationToken"]
+    resources = ["*"]
+  }
+
+  statement {
     effect = "Allow"
     actions = [
       "lambda:UpdateFunctionCode",
