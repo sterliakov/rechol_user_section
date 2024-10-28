@@ -65,6 +65,13 @@ jobs:
                 git clone --depth 1 https://github.com/acmesh-official/acme.sh.git
                 cd acme.sh
                 ./acme.sh --install --nocron -m '${{ env.ADMIN_EMAIL }}'
+                # Add 10 s sleep after DNS record discovery for reliability
+                awk '
+                    {print;}
+                    /All checks succeeded/ { print "      _sleep 10"; }
+                ' ~/.acme.sh/acme.sh > ./acme-patched.sh
+                mv ./acme-patched.sh ~/.acme.sh/acme.sh
+                chmod +x ~/.acme.sh/acme.sh
         -   id: install-aws-cli
             uses: unfor19/install-aws-cli-action@v1
             with:

@@ -75,7 +75,7 @@ jobs:
                 alias-name: ${{ env.LAMBDA_ALIAS }}
 
       # Migrate
-        -   name: Invoke the Lambda
+        -   name: Migrate
             uses: gagoar/invoke-aws-lambda@v3
             with:
                 FunctionName: ${{ env.LAMBDA_NAME }}
@@ -87,3 +87,5 @@ jobs:
                 AWS_SECRET_ACCESS_KEY: ${{env.AWS_SECRET_ACCESS_KEY}}
                 AWS_SESSION_TOKEN: ${{env.AWS_SESSION_TOKEN}}
                 REGION: ${{env.AWS_REGION}}
+        -   name: Print migrate logs
+            run: echo "${{ fromJSON(steps.foobar.outputs.response).LogResult }}"
