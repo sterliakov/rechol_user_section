@@ -72,6 +72,8 @@ extend-ignore = [
     "RUF001",  # Russian letters in strings
     "ANN",  # Type hints
     "D",  # Docstrings
+    "TD",  # To-do comment lints
+    "FIX",  # Line contains TODO/FIXME/HACK, consider resolving the issue
     "DOC",  # Docstrings
     "CPY",  # copyright
     "EM101",  # Exception must not use a string literal, assign to variable first

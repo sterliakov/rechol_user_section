@@ -32,6 +32,7 @@ if DEVELOPMENT:
         "db_password": os.getenv("POSTGRES_PASSWORD"),
         "db_host": os.getenv("POSTGRES_HOST"),
         "db_port": os.getenv("POSTGRES_PORT"),
+        "media_location": "dev",
     }
 else:
     _secret_name = os.getenv("SECRET_NAME")
@@ -193,10 +194,10 @@ STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3.S3Storage",
         "OPTIONS": {
-            "bucket_name": "rechol-private",
+            "bucket_name": "rechol-private",  # TODO: move bucket names to config
             "querystring_expire": 8 * 60 * 60,
             "file_overwrite": False,
-            "location": "dev",
+            "location": _secret["media_location"],
         },
     },
     "staticfiles": {

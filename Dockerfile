@@ -74,7 +74,8 @@ COPY --from=npm /app/node_modules ./node_modules
 COPY --from=get-sass /sass/dart-sass/ /tmp/sass/
 RUN mkdir static_files
 ENV SASS_EXECUTABLE=/tmp/sass/sass
-ENTRYPOINT ["manage.py"]
+ENV ENVIRONMENT=build
+ENTRYPOINT ["./manage.py"]
 
 FROM nginx:1.25.2 AS nginx
 SHELL ["/bin/sh", "-e", "-u", "-x", "-c"]

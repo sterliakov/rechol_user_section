@@ -43,8 +43,10 @@ jobs:
                 load: true
         -   name: Run collectstatic
             run: |
-                docker run --rm ${{ env.STATIC_TAG }} collectstatic
-                docker run --rm ${{ env.STATIC_TAG }} compress
+                docker run -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN --rm ${{ env.STATIC_TAG }} \
+                    collectstatic --noinput
+                docker run -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN --rm ${{ env.STATIC_TAG }} \
+                    compress
 
       # Deploy a function
         -   uses: int128/deploy-lambda-action@v1
