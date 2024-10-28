@@ -112,6 +112,6 @@ jobs:
                     --reloadcmd "true"
                 aws acm import-certificate \
                     --certificate-arn "${{ env.CERTIFICATE_ARN }}" \
-                    --certificate file://"$certroot"/cert.pem \
-                    --certificate-chain file://"$certroot"/fullchain.pem \
-                    --private-key file://"$certroot"/key.pem
+                    --certificate fileb://"$certroot"/cert.pem \
+                    --certificate-chain fileb://"$certroot"/fullchain.pem \
+                    --private-key fileb://"$certroot"/key.pem
