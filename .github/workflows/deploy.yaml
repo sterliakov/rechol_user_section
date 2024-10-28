@@ -43,9 +43,7 @@ jobs:
                 load: true
         -   name: Run collectstatic
             run: |
-                docker volume create static
                 docker run \
-                    -v "static:/home/rechol/static_files" \
                     -e AWS_DEFAULT_REGION \
                     -e AWS_REGION \
                     -e AWS_ACCESS_KEY_ID \
@@ -55,16 +53,15 @@ jobs:
                     collectstatic --noinput
 
                 docker run \
-                    -v "static:/home/rechol/static_files" \
                     -e AWS_DEFAULT_REGION \
                     -e AWS_REGION \
                     -e AWS_ACCESS_KEY_ID \
                     -e AWS_SECRET_ACCESS_KEY \
                     -e AWS_SESSION_TOKEN \
+                    -e STATIC_COMPRESS=1 \
+                    --entrypoint /bin/bash \
                     --rm ${{ env.STATIC_TAG }} \
-                    compress
-
-                docker volume rm static
+                    -c './manage.py collectstatic --noinput && ./manage.py compress'
 
       # Deploy a function
         -   uses: int128/deploy-lambda-action@v1

@@ -201,12 +201,19 @@ STORAGES = {
         },
     },
     "staticfiles": {
-        "BACKEND": "rechol_user_section.storages.CachedS3Storage",
+        "BACKEND": "storages.backends.s3.S3Storage",
         "OPTIONS": {
             "bucket_name": "rechol-static",
             "querystring_auth": False,
             "file_overwrite": False,
             "location": STATIC_PREFIX,
+        },
+    },
+    # We only use this to feed static files to django-compressor
+    "staticfiles_local": {
+        "BACKEND": "compressor.storage.CompressorFileStorage",
+        "OPTIONS": {
+            "location": COMPRESS_ROOT / STATIC_PREFIX,
         },
     },
     "compressor": {
@@ -219,10 +226,13 @@ STORAGES = {
         },
     },
 }
+if os.getenv("STATIC_COMPRESS"):
+    STORAGES["staticfiles"] = STORAGES["staticfiles_local"]
+    COLLECTFASTA_ENABLED = False
+
 COMPRESS_OFFLINE_MANIFEST_STORAGE_ALIAS = COMPRESS_STORAGE_ALIAS = "compressor"
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
-COMPRESS_CACHE_BACKEND = "filesystem"
 COMPRESS_OUTPUT_DIR = "compressed"
 # django_libsass fails to compile bootstrap and uses deprecated c++ libsass anyway
 _SASS_EXECUTABLE = os.getenv("SASS_EXECUTABLE", "")
