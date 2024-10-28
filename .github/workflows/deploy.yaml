@@ -43,10 +43,28 @@ jobs:
                 load: true
         -   name: Run collectstatic
             run: |
-                docker run -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN --rm ${{ env.STATIC_TAG }} \
+                docker volume create static
+                docker run \
+                    -v "static:/home/rechol/static_files" \
+                    -e AWS_DEFAULT_REGION \
+                    -e AWS_REGION \
+                    -e AWS_ACCESS_KEY_ID \
+                    -e AWS_SECRET_ACCESS_KEY \
+                    -e AWS_SESSION_TOKEN \
+                    --rm ${{ env.STATIC_TAG }} \
                     collectstatic --noinput
-                docker run -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN --rm ${{ env.STATIC_TAG }} \
+
+                docker run \
+                    -v "static:/home/rechol/static_files" \
+                    -e AWS_DEFAULT_REGION \
+                    -e AWS_REGION \
+                    -e AWS_ACCESS_KEY_ID \
+                    -e AWS_SECRET_ACCESS_KEY \
+                    -e AWS_SESSION_TOKEN \
+                    --rm ${{ env.STATIC_TAG }} \
                     compress
+
+                docker volume rm static
 
       # Deploy a function
         -   uses: int128/deploy-lambda-action@v1
