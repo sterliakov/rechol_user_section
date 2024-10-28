@@ -3,7 +3,8 @@
 # Thic cert s a first deployment placeholder.
 
 resource "tls_private_key" "temporary" {
-  algorithm = "ECDSA"
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
 }
 
 resource "tls_self_signed_cert" "temporary" {
