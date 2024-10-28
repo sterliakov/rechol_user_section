@@ -1,6 +1,9 @@
 output "github_lambda_deploy_role" {
   value = module.github_actions_deploy_lambda_role.arn
 }
+output "github_cert_deploy_role" {
+  value = module.github_actions_cert_role.arn
+}
 
 output "backend_lambda_ecr_url" {
   value = aws_ecr_repository.backend_lambda.repository_url

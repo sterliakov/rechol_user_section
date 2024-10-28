@@ -2,6 +2,7 @@ module "github_actions_deploy_lambda_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.47.1"
 
+  name     = "rechol-deploy-backend"
   subjects = ["sterliakov/rechol_user_section:*"]
   policies = {
     extra = aws_iam_policy.github_actions_deploy_lambda.arn
@@ -62,12 +63,5 @@ data "aws_iam_policy_document" "github_actions_deploy_lambda" {
       aws_s3_bucket.static.arn,
       "${aws_s3_bucket.static.arn}/*"
     ]
-  }
-  statement {
-    effect  = "Allow"
-    actions = ["acm:ImportCertificate"]
-    # Apparently we can't reimport a cert with resource-specific permission?
-    # https://docs.aws.amazon.com/acm/latest/userguide/authen-apipermissions.html
-    resources = ["*"]
   }
 }
