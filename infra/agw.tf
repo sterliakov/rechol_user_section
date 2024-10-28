@@ -44,7 +44,7 @@ resource "aws_apigatewayv2_domain_name" "main" {
   domain_name = local.domain_name
 
   domain_name_configuration {
-    certificate_arn = aws_acm_certificate.cloudfront.arn
+    certificate_arn = aws_acm_certificate.cloudfront2.arn
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }

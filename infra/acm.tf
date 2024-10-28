@@ -16,10 +16,19 @@ resource "tls_self_signed_cert" "temporary" {
   }
 
   validity_period_hours = 24
-  allowed_uses          = ["digital_signature"]
+  allowed_uses          = ["digital_signature", "client_auth", "server_auth"]
 }
 
 resource "aws_acm_certificate" "cloudfront" {
+  private_key      = tls_private_key.temporary.private_key_pem
+  certificate_body = tls_self_signed_cert.temporary.cert_pem
+
+  lifecycle {
+    ignore_changes = [private_key, certificate_body]
+  }
+}
+
+resource "aws_acm_certificate" "cloudfront2" {
   private_key      = tls_private_key.temporary.private_key_pem
   certificate_body = tls_self_signed_cert.temporary.cert_pem
 
