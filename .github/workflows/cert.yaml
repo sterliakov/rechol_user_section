@@ -9,7 +9,7 @@ on:
 
 env:
     ADMIN_EMAIL: support@chemolymp.ru
-    DOMAIN: dev.proile.chemolymp.ru
+    DOMAIN: dev.profile.chemolymp.ru
     DEPLOY_ROLE: arn:aws:iam::129037961992:role/rechol-deploy-cert
     CERTIFICATE_ARN: arn:aws:acm:us-east-1:129037961992:certificate/659ec5d3-e418-4ca4-aab0-af6a51219537
 
