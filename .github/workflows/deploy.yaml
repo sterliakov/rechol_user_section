@@ -8,6 +8,8 @@ on:
 env:
     STATIC_TAG: app:static
     DEPLOY_ROLE: arn:aws:iam::129037961992:role/terraform-20241026231340698700000002
+    LAMBDA_NAME: rechol-backend
+    LAMBDA_ALIAS: stable
 
 jobs:
     deploy:
@@ -68,15 +70,18 @@ jobs:
       # Deploy a function
         -   uses: int128/deploy-lambda-action@v1
             with:
-                function-name: rechol-backend
+                function-name: ${{ env.LAMBDA_NAME }}
                 image-uri: ${{ steps.ecr.outputs.registry }}/rechol-backend:deployed
-                alias-name: stable
+                alias-name: ${{ env.LAMBDA_ALIAS }}
 
       # Migrate
         -   name: Invoke the Lambda
             uses: gagoar/invoke-aws-lambda@v3
             with:
-                FunctionName: rechol-backend
+                FunctionName: ${{ env.LAMBDA_NAME }}
+                Qualifier: ${{ env.LAMBDA_ALIAS }}
+                InvocationType: RequestResponse
+                LogType: Tail
                 Payload: '{ "action": "migrate" }'
                 AWS_ACCESS_KEY_ID: ${{env.AWS_ACCESS_KEY_ID}}
                 AWS_SECRET_ACCESS_KEY: ${{env.AWS_SECRET_ACCESS_KEY}}
