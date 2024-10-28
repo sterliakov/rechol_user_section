@@ -27,12 +27,3 @@ resource "aws_acm_certificate" "cloudfront" {
     ignore_changes = [private_key, certificate_body]
   }
 }
-
-resource "aws_acm_certificate" "cloudfront2" {
-  private_key      = tls_private_key.temporary.private_key_pem
-  certificate_body = tls_self_signed_cert.temporary.cert_pem
-
-  lifecycle {
-    ignore_changes = [private_key, certificate_body]
-  }
-}

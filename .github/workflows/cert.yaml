@@ -2,10 +2,8 @@ name: Renew SSL certificate
 
 on:
     workflow_dispatch:
-    push:
-        branches: [feature/st-clean-static]
-    # schedule:
-    #     - cron: '0 4 * * *'
+    schedule:
+    -   cron: 0 4 * * *
 
 env:
     ADMIN_EMAIL: support@chemolymp.ru
@@ -102,7 +100,7 @@ jobs:
                 # ZeroSSL is the default one, and it rejects .ru
                 ~/.acme.sh/acme.sh --issue \
                     --dns dns_regru \
-                    --server letsencrypt_test \
+                    --server letsencrypt \
                     -d '${{ env.DOMAIN }}'
             env:
                 REGRU_API_Username: ${{ secrets.RegRuUsername }}
