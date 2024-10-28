@@ -70,7 +70,7 @@ resource "aws_lambda_alias" "backend_stable" {
   function_version = "$LATEST"
 
   lifecycle {
-    ignore_changes = [function_version]
+    ignore_changes = [function_version, description]
   }
 }
 

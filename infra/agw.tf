@@ -2,6 +2,23 @@ resource "aws_apigatewayv2_stage" "main" {
   api_id      = aws_apigatewayv2_api.main.id
   name        = "$default"
   auto_deploy = true
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway.arn
+    format = jsonencode({
+      httpMethod      = "$context.httpMethod"
+      protocol        = "$context.protocol"
+      path            = "$context.path"
+      status          = "$context.status"
+      ip              = "$context.identity.sourceIp"
+      requestId       = "$context.requestId"
+      requestTime     = "$context.requestTime"
+      responseLength  = "$context.responseLength"
+      routeKey        = "$context.routeKey"
+      latency         = "$context.integration.latency"
+      responseLatency = "$context.responseLatency"
+    })
+  }
 }
 
 resource "aws_apigatewayv2_api" "main" {
@@ -12,7 +29,7 @@ resource "aws_apigatewayv2_api" "main" {
 
 resource "aws_apigatewayv2_route" "api" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "ANY /api/{route+}"
+  route_key = "ANY /{route+}"
   target    = "integrations/${aws_apigatewayv2_integration.api.id}"
 }
 
