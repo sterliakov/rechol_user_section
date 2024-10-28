@@ -22,6 +22,8 @@ dependencies = [
     "phonenumbers>=8.13.48",
     "django-storages[s3]>=1.14.4",
     "collectfasta>=3.2.0",
+    "mangum>=0.19.0",
+    "awslambdaric>=2.2.1",
 ]
 description = ""
 name = "rechol"
@@ -63,6 +65,7 @@ exclude = [
 extend-ignore = [
     "A003",  # Serializer's .list method is used a lot
     "S101",
+    "EM102",  # Exception must not use an f-string literal, assign to variable first
     "TRY003",  # Avoid specifying long messages outside the exception class
     "RUF012",  # Mutable class attributes should be annotated with `typing.ClassVar`
     "DJ006",  # Do not use `exclude` with `ModelForm`, use `fields` instead

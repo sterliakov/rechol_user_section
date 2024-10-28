@@ -3,11 +3,7 @@ ARG APP_USER=rechol
 FROM python:3.12-slim AS build
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
-ARG REQUIREMENTS_FILE=requirements.txt
-ENV DEBIAN_FRONTEND=noninteractive
-ENV COMPRESSOR_CACHE=filesystem
-ENV DJANGO_SECRET_KEY=1
-ENV USER_MODEL="auth.User"
+ARG DEBIAN_FRONTEND=noninteractive
 
 COPY uv.lock pyproject.toml /
 ARG UV_FLAGS=--no-dev
@@ -18,7 +14,7 @@ RUN --mount=type=cache,target=/root/.cache \
     && apt-get -qq install -y --no-install-recommends gettext \
     && rm -rf /var/lib/apt/lists/* \
     && uv sync ${UV_FLAGS} --locked --no-install-project \
-    && uv pip install --no-cache-dir 'setuptools >= 69.1.1' 'gunicorn ~= 21.2.0'
+    && uv pip install --no-cache-dir 'setuptools >= 69.1.1'
 
 WORKDIR /app
 ENV PATH="/.venv/bin:$PATH"
@@ -29,41 +25,40 @@ COPY users/__init__.py ./users/__init__.py
 
 COPY patches/ ./patches/
 COPY users/locale ./users/locale
-RUN ./manage.py compilemessages
+RUN DJANGO_SECRET_KEY=1 USER_MODEL="auth.User" ./manage.py compilemessages
 
 FROM python:3.12-slim AS base
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
-ARG APP_USER
 ARG APP_HOME=/home/rechol
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 # hadolint ignore=DL3008
-RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USER} \
-    && apt-get -qq update \
+RUN apt-get -qq update \
     && apt-get -qq upgrade -y \
     && apt-get -qq install -y --no-install-recommends libpcre3 mime-support \
     && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /var/www/rechol_user_section/media/ \
-    && chown -R "${APP_USER}:${APP_USER}" /var/www/rechol_user_section/media/ \
-    && mkdir -p /home/${APP_USER}/static_files \
-    && chown -R "${APP_USER}:${APP_USER}" /home/${APP_USER}/static_files
+    && mkdir /opt/extensions/ && chmod 755 /root
 
 WORKDIR ${APP_HOME}
 COPY --from=build /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
 # Patch
-COPY --from=build --chown=${APP_USER}:${APP_USER} /app/patches/locale_ru/ /.venv/lib/python3.12/site-packages/django/conf/locale/ru/LC_MESSAGES
+COPY --from=build /app/patches/locale_ru/ /.venv/lib/python3.12/site-packages/django/conf/locale/ru/LC_MESSAGES
 COPY . .
-COPY --from=build --chown=${APP_USER}:${APP_USER} /app .
+COPY --from=build /app .
 
 FROM base AS deploy
-ARG APP_USER
-USER ${APP_USER}:${APP_USER}
-# We use single worker here, because gunicorn cannot handle multiple async eventlet
-# workers. We need eventlet to support websockets.
-ENTRYPOINT ["/bin/bash", "-c", "/.venv/bin/gunicorn -w 3 --timeout 3600 rechol_user_section.wsgi:application -b 0.0.0.0:${APP_PORT} --preload"]
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONFAULTHANDLER=1
+ENV PYTHONUNBUFFERED=1
 
+COPY entrypoint.sh /entrypoint.sh
+ADD --chmod=755 https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie /usr/local/bin/aws-lambda-rie
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "rechol_user_section.aws_lambda.handler" ]
 
 FROM public.ecr.aws/docker/library/node:20.18-alpine AS npm
 WORKDIR /app
@@ -77,6 +72,7 @@ RUN tar xzf ./archive.tar.gz
 FROM base AS staticfiles
 COPY --from=npm /app/node_modules ./node_modules
 COPY --from=get-sass /sass/dart-sass/ /tmp/sass/
+RUN mkdir static_files
 ENV SASS_EXECUTABLE=/tmp/sass/sass
 ENTRYPOINT ["manage.py"]
 

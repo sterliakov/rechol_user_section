@@ -2,8 +2,8 @@ name: Renew SSL certificate
 
 on:
     workflow_dispatch:
-    push:
-        branches: [feature/st-clean-static]
+    # push:
+    #     branches: [feature/st-clean-static]
     # schedule:
     #     - cron: '0 4 * * *'
 
