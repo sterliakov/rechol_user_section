@@ -3,7 +3,7 @@
 # Thic cert s a first deployment placeholder.
 
 resource "tls_private_key" "temporary" {
-  algorithm = "RSA"
+  algorithm = "ECDSA"
 }
 
 resource "tls_self_signed_cert" "temporary" {
