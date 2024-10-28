@@ -15,18 +15,6 @@ wheels = [
 ]
 
 [[package]]
-name = "ansimarkup"
-version = "2.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "colorama" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/fd/ad/79bad7d2b6a2ced466eb2b91e261491f1ca483af4b77632bc3300f1ef7f7/ansimarkup-2.0.0.tar.gz", hash = "sha256:ffd040e822e6d329d42d250179bd3d9a9c9f6ed6936a30d17b5f7d56a8f03ef0", size = 16428 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/28/a5/746c844af06b87993edea2a215e6a3ce8da75a28fbb4998ab39ac3902ce6/ansimarkup-2.0.0-py3-none-any.whl", hash = "sha256:7edbfc6fc9cbf67589bc510ff5502aa34a2de8db9ceed61b186864af6426a70e", size = 11710 },
-]
-
-[[package]]
 name = "asgiref"
 version = "3.8.1"
 source = { registry = "https://pypi.org/simple" }
@@ -99,15 +87,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/d9/4c/a40bffdbc56f7c082518745bb01b9ca6ae93d79e2b7fe1761e17d55c803f/collectfasta-3.2.0.tar.gz", hash = "sha256:63f306d5bebebcb806e22dd00c9c8556b5ee8b582287fa72f7a8b39842096a78", size = 20111 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/33/a8/bca3a4a0597cad59c2469a313271a2795bded9dd990da5c8884ff594a34a/Collectfasta-3.2.0-py2.py3-none-any.whl", hash = "sha256:d05d25c45f762d76b1f671b7469b9fd403516317c619253f1725f57b442661f5", size = 26531 },
-]
-
-[[package]]
-name = "colorama"
-version = "0.4.6"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44", size = 27697 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6", size = 25335 },
 ]
 
 [[package]]
@@ -260,20 +239,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/5e/fd/a00c79db4eab7bdcfcb419a14c4879a8f92e92951140c2d84a256c2cd835/django-phonenumber-field-7.3.0.tar.gz", hash = "sha256:f9cdb3de085f99c249328293a3b93d4e5fa440c0c8e3b99eb0d0f54748629797", size = 43005 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3a/35/4f36dac859a1b9dbf9e737718d9b62e3502aca0eb74a10d659283b240992/django_phonenumber_field-7.3.0-py3-none-any.whl", hash = "sha256:bc6eaa49d1f9d870944f5280258db511e3a1ba5e2fbbed255488dceacae45d06", size = 66505 },
-]
-
-[[package]]
-name = "django-postgres-extra"
-version = "2.0.4"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "ansimarkup" },
-    { name = "django" },
-    { name = "python-dateutil" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/93/b7/0a932e67f2987890c816c4ee64c29b286346f3409e0d4973d8857fccf1d7/django-postgres-extra-2.0.4.tar.gz", hash = "sha256:95030211916fcc782b514ca73bede24aefa0ab73a80b2a7e0b59d6f168db3708", size = 46807 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/6a/07/42583509221f6890caf238e92fde0c6e9d8696185d6cdf0953144f199c46/django_postgres_extra-2.0.4-py3-none-any.whl", hash = "sha256:5c5d35e1edc0d6aa5374a72f92b0d4858ca35f9772c540e3fa8280c086a8c7f7", size = 75905 },
 ]
 
 [[package]]
@@ -645,7 +610,6 @@ dependencies = [
     { name = "django-import-export" },
     { name = "django-object-actions" },
     { name = "django-phonenumber-field" },
-    { name = "django-postgres-extra" },
     { name = "django-redis" },
     { name = "django-ses" },
     { name = "django-storages", extra = ["s3"] },
@@ -673,7 +637,6 @@ requires-dist = [
     { name = "django-import-export", specifier = "~=3.2" },
     { name = "django-object-actions", specifier = "~=4.2.0" },
     { name = "django-phonenumber-field", specifier = "~=7.2" },
-    { name = "django-postgres-extra", specifier = "~=2.0" },
     { name = "django-redis", specifier = "~=5.4" },
     { name = "django-ses", specifier = "~=4.2" },
     { name = "django-storages", extras = ["s3"], specifier = ">=1.14.4" },

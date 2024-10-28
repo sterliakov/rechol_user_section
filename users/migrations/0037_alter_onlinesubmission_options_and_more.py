@@ -4,7 +4,6 @@ from __future__ import annotations
 import datetime
 
 from django.db import migrations, models
-from django.utils.timezone import utc
 
 
 class Migration(migrations.Migration):
@@ -24,7 +23,7 @@ class Migration(migrations.Migration):
             model_name="configurationsingleton",
             name="online_appeal_end",
             field=models.DateTimeField(
-                default=datetime.datetime(2022, 12, 14, 21, 0, tzinfo=utc),
+                default=datetime.datetime(2022, 12, 14, 21, 0, tzinfo=datetime.UTC),
                 verbose_name="End of online stage appeal",
             ),
             preserve_default=False,
@@ -33,7 +32,7 @@ class Migration(migrations.Migration):
             model_name="configurationsingleton",
             name="online_appeal_start",
             field=models.DateTimeField(
-                default=datetime.datetime(2022, 12, 7, 21, 0, tzinfo=utc),
+                default=datetime.datetime(2022, 12, 7, 21, 0, tzinfo=datetime.UTC),
                 verbose_name="Start of online stage appeal",
             ),
             preserve_default=False,

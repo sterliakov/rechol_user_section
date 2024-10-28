@@ -4,7 +4,6 @@ from __future__ import annotations
 import datetime
 
 from django.db import migrations, models
-from django.utils.timezone import utc
 
 
 class Migration(migrations.Migration):
@@ -17,7 +16,9 @@ class Migration(migrations.Migration):
             model_name="onlineproblem",
             name="closes_en",
             field=models.DateTimeField(
-                default=datetime.datetime(2023, 11, 22, 2, 55, 28, 594417, tzinfo=utc),
+                default=datetime.datetime(
+                    2023, 11, 22, 2, 55, 28, 594417, tzinfo=datetime.UTC
+                ),
                 verbose_name="Closes at (en)",
             ),
             preserve_default=False,

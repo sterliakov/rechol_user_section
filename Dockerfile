@@ -25,7 +25,7 @@ COPY users/__init__.py ./users/__init__.py
 
 COPY patches/ ./patches/
 COPY users/locale ./users/locale
-RUN DJANGO_SECRET_KEY=1 USER_MODEL="auth.User" ./manage.py compilemessages
+RUN ENVIRONMENT=build ./manage.py compilemessages
 
 FROM python:3.12-slim AS base
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]

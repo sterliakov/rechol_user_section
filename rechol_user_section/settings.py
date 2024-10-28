@@ -1,26 +1,52 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
+from typing import Any
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import boto3
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "production").lower()
+assert ENVIRONMENT in {"dev", "ci", "build", "production"}, (
+    f"Unknown environment: {ENVIRONMENT}"
+)
+DEVELOPMENT = ENVIRONMENT != "production"
+DEBUG = DEVELOPMENT and os.getenv("DEBUG", "False").lower() == "true"
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+def _get_secret(secret_path: str) -> dict[str, Any]:
+    _secret_manager = boto3.client(service_name="secretsmanager")
+    response = _secret_manager.get_secret_value(SecretId=secret_path)
+    return json.loads(response["SecretString"])
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-if not DEBUG:
-    ALLOWED_HOSTS = [os.getenv("SERVER_NAME")]
-    CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('SERVER_NAME')}"]
+if DEVELOPMENT:
+    _secret = {
+        "secret_key": "123456",
+        "email_sender": "noreply@chemolymp.ru",
+        "db_name": os.getenv("POSTGRES_DB"),
+        "db_user": os.getenv("POSTGRES_USER"),
+        "db_password": os.getenv("POSTGRES_PASSWORD"),
+        "db_host": os.getenv("POSTGRES_HOST"),
+        "db_port": os.getenv("POSTGRES_PORT"),
+    }
 else:
+    _secret_name = os.getenv("SECRET_NAME")
+    assert _secret_name is not None
+    _secret = _get_secret(_secret_name)
+
+SECRET_KEY = _secret["secret_key"]
+
+if DEVELOPMENT:
     ALLOWED_HOSTS = ["*"]
+else:
+    _server_name = os.getenv("SERVER_NAME")
+    assert _server_name
+    ALLOWED_HOSTS = [_server_name]
+    CSRF_TRUSTED_ORIGINS = [f"https://{_server_name}"]
 
 # Application definition
 
@@ -44,7 +70,6 @@ INSTALLED_APPS = [
     "django_ses",
     "import_export",
     "phonenumber_field",
-    "psqlextra",
     "widget_tweaks",
     # 1st party
     "users",
@@ -60,7 +85,6 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "rechol_user_section.urls"
@@ -102,16 +126,14 @@ LOGGING = {
     },
 }
 
-WSGI_APPLICATION = "rechol_user_section.wsgi.application"
-
 DATABASES = {
     "default": {
-        "ENGINE": "psqlextra.backend",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": _secret["db_name"],
+        "USER": _secret["db_user"],
+        "PASSWORD": _secret["db_password"],
+        "HOST": _secret["db_host"],
+        "PORT": _secret["db_port"],
     },
 }
 
@@ -155,7 +177,7 @@ STATICFILES_FINDERS = (
 LOGIN_URL = LOGOUT_REDIRECT_URL = "/profile/login"
 LOGIN_REDIRECT_URL = "/profile/update/"
 
-AUTH_USER_MODEL = os.getenv("USER_MODEL", "users.User")
+AUTH_USER_MODEL = "auth.User" if ENVIRONMENT == "build" else "users.User"
 
 # django-phone-number
 PHONENUMBER_DEFAULT_REGION = "RU"
@@ -216,11 +238,9 @@ DATE_INPUT_FORMATS = ("%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d")
 
 # Email
 EMAIL_BACKEND = "django_ses.SESBackend"
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_SES_REGION_NAME = "us-east-2"
-AWS_SES_REGION_ENDPOINT = "email.us-east-2.amazonaws.com"
-DEFAULT_FROM_EMAIL = os.getenv("EMAIL_SENDER")
+AWS_SES_REGION_ENDPOINT = f"email.{AWS_SES_REGION_NAME}.amazonaws.com"
+DEFAULT_FROM_EMAIL = _secret["email_sender"]
 
 # Import-Export
 IMPORT_EXPORT_USE_TRANSACTIONS = True

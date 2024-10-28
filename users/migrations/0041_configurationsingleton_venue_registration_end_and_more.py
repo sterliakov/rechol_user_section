@@ -4,7 +4,6 @@ from __future__ import annotations
 import datetime
 
 from django.db import migrations, models
-from django.utils.timezone import utc
 
 
 class Migration(migrations.Migration):
@@ -17,7 +16,7 @@ class Migration(migrations.Migration):
             model_name="configurationsingleton",
             name="venue_registration_end",
             field=models.DateTimeField(
-                default=datetime.datetime(2023, 8, 31, 21, 0, tzinfo=utc),
+                default=datetime.datetime(2023, 8, 31, 21, 0, tzinfo=datetime.UTC),
                 verbose_name="end of venue registration",
             ),
             preserve_default=False,
@@ -26,7 +25,7 @@ class Migration(migrations.Migration):
             model_name="configurationsingleton",
             name="venue_registration_start",
             field=models.DateTimeField(
-                default=datetime.datetime(2023, 10, 31, 21, 0, tzinfo=utc),
+                default=datetime.datetime(2023, 10, 31, 21, 0, tzinfo=datetime.UTC),
                 verbose_name="start of venue registration",
             ),
             preserve_default=False,

@@ -1,11 +1,4 @@
 services:
-    autoheal:
-        restart: always
-        image: willfarrell/autoheal
-        environment:
-        -   AUTOHEAL_CONTAINER_LABEL=all
-        volumes:
-        -   /var/run/docker.sock:/var/run/docker.sock
     db:
         image: postgres:16-alpine
         env_file:
@@ -21,6 +14,8 @@ services:
 
     app:
         env_file: .env
+        environment:
+            ENVIRONMENT: dev
         build:
             context: .
             dockerfile: Dockerfile
@@ -45,8 +40,6 @@ services:
             context: .
             dockerfile: Dockerfile
             target: nginx
-            args:
-            -   NGINX_CONF
         restart: always
         healthcheck:
             test: curl -f http://nginx:80/health
@@ -55,13 +48,8 @@ services:
             retries: 5
         ports:
         -   80:80
-        -   443:443
         depends_on:
         -   app
-
-networks:
-    djangonetwork:
-        driver: bridge
 
 volumes:
     db_volume_24_25:

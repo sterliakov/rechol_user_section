@@ -15,6 +15,10 @@ data "aws_iam_policy_document" "lambda_execution_policy" {
     actions   = ["secretsmanager:GetSecretValue"]
     resources = [aws_secretsmanager_secret.backend_main.arn]
   }
+  statement {
+    actions   = ["ses:Get*", "ses:List*", "ses:Send*"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_role" "lambda_role" {
@@ -51,8 +55,9 @@ resource "aws_lambda_function" "backend_main" {
 
   environment {
     variables = {
-      DEBUG                = "0"
-      CSRF_TRUSTED_ORIGINS = "https://${local.domain_name}"
+      ENVIRONMENT = "production"
+      SECRET_NAME = aws_secretsmanager_secret.backend_main.name
+      SERVER_NAME = local.domain_name
     }
   }
 
