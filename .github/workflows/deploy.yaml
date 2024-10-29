@@ -76,6 +76,7 @@ jobs:
 
       # Migrate
         -   name: Migrate
+            id: migrate
             uses: gagoar/invoke-aws-lambda@v3
             with:
                 FunctionName: ${{ env.LAMBDA_NAME }}
@@ -88,4 +89,4 @@ jobs:
                 AWS_SESSION_TOKEN: ${{env.AWS_SESSION_TOKEN}}
                 REGION: ${{env.AWS_REGION}}
         -   name: Print migrate logs
-            run: echo "${{ fromJSON(steps.foobar.outputs.response).LogResult }}"
+            run: echo "${{ fromJSON(steps.migrate.outputs.response).LogResult }}"
