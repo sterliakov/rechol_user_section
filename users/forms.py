@@ -41,8 +41,7 @@ class MarkField(forms.CharField):
             float(value)
         except ValueError:
             raise ValidationError(
-                _("Not a valid integer or hyphen."),
-                code="INVALID_INTEGER",
+                _("Not a valid integer or hyphen."), code="INVALID_INTEGER"
             ) from None
 
 
@@ -231,9 +230,7 @@ class OnlineSubmissionForm(FileUploadFormMixin, forms.ModelForm):
 
     paper_original = forms.FileField(
         required=False,
-        widget=forms.ClearableFileInput(
-            attrs={"accept": "application/pdf"},
-        ),
+        widget=forms.ClearableFileInput(attrs={"accept": "application/pdf"}),
     )
 
     class Meta:
@@ -286,9 +283,7 @@ class OfflineResultDisplayForm(forms.ModelForm):
     class Meta:
         model = OfflineResult
         fields = ("scores", "final_scores", "comment")
-        widgets = {
-            "comment": forms.Textarea(attrs={"rows": 3}),
-        }
+        widgets = {"comment": forms.Textarea(attrs={"rows": 3})}
 
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)

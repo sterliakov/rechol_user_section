@@ -46,6 +46,12 @@ profile = "django"
 preview = true
 target-version = 'py312'
 
+[tool.ruff.analyze]
+detect-string-imports = true
+
+[tool.ruff.format]
+docstring-code-format = true
+
 [tool.ruff.lint]
 exclude = [
     ".svn",
@@ -93,6 +99,7 @@ force-wrap-aliases = true
 known-first-party = ["users", "rechol_user_section"]
 required-imports = ["from __future__ import annotations"]
 section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
+split-on-trailing-comma = false
 
 [tool.ruff.lint.isort.sections]
 django = ['django', 'rest_framework']
