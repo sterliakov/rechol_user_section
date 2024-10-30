@@ -10,6 +10,7 @@ env:
     DEPLOY_ROLE: arn:aws:iam::129037961992:role/rechol-deploy-backend
     LAMBDA_NAME: rechol-backend
     LAMBDA_ALIAS: stable
+    DEPLOYED_TAG: deployed
 
 jobs:
     deploy:
@@ -28,13 +29,22 @@ jobs:
         -   uses: aws-actions/amazon-ecr-login@v2
             id: ecr
 
+        -   id: install-aws-cli
+            uses: unfor19/install-aws-cli-action@v1
+            with:
+                version: 2
+                verbose: false
+                arch: amd64
+
       # Build a container image
         -   name: Set up Docker Buildx
             uses: docker/setup-buildx-action@v3
         -   uses: docker/build-push-action@v6
             with:
                 push: true
-                tags: ${{ steps.ecr.outputs.registry }}/rechol-backend:${{ github.sha }},${{ steps.ecr.outputs.registry }}/rechol-backend:deployed
+                tags: >-
+                    ${{ steps.ecr.outputs.registry }}/rechol-backend:${{ github.sha }}
+                    ,${{ steps.ecr.outputs.registry }}/rechol-backend:${{ env.DEPLOYED_TAG }}
                 target: deploy
                 provenance: false
                 context: .
@@ -68,11 +78,21 @@ jobs:
                     -c './manage.py collectstatic --noinput && ./manage.py compress'
 
       # Deploy a function
-        -   uses: int128/deploy-lambda-action@v1
-            with:
-                function-name: ${{ env.LAMBDA_NAME }}
-                image-uri: ${{ steps.ecr.outputs.registry }}/rechol-backend:deployed
-                alias-name: ${{ env.LAMBDA_ALIAS }}
+        -   name: Deploy
+            run: |
+                set -o pipefail
+                version=$(
+                    aws lambda update-function-code --publish \
+                    --function-name "${{ env.LAMBDA_NAME }}" \
+                    --image-uri "${{ steps.ecr.outputs.registry }}/rechol-backend:${{ env.DEPLOYED_TAG }}" \
+                    | jq -r '.Version'
+                )
+                aws lambda wait function-updated --function-name "${{ env.LAMBDA_NAME }}"
+                aws lambda wait function-active --function-name "${{ env.LAMBDA_NAME }}"
+                aws lambda update-alias \
+                    --name "${{ env.LAMBDA_ALIAS }}" \
+                    --function-name "${{ env.LAMBDA_NAME }}" \
+                    --function-version "$version"
 
       # Migrate
         -   name: Migrate
