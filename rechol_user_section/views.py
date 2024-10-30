@@ -1,8 +1,16 @@
 from __future__ import annotations
 
-from django.views.generic import TemplateView
+from django.shortcuts import render
 
-handler_400 = TemplateView.as_view(template_name="errors/bad_request.html")
-handler_403 = TemplateView.as_view(template_name="errors/permission_denied.html")
-handler_404 = TemplateView.as_view(template_name="errors/not_found.html")
-handler_500 = TemplateView.as_view(template_name="errors/error.html")
+
+def any_method_template_view(template_name, status):
+    def view(request):
+        return render(request, template_name, status=status)
+
+    return view
+
+
+handler_400 = any_method_template_view("errors/bad_request.html", 400)
+handler_403 = any_method_template_view("errors/permission_denied.html", 403)
+handler_404 = any_method_template_view("errors/not_found.html", 404)
+handler_500 = any_method_template_view("errors/error.html", 500)

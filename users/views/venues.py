@@ -3,11 +3,8 @@ from __future__ import annotations
 import io
 import logging
 
-from django.http.response import (
-    FileResponse,
-    HttpResponseForbidden,
-    HttpResponseRedirect,
-)
+from django.http.request import BadRequest
+from django.http.response import FileResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
@@ -20,6 +17,8 @@ from django.views.generic import (
     View,
 )
 from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from openpyxl import Workbook
 
@@ -33,6 +32,8 @@ from users.models import (
     Venue,
 )
 from users.permissions import IsVenuePermission, VenueMixin
+from users.serializers import ScanUploadSerializer
+from users.utils import generate_upload_url
 
 LOG = logging.getLogger(__name__)
 
@@ -195,26 +196,29 @@ class VenueParticipantsDownloadView(VenueMixin, View):
         return FileResponse(buf, as_attachment=True, filename="participants.xlsx")
 
 
-class VenueScanUploadView(VenueMixin, CreateView):
-    model = OfflineResult
-    form_class = forms.ScanUploadForm
-    template_name = "venue_participants.html"
+class VenueScanUploadView(generics.CreateAPIView):
+    permission_classes = (IsVenuePermission,)
+    queryset = OfflineResult.objects.all()
+    serializer_class = ScanUploadSerializer
+    http_method_names = ["post"]
 
-    def get_success_url(self):
-        return reverse("venue_participants")
-
-    @property
-    def venue(self):
-        return self.request.user.owned_venue
-
-    def get_form_kwargs(self, **kwargs):
+    def perform_create(self, serializer):
         participant_pk = self.request.GET.get("participant")
         participant = User.objects.get(pk=participant_pk)
-        if participant.venue_selected != self.venue:
-            return HttpResponseForbidden("Not registered to this venue.")
-        return super().get_form_kwargs(**kwargs) | {
-            "instance": OfflineResult(user=participant)
-        }
+        if participant.venue_selected != self.request.user.owned_venue:
+            raise BadRequest("Not registered to this venue.")
+        serializer.save(user=participant)
+
+
+class VenueScanStartUploadView(APIView):
+    permission_classes = (IsVenuePermission,)
+    http_method_names = ["post"]
+
+    def post(self, request):
+        upload_to = generate_upload_url(
+            str(request.user.pk), OfflineResult.paper_original.field
+        )
+        return Response(upload_to)
 
 
 class VenueScanDeleteView(generics.DestroyAPIView):

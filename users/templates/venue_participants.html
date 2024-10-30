@@ -15,6 +15,14 @@
       {% endif %}
     </div>
     <div class="card-body">
+      <div id="error-alert"
+           class="alert alert-danger alert-dismissible"
+           style="display: none">
+        <strong>{% trans "Error!" %}</strong> {% trans "Submission failed. Please reload the page and try again. If the problem persists, contact us at" %} <a href="mailto:support@chemolymp.ru">support@chemolymp.ru</a>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -38,10 +46,14 @@
               <td>{{ guy.phone | default:"&mdash;" }}</td>
               <td class="text-center">
                 <button class="btn btn-outline-primary"
-                        onclick="showUploadModal( '{{ guy.pk }}', '{{ guy.first_name }}', '{{ guy.last_name }}', '{{ guy.patronymic_name }}', '{{ guy.participation_form }}', )"
+                        data-action="upload"
+                        data-id="{{ guy.pk }}"
+                        onclick="showUploadModal( '{{ guy.pk | escapejs }}', '{{ guy.first_name | escapejs }}', '{{ guy.last_name | escapejs }}', '{{ guy.patronymic_name | escapejs }}', '{{ guy.participation_form | escapejs }}' )"
                         {% if guy.offlineresult %}disabled{% endif %}>{% trans "Upload" %}</button>
                 <button class="btn btn-outline-primary"
-                        onclick="deleteScan('{{ guy.offlineresult.pk }}')"
+                        data-action="clear"
+                        data-id="{{ guy.offlineresult.pk }}"
+                        onclick="deleteScan(this)"
                         {% if not guy.offlineresult %}disabled{% endif %}>{% trans "Clear" %}</button>
               </td>
             </tr>
@@ -64,6 +76,14 @@
           </button>
         </div>
         <div class="modal-body">
+          <div id="modal-error-alert"
+               class="alert alert-danger alert-dismissible"
+               style="display: none">
+            <strong>{% trans "Error!" %}</strong> {% trans "Submission failed. Please reload the page and try again. If the problem persists, contact us at" %} <a href="mailto:support@chemolymp.ru">support@chemolymp.ru</a>.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
           <h3>{% trans "Please check participant data below:" %}</h3>
           {% crispy user_data_form %}
           {% crispy upload_form %}
@@ -74,26 +94,113 @@
 {% endblock content %}
 {% block extrascripts_after %}
   <script>
+    const uploadApiUrl = '{% url 'offline_scan_upload' %}';
+    const initUploadApiUrl = '{% url 'offline_scan_upload_init' %}';
+    const csrfToken = '{{ csrf_token | escapejs }}';
+
     function showUploadModal(userId, firstName, lastName, patName, participationForm) {
-      $('#upload-modal form').attr(
-        'action',
-        `{% url 'offline_scan_upload' %}?participant=${userId}`
-      );
+      $('#upload-modal form').data('userId', userId);
       $('#id_first_name').val(firstName);
       $('#id_last_name').val(lastName);
       $('#id_patronymic_name').val(patName);
       $('#id_participation_form').val(participationForm);
       $('#upload-modal').modal('show');
     }
-    function deleteScan(scanId) {
+
+    function deleteScan(elem) {
+      const scanId = $(elem).attr("data-id");
       $.ajax({
         method: 'DELETE',
         url: '{% url "offline_scan_delete" "__unknown__" %}'.replace('__unknown__', scanId),
         headers: {
-          'X-CSRFToken': '{{ csrf_token }}',
+          'X-CSRFToken': csrfToken,
         },
-        success: () => window.location.reload(),
+      }).then(() => {
+        const btn = $(`[data-action=clear][data-id=${scanId}]`);
+        btn.prop("disabled", true);
+        btn.siblings('[data-action=upload]').prop("disabled", false);
+      }).catch(() => {
+        $("#error-alert").modal('show');
       });
     }
+
+    $(function(){
+      const form = $('#scan-upload-form');
+      const submit = $('#scan-upload-form button[type=submit]');
+
+      async function submitForm() {
+        const data = new FormData(form.get()[0]);
+        const userId = form.data('userId');
+
+        const file = data.get('paper_original');
+        if (!file) {
+          return;
+        }
+
+        const uploadTo = await $.ajax({
+          type: 'POST',
+          url: initUploadApiUrl,
+          headers: {
+            'X-CSRFToken': csrfToken,
+          },
+        });
+
+        const fileData = new FormData();
+        for (const key in uploadTo.fields) {
+          fileData.append(key, uploadTo.fields[key]);
+        }
+        fileData.append('file', file);
+        await $.ajax({
+          type: 'POST',
+          url: uploadTo.url,
+          contentType: false,
+          processData: false,
+          data: fileData,
+          headers: {
+            'X-CSRFToken': csrfToken,
+          },
+        });
+
+        data.set("uploaded_to", uploadTo.fields.key);
+        data.delete('paper_original');
+        const response = await $.ajax({
+          type: 'POST',
+          url: `${uploadApiUrl}?participant=${userId}`,
+          contentType: false,
+          processData: false,
+          data: data,
+          headers: {
+            'X-CSRFToken': csrfToken,
+          },
+        });
+
+        const btn = $(`[data-action=upload][data-id=${userId}]`);
+        btn.prop("disabled", true);
+        btn.siblings('[data-action=clear]').prop("disabled", false).attr(
+          'data-id', response.id
+        );
+      }
+
+      function clearForm() {
+        form[0].reset();
+        form.find('input[type=file]')[0].dispatchEvent(new Event('change'));
+      }
+
+      form.on("submit", (e) => {
+        e.preventDefault();
+        submit.prop('disabled', true)
+        submitForm().then(()=>{
+          $('#upload-modal').modal('hide');
+          clearForm();
+        }).catch((e)=>{
+          console.error(e);
+          $("#modal-error-alert").show();
+        }).finally(()=>{
+          submit.prop('disabled', false);
+        });
+        return false;
+      });
+
+    })
   </script>
 {% endblock extrascripts_after %}

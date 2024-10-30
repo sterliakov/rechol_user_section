@@ -57,7 +57,7 @@
                      value="{{ score }}">
             {% endfor %}
           </div>
-          <a href="{% url 'online_submission_appeal' object.problem.id %}"
+          <a href="{% url 'online_submission_appeal' object.problem.pk %}"
              class="btn btn-primary mt-3">{% trans "Appeal" %}</a>
         </div>
       {% endif %}
@@ -86,9 +86,10 @@ $(function(){
 
   const submit = $('#submit-id-submit');
   const form = submit.parents('form');
+  const csrfToken = '{{ csrf_token | escapejs }}';
+  const submissionApiUrl = '{% url "online_submission_update_api" object.problem.pk %}'
 
   async function submitForm() {
-    // TODO: show loading and lock against concurrent submissions
     const data = new FormData(form.get()[0]);
     const uploadTo = "{{ upload_to.url }}";
     const uploadKey = "{{ upload_to.fields.key }}";
@@ -111,11 +112,14 @@ $(function(){
     data.set("uploaded_to", uploadKey);
     data.delete('paper_original');
     await $.ajax({
-      type: 'POST',
-      url: window.location.href,
+      type: 'PATCH',
+      url: submissionApiUrl,
       contentType: false,
       processData: false,
-      data: data
+      data: data,
+      headers: {
+        'X-CSRFToken': csrfToken,
+      },
     })
   }
 

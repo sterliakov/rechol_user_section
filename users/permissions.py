@@ -20,6 +20,13 @@ class IsJudgePermission(permissions.BasePermission):
         return user.is_authenticated and user.role == User.Roles.JUDGE
 
 
+class IsParticipantPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        del view
+        user = request.user
+        return user.is_authenticated and user.role == User.Roles.PARTICIPANT
+
+
 class ParticipantMixin(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         return self.request.user.role == User.Roles.PARTICIPANT

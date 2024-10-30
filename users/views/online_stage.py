@@ -2,17 +2,20 @@ from __future__ import annotations
 
 import logging
 
+from django.core.exceptions import BadRequest
 from django.db import IntegrityError, transaction
-from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
+from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, ListView, UpdateView
+from rest_framework import generics
 
 from users import forms
 from users.models import ConfigurationSingleton, OnlineProblem, OnlineSubmission
-from users.permissions import ParticipantMixin
+from users.permissions import IsParticipantPermission, ParticipantMixin
+from users.serializers import OnlineSubmissionSerializer
 from users.utils import generate_upload_url
 
 LOG = logging.getLogger(__name__)
@@ -43,6 +46,9 @@ class OnlineStageListView(ParticipantMixin, ListView):
 
 
 class ProblemDispatchMixin(ParticipantMixin):
+    def get_object(self, _queryset=None):
+        return self.request.user.onlinesubmission_set.get(problem=self.problem)
+
     @cached_property
     def problem(self):
         if not self.request.user.is_authenticated:
@@ -61,6 +67,13 @@ class ProblemDispatchMixin(ParticipantMixin):
             )
         return super().dispatch(*args, **kwargs)
 
+    @property
+    def is_over(self):
+        return bool(
+            not self.problem.is_open_now_for_user(self.request.user)
+            or self.get_object().remaining_time.total_seconds() < 0
+        )
+
 
 class OnlineStageStartView(ProblemDispatchMixin, DetailView):
     model = OnlineSubmission
@@ -73,9 +86,10 @@ class OnlineStageStartView(ProblemDispatchMixin, DetailView):
         }
 
     def get_object(self, _queryset=None):
-        return self.request.user.onlinesubmission_set.filter(
-            problem=self.problem
-        ).first()
+        try:
+            return super().get_object()
+        except OnlineSubmission.DoesNotExist:
+            return None
 
     def post(self, *_args, **kwargs):
         if not self.problem.is_open_now_for_user(self.request.user):
@@ -100,21 +114,11 @@ class OnlineStageStartView(ProblemDispatchMixin, DetailView):
         return HttpResponseRedirect(reverse("online_submission_update", kwargs=kwargs))
 
 
-class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
+class OnlineStageSubmitPageView(ProblemDispatchMixin, UpdateView):
     model = OnlineSubmission
     form_class = forms.OnlineSubmissionForm
     template_name = "online_submission.html"
-    success_url = "?success=true"
-
-    @property
-    def is_over(self):
-        return bool(
-            not self.problem.is_open_now_for_user(self.request.user)
-            or self.object.remaining_time.total_seconds() < 0
-        )
-
-    def get_object(self, _queryset=None):
-        return self.request.user.onlinesubmission_set.get(problem=self.problem)
+    http_method_names = ["get"]  # Use DRF endpoint to submit
 
     def dispatch(self, request, *args, **kwargs):
         self.request = request
@@ -132,22 +136,6 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
             )
 
         return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, problem_pk: str):
-        del problem_pk
-        if self.is_over:
-            LOG.warning("Late submission attempted by user %s", request.user.email)
-            return HttpResponseBadRequest(
-                _("Cannot submit solutions to closed contest.")
-            )
-        form = self.get_form()
-        if form.is_valid():
-            LOG.info("Submission by user %s accepted.", request.user.email)
-            return self.form_valid(form)
-        LOG.warning(
-            "Submission by user %s rejected: %s.", request.user.email, form.errors
-        )
-        return HttpResponseBadRequest("Submission failed")
 
     def get_form_kwargs(self):
         return super().get_form_kwargs() | {"contest_over": self.is_over}
@@ -168,6 +156,22 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
         }
 
 
+class OnlineStageSubmitView(ProblemDispatchMixin, generics.UpdateAPIView):
+    permission_classes = (IsParticipantPermission,)
+    queryset = OnlineSubmission.objects.all()
+    serializer_class = OnlineSubmissionSerializer
+    http_method_names = ["patch"]
+    lookup_url_kwarg = "problem_pk"
+    lookup_field = "problem_pk"
+
+    def perform_update(self, serializer):
+        if self.is_over:
+            LOG.warning("Late submission attempted by user %s", self.request.user.email)
+            raise BadRequest(_("Cannot submit solutions to closed contest."))
+        super().perform_update(serializer)
+        LOG.info("Submission by user %s accepted.", self.request.user.email)
+
+
 class OnlineAppellationView(ParticipantMixin, UpdateView):
     model = OnlineSubmission
     form_class = forms.OnlineSubmissionDisplayForm
@@ -175,12 +179,9 @@ class OnlineAppellationView(ParticipantMixin, UpdateView):
     success_url = "?success=True"
 
     def get_object(self, _queryset=None):
-        try:
-            return self.request.user.onlinesubmission_set.get(
-                problem_id=int(self.kwargs["problem_pk"])
-            )
-        except OnlineSubmission.DoesNotExist:
-            return None
+        return self.request.user.onlinesubmission_set.filter(
+            problem_id=int(self.kwargs["problem_pk"])
+        ).first()
 
     @cached_property
     def is_open(self):

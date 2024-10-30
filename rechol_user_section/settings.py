@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party
     "bootstrap_datepicker_plus",
+    "concurrency",
     "compressor",
     "django_countries",
     "crispy_forms",
@@ -175,7 +176,7 @@ STATICFILES_FINDERS = (
     "compressor.finders.CompressorFinder",
 )
 
-LOGIN_URL = LOGOUT_REDIRECT_URL = "/profile/login"
+LOGIN_URL = LOGOUT_REDIRECT_URL = "/profile/login/"
 LOGIN_REDIRECT_URL = "/profile/update/"
 
 AUTH_USER_MODEL = "auth.User" if ENVIRONMENT == "build" else "users.User"

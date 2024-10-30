@@ -67,7 +67,7 @@ class UserCreateFormMixin:
         super().__init__(*args, **kwargs)
         self.fields["birth_date"].input_formats = settings.DATE_INPUT_FORMATS
         self.fields["birth_date"].widget = DatePickerInput(
-            format="%d/%m/%Y", options={"locale": get_language()}
+            options={"format": "%d/%m/%Y", "locale": get_language()}
         )
         self.helper = helpers.UserUpdateFormHelper(is_create=self.is_create)
         config = ConfigurationSingleton.objects.get()
@@ -187,55 +187,17 @@ class SetPasswordForm(_SetPasswordForm):
         self.helper = helpers.SetPasswordFormHelper()
 
 
-class FileUploadFormMixin(forms.Form):
-    uploaded_to = forms.CharField()
-
-    _file_field_name: str
-
-    @property
-    def _file_field(self):
-        return getattr(self._meta.model, self._file_field_name).field
-
-    def clean(self):
-        data = super().clean()
-        field = self._file_field
-        _, _, user_id, _ = data["uploaded_to"].split("/")
-        if user_id != str(self.instance.user.pk):
-            raise ValidationError("File not owned.")
-
-        try:
-            field.storage.open(
-                self.data["uploaded_to"].removeprefix(field.storage.location + "/")
-            )
-        except FileNotFoundError as exc:
-            raise ValidationError("File not found.") from exc
-
-        return data
-
-    def save(self, commit=True):
-        assert commit
-        instance = super().save(commit=False)
-
-        filename = self.cleaned_data["uploaded_to"].removeprefix(
-            self._file_field.storage.location + "/"
-        )
-        getattr(instance, self._file_field_name).name = filename
-        if commit:
-            instance.save()
-        return instance
-
-
-class OnlineSubmissionForm(FileUploadFormMixin, forms.ModelForm):
+class OnlineSubmissionForm(forms.ModelForm):
     _file_field_name = "paper_original"
-
-    paper_original = forms.FileField(
-        required=False,
-        widget=forms.ClearableFileInput(attrs={"accept": "application/pdf"}),
-    )
 
     class Meta:
         model = OnlineSubmission
         fields = ("paper_original", "comment")
+        widgets = {
+            "paper_original": forms.ClearableFileInput(
+                attrs={"accept": "application/pdf"}
+            )
+        }
 
     def __init__(self, *args: Any, **kwargs: Any):
         contest_over = kwargs.pop("contest_over")
@@ -245,6 +207,11 @@ class OnlineSubmissionForm(FileUploadFormMixin, forms.ModelForm):
             self.helper.layout = helpers.Layout(*self.helper.layout[:-1])
             for f in self.fields.values():
                 f.disabled = True
+
+    def save(self, commit=True):
+        raise NotImplementedError(
+            "This form shouldn't be saved, use serializer instead."
+        )
 
 
 class OnlineSubmissionDisplayForm(forms.ModelForm):
@@ -378,14 +345,23 @@ class VenueForm(forms.ModelForm):
 
 
 class ScanUploadForm(forms.ModelForm):
+    """Presentational-only form."""
+
     class Meta:
         model = OfflineResult
         fields = ("paper_original",)
+        widgets = {
+            "paper_original": forms.FileInput(attrs={"accept": "application/pdf"})
+        }
 
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
-        self.fields["paper_original"].widget.attrs["accept"] = "application/pdf"
         self.helper = helpers.ScanUploadFormHelper()
+
+    def save(self, commit=True):
+        raise NotImplementedError(
+            "This form shouldn't be saved, use serializer instead."
+        )
 
 
 class DummyUserDataForm(forms.ModelForm):

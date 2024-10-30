@@ -364,6 +364,7 @@ class AppellationFormHelper(CustomFormHelper):
 
 class ScanUploadFormHelper(CustomFormHelper):
     use_custom_control = True
+    form_id = "scan-upload-form"
     layout = Layout(
         "paper_original",
         FormActions(
@@ -376,6 +377,7 @@ class ScanUploadFormHelper(CustomFormHelper):
 
 
 class DummyUserDataFormHelper(CustomFormHelper):
+    form_id = "scan-upload-user-info-form"
     use_custom_control = True
     layout = Layout(
         "first_name",

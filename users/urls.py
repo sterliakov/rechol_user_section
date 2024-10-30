@@ -23,8 +23,13 @@ online_stage_urls = [
     ),
     path(
         r"submit/<int:problem_pk>/",
-        views.OnlineStageSubmitView.as_view(),
+        views.OnlineStageSubmitPageView.as_view(),
         name="online_submission_update",
+    ),
+    path(
+        r"submit-api/<int:problem_pk>/",
+        views.OnlineStageSubmitView.as_view(),
+        name="online_submission_update_api",
     ),
     path(
         r"appeal/<int:problem_pk>/",
@@ -64,6 +69,11 @@ venue_urls = [
         r"participants/upload-scan/",
         views.VenueScanUploadView.as_view(),
         name="offline_scan_upload",
+    ),
+    path(
+        r"participants/init-upload-scan/",
+        views.VenueScanStartUploadView.as_view(),
+        name="offline_scan_upload_init",
     ),
     path(
         r"participants/delete-scan/<pk>/",
