@@ -46,7 +46,7 @@ jobs:
     renew:
         runs-on: ubuntu-latest
         needs: check
-        # if: ${{ needs.check.outputs.needs_renewal == 'true' }}
+        if: ${{ needs.check.outputs.needs_renewal == 'true' }}
         permissions:
             id-token: write
             contents: read
@@ -69,7 +69,7 @@ jobs:
                 tstart=$(date +%s)
                 awk '
                     {print;}
-                    /All checks succeeded/ { print "      _sleep \$(( 310 + '"$tstart"' - \$(date +%s) ))"; }
+                    /All checks succeeded/ { print "      _sleep $(( 310 + '"$tstart"' - $(date +%s) ))"; }
                 ' ~/.acme.sh/acme.sh > ./acme-patched.sh
                 mv ./acme-patched.sh ~/.acme.sh/acme.sh
                 chmod +x ~/.acme.sh/acme.sh
