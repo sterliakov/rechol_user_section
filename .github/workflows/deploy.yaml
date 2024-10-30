@@ -48,6 +48,8 @@ jobs:
                 target: deploy
                 provenance: false
                 context: .
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
 
       # Build a dev image to run collectstatic
         -   uses: docker/build-push-action@v6
@@ -55,6 +57,9 @@ jobs:
                 tags: ${{ env.STATIC_TAG }}
                 target: staticfiles
                 load: true
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+
         -   name: Run collectstatic
             run: |
                 docker run \
@@ -99,7 +104,7 @@ jobs:
             run: |
                 aws lambda invoke \
                     --function-name "${{ env.LAMBDA_NAME }}" \
-                    --qualifier "${{ env.LAMBDA_ALIAS }}"
+                    --qualifier "${{ env.LAMBDA_ALIAS }}" \
                     --invocation-type RequestResponse \
                     --payload '{ "action": "MIGRATE" }' \
                     --log-type Tail \
