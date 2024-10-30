@@ -46,7 +46,7 @@ jobs:
     renew:
         runs-on: ubuntu-latest
         needs: check
-        if: ${{ needs.check.outputs.needs_renewal == 'true' }}
+        # if: ${{ needs.check.outputs.needs_renewal == 'true' }}
         permissions:
             id-token: write
             contents: read
