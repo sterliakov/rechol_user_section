@@ -63,11 +63,14 @@ jobs:
                 git clone --depth 1 https://github.com/acmesh-official/acme.sh.git
                 cd acme.sh
                 ./acme.sh --install --nocron -m '${{ env.ADMIN_EMAIL }}'
-                # Add 10 s sleep after DNS record discovery for reliability
-                awk '
+                # Sleep for at least 5 minutes, otherwise workflow is unreliable.
+                # Do checks, then sleep for the rest of the time.
+                # Unlike --dnssleep, this can wait for longer than specificed time.
+                tstart=$(date +%s)
+                awk "
                     {print;}
-                    /All checks succeeded/ { print "      _sleep 10"; }
-                ' ~/.acme.sh/acme.sh > ./acme-patched.sh
+                    /All checks succeeded/ { print '      _sleep \$(( 310 + $tstart - \$(date +%s) ))'; }
+                " ~/.acme.sh/acme.sh > ./acme-patched.sh
                 mv ./acme-patched.sh ~/.acme.sh/acme.sh
                 chmod +x ~/.acme.sh/acme.sh
         -   id: install-aws-cli
