@@ -2,8 +2,8 @@ name: Deploy
 
 on:
     workflow_dispatch:
-    # push:
-    #     branches: [feature/st-clean-static]
+    push:
+        branches: [feature/st-clean-static]
 
 env:
     STATIC_TAG: app:static
