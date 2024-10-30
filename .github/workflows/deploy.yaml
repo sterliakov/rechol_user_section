@@ -92,8 +92,8 @@ jobs:
                     --image-uri "${{ steps.ecr.outputs.registry }}/rechol-backend:${{ env.DEPLOYED_TAG }}" \
                     | jq -r '.Version'
                 )
-                aws lambda wait function-updated --function-name "${{ env.LAMBDA_NAME }}"
-                aws lambda wait function-active --function-name "${{ env.LAMBDA_NAME }}"
+                aws lambda wait function-updated-v2 --function-name "${{ env.LAMBDA_NAME }}"
+                aws lambda wait function-active-v2 --function-name "${{ env.LAMBDA_NAME }}"
                 aws lambda update-alias \
                     --name "${{ env.LAMBDA_ALIAS }}" \
                     --function-name "${{ env.LAMBDA_NAME }}" \
