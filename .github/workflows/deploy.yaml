@@ -96,17 +96,14 @@ jobs:
 
       # Migrate
         -   name: Migrate
-            id: migrate
-            uses: gagoar/invoke-aws-lambda@v3
-            with:
-                FunctionName: ${{ env.LAMBDA_NAME }}
-                Qualifier: ${{ env.LAMBDA_ALIAS }}
-                InvocationType: RequestResponse
-                LogType: Tail
-                Payload: '{ "action": "MIGRATE" }'
-                AWS_ACCESS_KEY_ID: ${{env.AWS_ACCESS_KEY_ID}}
-                AWS_SECRET_ACCESS_KEY: ${{env.AWS_SECRET_ACCESS_KEY}}
-                AWS_SESSION_TOKEN: ${{env.AWS_SESSION_TOKEN}}
-                REGION: ${{env.AWS_REGION}}
-        -   name: Print migrate logs
-            run: echo "${{ fromJSON(steps.migrate.outputs.response).LogResult }}"
+            run: |
+                aws lambda invoke \
+                    --function-name "${{ env.LAMBDA_NAME }}" \
+                    --qualifier "${{ env.LAMBDA_ALIAS }}"
+                    --invocation-type RequestResponse \
+                    --payload '{ "action": "MIGRATE" }' \
+                    --log-type Tail \
+                    --cli-binary-format raw-in-base64-out \
+                    out.txt
+                echo "Function output:"
+                jq <out.txt
