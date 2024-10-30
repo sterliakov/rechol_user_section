@@ -15,8 +15,12 @@ resource "tls_self_signed_cert" "temporary" {
     organization = "Project Chemistry Olympiad"
   }
 
-  validity_period_hours = 24
+  validity_period_hours = pow(2, 31)
   allowed_uses          = ["digital_signature", "client_auth", "server_auth"]
+
+  lifecycle {
+    ignore_changes = [ready_for_renewal]
+  }
 }
 
 resource "aws_acm_certificate" "cloudfront" {
