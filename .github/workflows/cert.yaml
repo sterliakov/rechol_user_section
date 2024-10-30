@@ -67,10 +67,10 @@ jobs:
                 # Do checks, then sleep for the rest of the time.
                 # Unlike --dnssleep, this can wait for longer than specificed time.
                 tstart=$(date +%s)
-                awk "
+                awk '
                     {print;}
-                    /All checks succeeded/ { print '      _sleep \$(( 310 + $tstart - \$(date +%s) ))'; }
-                " ~/.acme.sh/acme.sh > ./acme-patched.sh
+                    /All checks succeeded/ { print "      _sleep \$(( 310 + '"$tstart"' - \$(date +%s) ))"; }
+                ' ~/.acme.sh/acme.sh > ./acme-patched.sh
                 mv ./acme-patched.sh ~/.acme.sh/acme.sh
                 chmod +x ~/.acme.sh/acme.sh
         -   id: install-aws-cli
