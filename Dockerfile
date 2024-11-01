@@ -56,7 +56,7 @@ ENV PYTHONFAULTHANDLER=1
 ENV PYTHONUNBUFFERED=1
 
 ARG CLUSTER_ID=d6a94efc-e0ce-4829-9fbe-42618ad3cdf6
-ADD https://cockroachlabs.cloud/clusters/${CLUSTER_ID}/cert /certs/ca.crt
+ADD --chmod=444 https://cockroachlabs.cloud/clusters/${CLUSTER_ID}/cert /certs/ca.crt
 COPY entrypoint.sh /entrypoint.sh
 ADD --chmod=755 https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie /usr/local/bin/aws-lambda-rie
 ENTRYPOINT [ "/entrypoint.sh" ]
