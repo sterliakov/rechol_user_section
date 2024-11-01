@@ -48,7 +48,7 @@ resource "aws_lambda_function" "backend_main" {
   publish       = true
 
   timeout     = 30
-  memory_size = 1769
+  memory_size = 512
   ephemeral_storage {
     size = 1024
   }
