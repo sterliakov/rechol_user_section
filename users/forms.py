@@ -67,7 +67,7 @@ class UserCreateFormMixin:
         super().__init__(*args, **kwargs)
         self.fields["birth_date"].input_formats = settings.DATE_INPUT_FORMATS
         self.fields["birth_date"].widget = DatePickerInput(
-            options={"format": "%d/%m/%Y", "locale": get_language()}
+            options={"format": "DD/MM/YYYY", "locale": get_language()}
         )
         self.helper = helpers.UserUpdateFormHelper(is_create=self.is_create)
         config = ConfigurationSingleton.objects.get()
