@@ -50,6 +50,8 @@ jobs:
                 context: .
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
+                build-args: |
+                    CLUSTER_ID=${{ vars.CLUSTER_ID }}
 
       # Build a dev image to run collectstatic
         -   uses: docker/build-push-action@v6
@@ -59,6 +61,8 @@ jobs:
                 load: true
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
+                build-args: |
+                    CLUSTER_ID=${{ vars.CLUSTER_ID }}
 
         -   name: Run collectstatic
             run: |

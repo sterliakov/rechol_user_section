@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any
@@ -128,16 +129,28 @@ LOGGING = {
     },
 }
 
+for name in ["boto", "urllib3", "s3transfer", "boto3", "botocore", "nose"]:
+    boto3.set_stream_logger(name, logging.WARNING)
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django_cockroachdb",
         "NAME": _secret["db_name"],
         "USER": _secret["db_user"],
         "PASSWORD": _secret["db_password"],
         "HOST": _secret["db_host"],
         "PORT": _secret["db_port"],
+        "OPTIONS": {},
     },
 }
+if DEVELOPMENT:
+    del DATABASES["default"]["PASSWORD"]
+else:
+    DATABASES["default"]["OPTIONS"] |= {
+        "sslmode": "verify-full",
+        "sslrootcert": "/certs/ca.crt",
+    }
+DISABLE_COCKROACHDB_TELEMETRY = True
 
 AUTH_PASSWORD_VALIDATORS = [
     {

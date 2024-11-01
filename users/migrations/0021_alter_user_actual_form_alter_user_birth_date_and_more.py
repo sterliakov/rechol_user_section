@@ -9,7 +9,7 @@ import phonenumber_field.modelfields
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("users", "0020_remove_annotation_id_alter_annotation_annotation_id"),
+        ("users", "0019_alter_offlineresult_scores"),
     ]
 
     operations = [

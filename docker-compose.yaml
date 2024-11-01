@@ -1,16 +1,12 @@
 services:
     db:
-        image: postgres:16-alpine
+        image: cockroachdb/cockroach:latest-v23.2
+        command: start-single-node --insecure
+        volumes:
+        -   db_volume_24_25_cr:/cockroach/cockroach-data
         env_file:
         -   .env
-        restart: always
-        volumes:
-        -   db_volume_24_25:/var/lib/postgresql/data
-        healthcheck:
-            test: pg_isready -U ${POSTGRES_USER}
-            interval: 10s
-            timeout: 5s
-            retries: 5
+        restart: unless-stopped
 
     app:
         env_file: .env
@@ -24,9 +20,7 @@ services:
                 UV_FLAGS: --no-dev
         depends_on:
         -   db
-        volumes:
-        -   media_volume_24_25:/var/www/rechol_user_section/media
-        restart: always
+        restart: unless-stopped
 
     agw:
         image: sterliakov/aws-apigw-emulator
@@ -40,7 +34,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: nginx
-        restart: always
+        restart: unless-stopped
         healthcheck:
             test: curl -f http://nginx:80/health
             interval: 10s
@@ -52,5 +46,4 @@ services:
         -   app
 
 volumes:
-    db_volume_24_25:
-    media_volume_24_25:
+    db_volume_24_25_cr:

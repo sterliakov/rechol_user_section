@@ -13,17 +13,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Annotation",
             fields=[
+                ("filename", models.CharField(max_length=255, verbose_name="Filename")),
                 (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
+                    "annotation_id",
+                    models.UUIDField(
+                        primary_key=True, serialize=False, verbose_name="Annotation ID"
                     ),
                 ),
-                ("filename", models.CharField(max_length=255, verbose_name="Filename")),
-                ("annotation_id", models.UUIDField(verbose_name="Annotation ID")),
                 ("page", models.PositiveSmallIntegerField(verbose_name="Page number")),
                 ("annotation", models.TextField(verbose_name="Annotation content")),
             ],
