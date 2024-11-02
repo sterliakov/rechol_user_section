@@ -1,6 +1,7 @@
 .git
 .ruff_cache
 venv
+.venv
 .eslintrc.js
 .gitignore
 .pre-commit-config.yaml
@@ -11,3 +12,4 @@ pyproject.toml
 *.sublime-*
 
 frontend
+infra

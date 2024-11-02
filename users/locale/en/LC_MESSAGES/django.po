@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-22 05:57+0300\n"
+"POT-Creation-Date: 2024-11-02 23:08+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -17,68 +17,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: users/admin.py:140 users/admin.py:163 users/models.py:374
+#: users/admin.py:144 users/admin.py:167 users/models.py:374
 #: users/models.py:451 users/templates/venue_instructions.html:146
 msgid "Name"
 msgstr "Name"
 
-#: users/admin.py:142
+#: users/admin.py:146
 msgid "Private"
 msgstr "Private"
 
-#: users/admin.py:145 users/models.py:135 users/models.py:284
+#: users/admin.py:149 users/models.py:135 users/models.py:284
 #: users/models.py:504
 msgid "Participant"
 msgstr "Participant"
 
-#: users/admin.py:146
+#: users/admin.py:150
 msgid "Contact"
 msgstr "Contact"
 
-#: users/admin.py:148
+#: users/admin.py:152
 msgid "Permissions"
 msgstr "Permissions"
 
-#: users/admin.py:159
+#: users/admin.py:163
 msgid "Important dates"
 msgstr "Important dates"
 
-#: users/admin.py:182
+#: users/admin.py:186
 msgid "Send email to selected users"
 msgstr "Send email to selected users"
 
-#: users/admin.py:444 users/admin.py:580
+#: users/admin.py:269
+msgid "Download certificate"
+msgstr "Download certificate"
+
+#: users/admin.py:276
+msgid "Impersonate"
+msgstr "Impersonate"
+
+#: users/admin.py:455 users/admin.py:591
 msgid "Participant last name"
 msgstr "Participant last name"
 
-#: users/admin.py:448 users/admin.py:587
+#: users/admin.py:459 users/admin.py:598
 msgid "Participant first name"
 msgstr "Participant first name"
 
-#: users/admin.py:454 users/admin.py:594 users/models.py:201
+#: users/admin.py:465 users/admin.py:605 users/models.py:201
 msgid "Participation form"
 msgstr "Participation grade"
 
-#: users/admin.py:459 users/templates/offline_appellation.html:47
+#: users/admin.py:470 users/templates/offline_appellation.html:47
 #: users/templates/online_appellation.html:48
 #: users/templates/online_submission.html:38
 msgid "Total score"
 msgstr "Total score"
 
-#: users/admin.py:465
+#: users/admin.py:476
 msgid "country"
 msgstr "country"
 
-#: users/admin.py:507 users/models.py:65 users/models.py:138
+#: users/admin.py:518 users/models.py:65 users/models.py:138
 #: users/models.py:217
 msgid "Venue"
 msgstr "Venue"
 
-#: users/admin.py:539
+#: users/admin.py:550
 msgid "Problem name"
 msgstr "Problem name"
 
-#: users/admin.py:543
+#: users/admin.py:554
 msgid "Was submitted?"
 msgstr "Was submitted?"
 
@@ -777,7 +785,7 @@ msgstr ""
 "The page you were trying to reach does not exist. Try starting again from "
 "the home page:"
 
-#: users/templates/errors/not_found.html:7
+#: users/templates/errors/not_found.html:8
 msgid "Home"
 msgstr "Home"
 
@@ -785,7 +793,7 @@ msgstr "Home"
 msgid "Permission denied."
 msgstr "Permission denied."
 
-#: users/templates/errors/permission_denied.html:6
+#: users/templates/errors/permission_denied.html:7
 msgid ""
 "If you believe that you should be able to access this page, please contact "
 "us at"

@@ -6,8 +6,12 @@ from io import BytesIO
 from django import forms
 from django.conf import settings
 from django.contrib import admin, messages
+from django.contrib.auth import (
+    login as session_login,
+)
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.postgres.forms import SplitArrayField
+from django.core.exceptions import BadRequest
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import FileResponse, HttpResponseRedirect
@@ -177,7 +181,7 @@ class UserAdmin(ImportExportMixin, DjangoObjectActions, DjangoUserAdmin):
     list_filter = ("role", "participation_form", "city", "venue_selected")
     ordering = ("participation_form", "last_name")
     actions = ["send_email"]
-    change_actions = ("view_pdf",)
+    change_actions = ("view_pdf", "impersonate")
 
     @admin.action(description=_("Send email to selected users"))
     def send_email(self, request, queryset):
@@ -262,12 +266,19 @@ class UserAdmin(ImportExportMixin, DjangoObjectActions, DjangoUserAdmin):
                 field.required = False
         return form
 
-    @action(label="Download PDF", description="Download certificate in PDF")
+    @action(label=_("Download certificate"), description="Download certificate in PDF")
     def view_pdf(self, _request, obj):
         from users.certificates import make_prelim_offline_cert
 
         pdf = make_prelim_offline_cert(obj)
         return FileResponse(pdf, content_type="application/pdf")
+
+    @action(label=_("Impersonate"), description="Login as user")
+    def impersonate(self, request, obj):
+        if not request.user.is_superuser:
+            raise BadRequest("Must be a superuser")
+        session_login(request, obj)
+        return HttpResponseRedirect("/")
 
 
 USER_FIELDS = (
