@@ -384,3 +384,18 @@ class DummyUserDataFormHelper(CustomFormHelper):
         "patronymic_name",
         "participation_form",
     )
+
+
+class OrganizerCertificateFormHelper(CustomFormHelper):
+    use_custom_control = True
+    layout = Layout(
+        "first_name_gen",
+        "last_name_gen",
+        "middle_name_gen",
+        FormActions(
+            Div(
+                Submit("submit", _("Add"), css_class="mt-3"),
+                css_class="text-center",
+            ),
+        ),
+    )

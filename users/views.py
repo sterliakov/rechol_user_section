@@ -703,9 +703,12 @@ class CertificateDownloadView(LoginRequiredMixin, UserPassesTestMixin, View):
 class OrganizerCertificatesListView(
     LoginRequiredMixin,
     UserPassesTestMixin,
-    TemplateView,
+    CreateView,
 ):
     template_name = "venue_certificates.html"
+    model = OrganizerCertificate
+    form_class = forms.OrganizerCertificateForm
+    success_url = "?success=true"
 
     def test_func(self):
         return self.request.user.role == User.Roles.VENUE
@@ -714,6 +717,10 @@ class OrganizerCertificatesListView(
         return super().get_context_data(**kwargs) | {
             "certificates": self.request.user.owned_venue.certificates.all(),
         }
+
+    def form_valid(self, form):
+        form.instance.venue = self.request.user.owned_venue
+        return super().form_valid(form)
 
 
 class OrganizerCertificateDownloadView(

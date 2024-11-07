@@ -23,12 +23,10 @@
             </li>
           {% endfor %}
         </ul>
-      {% else %}
-        <div class="d-flex flex-column align-items-center">
-          <h3>{% trans "Unfortunately, no certificates have been issued for this venue." %}</h3>
-          <h4 class="mb-1">{% trans "If you believe it was a mistake, do not hesitate to contact us." %}</h4>
-        </div>
       {% endif %}
+      <hr classname="pt-3 pb-1">
+      <h3>{% trans "Request a certificate:" %}</h3>
+      {% crispy form %}
     </div>
   </div>
 {% endblock content %}

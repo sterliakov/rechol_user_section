@@ -24,6 +24,7 @@ from .models import (
     OfflineResult,
     OnlineAppellation,
     OnlineSubmission,
+    OrganizerCertificate,
     User,
     Venue,
 )
@@ -360,3 +361,13 @@ class DummyUserDataForm(forms.ModelForm):
         for field in self.fields.values():
             field.disabled = True
         self.helper = helpers.DummyUserDataFormHelper()
+
+
+class OrganizerCertificateForm(forms.ModelForm):
+    class Meta:
+        model = OrganizerCertificate
+        fields = ("first_name_gen", "last_name_gen", "middle_name_gen")
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.OrganizerCertificateFormHelper()

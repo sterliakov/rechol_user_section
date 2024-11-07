@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-02 23:08+0300\n"
+"POT-Creation-Date: 2024-11-07 20:33+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -140,28 +140,32 @@ msgstr "Отправить"
 msgid "Upload"
 msgstr "Загрузить"
 
-#: users/forms.py:41
+#: users/formhelpers.py:397
+msgid "Add"
+msgstr "Добавить"
+
+#: users/forms.py:42
 msgid "Not a valid integer or hyphen."
 msgstr "Введите число или дефис"
 
-#: users/forms.py:90
+#: users/forms.py:91
 msgid "Registration to this venue is closed."
 msgstr "Регистрация на эту площадку закрыта."
 
-#: users/forms.py:100
+#: users/forms.py:101
 msgid "Only your form or higher is allowed."
 msgstr "Допустим только Ваш класс или старше."
 
-#: users/forms.py:107
+#: users/forms.py:108
 msgid "Please fill your name and surname in separate fields."
 msgstr "Пожалуйста, введите имя и фамилию отдельно."
 
-#: users/forms.py:231 users/forms.py:261 users/models.py:288
+#: users/forms.py:232 users/forms.py:262 users/models.py:288
 #: users/models.py:517 users/templates/online_submission.html:36
 msgid "Scores"
 msgstr "Баллы"
 
-#: users/forms.py:238 users/forms.py:268 users/models.py:525
+#: users/forms.py:239 users/forms.py:269 users/models.py:525
 msgid "Final scores after appeal"
 msgstr "Окончательная оценка после апелляции"
 
@@ -757,7 +761,6 @@ msgid "Unfortunately, no certificates have been issued for you."
 msgstr "К сожалению, на Ваше имя нет выданных дипломов."
 
 #: users/templates/certificates.html:27
-#: users/templates/venue_certificates.html:29
 msgid "If you believe it was a mistake, do not hesitate to contact us."
 msgstr ""
 "Если вы видите это сообщение по ошибке, свяжитесь с нами для ее исправления."
@@ -1128,8 +1131,8 @@ msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
 #: users/templates/venue_certificates.html:28
-msgid "Unfortunately, no certificates have been issued for this venue."
-msgstr "К сожалению, на имя данной площадки нет выданных сертификатов."
+msgid "Request a certificate:"
+msgstr "Добавить сертификат:"
 
 #: users/templates/venue_instructions.html:6
 msgid "Venue instructions"

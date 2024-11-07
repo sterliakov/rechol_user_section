@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-02 23:08+0300\n"
+"POT-Creation-Date: 2024-11-07 20:33+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -138,28 +138,32 @@ msgstr "Submit"
 msgid "Upload"
 msgstr "Upload"
 
-#: users/forms.py:41
+#: users/formhelpers.py:397
+msgid "Add"
+msgstr "Add"
+
+#: users/forms.py:42
 msgid "Not a valid integer or hyphen."
 msgstr "Not a valid integer or hyphen."
 
-#: users/forms.py:90
+#: users/forms.py:91
 msgid "Registration to this venue is closed."
 msgstr "Registration to this venue is closed."
 
-#: users/forms.py:100
+#: users/forms.py:101
 msgid "Only your form or higher is allowed."
 msgstr "Only your grade or higher is allowed."
 
-#: users/forms.py:107
+#: users/forms.py:108
 msgid "Please fill your name and surname in separate fields."
 msgstr "Please fill your name and surname in separate fields."
 
-#: users/forms.py:231 users/forms.py:261 users/models.py:288
+#: users/forms.py:232 users/forms.py:262 users/models.py:288
 #: users/models.py:517 users/templates/online_submission.html:36
 msgid "Scores"
 msgstr "Scores"
 
-#: users/forms.py:238 users/forms.py:268 users/models.py:525
+#: users/forms.py:239 users/forms.py:269 users/models.py:525
 msgid "Final scores after appeal"
 msgstr "Final scores after appellation"
 
@@ -750,7 +754,6 @@ msgid "Unfortunately, no certificates have been issued for you."
 msgstr "Unfortunately, no certificates have been issued for you."
 
 #: users/templates/certificates.html:27
-#: users/templates/venue_certificates.html:29
 msgid "If you believe it was a mistake, do not hesitate to contact us."
 msgstr "If you believe it was a mistake, do not hesitate to contact us."
 
@@ -1118,8 +1121,8 @@ msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
 #: users/templates/venue_certificates.html:28
-msgid "Unfortunately, no certificates have been issued for this venue."
-msgstr "Unfortunately, no certificates have been issued for this venue."
+msgid "Request a certificate:"
+msgstr "Request a certiicate:"
 
 #: users/templates/venue_instructions.html:6
 msgid "Venue instructions"
