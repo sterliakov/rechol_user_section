@@ -1,4 +1,6 @@
-FROM python:3.11-slim AS build
+FROM python:3.11-slim-bookworm AS base
+
+FROM base AS build
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
 ARG REQUIREMENTS_FILE=requirements.txt
@@ -43,7 +45,7 @@ COPY users/templatetags ./users/templatetags
 RUN . /venv/bin/activate && ./manage.py compress
 
 
-FROM python:3.11-slim AS deploy
+FROM base AS deploy
 SHELL ["/bin/bash", "-e", "-u", "-x", "-o", "pipefail", "-c"]
 
 ARG APP_USER=rechol

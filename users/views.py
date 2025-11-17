@@ -98,6 +98,7 @@ class RegistrationView(CreateView):
         return super().get_context_data(**kwargs) | {
             "registration_not_started": config.registration_start > tz.now(),
             "registration_closed": tz.now() > config.registration_end,
+            "page_title": _("Participant registration"),
         }
 
     def form_valid(self, form):
@@ -135,6 +136,13 @@ class JudgeRegistrationView(CreateView):
             return HttpResponseRedirect(reverse("profile"))
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {
+            "registration_not_started": False,
+            "registration_closed": False,
+            "page_title": _("Judge registration"),
+        }
+
     def form_valid(self, form):
         rsp = super().form_valid(form)
         user = form.instance
@@ -156,6 +164,13 @@ class VenueUserRegistrationView(CreateView):
         if not request.user.is_anonymous:
             return HttpResponseRedirect(reverse("profile"))
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) | {
+            "registration_not_started": False,
+            "registration_closed": False,
+            "page_title": _("Venue owner registration"),
+        }
 
     def form_valid(self, form):
         rsp = super().form_valid(form)
