@@ -167,12 +167,12 @@ class UserAdmin(ImportExportMixin, DjangoObjectActions, DjangoUserAdmin):
     )
 
     list_display = (
+        "email",
         "last_name",
         "first_name",
         "participation_form",
         "patronymic_name",
         "city",
-        "email",
         "phone",
         "venue_selected",
     )
