@@ -60,6 +60,7 @@ class UserCreateFormMixin:
             "last_login",
             "password",
             "username",
+            "online_selected",
         )
 
         widgets = {
@@ -71,6 +72,7 @@ class UserCreateFormMixin:
         self.fields["birth_date"].input_formats = settings.DATE_INPUT_FORMATS
         self.helper = helpers.UserUpdateFormHelper(is_create=self.is_create)
         config = ConfigurationSingleton.objects.get()
+        self.fields["venue_selected"].required = True
         self.fields["venue_selected"].queryset = Venue.objects.filter(is_confirmed=True)
         if config.forbid_venue_change:
             self.fields["venue_selected"].disabled = True

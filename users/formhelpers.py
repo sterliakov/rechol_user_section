@@ -114,15 +114,7 @@ class UserUpdateFormHelper(CustomFormHelper):
         one_row(
             {
                 selectpicker(
-                    "venue_selected",
-                    live_search=True,
-                ): "6 col-sm-12 col-lg-6",
-                Div(
-                    Field("online_selected", template="checkbox_field.html"),
-                    css_class=(
-                        "custom-control custom-checkbox"
-                        " d-flex h-100 pt-4 mt-3 align-items-start"
-                    ),
+                    "venue_selected", live_search=True
                 ): "6 col-sm-12 col-lg-6",
             },
         ),
