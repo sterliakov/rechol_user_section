@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
@@ -20,7 +20,7 @@ repos:
 #         exclude: users/static/font-awesome-pro|users/static/fullcalendar|users/static/pdf_js
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.0
+    rev: v0.14.5
     hooks:
     -   id: ruff-format
     -   id: ruff
@@ -34,7 +34,7 @@ repos:
     -   id: fuzzy-messages
 
 -   repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.35.2
+    rev: v1.36.4
     hooks:
       # We first reformat (spacing etc.)
     -   id: djlint-django
@@ -47,19 +47,19 @@ repos:
         files: users/templates/.*
 
 -   repo: https://github.com/shellcheck-py/shellcheck-py       # Shellcheck
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
     -   id: shellcheck
         args: [-x, -P, SCRIPTDIR]
 -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v2.14.0
+    rev: v2.15.0
     hooks:
     -   id: pretty-format-yaml
         args: [--autofix, --indent, '4']
     -   id: pretty-format-toml
         args: [--autofix, --indent, '4', --trailing-comma]
 -   repo: https://github.com/AleksaC/hadolint-py       # Dockerfiles lint
-    rev: v2.12.1b3
+    rev: v2.14.0
     hooks:
     -   id: hadolint
         files: .*Dockerfile.*

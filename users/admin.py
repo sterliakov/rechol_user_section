@@ -1,4 +1,3 @@
-# ruff: noqa: ERA001, RUF003
 from __future__ import annotations
 
 from io import BytesIO
@@ -228,8 +227,10 @@ class UserAdmin(ImportExportMixin, DjangoObjectActions, DjangoUserAdmin):
     def has_view_permission(self, request, obj=None):
         return not request.user.is_anonymous and (
             request.user.is_superuser
-            or request.user.role == User.Roles.JUDGE
-            and (not obj or obj.role == User.Roles.PARTICIPANT)
+            or (
+                request.user.role == User.Roles.JUDGE
+                and (not obj or obj.role == User.Roles.PARTICIPANT)
+            )
         )
 
     def get_queryset(self, request):

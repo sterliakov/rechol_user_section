@@ -11,7 +11,7 @@ ENV USER_MODEL="auth.User"
 
 COPY requirements.txt /requirements.txt
 
-# hadolint ignore=DL3008,SC1091
+# hadolint ignore=DL3008,SC1091,SC2086
 RUN BUILD_DEPS="build-essential libpcre3-dev libpq-dev git pkg-config nodejs npm gettext" && \
     apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS && \
     python -m venv venv && \
