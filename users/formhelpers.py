@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
 from crispy_forms.bootstrap import FormActions
@@ -214,7 +213,9 @@ class VenueFormHelper(CustomFormHelper):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         txt = _("Download template")
-        file_url = static("files/venue_letter_template.docx")
+        file_url = (
+            "https://docs.google.com/document/d/1-fg_9Bwpk5UL0CyB-TUYVaUIRC-3jh3k/edit"
+        )
         self.layout = Layout(
             "city",
             "full_name",

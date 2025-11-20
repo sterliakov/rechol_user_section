@@ -68,8 +68,6 @@ COPY . .
 COPY --from=build --chown=${APP_USER}:${APP_USER} /app .
 
 USER ${APP_USER}:${APP_USER}
-# We use single worker here, because gunicorn cannot handle multiple async eventlet
-# workers. We need eventlet to support websockets.
 ENTRYPOINT ["/bin/bash", "-c", "/venv/bin/gunicorn -w 3 --timeout 3600 rechol_user_section.wsgi:application -b 0.0.0.0:${APP_PORT} --preload"]
 
 
