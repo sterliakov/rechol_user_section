@@ -47,10 +47,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # hadolint ignore=DL3008
 RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USER} \
-    && apt-get -qq update \
-    && apt-get -qq upgrade -y \
-    && apt-get -qq install -y --no-install-recommends libpcre3 mime-support \
-    && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /var/www/rechol_user_section/media/ \
     && chown -R "${APP_USER}:${APP_USER}" /var/www/rechol_user_section/media/ \
     && mkdir -p /home/${APP_USER}/static_files \
