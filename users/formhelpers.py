@@ -227,7 +227,7 @@ class VenueFormHelper(CustomFormHelper):
                 Div(
                     HTML(
                         '<a class="btn btn-primary" style="margin-top: 2rem !important"'
-                        f' href="{file_url}">{txt}</a>',
+                        f' href="{file_url}" target="_blank">{txt}</a>',
                     ),
                     css_class="col-12 col-md-6 col-lg-3",
                 ),
