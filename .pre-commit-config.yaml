@@ -1,83 +1,82 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-merge-conflict
-    -   id: check-executables-have-shebangs
-    -   id: check-shebang-scripts-are-executable
-    -   id: check-symlinks
-    -   id: mixed-line-ending
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: mixed-line-ending
         args: [--fix=lf]
-    -   id: check-toml
-    -   id: check-yaml
-    -   id: check-json
-    -   id: pretty-format-json
+      - id: check-toml
+      - id: check-yaml
+      - id: check-json
+      - id: pretty-format-json
         args: [--autofix, --no-ensure-ascii]
 
--   repo: https://github.com/biomejs/pre-commit
-    rev: v0.5.0
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v2.3.6
     hooks:
-    -   id: biome-check
+      - id: biome-check
         language_version: lts
-        additional_dependencies: ['@biomejs/biome@1.9.4']
         exclude: users/static/pdf_js
 
--   repo: https://github.com/astral-sh/ruff-pre-commit
+  - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.5
     hooks:
-    -   id: ruff-format
-    -   id: ruff
+      - id: ruff-format
+      - id: ruff
         args: [--fix]
 
--   repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.4.27
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.9.10
     hooks:
-    -   id: uv-lock
+      - id: uv-lock
 
--   repo: https://github.com/mondeja/pre-commit-po-hooks
+  - repo: https://github.com/mondeja/pre-commit-po-hooks
     rev: v1.7.3
     hooks:
-    -   id: obsolete-messages
-    -   id: untranslated-messages
-    -   id: fuzzy-messages
+      - id: obsolete-messages
+      - id: untranslated-messages
+      - id: fuzzy-messages
 
--   repo: https://github.com/Riverside-Healthcare/djLint
+  - repo: https://github.com/Riverside-Healthcare/djLint
     rev: v1.36.4
     hooks:
       # We first reformat (spacing etc.)
-    -   id: djlint-django
+      - id: djlint-django
         alias: djlint
         args: [--reformat]
         files: users/templates/.*
       # And then check for non-autofixable issues
-    -   id: djlint-django
+      - id: djlint-django
         alias: djlint
         files: users/templates/.*
 
--   repo: https://github.com/shellcheck-py/shellcheck-py       # Shellcheck
+  - repo: https://github.com/shellcheck-py/shellcheck-py       # Shellcheck
     rev: v0.11.0.1
     hooks:
-    -   id: shellcheck
+      - id: shellcheck
         args: [-x, -P, SCRIPTDIR]
 
--   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
     rev: v2.15.0
     hooks:
-    -   id: pretty-format-yaml
-        args: [--autofix, --indent, '4']
-    -   id: pretty-format-toml
+      - id: pretty-format-yaml
+        args: [--autofix, --indent, '2', --offset, '2']
+      - id: pretty-format-toml
         args: [--autofix, --indent, '4', --trailing-comma]
 
--   repo: https://github.com/AleksaC/hadolint-py       # Dockerfiles lint
+  - repo: https://github.com/AleksaC/hadolint-py       # Dockerfiles lint
     rev: v2.14.0
     hooks:
-    -   id: hadolint
+      - id: hadolint
         files: .*Dockerfile.*
 
--   repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.96.1
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.103.0
     hooks:
-    -   id: terraform_fmt
-    -   id: terraform_tflint
+      - id: terraform_fmt
+      - id: terraform_tflint
