@@ -14,9 +14,9 @@ services:
         -   .env
         restart: always
         volumes:
-        -   db_volume_24_25:/var/lib/postgresql/data
+        -   db_volume_25_26:/var/lib/postgresql/data
         healthcheck:
-            test: pg_isready -U ${POSTGRES_USER}
+            test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
             interval: 10s
             timeout: 5s
             retries: 5
@@ -53,7 +53,7 @@ services:
         networks:
         -   djangonetwork
         volumes:
-        -   media_volume_24_25:/var/www/rechol_user_section/media
+        -   media_volume_25_26:/var/www/rechol_user_section/media
         -   temp:/home/${APP_USER}/static_files/
         restart: always
     nginx:
@@ -86,15 +86,15 @@ services:
         -   /etc/ssl/:/etc/ssl/
       # LetsEncrypt acme challenge
         -   /var/www/well-known/:/var/www/well-known/
-        -   media_volume_24_25:/var/www/rechol_user_section/media:ro
+        -   media_volume_25_26:/var/www/rechol_user_section/media:ro
 
 networks:
     djangonetwork:
         driver: bridge
 
 volumes:
-    db_volume_24_25:
-    media_volume_24_25:
+    db_volume_25_26:
+    media_volume_25_26:
     redis_data:
     redis_conf:
     temp:

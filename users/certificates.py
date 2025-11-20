@@ -67,20 +67,20 @@ def make_organizer_thanks_cert(cert):
             packet,
             pagesize=(page.mediabox.width, page.mediabox.height),
         )
-        can.setFont("LiberationSans-Italic", 56)
+        can.setFont("LiberationSans-Italic", 48)
         can.setFillColorRGB(0x12 / 0xFF, 0x02 / 0xFF, 0x49 / 0xFF)
-        can.drawCentredString(800, 620, cert.last_name_gen)
+        can.drawCentredString(800, 595, cert.last_name_gen)
         can.drawCentredString(
             800,
-            550,
+            530,
             " ".join(filter(None, [cert.first_name_gen, cert.middle_name_gen])),
         )
         venue = cert.venue.short_name
         can.setFont(
             "LiberationSans-Italic",
-            28 if len(venue) > max_venue_length_big_font else 42,
+            24 if len(venue) > max_venue_length_big_font else 36,
         )
-        can.drawCentredString(800, 480, f"(площадка {venue})")
+        can.drawCentredString(800, 475, f"(площадка {venue})")
         can.save()
         packet.seek(0)
         new_pdf = PdfReader(packet)

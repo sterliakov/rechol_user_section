@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/node:20.18-alpine AS npm
+FROM node:20.18-alpine AS npm
 WORKDIR /app
 RUN npm i bootstrap@4.6.2
 
@@ -25,7 +25,7 @@ RUN --mount=type=cache,target=/root/.cache \
     && apt-get -qq install -y --no-install-recommends gettext \
     && rm -rf /var/lib/apt/lists/* \
     && uv sync ${UV_FLAGS} --locked --no-install-project \
-    && uv pip install --no-cache-dir 'setuptools >= 69.1.1' 'gunicorn ~= 21.2.0'
+    && uv pip install 'setuptools >= 69.1.1' 'gunicorn ~= 21.2.0'
 
 WORKDIR /app
 ENV PATH="/.venv/bin:$PATH"
@@ -64,16 +64,12 @@ COPY --from=build --chown=${APP_USER}:${APP_USER} /app/patches/locale_ru/ /.venv
 COPY . .
 COPY --from=build --chown=${APP_USER}:${APP_USER} /app .
 
-# FROM base AS staticfiles
 COPY --from=npm /app/node_modules ./node_modules
 COPY --from=get-sass /sass/dart-sass/ /tmp/sass/
 ENV SASS_EXECUTABLE=/tmp/sass/sass
-# ENTRYPOINT ["manage.py"]
 
 FROM base AS deploy
 USER ${APP_USER}:${APP_USER}
-# We use single worker here, because gunicorn cannot handle multiple async eventlet
-# workers. We need eventlet to support websockets.
 ENTRYPOINT ["/bin/bash", "-c", "/.venv/bin/gunicorn -w 3 --timeout 3600 rechol_user_section.wsgi:application -b 0.0.0.0:${APP_PORT} --preload"]
 
 

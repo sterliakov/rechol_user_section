@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-02 23:08+0300\n"
+"POT-Creation-Date: 2025-11-18 01:56+0300\n"
 "PO-Revision-Date: 2023-10-20 01:22+0300\n"
 "Last-Translator: Stanislav Terliakov <terlya.stas@gmail.com>\n"
 "Language-Team: Stanislav Terliakov <terlya.stas@gmail.com>\n"
@@ -140,28 +140,32 @@ msgstr "Отправить"
 msgid "Upload"
 msgstr "Загрузить"
 
-#: users/forms.py:41
+#: users/formhelpers.py:397
+msgid "Add"
+msgstr "Добавить"
+
+#: users/forms.py:42
 msgid "Not a valid integer or hyphen."
 msgstr "Введите число или дефис"
 
-#: users/forms.py:90
+#: users/forms.py:91
 msgid "Registration to this venue is closed."
 msgstr "Регистрация на эту площадку закрыта."
 
-#: users/forms.py:100
+#: users/forms.py:101
 msgid "Only your form or higher is allowed."
 msgstr "Допустим только Ваш класс или старше."
 
-#: users/forms.py:107
+#: users/forms.py:108
 msgid "Please fill your name and surname in separate fields."
 msgstr "Пожалуйста, введите имя и фамилию отдельно."
 
-#: users/forms.py:231 users/forms.py:261 users/models.py:288
+#: users/forms.py:232 users/forms.py:262 users/models.py:288
 #: users/models.py:517 users/templates/online_submission.html:36
 msgid "Scores"
 msgstr "Баллы"
 
-#: users/forms.py:238 users/forms.py:268 users/models.py:525
+#: users/forms.py:239 users/forms.py:269 users/models.py:525
 msgid "Final scores after appeal"
 msgstr "Окончательная оценка после апелляции"
 
@@ -255,17 +259,17 @@ msgid "Email"
 msgstr "Email"
 
 #: users/models.py:144 users/templates/venue_participants.html:22
-#: users/views.py:574
+#: users/views.py:589
 msgid "First name"
 msgstr "Имя"
 
 #: users/models.py:150 users/templates/venue_participants.html:23
-#: users/views.py:573
+#: users/views.py:588
 msgid "Last name"
 msgstr "Фамилия"
 
 #: users/models.py:156 users/templates/venue_participants.html:24
-#: users/views.py:575
+#: users/views.py:590
 msgid "Patronymic name"
 msgstr "Отчество"
 
@@ -757,7 +761,6 @@ msgid "Unfortunately, no certificates have been issued for you."
 msgstr "К сожалению, на Ваше имя нет выданных дипломов."
 
 #: users/templates/certificates.html:27
-#: users/templates/venue_certificates.html:29
 msgid "If you believe it was a mistake, do not hesitate to contact us."
 msgstr ""
 "Если вы видите это сообщение по ошибке, свяжитесь с нами для ее исправления."
@@ -1101,19 +1104,15 @@ msgstr ""
 msgid "Participant profile"
 msgstr "Личный кабинет участника"
 
-#: users/templates/registration.html:8
-msgid "Registration"
-msgstr "Регистрация"
-
 #: users/templates/registration.html:12
-#: users/templates/venue_registration.html:27 users/views.py:106
-#: users/views.py:481
+#: users/templates/venue_registration.html:27 users/views.py:107
+#: users/views.py:496
 msgid "Registration not open yet."
 msgstr "Регистрация еще не началась."
 
 #: users/templates/registration.html:14
 #: users/templates/venue_registration.html:29
-#: users/templates/venues_list.html:11 users/views.py:109 users/views.py:484
+#: users/templates/venues_list.html:11 users/views.py:110 users/views.py:499
 msgid "Registration closed."
 msgstr "Регистрация закрыта."
 
@@ -1128,8 +1127,8 @@ msgid "Privacy Policy"
 msgstr "Политикой конфиденциальности"
 
 #: users/templates/venue_certificates.html:28
-msgid "Unfortunately, no certificates have been issued for this venue."
-msgstr "К сожалению, на имя данной площадки нет выданных сертификатов."
+msgid "Request a certificate:"
+msgstr "Добавить сертификат:"
 
 #: users/templates/venue_instructions.html:6
 msgid "Venue instructions"
@@ -1466,7 +1465,7 @@ msgid "Statement example"
 msgstr "Образец ведомости"
 
 #: users/templates/venue_instructions.html:147
-#: users/templates/venue_participants.html:26 users/views.py:577
+#: users/templates/venue_participants.html:26 users/views.py:592
 msgid "Grade"
 msgstr "Класс участия"
 
@@ -1475,7 +1474,7 @@ msgstr "Класс участия"
 msgid "ID Number"
 msgstr "Паспорт"
 
-#: users/templates/venue_instructions.html:149 users/views.py:578
+#: users/templates/venue_instructions.html:149 users/views.py:593
 msgid "Room"
 msgstr "Аудитория"
 
@@ -1487,7 +1486,7 @@ msgstr "Явился"
 msgid "Removed"
 msgstr "Удален"
 
-#: users/templates/venue_instructions.html:152 users/views.py:581
+#: users/templates/venue_instructions.html:152 users/views.py:596
 msgid "Exits"
 msgstr "Выходы"
 
@@ -1601,30 +1600,42 @@ msgstr "Доступные площадки"
 msgid "No venues registered so far."
 msgstr "Пока нет доступных площадок."
 
-#: users/views.py:180
+#: users/views.py:101
+msgid "Participant registration"
+msgstr "Регистрация участника"
+
+#: users/views.py:143
+msgid "Judge registration"
+msgstr "Регистрация жюри"
+
+#: users/views.py:172
+msgid "Venue owner registration"
+msgstr "Регистрация ответственного за площадку проведения"
+
+#: users/views.py:195
 msgid "You do not have access to editing annotations"
 msgstr "У Вас нет доступа к редактированию примечаний."
 
-#: users/views.py:323
+#: users/views.py:338
 msgid "Cannot submit solutions to closed contest."
 msgstr "Невозможно изменить решение закрытого соревнования."
 
-#: users/views.py:576
+#: users/views.py:591
 msgid "ID number"
 msgstr "Паспорт"
 
-#: users/views.py:579
+#: users/views.py:594
 msgid "Arrived"
 msgstr "Явился"
 
-#: users/views.py:580
+#: users/views.py:595
 msgid "Terminated"
 msgstr "Удален"
 
-#: users/views.py:582
+#: users/views.py:597
 msgid "Pages count"
 msgstr "Страниц"
 
-#: users/views.py:583
+#: users/views.py:598
 msgid "Comments"
 msgstr "Комментарии"

@@ -27,6 +27,7 @@ from .models import (
     OfflineResult,
     OnlineAppellation,
     OnlineSubmission,
+    OrganizerCertificate,
     User,
     Venue,
 )
@@ -62,6 +63,7 @@ class UserCreateFormMixin:
             "last_login",
             "password",
             "username",
+            "online_selected",
         )
 
     def __init__(self, *args: Any, **kwargs: Any):
@@ -72,6 +74,7 @@ class UserCreateFormMixin:
         )
         self.helper = helpers.UserUpdateFormHelper(is_create=self.is_create)
         config = ConfigurationSingleton.objects.get()
+        self.fields["venue_selected"].required = True
         self.fields["venue_selected"].queryset = Venue.objects.filter(is_confirmed=True)
         if config.forbid_venue_change:
             self.fields["venue_selected"].disabled = True
@@ -403,3 +406,13 @@ class DummyUserDataForm(forms.ModelForm):
         for field in self.fields.values():
             field.disabled = True
         self.helper = helpers.DummyUserDataFormHelper()
+
+
+class OrganizerCertificateForm(forms.ModelForm):
+    class Meta:
+        model = OrganizerCertificate
+        fields = ("first_name_gen", "last_name_gen", "middle_name_gen")
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.helper = helpers.OrganizerCertificateFormHelper()

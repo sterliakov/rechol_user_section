@@ -78,6 +78,7 @@ extend-ignore = [
     "E501",  # Let black care about line width, if not splitable - go on
     # Conflicts with save(self, commit=True) overrides
     "FBT002",  # Boolean default positional argument in function definition
+    "PLC0415",  # `import` should be at the top-level of a file
     # conflicts with ruff-fmt
     "COM812",
     "ISC001",

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
 from crispy_forms.bootstrap import FormActions
@@ -113,15 +112,7 @@ class UserUpdateFormHelper(CustomFormHelper):
         one_row(
             {
                 selectpicker(
-                    "venue_selected",
-                    live_search=True,
-                ): "6 col-sm-12 col-lg-6",
-                Div(
-                    Field("online_selected", template="checkbox_field.html"),
-                    css_class=(
-                        "custom-control custom-checkbox"
-                        " d-flex h-100 pt-4 mt-3 align-items-start"
-                    ),
+                    "venue_selected", live_search=True
                 ): "6 col-sm-12 col-lg-6",
             },
         ),
@@ -221,7 +212,9 @@ class VenueFormHelper(CustomFormHelper):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         txt = _("Download template")
-        file_url = static("files/venue_letter_template.docx")
+        file_url = (
+            "https://docs.google.com/document/d/1-fg_9Bwpk5UL0CyB-TUYVaUIRC-3jh3k/edit"
+        )
         self.layout = Layout(
             "city",
             "full_name",
@@ -233,7 +226,7 @@ class VenueFormHelper(CustomFormHelper):
                 Div(
                     HTML(
                         '<a class="btn btn-primary" style="margin-top: 2rem !important"'
-                        f' href="{file_url}">{txt}</a>',
+                        f' href="{file_url}" target="_blank">{txt}</a>',
                     ),
                     css_class="col-12 col-md-6 col-lg-3",
                 ),
@@ -382,4 +375,19 @@ class DummyUserDataFormHelper(CustomFormHelper):
         "last_name",
         "patronymic_name",
         "participation_form",
+    )
+
+
+class OrganizerCertificateFormHelper(CustomFormHelper):
+    use_custom_control = True
+    layout = Layout(
+        "first_name_gen",
+        "last_name_gen",
+        "middle_name_gen",
+        FormActions(
+            Div(
+                Submit("submit", _("Add"), css_class="mt-3"),
+                css_class="text-center",
+            ),
+        ),
     )

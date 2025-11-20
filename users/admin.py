@@ -1,4 +1,3 @@
-# ruff: noqa: ERA001, RUF003
 from __future__ import annotations
 
 from io import BytesIO
@@ -168,12 +167,12 @@ class UserAdmin(ImportExportMixin, DjangoObjectActions, DjangoUserAdmin):
     )
 
     list_display = (
+        "email",
         "last_name",
         "first_name",
         "participation_form",
         "patronymic_name",
         "city",
-        "email",
         "phone",
         "venue_selected",
     )
