@@ -43,7 +43,6 @@ from .models import (
     Venue,
 )
 from .serializers import AnnotationSerializer
-from .utils import generate_upload_url
 
 LOG = logging.getLogger(__name__)
 
@@ -365,14 +364,9 @@ class OnlineStageSubmitView(ProblemDispatchMixin, UpdateView):
         # Check only for start time, the page remains available when appeal is closed
         appeal_open = config.online_appeal_start <= tz.now()
 
-        upload_to = generate_upload_url(
-            str(self.request.user.pk), OnlineSubmission.paper_original.field
-        )
-
         return super().get_context_data(**kwargs) | {
             "contest_over": self.is_over,
             "appeal_open": appeal_open,
-            "upload_to": upload_to,
         }
 
 

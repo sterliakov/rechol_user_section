@@ -80,6 +80,7 @@ extend-ignore = [
     "FBT002",  # Boolean default positional argument in function definition
     # conflicts with ruff-fmt
     "COM812",
+    "ISC001",
 ]
 select = ['ALL']
 
@@ -98,5 +99,5 @@ django = ['django', 'rest_framework']
 
 [tool.uv]
 compile-bytecode = true
-# dev-dependencies = []
+dev-dependencies = []
 link-mode = "copy"
