@@ -55,6 +55,7 @@ services:
     volumes:
       - media_volume_25_26:/var/www/rechol_user_section/media
       - temp:/home/${APP_USER}/static_files/
+      - /tmp/django_cache:/tmp/django_cache
     restart: always
   nginx:
     build:
