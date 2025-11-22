@@ -72,56 +72,58 @@
             <li class="nav-item">
               <a class=" nav-link" href="{% url 'venues_list' %}">{% trans "Venues" %}</a>
             </li>
-            {% if request.user.is_anonymous %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                   href="#"
-                   id="navbar-reg-dropdown"
-                   role="button"
-                   data-toggle="dropdown"
-                   aria-haspopup="true"
-                   aria-expanded="false">{% trans "Register" %}</a>
-                <div class="dropdown-menu" aria-labelledby="navbar-reg-dropdown">
-                  <a class="dropdown-item" href="{% url 'registration' %}">{% trans "Register as participant" %}</a>
-                  <a class="dropdown-item" href="{% url 'venue_registration' %}">{% trans "Register a venue" %}</a>
-                </div>
-              </li>
-            {% elif request.user.role != request.user.Roles.VENUE %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' %}">{% trans "Profile" %}</a>
-              </li>
-            {% endif %}
-            {% if not request.user.is_anonymous and request.user.role == request.user.Roles.PARTICIPANT %}
-              <li class="nav-item">
-                <a class=" nav-link" href="{% url 'offline_appellation' %}">{% trans "In-person stage" %}</a>
-              </li>
-              <li class="nav-item">
-                <a class=" nav-link" href="{% url 'online_submission_index' %}">{% trans "Online stage" %}</a>
-              </li>
-              <li class="nav-item">
-                <a class=" nav-link" href="{% url 'certificates_list' %}">{% trans "Certificates" %}</a>
-              </li>
-            {% endif %}
-            {% if not request.user.is_anonymous and request.user.role == request.user.Roles.JUDGE %}
-              <li class="nav-item">
-                <a class=" nav-link"
-                   tabindex="-1"
-                   href="{% url 'admin:users_offlineresult_changelist' %}">{% trans "Judging" %}</a>
-              </li>
-            {% endif %}
-            {% if not request.user.is_anonymous and request.user.role == request.user.Roles.VENUE %}
-              <li class="nav-item">
-                <a class=" nav-link" href="{% url 'venue_update' %}">{% trans "Venue details" %}</a>
-              </li>
-              <li class="nav-item">
-                <a class=" nav-link" href="{% url 'venue_participants' %}">{% trans "Participants" %}</a>
-              </li>
-              <li class="nav-item">
-                <a class=" nav-link" href="{% url 'venue_instructions' %}">{% trans "Guides" %}</a>
-              </li>
-              <li class="nav-item">
-                <a class=" nav-link" href="{% url 'venue_certificates_list' %}">{% trans "Venue certificates" %}</a>
-              </li>
+            {% if request.user %}
+              {% if request.user.is_anonymous %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"
+                     href="#"
+                     id="navbar-reg-dropdown"
+                     role="button"
+                     data-toggle="dropdown"
+                     aria-haspopup="true"
+                     aria-expanded="false">{% trans "Register" %}</a>
+                  <div class="dropdown-menu" aria-labelledby="navbar-reg-dropdown">
+                    <a class="dropdown-item" href="{% url 'registration' %}">{% trans "Register as participant" %}</a>
+                    <a class="dropdown-item" href="{% url 'venue_registration' %}">{% trans "Register a venue" %}</a>
+                  </div>
+                </li>
+              {% elif request.user.role != request.user.Roles.VENUE %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'profile' %}">{% trans "Profile" %}</a>
+                </li>
+              {% endif %}
+              {% if not request.user.is_anonymous and request.user.role == request.user.Roles.PARTICIPANT %}
+                <li class="nav-item">
+                  <a class=" nav-link" href="{% url 'offline_appellation' %}">{% trans "In-person stage" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class=" nav-link" href="{% url 'online_submission_index' %}">{% trans "Online stage" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class=" nav-link" href="{% url 'certificates_list' %}">{% trans "Certificates" %}</a>
+                </li>
+              {% endif %}
+              {% if not request.user.is_anonymous and request.user.role == request.user.Roles.JUDGE %}
+                <li class="nav-item">
+                  <a class=" nav-link"
+                     tabindex="-1"
+                     href="{% url 'admin:users_offlineresult_changelist' %}">{% trans "Judging" %}</a>
+                </li>
+              {% endif %}
+              {% if not request.user.is_anonymous and request.user.role == request.user.Roles.VENUE %}
+                <li class="nav-item">
+                  <a class=" nav-link" href="{% url 'venue_update' %}">{% trans "Venue details" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class=" nav-link" href="{% url 'venue_participants' %}">{% trans "Participants" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class=" nav-link" href="{% url 'venue_instructions' %}">{% trans "Guides" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class=" nav-link" href="{% url 'venue_certificates_list' %}">{% trans "Venue certificates" %}</a>
+                </li>
+              {% endif %}
             {% endif %}
           </ul>
           <div class="navbar-nav align-items-center">
