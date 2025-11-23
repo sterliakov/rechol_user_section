@@ -1,8 +1,6 @@
-version: '3.9'
-
 services:
   autoheal:
-    restart: always
+    restart: unless-stopped
     image: willfarrell/autoheal
     environment:
       - AUTOHEAL_CONTAINER_LABEL=all
@@ -12,7 +10,7 @@ services:
     image: postgres:16-alpine
     env_file:
       - .env
-    restart: always
+    restart: unless-stopped
     volumes:
       - db_volume_25_26:/var/lib/postgresql/data
     healthcheck:
@@ -36,7 +34,7 @@ services:
       - REDIS_REPLICATION_MODE=master
     networks:
       - djangonetwork
-    restart: always
+    restart: unless-stopped
   app:
     env_file: .env
     build:
@@ -45,7 +43,7 @@ services:
       target: deploy
       args:
         - APP_USER=${APP_USER}
-        - SERVER_NAME=${SERVER_NAME}
+        - SERVER_NAMES=${SERVER_NAMES}
         - SERVER_ADMIN=${SERVER_ADMIN}
     depends_on:
       - db
@@ -56,7 +54,7 @@ services:
       - media_volume_25_26:/var/www/rechol_user_section/media
       - temp:/home/${APP_USER}/static_files/
       - /tmp/django_cache:/tmp/django_cache
-    restart: always
+    restart: unless-stopped
   nginx:
     build:
       context: .
@@ -67,7 +65,7 @@ services:
     env_file: .env
     environment:
       - APP_HOST=app
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: curl -f http://nginx:80/health
       interval: 10s
@@ -88,6 +86,19 @@ services:
       # LetsEncrypt acme challenge
       - /var/www/well-known/:/var/www/well-known/
       - media_volume_25_26:/var/www/rechol_user_section/media:ro
+
+  newt:
+    image: fosrl/newt
+    container_name: newt
+    restart: unless-stopped
+    depends_on:
+      - nginx
+    networks:
+      - djangonetwork
+    environment:
+      - PANGOLIN_ENDPOINT=https://app.pangolin.net
+      - NEWT_ID=${PANGOLIN_NEWT_ID}
+      - NEWT_SECRET=${PANGOLIN_NEWT_SECRET}
 
 networks:
   djangonetwork:

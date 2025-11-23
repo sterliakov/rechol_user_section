@@ -18,8 +18,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 if not DEBUG:
-    ALLOWED_HOSTS = [os.getenv("SERVER_NAME")]
-    CSRF_TRUSTED_ORIGINS = [f"https://{os.getenv('SERVER_NAME')}"]
+    _server_names = os.getenv("SERVER_NAMES", "").split(",")
+    ALLOWED_HOSTS = _server_names
+    CSRF_TRUSTED_ORIGINS = [f"https://{s}" for s in _server_names]
 else:
     ALLOWED_HOSTS = ["*"]
 
